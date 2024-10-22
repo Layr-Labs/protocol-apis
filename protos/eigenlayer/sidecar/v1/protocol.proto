@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package eigenlayer.sidecar.protocol.v1;
 
-option go_package = "github.com/Layr-Labs/protocol-apis/protos/eigenlayer/sidecar/protocol/v1";
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/protocol/v1";
 
 import "google/api/annotations.proto";
 
