@@ -16,72 +16,9 @@
     "application/json"
   ],
   "paths": {
-    "/v1/available-rewards": {
+    "/rewards/v1/claim-proof": {
       "post": {
-        "operationId": "Rewards_GetAvailableRewards",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetAvailableRewardsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetAvailableRewardsRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Rewards"
-        ]
-      }
-    },
-    "/v1/available-rewards-tokens": {
-      "post": {
-        "operationId": "Rewards_GetAvailableRewardsTokens",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetAvailableRewardsTokensResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetAvailableRewardsTokensRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Rewards"
-        ]
-      }
-    },
-    "/v1/claim-proof": {
-      "post": {
+        "summary": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming\ntokens against the RewardsCoordinator",
         "operationId": "Rewards_GenerateClaimProof",
         "responses": {
           "200": {
@@ -112,8 +49,135 @@
         ]
       }
     },
-    "/v1/rewards-roots/{blockNumber}": {
+    "/rewards/v1/earners/{earnerAddress}/available-rewards": {
+      "get": {
+        "summary": "GetAvailableRewards returns the available rewards for the given earner address\nThis takes the amount earned from the current active root and subtracts total claimed.",
+        "operationId": "Rewards_GetAvailableRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAvailableRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/available-rewards-tokens": {
+      "get": {
+        "summary": "GetAvailableRewardsTokens returns the available rewards tokens for the given earner address",
+        "operationId": "Rewards_GetAvailableRewardsTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAvailableRewardsTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/total-claimed-rewards": {
+      "get": {
+        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address\nBlockHeight is optional. If omitted, the latest block height is used.",
+        "operationId": "Rewards_GetTotalClaimedRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAvailableRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/generate-rewards": {
       "post": {
+        "summary": "GenerateRewards generates rewards for the given snapshot.\nIf respondWithRewardsData is true, the response will include the rewards data, otherwise\nthe sidecar will cache the data to be requested later.",
+        "operationId": "Rewards_GenerateRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GenerateRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GenerateRewardsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/rewards-roots/{blockHeight}": {
+      "get": {
+        "summary": "GetRewardsRoot returns the rewards root for the given block number",
         "operationId": "Rewards_GetRewardsRoot",
         "responses": {
           "200": {
@@ -131,19 +195,42 @@
         },
         "parameters": [
           {
-            "name": "blockNumber",
+            "name": "blockHeight",
             "in": "path",
             "required": true,
             "type": "string",
             "format": "uint64"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/rewards/{snapshot}": {
+      "get": {
+        "summary": "GetRewardsForSnapshot returns the rewards for the provided snapshot.\nUseful if you generated the rewards and want to fetch them later.",
+        "operationId": "Rewards_GetRewardsForSnapshot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RewardsGetRewardsRootBody"
+              "$ref": "#/definitions/v1GetRewardsForSnapshotResponse"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "snapshot",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -153,9 +240,6 @@
     }
   },
   "definitions": {
-    "RewardsGetRewardsRootBody": {
-      "type": "object"
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -217,11 +301,26 @@
         }
       }
     },
-    "v1GetAvailableRewardsRequest": {
+    "v1GenerateRewardsRequest": {
       "type": "object",
       "properties": {
-        "earnerAddress": {
+        "snapshot": {
           "type": "string"
+        },
+        "respondWithRewardsData": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1GenerateRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "snapshot": {
+          "type": "string"
+        },
+        "rewards": {
+          "$ref": "#/definitions/v1Reward",
+          "title": "Returned if respondWithRewardsData is true in the request"
         }
       }
     },
@@ -237,14 +336,6 @@
         }
       }
     },
-    "v1GetAvailableRewardsTokensRequest": {
-      "type": "object",
-      "properties": {
-        "earnerAddress": {
-          "type": "string"
-        }
-      }
-    },
     "v1GetAvailableRewardsTokensResponse": {
       "type": "object",
       "properties": {
@@ -252,6 +343,18 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "v1GetRewardsForSnapshotResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Reward"
           }
         }
       }

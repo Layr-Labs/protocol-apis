@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package eigenlayer.pds.aprs.v1;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/protos/eigenlayer/pds/aprs/v1";
+
+import "google/api/annotations.proto";
+
+message GetDailyOperatorStrategyAprsRequest {
+  string operator_address = 1;
+  string date = 2;
+}
+
+message OperatorStrategyApr {
+  string strategy = 1;
+  string apr = 2;
+}
+
+message GetDailyOperatorStrategyAprsResponse {
+  repeated OperatorStrategyApr aprs = 1;
+}
+
+
+message GetDailyAprForEarnerStrategyRequest {
+  string earner_address = 1;
+  string strategy = 2;
+  string date = 3;
+}
+
+message GetDailyAprForEarnerStrategyResponse {
+  string apr = 1;
+}
+
+service Aprs {
+  rpc GetDailyOperatorStrategyAprs(GetDailyOperatorStrategyAprsRequest) returns (GetDailyOperatorStrategyAprsResponse) {
+    option (google.api.http) = {
+      get: "/aprs/v1/operators/{operator_address}/daily-aprs/{date}"
+    };
+  }
+
+  rpc GetDailyAprForEarnerStrategy(GetDailyAprForEarnerStrategyRequest) returns (GetDailyAprForEarnerStrategyResponse) {
+    option (google.api.http) = {
+      get: "/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}"
+    };
+  }
+}

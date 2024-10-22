@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package eigenlayer.sidecar.rewards.v1;
 
-option go_package = "github.com/Layr-Labs/sidecar/protos/eigenlayer/rewards/v1";
+option go_package = "github.com/Layr-Labs/protocol-apis/protos/eigenlayer/sidecar/rewards/v1";
 
 import "google/api/annotations.proto";
 
@@ -35,16 +35,16 @@ message Reward {
 // RPC request/responses
 
 message GetRewardsRootRequest {
-  uint64 blockNumber = 1;
+  uint64 block_height = 1;
 }
 
 message GetRewardsRootResponse {
-  string rewardsRoot = 1;
+  string rewards_root = 1;
 }
 
 message GenerateRewardsRequest {
   string snapshot = 1;
-  optional bool respondWithRewardsData = 2;
+  optional bool respond_with_rewards_data = 2;
 }
 
 message GenerateRewardsResponse {
@@ -63,7 +63,7 @@ message GetRewardsForSnapshotResponse {
 }
 
 message GenerateClaimProofRequest {
-  string earnerAddress = 1;
+  string earner_address = 1;
   repeated string tokens = 2;
 }
 
@@ -73,7 +73,7 @@ message GenerateClaimProofResponse {
 
 
 message GetAvailableRewardsRequest {
-  string earnerAddress = 1;
+  string earner_address = 1;
 }
 
 message GetAvailableRewardsResponse {
@@ -82,8 +82,8 @@ message GetAvailableRewardsResponse {
 
 
 message GetTotalClaimedRewardsRequest {
-  string earnerAddress = 1;
-  optional uint64 blockNumber = 2;
+  string earner_address = 1;
+  optional uint64 block_height = 2;
 }
 
 message GetTotalClaimedRewardsResponse {
@@ -91,7 +91,7 @@ message GetTotalClaimedRewardsResponse {
 }
 
 message GetAvailableRewardsTokensRequest {
-  string earnerAddress = 1;
+  string earner_address = 1;
 }
 
 message GetAvailableRewardsTokensResponse {
@@ -103,8 +103,7 @@ service Rewards {
   // GetRewardsRoot returns the rewards root for the given block number
   rpc GetRewardsRoot(GetRewardsRootRequest) returns (GetRewardsRootResponse) {
     option (google.api.http) = {
-      post: "/rewards/v1/rewards-roots/{blockNumber}"
-      body: "*"
+      get: "/rewards/v1/rewards-roots/{block_height}"
     };
   }
 
@@ -122,8 +121,7 @@ service Rewards {
   // Useful if you generated the rewards and want to fetch them later.
   rpc GetRewardsForSnapshot(GetRewardsForSnapshotRequest) returns (GetRewardsForSnapshotResponse) {
     option (google.api.http) = {
-      post: "/rewards/v1/rewards"
-      body: "*"
+      get: "/rewards/v1/rewards/{snapshot}"
     };
   }
 
@@ -140,8 +138,7 @@ service Rewards {
   // This takes the amount earned from the current active root and subtracts total claimed.
   rpc GetAvailableRewards(GetAvailableRewardsRequest) returns (GetAvailableRewardsResponse) {
     option (google.api.http) = {
-      post: "/rewards/v1/available-rewards"
-      body: "*"
+      get: "/rewards/v1/earners/{earner_address}/available-rewards"
     };
   }
 
@@ -149,16 +146,14 @@ service Rewards {
   // BlockHeight is optional. If omitted, the latest block height is used.
   rpc GetTotalClaimedRewards(GetAvailableRewardsRequest) returns (GetAvailableRewardsResponse) {
     option (google.api.http) = {
-      post: "/rewards/v1/total-claimed-rewards"
-      body: "*"
+      get: "/rewards/v1/earners/{earner_address}/total-claimed-rewards"
     };
   }
 
   // GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
   rpc GetAvailableRewardsTokens(GetAvailableRewardsTokensRequest) returns (GetAvailableRewardsTokensResponse) {
     option (google.api.http) = {
-      post: "/rewards/v1/available-rewards-tokens"
-      body: "*"
+      get: "/rewards/v1/earners/{earner_address}/available-rewards-tokens"
     };
   }
 }

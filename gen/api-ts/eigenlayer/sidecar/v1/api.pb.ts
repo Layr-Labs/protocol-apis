@@ -25,9 +25,9 @@ export type GetStateRootResponse = {
 
 export class Rpc {
   static GetBlockHeight(req: GetBlockHeightRequest, initReq?: fm.InitReq): Promise<GetBlockHeightResponse> {
-    return fm.fetchReq<GetBlockHeightRequest, GetBlockHeightResponse>(`/v1/latest-block`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+    return fm.fetchReq<GetBlockHeightRequest, GetBlockHeightResponse>(`/rpc/v1/latest-block`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
   static GetStateRoot(req: GetStateRootRequest, initReq?: fm.InitReq): Promise<GetStateRootResponse> {
-    return fm.fetchReq<GetStateRootRequest, GetStateRootResponse>(`/v1/state-roots/${req["blockNumber"]}`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+    return fm.fetchReq<GetStateRootRequest, GetStateRootResponse>(`/rpc/v1/state-roots/${req["blockNumber"]}`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
 }

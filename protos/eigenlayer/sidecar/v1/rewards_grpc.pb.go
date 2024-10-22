@@ -20,8 +20,11 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	Rewards_GetRewardsRoot_FullMethodName            = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsRoot"
+	Rewards_GenerateRewards_FullMethodName           = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewards"
+	Rewards_GetRewardsForSnapshot_FullMethodName     = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsForSnapshot"
 	Rewards_GenerateClaimProof_FullMethodName        = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateClaimProof"
 	Rewards_GetAvailableRewards_FullMethodName       = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewards"
+	Rewards_GetTotalClaimedRewards_FullMethodName    = "/eigenlayer.sidecar.rewards.v1.Rewards/GetTotalClaimedRewards"
 	Rewards_GetAvailableRewardsTokens_FullMethodName = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewardsTokens"
 )
 
@@ -29,9 +32,25 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RewardsClient interface {
+	// GetRewardsRoot returns the rewards root for the given block number
 	GetRewardsRoot(ctx context.Context, in *GetRewardsRootRequest, opts ...grpc.CallOption) (*GetRewardsRootResponse, error)
+	// GenerateRewards generates rewards for the given snapshot.
+	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
+	// the sidecar will cache the data to be requested later.
+	GenerateRewards(ctx context.Context, in *GenerateRewardsRequest, opts ...grpc.CallOption) (*GenerateRewardsResponse, error)
+	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
+	// Useful if you generated the rewards and want to fetch them later.
+	GetRewardsForSnapshot(ctx context.Context, in *GetRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetRewardsForSnapshotResponse, error)
+	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
+	// tokens against the RewardsCoordinator
 	GenerateClaimProof(ctx context.Context, in *GenerateClaimProofRequest, opts ...grpc.CallOption) (*GenerateClaimProofResponse, error)
+	// GetAvailableRewards returns the available rewards for the given earner address
+	// This takes the amount earned from the current active root and subtracts total claimed.
 	GetAvailableRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error)
+	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address
+	// BlockHeight is optional. If omitted, the latest block height is used.
+	GetTotalClaimedRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error)
+	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(ctx context.Context, in *GetAvailableRewardsTokensRequest, opts ...grpc.CallOption) (*GetAvailableRewardsTokensResponse, error)
 }
 
@@ -47,6 +66,26 @@ func (c *rewardsClient) GetRewardsRoot(ctx context.Context, in *GetRewardsRootRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetRewardsRootResponse)
 	err := c.cc.Invoke(ctx, Rewards_GetRewardsRoot_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) GenerateRewards(ctx context.Context, in *GenerateRewardsRequest, opts ...grpc.CallOption) (*GenerateRewardsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GenerateRewardsResponse)
+	err := c.cc.Invoke(ctx, Rewards_GenerateRewards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) GetRewardsForSnapshot(ctx context.Context, in *GetRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetRewardsForSnapshotResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRewardsForSnapshotResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetRewardsForSnapshot_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -73,6 +112,16 @@ func (c *rewardsClient) GetAvailableRewards(ctx context.Context, in *GetAvailabl
 	return out, nil
 }
 
+func (c *rewardsClient) GetTotalClaimedRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAvailableRewardsResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetTotalClaimedRewards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rewardsClient) GetAvailableRewardsTokens(ctx context.Context, in *GetAvailableRewardsTokensRequest, opts ...grpc.CallOption) (*GetAvailableRewardsTokensResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAvailableRewardsTokensResponse)
@@ -87,9 +136,25 @@ func (c *rewardsClient) GetAvailableRewardsTokens(ctx context.Context, in *GetAv
 // All implementations should embed UnimplementedRewardsServer
 // for forward compatibility.
 type RewardsServer interface {
+	// GetRewardsRoot returns the rewards root for the given block number
 	GetRewardsRoot(context.Context, *GetRewardsRootRequest) (*GetRewardsRootResponse, error)
+	// GenerateRewards generates rewards for the given snapshot.
+	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
+	// the sidecar will cache the data to be requested later.
+	GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error)
+	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
+	// Useful if you generated the rewards and want to fetch them later.
+	GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error)
+	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
+	// tokens against the RewardsCoordinator
 	GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error)
+	// GetAvailableRewards returns the available rewards for the given earner address
+	// This takes the amount earned from the current active root and subtracts total claimed.
 	GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error)
+	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address
+	// BlockHeight is optional. If omitted, the latest block height is used.
+	GetTotalClaimedRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error)
+	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(context.Context, *GetAvailableRewardsTokensRequest) (*GetAvailableRewardsTokensResponse, error)
 }
 
@@ -103,11 +168,20 @@ type UnimplementedRewardsServer struct{}
 func (UnimplementedRewardsServer) GetRewardsRoot(context.Context, *GetRewardsRootRequest) (*GetRewardsRootResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRewardsRoot not implemented")
 }
+func (UnimplementedRewardsServer) GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateRewards not implemented")
+}
+func (UnimplementedRewardsServer) GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewardsForSnapshot not implemented")
+}
 func (UnimplementedRewardsServer) GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateClaimProof not implemented")
 }
 func (UnimplementedRewardsServer) GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAvailableRewards not implemented")
+}
+func (UnimplementedRewardsServer) GetTotalClaimedRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTotalClaimedRewards not implemented")
 }
 func (UnimplementedRewardsServer) GetAvailableRewardsTokens(context.Context, *GetAvailableRewardsTokensRequest) (*GetAvailableRewardsTokensResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAvailableRewardsTokens not implemented")
@@ -150,6 +224,42 @@ func _Rewards_GetRewardsRoot_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_GenerateRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateRewardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GenerateRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GenerateRewards_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GenerateRewards(ctx, req.(*GenerateRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Rewards_GetRewardsForSnapshot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardsForSnapshotRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GetRewardsForSnapshot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GetRewardsForSnapshot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GetRewardsForSnapshot(ctx, req.(*GetRewardsForSnapshotRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Rewards_GenerateClaimProof_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GenerateClaimProofRequest)
 	if err := dec(in); err != nil {
@@ -186,6 +296,24 @@ func _Rewards_GetAvailableRewards_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_GetTotalClaimedRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAvailableRewardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GetTotalClaimedRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GetTotalClaimedRewards_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GetTotalClaimedRewards(ctx, req.(*GetAvailableRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Rewards_GetAvailableRewardsTokens_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAvailableRewardsTokensRequest)
 	if err := dec(in); err != nil {
@@ -216,12 +344,24 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Rewards_GetRewardsRoot_Handler,
 		},
 		{
+			MethodName: "GenerateRewards",
+			Handler:    _Rewards_GenerateRewards_Handler,
+		},
+		{
+			MethodName: "GetRewardsForSnapshot",
+			Handler:    _Rewards_GetRewardsForSnapshot_Handler,
+		},
+		{
 			MethodName: "GenerateClaimProof",
 			Handler:    _Rewards_GenerateClaimProof_Handler,
 		},
 		{
 			MethodName: "GetAvailableRewards",
 			Handler:    _Rewards_GetAvailableRewards_Handler,
+		},
+		{
+			MethodName: "GetTotalClaimedRewards",
+			Handler:    _Rewards_GetTotalClaimedRewards_Handler,
 		},
 		{
 			MethodName: "GetAvailableRewardsTokens",
