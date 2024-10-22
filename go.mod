@@ -1,3 +1,3 @@
-module github.com/Layr-Labs/sidecar-apis
+module github.com/Layr-Labs/protocol-apis
 
 go 1.21.10
