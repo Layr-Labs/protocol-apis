@@ -16,6 +16,101 @@
     "application/json"
   ],
   "paths": {
+    "/rewards/v1/attributable-rewards/{snapshot}": {
+      "get": {
+        "summary": "GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.\nThis takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc",
+        "operationId": "Rewards_GetAttributableRewardsForSnapshot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAttributableRewardsForSnapshotResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "snapshot",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/blocks/{blockHeight}/claimed-rewards": {
+      "get": {
+        "summary": "GetClaimedRewardsByBlock returns the claimed rewards for the given block height",
+        "operationId": "Rewards_GetClaimedRewardsByBlock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetClaimedRewardsByBlockResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "blockHeight",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/blocks/{blockHeight}/rewards-root": {
+      "get": {
+        "summary": "GetRewardsRoot returns the rewards root for the given block number",
+        "operationId": "Rewards_GetRewardsRoot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRewardsRootResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "blockHeight",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/claim-proof": {
       "post": {
         "summary": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming\ntokens against the RewardsCoordinator",
@@ -111,15 +206,15 @@
         ]
       }
     },
-    "/rewards/v1/earners/{earnerAddress}/total-claimed-rewards": {
+    "/rewards/v1/earners/{earnerAddress}/summarized-rewards": {
       "get": {
-        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address\nBlockHeight is optional. If omitted, the latest block height is used.",
-        "operationId": "Rewards_GetTotalClaimedRewards",
+        "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much\ntheyve earned, how much is currently claimable, and how much has been claimed.",
+        "operationId": "Rewards_GetSummarizedRewardsForEarner",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetAvailableRewardsResponse"
+              "$ref": "#/definitions/v1GetSummarizedRewardsForEarnerResponse"
             }
           },
           "default": {
@@ -135,6 +230,51 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/total-claimed-rewards": {
+      "get": {
+        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address\nBlockHeight is optional. If omitted, the latest block height is used.",
+        "operationId": "Rewards_GetTotalClaimedRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetTotalClaimedRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -168,38 +308,6 @@
             "schema": {
               "$ref": "#/definitions/v1GenerateRewardsRequest"
             }
-          }
-        ],
-        "tags": [
-          "Rewards"
-        ]
-      }
-    },
-    "/rewards/v1/rewards-roots/{blockHeight}": {
-      "get": {
-        "summary": "GetRewardsRoot returns the rewards root for the given block number",
-        "operationId": "Rewards_GetRewardsRoot",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetRewardsRootResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "blockHeight",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "uint64"
           }
         ],
         "tags": [
@@ -268,6 +376,55 @@
         }
       }
     },
+    "v1AttributableReward": {
+      "type": "object",
+      "properties": {
+        "earner": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "avs": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string"
+        },
+        "multiplier": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "shares": {
+          "type": "string"
+        },
+        "rewardHash": {
+          "type": "string"
+        },
+        "snapshot": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ClaimedReward": {
+      "type": "object",
+      "properties": {
+        "earner": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        }
+      }
+    },
     "v1EarnerLeaf": {
       "type": "object",
       "properties": {
@@ -324,6 +481,18 @@
         }
       }
     },
+    "v1GetAttributableRewardsForSnapshotResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AttributableReward"
+          }
+        }
+      }
+    },
     "v1GetAvailableRewardsResponse": {
       "type": "object",
       "properties": {
@@ -347,6 +516,18 @@
         }
       }
     },
+    "v1GetClaimedRewardsByBlockResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ClaimedReward"
+          }
+        }
+      }
+    },
     "v1GetRewardsForSnapshotResponse": {
       "type": "object",
       "properties": {
@@ -364,6 +545,30 @@
       "properties": {
         "rewardsRoot": {
           "type": "string"
+        }
+      }
+    },
+    "v1GetSummarizedRewardsForEarnerResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SummarizedEarnerReward"
+          }
+        }
+      }
+    },
+    "v1GetTotalClaimedRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Reward"
+          }
         }
       }
     },
@@ -417,6 +622,26 @@
         },
         "amount": {
           "type": "string"
+        }
+      }
+    },
+    "v1SummarizedEarnerReward": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "earned": {
+          "type": "string",
+          "title": "Rewards that have been earned but not necessarily activated yet"
+        },
+        "claimable": {
+          "type": "string",
+          "title": "total rewards that are claimable (does not account for claimed)"
+        },
+        "claimed": {
+          "type": "string",
+          "title": "total rewards that have been claimed"
         }
       }
     },

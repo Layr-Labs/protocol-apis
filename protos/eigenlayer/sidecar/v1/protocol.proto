@@ -32,7 +32,8 @@ message GetOperatorDelegatedStakeForStrategyRequest {
 }
 
 message GetOperatorDelegatedStakeForStrategyResponse {
-  string stake = 1;
+  string shares = 1;
+  repeated string avs_addresses = 2;
 }
 
 message GetDelegatedStakersForOperatorRequest {
@@ -46,6 +47,24 @@ message GetDelegatedStakersForOperatorResponse {
   repeated string staker_address = 1;
 }
 
+message GetStakerSharesRequest {
+  string staker_address = 1;
+  optional uint64 block_height = 2;
+}
+
+message StakerShare {
+  string strategy = 1;
+  string shares = 2;
+
+  // Operator the staker has delegated to if present
+  string operator_address = 3;
+  // The operator could be regietered with 0 or many AVSs
+  repeated string avs_addresses = 4;
+}
+
+message GetStakerSharesResponse {
+  repeated StakerShare shares = 1;
+}
 
 
 service Protocol {
@@ -76,6 +95,15 @@ service Protocol {
   rpc GetDelegatedStakersForOperator(GetDelegatedStakersForOperatorRequest) returns (GetDelegatedStakersForOperatorResponse) {
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operator_address}/delegated-stakers"
+    };
+  }
+
+
+  // GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
+  // the AVS the operator has registered with.
+  rpc GetStakerShares(GetStakerSharesRequest) returns (GetStakerSharesResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/stakers/{staker_address}/shares"
     };
   }
 }

@@ -187,6 +187,44 @@
           "Protocol"
         ]
       }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/shares": {
+      "get": {
+        "summary": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and\nthe AVS the operator has registered with.",
+        "operationId": "Protocol_GetStakerShares",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetStakerSharesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
     }
   },
   "definitions": {
@@ -243,8 +281,14 @@
     "v1GetOperatorDelegatedStakeForStrategyResponse": {
       "type": "object",
       "properties": {
-        "stake": {
+        "shares": {
           "type": "string"
+        },
+        "avsAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -256,6 +300,40 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "v1GetStakerSharesResponse": {
+      "type": "object",
+      "properties": {
+        "shares": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1StakerShare"
+          }
+        }
+      }
+    },
+    "v1StakerShare": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string"
+        },
+        "shares": {
+          "type": "string"
+        },
+        "operatorAddress": {
+          "type": "string",
+          "title": "Operator the staker has delegated to if present"
+        },
+        "avsAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "The operator could be regietered with 0 or many AVSs"
         }
       }
     }

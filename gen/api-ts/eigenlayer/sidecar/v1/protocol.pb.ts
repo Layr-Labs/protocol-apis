@@ -48,7 +48,8 @@ export type GetOperatorDelegatedStakeForStrategyRequest = BaseGetOperatorDelegat
   & OneOf<{ blockHeight: string }>
 
 export type GetOperatorDelegatedStakeForStrategyResponse = {
-  stake?: string
+  shares?: string
+  avsAddresses?: string[]
 }
 
 
@@ -65,6 +66,25 @@ export type GetDelegatedStakersForOperatorResponse = {
   stakerAddress?: string[]
 }
 
+
+type BaseGetStakerSharesRequest = {
+  stakerAddress?: string
+}
+
+export type GetStakerSharesRequest = BaseGetStakerSharesRequest
+  & OneOf<{ blockHeight: string }>
+
+export type StakerShare = {
+  strategy?: string
+  shares?: string
+  operatorAddress?: string
+  avsAddresses?: string[]
+}
+
+export type GetStakerSharesResponse = {
+  shares?: StakerShare[]
+}
+
 export class Protocol {
   static GetRegisteredAvsForOperator(req: GetRegisteredAvsForOperatorRequest, initReq?: fm.InitReq): Promise<GetRegisteredAvsForOperatorResponse> {
     return fm.fetchReq<GetRegisteredAvsForOperatorRequest, GetRegisteredAvsForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/registered-avs?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
@@ -77,5 +97,8 @@ export class Protocol {
   }
   static GetDelegatedStakersForOperator(req: GetDelegatedStakersForOperatorRequest, initReq?: fm.InitReq): Promise<GetDelegatedStakersForOperatorResponse> {
     return fm.fetchReq<GetDelegatedStakersForOperatorRequest, GetDelegatedStakersForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/delegated-stakers?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
+  }
+  static GetStakerShares(req: GetStakerSharesRequest, initReq?: fm.InitReq): Promise<GetStakerSharesResponse> {
+    return fm.fetchReq<GetStakerSharesRequest, GetStakerSharesResponse>(`/protocol/v1/stakers/${req["stakerAddress"]}/shares?${fm.renderURLSearchParams(req, ["stakerAddress"])}`, {...initReq, method: "GET"})
   }
 }

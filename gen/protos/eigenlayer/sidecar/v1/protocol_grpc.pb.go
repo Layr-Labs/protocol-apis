@@ -23,6 +23,7 @@ const (
 	Protocol_GetDelegatedStrategiesForOperator_FullMethodName    = "/eigenlayer.sidecar.protocol.v1.Protocol/GetDelegatedStrategiesForOperator"
 	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName = "/eigenlayer.sidecar.protocol.v1.Protocol/GetOperatorDelegatedStakeForStrategy"
 	Protocol_GetDelegatedStakersForOperator_FullMethodName       = "/eigenlayer.sidecar.protocol.v1.Protocol/GetDelegatedStakersForOperator"
+	Protocol_GetStakerShares_FullMethodName                      = "/eigenlayer.sidecar.protocol.v1.Protocol/GetStakerShares"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -39,6 +40,9 @@ type ProtocolClient interface {
 	// GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
 	// BlockHeight is optional, otherwise latest is used.
 	GetDelegatedStakersForOperator(ctx context.Context, in *GetDelegatedStakersForOperatorRequest, opts ...grpc.CallOption) (*GetDelegatedStakersForOperatorResponse, error)
+	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
+	// the AVS the operator has registered with.
+	GetStakerShares(ctx context.Context, in *GetStakerSharesRequest, opts ...grpc.CallOption) (*GetStakerSharesResponse, error)
 }
 
 type protocolClient struct {
@@ -89,6 +93,16 @@ func (c *protocolClient) GetDelegatedStakersForOperator(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *protocolClient) GetStakerShares(ctx context.Context, in *GetStakerSharesRequest, opts ...grpc.CallOption) (*GetStakerSharesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetStakerSharesResponse)
+	err := c.cc.Invoke(ctx, Protocol_GetStakerShares_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProtocolServer is the server API for Protocol service.
 // All implementations should embed UnimplementedProtocolServer
 // for forward compatibility.
@@ -103,6 +117,9 @@ type ProtocolServer interface {
 	// GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
 	// BlockHeight is optional, otherwise latest is used.
 	GetDelegatedStakersForOperator(context.Context, *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error)
+	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
+	// the AVS the operator has registered with.
+	GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error)
 }
 
 // UnimplementedProtocolServer should be embedded to have
@@ -123,6 +140,9 @@ func (UnimplementedProtocolServer) GetOperatorDelegatedStakeForStrategy(context.
 }
 func (UnimplementedProtocolServer) GetDelegatedStakersForOperator(context.Context, *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDelegatedStakersForOperator not implemented")
+}
+func (UnimplementedProtocolServer) GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStakerShares not implemented")
 }
 func (UnimplementedProtocolServer) testEmbeddedByValue() {}
 
@@ -216,6 +236,24 @@ func _Protocol_GetDelegatedStakersForOperator_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Protocol_GetStakerShares_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStakerSharesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).GetStakerShares(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_GetStakerShares_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).GetStakerShares(ctx, req.(*GetStakerSharesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Protocol_ServiceDesc is the grpc.ServiceDesc for Protocol service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -238,6 +276,10 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDelegatedStakersForOperator",
 			Handler:    _Protocol_GetDelegatedStakersForOperator_Handler,
+		},
+		{
+			MethodName: "GetStakerShares",
+			Handler:    _Protocol_GetStakerShares_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
