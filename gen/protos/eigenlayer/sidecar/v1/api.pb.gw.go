@@ -132,7 +132,7 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/v1/latest-block"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/rpc/v1/latest-block"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -157,7 +157,7 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/v1/state-roots/{blockNumber}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/rpc/v1/state-roots/{blockNumber}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -221,7 +221,7 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/v1/latest-block"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/rpc/v1/latest-block"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -243,7 +243,7 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/v1/state-roots/{blockNumber}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.api.v1.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/rpc/v1/state-roots/{blockNumber}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -263,9 +263,9 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 }
 
 var (
-	pattern_Rpc_GetBlockHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "latest-block"}, ""))
+	pattern_Rpc_GetBlockHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "latest-block"}, ""))
 
-	pattern_Rpc_GetStateRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "state-roots", "blockNumber"}, ""))
+	pattern_Rpc_GetStateRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rpc", "v1", "state-roots", "blockNumber"}, ""))
 )
 
 var (
