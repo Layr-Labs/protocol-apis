@@ -144,8 +144,10 @@ message GetSummarizedRewardsForEarnerResponse {
 
 message ClaimedReward {
   string earner = 1;
-  string token = 2;
-  string amount = 3;
+  string claimer = 2;
+  string token = 3;
+  string amount = 4;
+  string distribution_root = 5;
 }
 message GetClaimedRewardsByBlockRequest {
   uint64 block_height = 1;

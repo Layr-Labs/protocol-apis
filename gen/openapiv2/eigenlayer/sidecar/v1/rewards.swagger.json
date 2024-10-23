@@ -417,10 +417,16 @@
         "earner": {
           "type": "string"
         },
+        "claimer": {
+          "type": "string"
+        },
         "token": {
           "type": "string"
         },
         "amount": {
+          "type": "string"
+        },
+        "distributionRoot": {
           "type": "string"
         }
       }

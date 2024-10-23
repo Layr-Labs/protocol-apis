@@ -158,8 +158,10 @@ export type GetSummarizedRewardsForEarnerResponse = {
 
 export type ClaimedReward = {
   earner?: string
+  claimer?: string
   token?: string
   amount?: string
+  distributionRoot?: string
 }
 
 export type GetClaimedRewardsByBlockRequest = {
