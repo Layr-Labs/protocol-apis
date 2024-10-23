@@ -19,16 +19,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Rewards_GetRewardsRoot_FullMethodName                    = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsRoot"
-	Rewards_GenerateRewards_FullMethodName                   = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewards"
-	Rewards_GetRewardsForSnapshot_FullMethodName             = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsForSnapshot"
-	Rewards_GetAttributableRewardsForSnapshot_FullMethodName = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAttributableRewardsForSnapshot"
-	Rewards_GenerateClaimProof_FullMethodName                = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateClaimProof"
-	Rewards_GetAvailableRewards_FullMethodName               = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewards"
-	Rewards_GetTotalClaimedRewards_FullMethodName            = "/eigenlayer.sidecar.rewards.v1.Rewards/GetTotalClaimedRewards"
-	Rewards_GetAvailableRewardsTokens_FullMethodName         = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewardsTokens"
-	Rewards_GetSummarizedRewardsForEarner_FullMethodName     = "/eigenlayer.sidecar.rewards.v1.Rewards/GetSummarizedRewardsForEarner"
-	Rewards_GetClaimedRewardsByBlock_FullMethodName          = "/eigenlayer.sidecar.rewards.v1.Rewards/GetClaimedRewardsByBlock"
+	Rewards_GetRewardsRoot_FullMethodName                            = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsRoot"
+	Rewards_GenerateRewards_FullMethodName                           = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewards"
+	Rewards_GetRewardsForSnapshot_FullMethodName                     = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsForSnapshot"
+	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAttributableRewardsForSnapshot"
+	Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAttributableRewardsForDistributionRoot"
+	Rewards_GenerateClaimProof_FullMethodName                        = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateClaimProof"
+	Rewards_GetAvailableRewards_FullMethodName                       = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewards"
+	Rewards_GetTotalClaimedRewards_FullMethodName                    = "/eigenlayer.sidecar.rewards.v1.Rewards/GetTotalClaimedRewards"
+	Rewards_GetAvailableRewardsTokens_FullMethodName                 = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewardsTokens"
+	Rewards_GetSummarizedRewardsForEarner_FullMethodName             = "/eigenlayer.sidecar.rewards.v1.Rewards/GetSummarizedRewardsForEarner"
+	Rewards_GetClaimedRewardsByBlock_FullMethodName                  = "/eigenlayer.sidecar.rewards.v1.Rewards/GetClaimedRewardsByBlock"
 )
 
 // RewardsClient is the client API for Rewards service.
@@ -47,6 +48,7 @@ type RewardsClient interface {
 	// GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(ctx context.Context, in *GetAttributableRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetAttributableRewardsForSnapshotResponse, error)
+	GetAttributableRewardsForDistributionRoot(ctx context.Context, in *GetAttributableRewardsForDistributionRootRequest, opts ...grpc.CallOption) (*GetAttributableRewardsForDistributionRootResponse, error)
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(ctx context.Context, in *GenerateClaimProofRequest, opts ...grpc.CallOption) (*GenerateClaimProofResponse, error)
@@ -107,6 +109,16 @@ func (c *rewardsClient) GetAttributableRewardsForSnapshot(ctx context.Context, i
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAttributableRewardsForSnapshotResponse)
 	err := c.cc.Invoke(ctx, Rewards_GetAttributableRewardsForSnapshot_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) GetAttributableRewardsForDistributionRoot(ctx context.Context, in *GetAttributableRewardsForDistributionRootRequest, opts ...grpc.CallOption) (*GetAttributableRewardsForDistributionRootResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAttributableRewardsForDistributionRootResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -189,6 +201,7 @@ type RewardsServer interface {
 	// GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(context.Context, *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error)
+	GetAttributableRewardsForDistributionRoot(context.Context, *GetAttributableRewardsForDistributionRootRequest) (*GetAttributableRewardsForDistributionRootResponse, error)
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error)
@@ -225,6 +238,9 @@ func (UnimplementedRewardsServer) GetRewardsForSnapshot(context.Context, *GetRew
 }
 func (UnimplementedRewardsServer) GetAttributableRewardsForSnapshot(context.Context, *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAttributableRewardsForSnapshot not implemented")
+}
+func (UnimplementedRewardsServer) GetAttributableRewardsForDistributionRoot(context.Context, *GetAttributableRewardsForDistributionRootRequest) (*GetAttributableRewardsForDistributionRootResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAttributableRewardsForDistributionRoot not implemented")
 }
 func (UnimplementedRewardsServer) GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateClaimProof not implemented")
@@ -332,6 +348,24 @@ func _Rewards_GetAttributableRewardsForSnapshot_Handler(srv interface{}, ctx con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RewardsServer).GetAttributableRewardsForSnapshot(ctx, req.(*GetAttributableRewardsForSnapshotRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Rewards_GetAttributableRewardsForDistributionRoot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAttributableRewardsForDistributionRootRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GetAttributableRewardsForDistributionRoot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GetAttributableRewardsForDistributionRoot(ctx, req.(*GetAttributableRewardsForDistributionRootRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -466,6 +500,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAttributableRewardsForSnapshot",
 			Handler:    _Rewards_GetAttributableRewardsForSnapshot_Handler,
+		},
+		{
+			MethodName: "GetAttributableRewardsForDistributionRoot",
+			Handler:    _Rewards_GetAttributableRewardsForDistributionRoot_Handler,
 		},
 		{
 			MethodName: "GenerateClaimProof",

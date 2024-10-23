@@ -16,6 +16,36 @@
     "application/json"
   ],
   "paths": {
+    "/rewards/v1/attributable-rewards-by-root/{distributionRoot}": {
+      "get": {
+        "operationId": "Rewards_GetAttributableRewardsForDistributionRoot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAttributableRewardsForDistributionRootResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "distributionRoot",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/attributable-rewards/{snapshot}": {
       "get": {
         "summary": "GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.\nThis takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc",
@@ -484,6 +514,18 @@
         "rewards": {
           "$ref": "#/definitions/v1Reward",
           "title": "Returned if respondWithRewardsData is true in the request"
+        }
+      }
+    },
+    "v1GetAttributableRewardsForDistributionRootResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AttributableReward"
+          }
         }
       }
     },

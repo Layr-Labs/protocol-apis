@@ -100,6 +100,14 @@ export type GetAttributableRewardsForSnapshotResponse = {
   rewards?: AttributableReward[]
 }
 
+export type GetAttributableRewardsForDistributionRootRequest = {
+  distributionRoot?: string
+}
+
+export type GetAttributableRewardsForDistributionRootResponse = {
+  rewards?: AttributableReward[]
+}
+
 export type GenerateClaimProofRequest = {
   earnerAddress?: string
   tokens?: string[]
@@ -184,6 +192,9 @@ export class Rewards {
   }
   static GetAttributableRewardsForSnapshot(req: GetAttributableRewardsForSnapshotRequest, initReq?: fm.InitReq): Promise<GetAttributableRewardsForSnapshotResponse> {
     return fm.fetchReq<GetAttributableRewardsForSnapshotRequest, GetAttributableRewardsForSnapshotResponse>(`/rewards/v1/attributable-rewards/${req["snapshot"]}?${fm.renderURLSearchParams(req, ["snapshot"])}`, {...initReq, method: "GET"})
+  }
+  static GetAttributableRewardsForDistributionRoot(req: GetAttributableRewardsForDistributionRootRequest, initReq?: fm.InitReq): Promise<GetAttributableRewardsForDistributionRootResponse> {
+    return fm.fetchReq<GetAttributableRewardsForDistributionRootRequest, GetAttributableRewardsForDistributionRootResponse>(`/rewards/v1/attributable-rewards-by-root/${req["distributionRoot"]}?${fm.renderURLSearchParams(req, ["distributionRoot"])}`, {...initReq, method: "GET"})
   }
   static GenerateClaimProof(req: GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<GenerateClaimProofResponse> {
     return fm.fetchReq<GenerateClaimProofRequest, GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

@@ -87,6 +87,13 @@ message GetAttributableRewardsForSnapshotResponse {
   repeated AttributableReward rewards = 1;
 }
 
+message GetAttributableRewardsForDistributionRootRequest {
+  string distribution_root = 1;
+}
+message GetAttributableRewardsForDistributionRootResponse {
+  repeated AttributableReward rewards = 1;
+}
+
 
 message GenerateClaimProofRequest {
   string earner_address = 1;
@@ -188,6 +195,12 @@ service Rewards {
   rpc GetAttributableRewardsForSnapshot(GetAttributableRewardsForSnapshotRequest) returns (GetAttributableRewardsForSnapshotResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/attributable-rewards/{snapshot}"
+    };
+  }
+
+  rpc GetAttributableRewardsForDistributionRoot(GetAttributableRewardsForDistributionRootRequest) returns (GetAttributableRewardsForDistributionRootResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/attributable-rewards-by-root/{distribution_root}"
     };
   }
 
