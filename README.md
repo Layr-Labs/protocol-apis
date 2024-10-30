@@ -1,4 +1,4 @@
-# APIs for the [EigenLayer Sidecar](https://github.com/Layr-Labs/sidecar)
+# APIs for the [EigenLayer Sidecar](https://github.com/Layr-Labs/protocol-apis)
 
 
 ### Building
