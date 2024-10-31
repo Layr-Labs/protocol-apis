@@ -69,13 +69,10 @@ export type GetRewardsRootResponse = {
   snapshotDate?: string
 }
 
-
-type BaseGenerateRewardsRequest = {
+export type GenerateRewardsRequest = {
   snapshot?: string
+  respondWithRewardsData?: boolean
 }
-
-export type GenerateRewardsRequest = BaseGenerateRewardsRequest
-  & OneOf<{ respondWithRewardsData: boolean }>
 
 
 type BaseGenerateRewardsResponse = {

@@ -63,7 +63,7 @@ message GetRewardsRootResponse {
 
 message GenerateRewardsRequest {
   string snapshot = 1;
-  optional bool respond_with_rewards_data = 2;
+  bool respond_with_rewards_data = 2;
 }
 message GenerateRewardsResponse {
   string snapshot = 1;
