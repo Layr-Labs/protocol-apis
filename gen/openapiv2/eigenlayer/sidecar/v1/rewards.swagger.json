@@ -111,7 +111,7 @@
     },
     "/rewards/v1/blocks/{blockHeight}/rewards-root": {
       "get": {
-        "summary": "GetRewardsRoot returns the rewards root for the given block number",
+        "summary": "GetRewardsRoot returns the posted on-chain root for the give block height",
         "operationId": "Rewards_GetRewardsRoot",
         "responses": {
           "200": {
@@ -345,6 +345,39 @@
         ]
       }
     },
+    "/rewards/v1/generate-rewards-root": {
+      "post": {
+        "summary": "GenerateRewardsRoot generates a rewards root for the given snapshot.\nReturns an error if the rewards have not been generated for the snapshot.",
+        "operationId": "Rewards_GenerateRewardsRoot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GenerateRewardsRootResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GenerateRewardsRootRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/rewards/{snapshot}": {
       "get": {
         "summary": "GetRewardsForSnapshot returns the rewards for the provided snapshot.\nUseful if you generated the rewards and want to fetch them later.",
@@ -461,6 +494,29 @@
         }
       }
     },
+    "v1DistributionRoot": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "type": "string"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "calculationEndTimestamp": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "activatedAt": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
     "v1EarnerLeaf": {
       "type": "object",
       "properties": {
@@ -514,6 +570,23 @@
         "rewards": {
           "$ref": "#/definitions/v1Reward",
           "title": "Returned if respondWithRewardsData is true in the request"
+        }
+      }
+    },
+    "v1GenerateRewardsRootRequest": {
+      "type": "object",
+      "properties": {
+        "snapshot": {
+          "type": "string",
+          "title": "The date of the snapshot in YYYY-MM-DD format"
+        }
+      }
+    },
+    "v1GenerateRewardsRootResponse": {
+      "type": "object",
+      "properties": {
+        "rewardsRoot": {
+          "type": "string"
         }
       }
     },
@@ -592,10 +665,7 @@
       "type": "object",
       "properties": {
         "rewardsRoot": {
-          "type": "string"
-        },
-        "snapshotDate": {
-          "type": "string"
+          "$ref": "#/definitions/v1DistributionRoot"
         }
       }
     },
