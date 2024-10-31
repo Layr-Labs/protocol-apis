@@ -593,6 +593,9 @@
       "properties": {
         "rewardsRoot": {
           "type": "string"
+        },
+        "snapshotDate": {
+          "type": "string"
         }
       }
     },

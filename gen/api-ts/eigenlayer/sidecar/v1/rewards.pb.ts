@@ -66,6 +66,7 @@ export type GetRewardsRootRequest = {
 
 export type GetRewardsRootResponse = {
   rewardsRoot?: string
+  snapshotDate?: string
 }
 
 
