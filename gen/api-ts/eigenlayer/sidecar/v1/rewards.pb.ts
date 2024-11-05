@@ -60,21 +60,26 @@ export type AttributableReward = {
   snapshot?: string
 }
 
+export type DistributionRoot = {
+  root?: string
+  blockHeight?: string
+  calculationEndTimestamp?: string
+  activatedAt?: string
+  disabled?: boolean
+}
+
 export type GetRewardsRootRequest = {
   blockHeight?: string
 }
 
 export type GetRewardsRootResponse = {
-  rewardsRoot?: string
+  rewardsRoot?: DistributionRoot
 }
 
-
-type BaseGenerateRewardsRequest = {
+export type GenerateRewardsRequest = {
   snapshot?: string
+  respondWithRewardsData?: boolean
 }
-
-export type GenerateRewardsRequest = BaseGenerateRewardsRequest
-  & OneOf<{ respondWithRewardsData: boolean }>
 
 
 type BaseGenerateRewardsResponse = {
@@ -83,6 +88,14 @@ type BaseGenerateRewardsResponse = {
 
 export type GenerateRewardsResponse = BaseGenerateRewardsResponse
   & OneOf<{ rewards: Reward }>
+
+export type GenerateRewardsRootRequest = {
+  snapshot?: string
+}
+
+export type GenerateRewardsRootResponse = {
+  rewardsRoot?: string
+}
 
 export type GetRewardsForSnapshotRequest = {
   snapshot?: string
@@ -186,6 +199,9 @@ export class Rewards {
   }
   static GenerateRewards(req: GenerateRewardsRequest, initReq?: fm.InitReq): Promise<GenerateRewardsResponse> {
     return fm.fetchReq<GenerateRewardsRequest, GenerateRewardsResponse>(`/rewards/v1/generate-rewards`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  }
+  static GenerateRewardsRoot(req: GenerateRewardsRootRequest, initReq?: fm.InitReq): Promise<GenerateRewardsRootResponse> {
+    return fm.fetchReq<GenerateRewardsRootRequest, GenerateRewardsRootResponse>(`/rewards/v1/generate-rewards-root`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
   static GetRewardsForSnapshot(req: GetRewardsForSnapshotRequest, initReq?: fm.InitReq): Promise<GetRewardsForSnapshotResponse> {
     return fm.fetchReq<GetRewardsForSnapshotRequest, GetRewardsForSnapshotResponse>(`/rewards/v1/rewards/${req["snapshot"]}?${fm.renderURLSearchParams(req, ["snapshot"])}`, {...initReq, method: "GET"})

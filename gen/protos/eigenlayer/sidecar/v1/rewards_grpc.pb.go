@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Rewards_GetRewardsRoot_FullMethodName                            = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsRoot"
 	Rewards_GenerateRewards_FullMethodName                           = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewards"
+	Rewards_GenerateRewardsRoot_FullMethodName                       = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewardsRoot"
 	Rewards_GetRewardsForSnapshot_FullMethodName                     = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAttributableRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAttributableRewardsForDistributionRoot"
@@ -36,12 +37,15 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RewardsClient interface {
-	// GetRewardsRoot returns the rewards root for the given block number
+	// GetRewardsRoot returns the posted on-chain root for the give block height
 	GetRewardsRoot(ctx context.Context, in *GetRewardsRootRequest, opts ...grpc.CallOption) (*GetRewardsRootResponse, error)
 	// GenerateRewards generates rewards for the given snapshot.
 	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
 	// the sidecar will cache the data to be requested later.
 	GenerateRewards(ctx context.Context, in *GenerateRewardsRequest, opts ...grpc.CallOption) (*GenerateRewardsResponse, error)
+	// GenerateRewardsRoot generates a rewards root for the given snapshot.
+	// Returns an error if the rewards have not been generated for the snapshot.
+	GenerateRewardsRoot(ctx context.Context, in *GenerateRewardsRootRequest, opts ...grpc.CallOption) (*GenerateRewardsRootResponse, error)
 	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
 	// Useful if you generated the rewards and want to fetch them later.
 	GetRewardsForSnapshot(ctx context.Context, in *GetRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetRewardsForSnapshotResponse, error)
@@ -89,6 +93,16 @@ func (c *rewardsClient) GenerateRewards(ctx context.Context, in *GenerateRewards
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GenerateRewardsResponse)
 	err := c.cc.Invoke(ctx, Rewards_GenerateRewards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) GenerateRewardsRoot(ctx context.Context, in *GenerateRewardsRootRequest, opts ...grpc.CallOption) (*GenerateRewardsRootResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GenerateRewardsRootResponse)
+	err := c.cc.Invoke(ctx, Rewards_GenerateRewardsRoot_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -189,12 +203,15 @@ func (c *rewardsClient) GetClaimedRewardsByBlock(ctx context.Context, in *GetCla
 // All implementations should embed UnimplementedRewardsServer
 // for forward compatibility.
 type RewardsServer interface {
-	// GetRewardsRoot returns the rewards root for the given block number
+	// GetRewardsRoot returns the posted on-chain root for the give block height
 	GetRewardsRoot(context.Context, *GetRewardsRootRequest) (*GetRewardsRootResponse, error)
 	// GenerateRewards generates rewards for the given snapshot.
 	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
 	// the sidecar will cache the data to be requested later.
 	GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error)
+	// GenerateRewardsRoot generates a rewards root for the given snapshot.
+	// Returns an error if the rewards have not been generated for the snapshot.
+	GenerateRewardsRoot(context.Context, *GenerateRewardsRootRequest) (*GenerateRewardsRootResponse, error)
 	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
 	// Useful if you generated the rewards and want to fetch them later.
 	GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error)
@@ -232,6 +249,9 @@ func (UnimplementedRewardsServer) GetRewardsRoot(context.Context, *GetRewardsRoo
 }
 func (UnimplementedRewardsServer) GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateRewards not implemented")
+}
+func (UnimplementedRewardsServer) GenerateRewardsRoot(context.Context, *GenerateRewardsRootRequest) (*GenerateRewardsRootResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateRewardsRoot not implemented")
 }
 func (UnimplementedRewardsServer) GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRewardsForSnapshot not implemented")
@@ -312,6 +332,24 @@ func _Rewards_GenerateRewards_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RewardsServer).GenerateRewards(ctx, req.(*GenerateRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Rewards_GenerateRewardsRoot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateRewardsRootRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GenerateRewardsRoot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GenerateRewardsRoot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GenerateRewardsRoot(ctx, req.(*GenerateRewardsRootRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -492,6 +530,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateRewards",
 			Handler:    _Rewards_GenerateRewards_Handler,
+		},
+		{
+			MethodName: "GenerateRewardsRoot",
+			Handler:    _Rewards_GenerateRewardsRoot_Handler,
 		},
 		{
 			MethodName: "GetRewardsForSnapshot",
