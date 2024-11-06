@@ -22,5 +22,8 @@ deps/go:
 
 .PHONY: proto
 proto:
+	rm -rf gen/python || true
+	rm -rf gen/pre-python || true
 	buf generate protos
+	./scripts/generatePipModule.sh
 

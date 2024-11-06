@@ -15,3 +15,7 @@ plugins:
     out: gen/openapiv2
   - plugin: grpc-gateway-ts
     out: gen/api-ts
+  - plugin: buf.build/protocolbuffers/python
+    out: gen/pre-python
+  - plugin: buf.build/grpc/python
+    out: gen/pre-python
