@@ -16,7 +16,7 @@ build-backend = "setuptools.build_meta"
 name = "${module_name}"
 version = "${version}"
 description = "Eigenlabs Protocol APIs grpc clients"
-requires-python = ">=3.7"
+requires-python = "==3.12"
 dependencies = [
     "grpcio==1.67.1",
     "grpcio-tools==1.62.3",
