@@ -19,7 +19,7 @@ description = "Eigenlabs Protocol APIs grpc clients"
 requires-python = ">=3.7"
 dependencies = [
     "grpcio>=1.32.0",
-    "protobuf>=3.15.0",
+    "protobuf=4.25.5",
 ]
 EOL
 
@@ -33,7 +33,7 @@ setup(
     package_dir={'': 'src'},
     install_requires=[
         "grpcio>=1.32.0",
-        "protobuf>=3.15.0",
+        "protobuf=4.25.5",
     ],
 )
 EOL

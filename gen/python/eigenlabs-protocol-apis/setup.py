@@ -7,6 +7,6 @@ setup(
     package_dir={'': 'src'},
     install_requires=[
         "grpcio>=1.32.0",
-        "protobuf>=3.15.0",
+        "protobuf=4.25.5",
     ],
 )
