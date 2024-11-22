@@ -314,7 +314,7 @@
     },
     "/rewards/v1/generate-rewards": {
       "post": {
-        "summary": "GenerateRewards generates rewards for the given snapshot.\nIf respondWithRewardsData is true, the response will include the rewards data, otherwise\nthe sidecar will cache the data to be requested later.",
+        "summary": "GenerateRewards generates rewards for the given cutoff_date.\nIf respondWithRewardsData is true, the response will include the rewards data, otherwise\nthe sidecar will cache the data to be requested later.",
         "operationId": "Rewards_GenerateRewards",
         "responses": {
           "200": {
@@ -553,7 +553,7 @@
     "v1GenerateRewardsRequest": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string"
         },
         "respondWithRewardsData": {
@@ -564,7 +564,7 @@
     "v1GenerateRewardsResponse": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string"
         },
         "rewards": {
@@ -576,9 +576,9 @@
     "v1GenerateRewardsRootRequest": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string",
-          "title": "The date of the snapshot in YYYY-MM-DD format"
+          "title": "The date to calculate rewards up to, exclusive"
         }
       }
     },
@@ -586,6 +586,9 @@
       "type": "object",
       "properties": {
         "rewardsRoot": {
+          "type": "string"
+        },
+        "rewardsCalcEndDate": {
           "type": "string"
         }
       }
@@ -738,10 +741,16 @@
     "v1Reward": {
       "type": "object",
       "properties": {
+        "earner": {
+          "type": "string"
+        },
         "token": {
           "type": "string"
         },
         "amount": {
+          "type": "string"
+        },
+        "snapshot": {
           "type": "string"
         }
       }

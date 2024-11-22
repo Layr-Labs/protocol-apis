@@ -39,7 +39,7 @@ const (
 type RewardsClient interface {
 	// GetRewardsRoot returns the posted on-chain root for the give block height
 	GetRewardsRoot(ctx context.Context, in *GetRewardsRootRequest, opts ...grpc.CallOption) (*GetRewardsRootResponse, error)
-	// GenerateRewards generates rewards for the given snapshot.
+	// GenerateRewards generates rewards for the given cutoff_date.
 	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
 	// the sidecar will cache the data to be requested later.
 	GenerateRewards(ctx context.Context, in *GenerateRewardsRequest, opts ...grpc.CallOption) (*GenerateRewardsResponse, error)
@@ -205,7 +205,7 @@ func (c *rewardsClient) GetClaimedRewardsByBlock(ctx context.Context, in *GetCla
 type RewardsServer interface {
 	// GetRewardsRoot returns the posted on-chain root for the give block height
 	GetRewardsRoot(context.Context, *GetRewardsRootRequest) (*GetRewardsRootResponse, error)
-	// GenerateRewards generates rewards for the given snapshot.
+	// GenerateRewards generates rewards for the given cutoff_date.
 	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
 	// the sidecar will cache the data to be requested later.
 	GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error)

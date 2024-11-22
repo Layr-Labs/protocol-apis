@@ -87,7 +87,7 @@ class RewardsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GenerateRewards(self, request, context):
-        """GenerateRewards generates rewards for the given snapshot.
+        """GenerateRewards generates rewards for the given cutoff_date.
         If respondWithRewardsData is true, the response will include the rewards data, otherwise
         the sidecar will cache the data to be requested later.
         """

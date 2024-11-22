@@ -43,8 +43,10 @@ export type Proof = {
 }
 
 export type Reward = {
+  earner?: string
   token?: string
   amount?: string
+  snapshot?: string
 }
 
 export type AttributableReward = {
@@ -77,24 +79,25 @@ export type GetRewardsRootResponse = {
 }
 
 export type GenerateRewardsRequest = {
-  snapshot?: string
+  cutoffDate?: string
   respondWithRewardsData?: boolean
 }
 
 
 type BaseGenerateRewardsResponse = {
-  snapshot?: string
+  cutoffDate?: string
 }
 
 export type GenerateRewardsResponse = BaseGenerateRewardsResponse
   & OneOf<{ rewards: Reward }>
 
 export type GenerateRewardsRootRequest = {
-  snapshot?: string
+  cutoffDate?: string
 }
 
 export type GenerateRewardsRootResponse = {
   rewardsRoot?: string
+  rewardsCalcEndDate?: string
 }
 
 export type GetRewardsForSnapshotRequest = {
