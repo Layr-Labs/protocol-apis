@@ -98,6 +98,13 @@ export type GenerateStakerOperatorsRequest = {
 export type GenerateStakerOperatorsResponse = {
 }
 
+export type BackfillStakerOperatorsRequest = {
+  cutoffDate?: string
+}
+
+export type BackfillStakerOperatorsResponse = {
+}
+
 export type GenerateRewardsRootRequest = {
   cutoffDate?: string
 }
@@ -212,6 +219,9 @@ export class Rewards {
   }
   static GenerateStakerOperators(req: GenerateStakerOperatorsRequest, initReq?: fm.InitReq): Promise<GenerateStakerOperatorsResponse> {
     return fm.fetchReq<GenerateStakerOperatorsRequest, GenerateStakerOperatorsResponse>(`/rewards/v1/generate-staker-operators`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  }
+  static BackfillStakerOperators(req: BackfillStakerOperatorsRequest, initReq?: fm.InitReq): Promise<BackfillStakerOperatorsResponse> {
+    return fm.fetchReq<BackfillStakerOperatorsRequest, BackfillStakerOperatorsResponse>(`/rewards/v1/backfill-staker-operators`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
   static GenerateRewardsRoot(req: GenerateRewardsRootRequest, initReq?: fm.InitReq): Promise<GenerateRewardsRootResponse> {
     return fm.fetchReq<GenerateRewardsRootRequest, GenerateRewardsRootResponse>(`/rewards/v1/generate-rewards-root`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

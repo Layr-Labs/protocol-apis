@@ -87,6 +87,14 @@ message GenerateStakerOperatorsRequest {
 message GenerateStakerOperatorsResponse {
 }
 
+message BackfillStakerOperatorsRequest {
+  string cutoff_date = 1;
+}
+
+message BackfillStakerOperatorsResponse {
+  
+}
+
 
 message GenerateRewardsRootRequest {
   // The date to calculate rewards up to, exclusive
@@ -211,6 +219,13 @@ service Rewards {
   rpc GenerateStakerOperators(GenerateStakerOperatorsRequest) returns (GenerateStakerOperatorsResponse) {
     option (google.api.http) = {
       post: "/rewards/v1/generate-staker-operators"
+      body: "*"
+    };
+  }
+
+  rpc BackfillStakerOperators(BackfillStakerOperatorsRequest) returns (BackfillStakerOperatorsResponse) {
+    option (google.api.http) = {
+      post: "/rewards/v1/backfill-staker-operators"
       body: "*"
     };
   }
