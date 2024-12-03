@@ -80,6 +80,14 @@ message GenerateRewardsResponse {
 }
 
 
+message GenerateStakerOperatorsRequest {
+  string snapshot = 1;
+}
+
+message GenerateStakerOperatorsResponse {
+}
+
+
 message GenerateRewardsRootRequest {
   // The date to calculate rewards up to, exclusive
   string cutoff_date = 1;
@@ -196,6 +204,13 @@ service Rewards {
   rpc GenerateRewards(GenerateRewardsRequest) returns (GenerateRewardsResponse) {
     option (google.api.http) = {
       post: "/rewards/v1/generate-rewards"
+      body: "*"
+    };
+  }
+
+  rpc GenerateStakerOperators(GenerateStakerOperatorsRequest) returns (GenerateStakerOperatorsResponse) {
+    option (google.api.http) = {
+      post: "/rewards/v1/generate-staker-operators"
       body: "*"
     };
   }

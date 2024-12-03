@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Rewards_GetRewardsRoot_FullMethodName                            = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsRoot"
 	Rewards_GenerateRewards_FullMethodName                           = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewards"
+	Rewards_GenerateStakerOperators_FullMethodName                   = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateStakerOperators"
 	Rewards_GenerateRewardsRoot_FullMethodName                       = "/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewardsRoot"
 	Rewards_GetRewardsForSnapshot_FullMethodName                     = "/eigenlayer.sidecar.rewards.v1.Rewards/GetRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAttributableRewardsForSnapshot"
@@ -43,6 +44,7 @@ type RewardsClient interface {
 	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
 	// the sidecar will cache the data to be requested later.
 	GenerateRewards(ctx context.Context, in *GenerateRewardsRequest, opts ...grpc.CallOption) (*GenerateRewardsResponse, error)
+	GenerateStakerOperators(ctx context.Context, in *GenerateStakerOperatorsRequest, opts ...grpc.CallOption) (*GenerateStakerOperatorsResponse, error)
 	// GenerateRewardsRoot generates a rewards root for the given snapshot.
 	// Returns an error if the rewards have not been generated for the snapshot.
 	GenerateRewardsRoot(ctx context.Context, in *GenerateRewardsRootRequest, opts ...grpc.CallOption) (*GenerateRewardsRootResponse, error)
@@ -93,6 +95,16 @@ func (c *rewardsClient) GenerateRewards(ctx context.Context, in *GenerateRewards
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GenerateRewardsResponse)
 	err := c.cc.Invoke(ctx, Rewards_GenerateRewards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) GenerateStakerOperators(ctx context.Context, in *GenerateStakerOperatorsRequest, opts ...grpc.CallOption) (*GenerateStakerOperatorsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GenerateStakerOperatorsResponse)
+	err := c.cc.Invoke(ctx, Rewards_GenerateStakerOperators_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -209,6 +221,7 @@ type RewardsServer interface {
 	// If respondWithRewardsData is true, the response will include the rewards data, otherwise
 	// the sidecar will cache the data to be requested later.
 	GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error)
+	GenerateStakerOperators(context.Context, *GenerateStakerOperatorsRequest) (*GenerateStakerOperatorsResponse, error)
 	// GenerateRewardsRoot generates a rewards root for the given snapshot.
 	// Returns an error if the rewards have not been generated for the snapshot.
 	GenerateRewardsRoot(context.Context, *GenerateRewardsRootRequest) (*GenerateRewardsRootResponse, error)
@@ -249,6 +262,9 @@ func (UnimplementedRewardsServer) GetRewardsRoot(context.Context, *GetRewardsRoo
 }
 func (UnimplementedRewardsServer) GenerateRewards(context.Context, *GenerateRewardsRequest) (*GenerateRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateRewards not implemented")
+}
+func (UnimplementedRewardsServer) GenerateStakerOperators(context.Context, *GenerateStakerOperatorsRequest) (*GenerateStakerOperatorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateStakerOperators not implemented")
 }
 func (UnimplementedRewardsServer) GenerateRewardsRoot(context.Context, *GenerateRewardsRootRequest) (*GenerateRewardsRootResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateRewardsRoot not implemented")
@@ -332,6 +348,24 @@ func _Rewards_GenerateRewards_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RewardsServer).GenerateRewards(ctx, req.(*GenerateRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Rewards_GenerateStakerOperators_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateStakerOperatorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GenerateStakerOperators(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GenerateStakerOperators_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GenerateStakerOperators(ctx, req.(*GenerateStakerOperatorsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -530,6 +564,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateRewards",
 			Handler:    _Rewards_GenerateRewards_Handler,
+		},
+		{
+			MethodName: "GenerateStakerOperators",
+			Handler:    _Rewards_GenerateStakerOperators_Handler,
 		},
 		{
 			MethodName: "GenerateRewardsRoot",

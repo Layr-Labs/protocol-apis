@@ -91,6 +91,13 @@ type BaseGenerateRewardsResponse = {
 export type GenerateRewardsResponse = BaseGenerateRewardsResponse
   & OneOf<{ rewards: Reward }>
 
+export type GenerateStakerOperatorsRequest = {
+  snapshot?: string
+}
+
+export type GenerateStakerOperatorsResponse = {
+}
+
 export type GenerateRewardsRootRequest = {
   cutoffDate?: string
 }
@@ -202,6 +209,9 @@ export class Rewards {
   }
   static GenerateRewards(req: GenerateRewardsRequest, initReq?: fm.InitReq): Promise<GenerateRewardsResponse> {
     return fm.fetchReq<GenerateRewardsRequest, GenerateRewardsResponse>(`/rewards/v1/generate-rewards`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  }
+  static GenerateStakerOperators(req: GenerateStakerOperatorsRequest, initReq?: fm.InitReq): Promise<GenerateStakerOperatorsResponse> {
+    return fm.fetchReq<GenerateStakerOperatorsRequest, GenerateStakerOperatorsResponse>(`/rewards/v1/generate-staker-operators`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
   static GenerateRewardsRoot(req: GenerateRewardsRootRequest, initReq?: fm.InitReq): Promise<GenerateRewardsRootResponse> {
     return fm.fetchReq<GenerateRewardsRootRequest, GenerateRewardsRootResponse>(`/rewards/v1/generate-rewards-root`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

@@ -378,6 +378,38 @@
         ]
       }
     },
+    "/rewards/v1/generate-staker-operators": {
+      "post": {
+        "operationId": "Rewards_GenerateStakerOperators",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GenerateStakerOperatorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GenerateStakerOperatorsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/rewards/{snapshot}": {
       "get": {
         "summary": "GetRewardsForSnapshot returns the rewards for the provided snapshot.\nUseful if you generated the rewards and want to fetch them later.",
@@ -592,6 +624,17 @@
           "type": "string"
         }
       }
+    },
+    "v1GenerateStakerOperatorsRequest": {
+      "type": "object",
+      "properties": {
+        "snapshot": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GenerateStakerOperatorsResponse": {
+      "type": "object"
     },
     "v1GetAttributableRewardsForDistributionRootResponse": {
       "type": "object",
