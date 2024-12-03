@@ -24,6 +24,11 @@ class RewardsStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsResponse.FromString,
                 _registered_method=True)
+        self.GenerateStakerOperators = channel.unary_unary(
+                '/eigenlayer.sidecar.rewards.v1.Rewards/GenerateStakerOperators',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateStakerOperatorsRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateStakerOperatorsResponse.FromString,
+                _registered_method=True)
         self.GenerateRewardsRoot = channel.unary_unary(
                 '/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewardsRoot',
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsRootRequest.SerializeToString,
@@ -87,10 +92,16 @@ class RewardsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GenerateRewards(self, request, context):
-        """GenerateRewards generates rewards for the given snapshot.
+        """GenerateRewards generates rewards for the given cutoff_date.
         If respondWithRewardsData is true, the response will include the rewards data, otherwise
         the sidecar will cache the data to be requested later.
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GenerateStakerOperators(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -183,6 +194,11 @@ def add_RewardsServicer_to_server(servicer, server):
                     servicer.GenerateRewards,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsResponse.SerializeToString,
+            ),
+            'GenerateStakerOperators': grpc.unary_unary_rpc_method_handler(
+                    servicer.GenerateStakerOperators,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateStakerOperatorsRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateStakerOperatorsResponse.SerializeToString,
             ),
             'GenerateRewardsRoot': grpc.unary_unary_rpc_method_handler(
                     servicer.GenerateRewardsRoot,
@@ -289,6 +305,33 @@ class Rewards(object):
             '/eigenlayer.sidecar.rewards.v1.Rewards/GenerateRewards',
             eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsRequest.SerializeToString,
             eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateRewardsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GenerateStakerOperators(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/eigenlayer.sidecar.rewards.v1.Rewards/GenerateStakerOperators',
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateStakerOperatorsRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GenerateStakerOperatorsResponse.FromString,
             options,
             channel_credentials,
             insecure,

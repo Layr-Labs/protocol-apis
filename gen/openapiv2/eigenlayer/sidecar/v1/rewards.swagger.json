@@ -314,7 +314,7 @@
     },
     "/rewards/v1/generate-rewards": {
       "post": {
-        "summary": "GenerateRewards generates rewards for the given snapshot.\nIf respondWithRewardsData is true, the response will include the rewards data, otherwise\nthe sidecar will cache the data to be requested later.",
+        "summary": "GenerateRewards generates rewards for the given cutoff_date.\nIf respondWithRewardsData is true, the response will include the rewards data, otherwise\nthe sidecar will cache the data to be requested later.",
         "operationId": "Rewards_GenerateRewards",
         "responses": {
           "200": {
@@ -370,6 +370,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1GenerateRewardsRootRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/generate-staker-operators": {
+      "post": {
+        "operationId": "Rewards_GenerateStakerOperators",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GenerateStakerOperatorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GenerateStakerOperatorsRequest"
             }
           }
         ],
@@ -553,7 +585,7 @@
     "v1GenerateRewardsRequest": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string"
         },
         "respondWithRewardsData": {
@@ -564,7 +596,7 @@
     "v1GenerateRewardsResponse": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string"
         },
         "rewards": {
@@ -576,9 +608,9 @@
     "v1GenerateRewardsRootRequest": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string",
-          "title": "The date of the snapshot in YYYY-MM-DD format"
+          "title": "The date to calculate rewards up to, exclusive"
         }
       }
     },
@@ -587,8 +619,22 @@
       "properties": {
         "rewardsRoot": {
           "type": "string"
+        },
+        "rewardsCalcEndDate": {
+          "type": "string"
         }
       }
+    },
+    "v1GenerateStakerOperatorsRequest": {
+      "type": "object",
+      "properties": {
+        "cutoffDate": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GenerateStakerOperatorsResponse": {
+      "type": "object"
     },
     "v1GetAttributableRewardsForDistributionRootResponse": {
       "type": "object",
@@ -738,10 +784,16 @@
     "v1Reward": {
       "type": "object",
       "properties": {
+        "earner": {
+          "type": "string"
+        },
         "token": {
           "type": "string"
         },
         "amount": {
+          "type": "string"
+        },
+        "snapshot": {
           "type": "string"
         }
       }

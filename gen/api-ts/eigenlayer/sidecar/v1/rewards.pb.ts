@@ -43,8 +43,10 @@ export type Proof = {
 }
 
 export type Reward = {
+  earner?: string
   token?: string
   amount?: string
+  snapshot?: string
 }
 
 export type AttributableReward = {
@@ -77,24 +79,32 @@ export type GetRewardsRootResponse = {
 }
 
 export type GenerateRewardsRequest = {
-  snapshot?: string
+  cutoffDate?: string
   respondWithRewardsData?: boolean
 }
 
 
 type BaseGenerateRewardsResponse = {
-  snapshot?: string
+  cutoffDate?: string
 }
 
 export type GenerateRewardsResponse = BaseGenerateRewardsResponse
   & OneOf<{ rewards: Reward }>
 
+export type GenerateStakerOperatorsRequest = {
+  cutoffDate?: string
+}
+
+export type GenerateStakerOperatorsResponse = {
+}
+
 export type GenerateRewardsRootRequest = {
-  snapshot?: string
+  cutoffDate?: string
 }
 
 export type GenerateRewardsRootResponse = {
   rewardsRoot?: string
+  rewardsCalcEndDate?: string
 }
 
 export type GetRewardsForSnapshotRequest = {
@@ -199,6 +209,9 @@ export class Rewards {
   }
   static GenerateRewards(req: GenerateRewardsRequest, initReq?: fm.InitReq): Promise<GenerateRewardsResponse> {
     return fm.fetchReq<GenerateRewardsRequest, GenerateRewardsResponse>(`/rewards/v1/generate-rewards`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  }
+  static GenerateStakerOperators(req: GenerateStakerOperatorsRequest, initReq?: fm.InitReq): Promise<GenerateStakerOperatorsResponse> {
+    return fm.fetchReq<GenerateStakerOperatorsRequest, GenerateStakerOperatorsResponse>(`/rewards/v1/generate-staker-operators`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
   static GenerateRewardsRoot(req: GenerateRewardsRootRequest, initReq?: fm.InitReq): Promise<GenerateRewardsRootResponse> {
     return fm.fetchReq<GenerateRewardsRootRequest, GenerateRewardsRootResponse>(`/rewards/v1/generate-rewards-root`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

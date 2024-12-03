@@ -28,8 +28,10 @@ message Proof {
 }
 
 message Reward {
-  string token = 1;
-  string amount = 2;
+  string earner = 1;
+  string token = 2;
+  string amount = 3;
+  string snapshot = 4;
 }
 
 message AttributableReward {
@@ -67,23 +69,32 @@ message GetRewardsRootResponse {
 
 
 message GenerateRewardsRequest {
-  string snapshot = 1;
+  string cutoff_date = 1;
   bool respond_with_rewards_data = 2;
 }
 message GenerateRewardsResponse {
-  string snapshot = 1;
+  string cutoff_date = 1;
 
   // Returned if respondWithRewardsData is true in the request
   optional Reward rewards = 2;
 }
 
 
+message GenerateStakerOperatorsRequest {
+  string cutoff_date = 1;
+}
+
+message GenerateStakerOperatorsResponse {
+}
+
+
 message GenerateRewardsRootRequest {
-  // The date of the snapshot in YYYY-MM-DD format
-  string snapshot = 1;
+  // The date to calculate rewards up to, exclusive
+  string cutoff_date = 1;
 }
 message GenerateRewardsRootResponse {
   string rewards_root = 1;
+  string rewards_calc_end_date = 2;
 }
 
 
@@ -187,12 +198,19 @@ service Rewards {
     };
   }
 
-  // GenerateRewards generates rewards for the given snapshot.
+  // GenerateRewards generates rewards for the given cutoff_date.
   // If respondWithRewardsData is true, the response will include the rewards data, otherwise
   // the sidecar will cache the data to be requested later.
   rpc GenerateRewards(GenerateRewardsRequest) returns (GenerateRewardsResponse) {
     option (google.api.http) = {
       post: "/rewards/v1/generate-rewards"
+      body: "*"
+    };
+  }
+
+  rpc GenerateStakerOperators(GenerateStakerOperatorsRequest) returns (GenerateStakerOperatorsResponse) {
+    option (google.api.http) = {
+      post: "/rewards/v1/generate-staker-operators"
       body: "*"
     };
   }
