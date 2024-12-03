@@ -92,7 +92,7 @@ export type GenerateRewardsResponse = BaseGenerateRewardsResponse
   & OneOf<{ rewards: Reward }>
 
 export type GenerateStakerOperatorsRequest = {
-  snapshot?: string
+  cutoffDate?: string
 }
 
 export type GenerateStakerOperatorsResponse = {

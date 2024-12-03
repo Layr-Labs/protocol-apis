@@ -628,7 +628,7 @@
     "v1GenerateStakerOperatorsRequest": {
       "type": "object",
       "properties": {
-        "snapshot": {
+        "cutoffDate": {
           "type": "string"
         }
       }

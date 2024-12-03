@@ -81,7 +81,7 @@ message GenerateRewardsResponse {
 
 
 message GenerateStakerOperatorsRequest {
-  string snapshot = 1;
+  string cutoff_date = 1;
 }
 
 message GenerateStakerOperatorsResponse {
