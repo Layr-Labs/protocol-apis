@@ -539,12 +539,7 @@
       }
     },
     "v1BackfillStakerOperatorsRequest": {
-      "type": "object",
-      "properties": {
-        "cutoffDate": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "v1BackfillStakerOperatorsResponse": {
       "type": "object"

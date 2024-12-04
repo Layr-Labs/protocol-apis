@@ -99,7 +99,6 @@ export type GenerateStakerOperatorsResponse = {
 }
 
 export type BackfillStakerOperatorsRequest = {
-  cutoffDate?: string
 }
 
 export type BackfillStakerOperatorsResponse = {

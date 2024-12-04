@@ -88,11 +88,10 @@ message GenerateStakerOperatorsResponse {
 }
 
 message BackfillStakerOperatorsRequest {
-  string cutoff_date = 1;
 }
 
 message BackfillStakerOperatorsResponse {
-  
+
 }
 
 
