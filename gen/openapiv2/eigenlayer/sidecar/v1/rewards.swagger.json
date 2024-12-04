@@ -77,6 +77,38 @@
         ]
       }
     },
+    "/rewards/v1/backfill-staker-operators": {
+      "post": {
+        "operationId": "Rewards_BackfillStakerOperators",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BackfillStakerOperatorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1BackfillStakerOperatorsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/blocks/{blockHeight}/claimed-rewards": {
       "get": {
         "summary": "GetClaimedRewardsByBlock returns the claimed rewards for the given block height",
@@ -505,6 +537,12 @@
           "type": "string"
         }
       }
+    },
+    "v1BackfillStakerOperatorsRequest": {
+      "type": "object"
+    },
+    "v1BackfillStakerOperatorsResponse": {
+      "type": "object"
     },
     "v1ClaimedReward": {
       "type": "object",
