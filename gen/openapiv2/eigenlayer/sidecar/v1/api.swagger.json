@@ -121,7 +121,12 @@
       }
     },
     "v1GetBlockHeightRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "verified": {
+          "type": "boolean"
+        }
+      }
     },
     "v1GetBlockHeightResponse": {
       "type": "object",

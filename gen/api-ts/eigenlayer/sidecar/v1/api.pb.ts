@@ -6,6 +6,7 @@
 
 import * as fm from "../../../fetch.pb"
 export type GetBlockHeightRequest = {
+  verified?: boolean
 }
 
 export type GetBlockHeightResponse = {
