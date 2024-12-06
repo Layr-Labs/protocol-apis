@@ -81,11 +81,13 @@ export type GetRewardsRootResponse = {
 export type GenerateRewardsRequest = {
   cutoffDate?: string
   respondWithRewardsData?: boolean
+  waitForComplete?: boolean
 }
 
 
 type BaseGenerateRewardsResponse = {
   cutoffDate?: string
+  queued?: boolean
 }
 
 export type GenerateRewardsResponse = BaseGenerateRewardsResponse

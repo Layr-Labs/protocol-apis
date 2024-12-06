@@ -70,12 +70,14 @@ message GetRewardsRootResponse {
 message GenerateRewardsRequest {
   string cutoff_date = 1;
   bool respond_with_rewards_data = 2;
+  bool wait_for_complete = 3;
 }
 message GenerateRewardsResponse {
   string cutoff_date = 1;
 
   // Returned if respondWithRewardsData is true in the request
   optional Reward rewards = 2;
+  bool queued = 3;
 }
 
 

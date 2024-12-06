@@ -638,6 +638,9 @@
         },
         "respondWithRewardsData": {
           "type": "boolean"
+        },
+        "waitForComplete": {
+          "type": "boolean"
         }
       }
     },
@@ -650,6 +653,9 @@
         "rewards": {
           "$ref": "#/definitions/v1Reward",
           "title": "Returned if respondWithRewardsData is true in the request"
+        },
+        "queued": {
+          "type": "boolean"
         }
       }
     },
