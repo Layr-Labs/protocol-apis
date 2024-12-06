@@ -89,10 +89,11 @@ message GenerateStakerOperatorsResponse {
 }
 
 message BackfillStakerOperatorsRequest {
+  bool wait_for_complete = 1;
 }
 
 message BackfillStakerOperatorsResponse {
-
+  bool queued = 1;
 }
 
 

@@ -101,9 +101,11 @@ export type GenerateStakerOperatorsResponse = {
 }
 
 export type BackfillStakerOperatorsRequest = {
+  waitForComplete?: boolean
 }
 
 export type BackfillStakerOperatorsResponse = {
+  queued?: boolean
 }
 
 export type GenerateRewardsRootRequest = {

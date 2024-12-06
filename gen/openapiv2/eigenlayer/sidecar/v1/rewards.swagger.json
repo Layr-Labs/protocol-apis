@@ -539,10 +539,20 @@
       }
     },
     "v1BackfillStakerOperatorsRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "waitForComplete": {
+          "type": "boolean"
+        }
+      }
     },
     "v1BackfillStakerOperatorsResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "queued": {
+          "type": "boolean"
+        }
+      }
     },
     "v1ClaimedReward": {
       "type": "object",
