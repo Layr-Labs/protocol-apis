@@ -67,7 +67,6 @@ message GetRewardsRootResponse {
   DistributionRoot rewards_root = 1;
 }
 
-
 message GenerateRewardsRequest {
   string cutoff_date = 1;
   bool respond_with_rewards_data = 2;
@@ -82,9 +81,11 @@ message GenerateRewardsResponse {
 
 message GenerateStakerOperatorsRequest {
   string cutoff_date = 1;
+  bool wait_for_complete = 2;
 }
 
 message GenerateStakerOperatorsResponse {
+  bool queued = 1;
 }
 
 message BackfillStakerOperatorsRequest {

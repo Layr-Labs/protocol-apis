@@ -668,11 +668,19 @@
       "properties": {
         "cutoffDate": {
           "type": "string"
+        },
+        "waitForComplete": {
+          "type": "boolean"
         }
       }
     },
     "v1GenerateStakerOperatorsResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "queued": {
+          "type": "boolean"
+        }
+      }
     },
     "v1GetAttributableRewardsForDistributionRootResponse": {
       "type": "object",

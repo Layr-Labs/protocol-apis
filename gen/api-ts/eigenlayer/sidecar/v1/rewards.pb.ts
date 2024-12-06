@@ -93,9 +93,11 @@ export type GenerateRewardsResponse = BaseGenerateRewardsResponse
 
 export type GenerateStakerOperatorsRequest = {
   cutoffDate?: string
+  waitForComplete?: boolean
 }
 
 export type GenerateStakerOperatorsResponse = {
+  queued?: boolean
 }
 
 export type BackfillStakerOperatorsRequest = {
