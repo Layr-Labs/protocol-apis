@@ -539,10 +539,20 @@
       }
     },
     "v1BackfillStakerOperatorsRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "waitForComplete": {
+          "type": "boolean"
+        }
+      }
     },
     "v1BackfillStakerOperatorsResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "queued": {
+          "type": "boolean"
+        }
+      }
     },
     "v1ClaimedReward": {
       "type": "object",
@@ -628,6 +638,9 @@
         },
         "respondWithRewardsData": {
           "type": "boolean"
+        },
+        "waitForComplete": {
+          "type": "boolean"
         }
       }
     },
@@ -640,6 +653,9 @@
         "rewards": {
           "$ref": "#/definitions/v1Reward",
           "title": "Returned if respondWithRewardsData is true in the request"
+        },
+        "queued": {
+          "type": "boolean"
         }
       }
     },
@@ -668,11 +684,19 @@
       "properties": {
         "cutoffDate": {
           "type": "string"
+        },
+        "waitForComplete": {
+          "type": "boolean"
         }
       }
     },
     "v1GenerateStakerOperatorsResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "queued": {
+          "type": "boolean"
+        }
+      }
     },
     "v1GetAttributableRewardsForDistributionRootResponse": {
       "type": "object",
