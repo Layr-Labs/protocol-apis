@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.events.v1;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/events/v1";
+
+import "google/api/annotations.proto";
+
+message StateRoot {
+  uint64 eth_block_number = 1;
+  string eth_block_hash = 2;
+  string state_root = 3;
+}
+
+message AvsOperatorStateChange {
+
+}
+
+message OperatorShareDelta {
+
+}
+
+message RewardSubmission {
+
+}
+
+message StakerDelegationchange {
+
+}
+
+message StakerShareDelta {
+
+}
+
+message SubmittedDistributionRoot {
+
+}
+
+message DisabledDistributionRoot {
+
+}
+
+message EigenStateChange {
+  oneof change {
+    AvsOperatorStateChange avs_operator_state_change = 1;
+    OperatorShareDelta operator_share_delta = 2;
+    RewardSubmission reward_submission = 3;
+    StakerDelegationchange staker_delegation_change = 4;
+    StakerShareDelta staker_share_delta = 5;
+    SubmittedDistributionRoot submitted_distribution_root = 6;
+    DisabledDistributionRoot disabled_distribution_root = 7;
+  }
+}
+
