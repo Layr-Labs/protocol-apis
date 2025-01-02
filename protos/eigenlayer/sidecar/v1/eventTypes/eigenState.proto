@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.eventTypes;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/eventTypes";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message StateRoot {
+  uint64 eth_block_number = 1;
+  string eth_block_hash = 2;
+  string state_root = 3;
+}
+
+message TransactionMetadata {
+  uint64 log_index = 4;
+  string transaction_hash = 5;
+  uint64 block_height = 6;
+}
+
+message AvsOperatorStateChange {
+  string avs = 1;
+  string operator = 2;
+  bool registered = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+message OperatorShareDelta {
+  string operator = 1;
+  string staker = 2;
+  string strategy = 3;
+  string shares = 4;
+  google.protobuf.Timestamp block_time = 5;
+  string block_date = 6;
+  TransactionMetadata transaction_metadata = 7;
+}
+
+message RewardSubmission {
+  enum RewardType {
+    AVS = 0;
+    ALL_STAKERS = 1;
+    ALL_EARNERS = 2;
+  }
+
+  string avs = 1;
+  string reward_hash = 2;
+  string token = 3;
+  string amount = 4;
+  string strategy = 5;
+  uint64 strategy_index = 6;
+  string multiplier = 7;
+  google.protobuf.Timestamp start_timestamp = 8;
+  google.protobuf.Timestamp end_timestamp = 9;
+  uint64 duration = 10;
+  RewardType reward_type = 11;
+  TransactionMetadata transaction_metadata = 12;
+}
+
+message StakerDelegationChange {
+  string staker = 1;
+  string operator = 2;
+  bool delegated = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+message StakerShareDelta {
+  string staker = 1;
+  string strategy = 2;
+  string shares = 3;
+  uint64 strategy_index = 4;
+  google.protobuf.Timestamp block_time = 5;
+  string block_date = 6;
+  TransactionMetadata transaction_metadata = 7;
+}
+
+message SubmittedDistributionRoot {
+  string root = 1;
+  uint64 root_index = 2;
+  google.protobuf.Timestamp rewards_calculation_end = 3;
+  string rewards_calculation_end_unit = 4;
+  google.protobuf.Timestamp activated_at = 5;
+  string activated_at_unit = 6;
+  uint64 created_at_block_number = 7;
+  TransactionMetadata transaction_metadata = 8;
+}
+
+message DisabledDistributionRoot {
+  uint64 root_index = 1;
+  TransactionMetadata transaction_metadata = 2;
+}
+
+message EigenStateChange {
+  oneof change {
+    AvsOperatorStateChange avs_operator_state_change = 1;
+    OperatorShareDelta operator_share_delta = 2;
+    RewardSubmission reward_submission = 3;
+    StakerDelegationChange staker_delegation_change = 4;
+    StakerShareDelta staker_share_delta = 5;
+    SubmittedDistributionRoot submitted_distribution_root = 6;
+    DisabledDistributionRoot disabled_distribution_root = 7;
+  }
+}
+

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.events;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/events";
+
+import "google/api/annotations.proto";
+import "eigenlayer/sidecar/v1/eventTypes/eigenState.proto";
+import "eigenlayer/sidecar/v1/eventTypes/ethereumTypes.proto";
+
+message StreamEigenStateChangesRequest {}
+
+message StreamEigenStateChangesResponse {
+  uint64 block_number = 1;
+  eigenlayer.sidecar.v1.eventTypes.StateRoot state_root = 2;
+  repeated eigenlayer.sidecar.v1.eventTypes.EigenStateChange changes = 3;
+}
+
+
+message StreamIndexedBlocksRequest {
+  // In addition to block data, include EigenState changes related to the block
+  bool include_state_changes = 1;
+}
+message StreamIndexedBlocksResponse {
+  eigenlayer.sidecar.v1.eventTypes.Block block = 1;
+  eigenlayer.sidecar.v1.eventTypes.StateRoot state_root = 2;
+  repeated eigenlayer.sidecar.v1.eventTypes.EigenStateChange changes = 3;
+}
+
+service Events {
+  rpc StreamEigenStateChanges(StreamEigenStateChangesRequest) returns (stream StreamEigenStateChangesResponse) {
+    option (google.api.http) = {
+      post: "/events/v1/stream-eigen-state-changes"
+      body: "*"
+    };
+  }
+
+  rpc StreamIndexedBlocks(StreamIndexedBlocksRequest) returns (stream StreamIndexedBlocksResponse) {
+    option (google.api.http) = {
+      post: "/events/v1/stream-indexed-blocks"
+      body: "*"
+    };
+  }
+}
