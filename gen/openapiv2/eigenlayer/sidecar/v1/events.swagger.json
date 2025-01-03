@@ -1,0 +1,175 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "eigenlayer/sidecar/v1/events.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Events"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/events/v1/stream-eigen-state-changes": {
+      "post": {
+        "operationId": "Events_StreamEigenStateChanges",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1StreamEigenStateChangesResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of v1StreamEigenStateChangesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1StreamEigenStateChangesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Events"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AvsOperatorStateChange": {
+      "type": "object"
+    },
+    "v1DisabledDistributionRoot": {
+      "type": "object"
+    },
+    "v1EigenStateChange": {
+      "type": "object",
+      "properties": {
+        "avsOperatorStateChange": {
+          "$ref": "#/definitions/v1AvsOperatorStateChange"
+        },
+        "operatorShareDelta": {
+          "$ref": "#/definitions/v1OperatorShareDelta"
+        },
+        "rewardSubmission": {
+          "$ref": "#/definitions/v1RewardSubmission"
+        },
+        "stakerDelegationChange": {
+          "$ref": "#/definitions/v1StakerDelegationchange"
+        },
+        "stakerShareDelta": {
+          "$ref": "#/definitions/v1StakerShareDelta"
+        },
+        "submittedDistributionRoot": {
+          "$ref": "#/definitions/v1SubmittedDistributionRoot"
+        },
+        "disabledDistributionRoot": {
+          "$ref": "#/definitions/v1DisabledDistributionRoot"
+        }
+      }
+    },
+    "v1OperatorShareDelta": {
+      "type": "object"
+    },
+    "v1RewardSubmission": {
+      "type": "object"
+    },
+    "v1StakerDelegationchange": {
+      "type": "object"
+    },
+    "v1StakerShareDelta": {
+      "type": "object"
+    },
+    "v1StateRoot": {
+      "type": "object",
+      "properties": {
+        "ethBlockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ethBlockHash": {
+          "type": "string"
+        },
+        "stateRoot": {
+          "type": "string"
+        }
+      }
+    },
+    "v1StreamEigenStateChangesRequest": {
+      "type": "object"
+    },
+    "v1StreamEigenStateChangesResponse": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "stateRoot": {
+          "$ref": "#/definitions/v1StateRoot"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1EigenStateChange"
+          }
+        }
+      }
+    },
+    "v1SubmittedDistributionRoot": {
+      "type": "object"
+    }
+  }
+}
