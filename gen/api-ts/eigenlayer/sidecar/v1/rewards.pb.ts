@@ -146,6 +146,7 @@ export type GetAttributableRewardsForDistributionRootResponse = {
 export type GenerateClaimProofRequest = {
   earnerAddress?: string
   tokens?: string[]
+  snapshot?: string
 }
 
 export type GenerateClaimProofResponse = {
