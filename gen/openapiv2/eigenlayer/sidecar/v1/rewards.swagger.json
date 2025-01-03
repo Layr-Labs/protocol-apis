@@ -619,6 +619,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "snapshot": {
+          "type": "string"
         }
       }
     },
