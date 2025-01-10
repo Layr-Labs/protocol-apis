@@ -84,6 +84,11 @@ class RewardsStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GetClaimedRewardsByBlockRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GetClaimedRewardsByBlockResponse.FromString,
                 _registered_method=True)
+        self.ListDistributionRoots = channel.unary_unary(
+                '/eigenlayer.sidecar.rewards.v1.Rewards/ListDistributionRoots',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.ListDistributionRootsRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.ListDistributionRootsResponse.FromString,
+                _registered_method=True)
 
 
 class RewardsServicer(object):
@@ -193,6 +198,12 @@ class RewardsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListDistributionRoots(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_RewardsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -265,6 +276,11 @@ def add_RewardsServicer_to_server(servicer, server):
                     servicer.GetClaimedRewardsByBlock,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GetClaimedRewardsByBlockRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GetClaimedRewardsByBlockResponse.SerializeToString,
+            ),
+            'ListDistributionRoots': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListDistributionRoots,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.ListDistributionRootsRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.ListDistributionRootsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -645,6 +661,33 @@ class Rewards(object):
             '/eigenlayer.sidecar.rewards.v1.Rewards/GetClaimedRewardsByBlock',
             eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GetClaimedRewardsByBlockRequest.SerializeToString,
             eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.GetClaimedRewardsByBlockResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListDistributionRoots(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/eigenlayer.sidecar.rewards.v1.Rewards/ListDistributionRoots',
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.ListDistributionRootsRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards__pb2.ListDistributionRootsResponse.FromString,
             options,
             channel_credentials,
             insecure,

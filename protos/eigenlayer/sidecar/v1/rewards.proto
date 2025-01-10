@@ -5,6 +5,9 @@ package eigenlayer.sidecar.rewards.v1;
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/rewards/v1";
 
 import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
 
 message EarnerLeaf {
   string earner = 1;
@@ -54,10 +57,16 @@ message AttributableReward {
 
 message DistributionRoot {
   string root = 1;
-  uint64 block_height = 2;
-  uint64 calculation_end_timestamp = 3;
-  uint64 activated_at = 4;
-  bool disabled = 5;
+  uint64 root_index = 2;
+  google.protobuf.Timestamp rewards_calculation_end = 3;
+  string rewards_calculation_end_unit = 4;
+  google.protobuf.Timestamp activated_at = 5;
+  string activated_at_unit = 6;
+  uint64 created_at_block_number = 7;
+  string transaction_hash = 8;
+  uint64 block_height = 9;
+  uint64 log_index = 10;
+  bool disabled = 11;
 }
 
 message GetRewardsRootRequest {
@@ -135,7 +144,8 @@ message GetAttributableRewardsForDistributionRootResponse {
 message GenerateClaimProofRequest {
   string earner_address = 1;
   repeated string tokens = 2;
-  string snapshot = 3;
+  // if root_index is omitted, the current active root will be used
+  optional google.protobuf.Int64Value root_index = 3;
 }
 message GenerateClaimProofResponse {
   Proof proof = 1;
@@ -199,6 +209,12 @@ message GetClaimedRewardsByBlockRequest {
 }
 message GetClaimedRewardsByBlockResponse {
   repeated ClaimedReward rewards = 1;
+}
+
+message ListDistributionRootsRequest {}
+
+message ListDistributionRootsResponse {
+  repeated DistributionRoot distribution_roots = 1;
 }
 
 service Rewards {
@@ -309,6 +325,12 @@ service Rewards {
   rpc GetClaimedRewardsByBlock(GetClaimedRewardsByBlockRequest) returns (GetClaimedRewardsByBlockResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/blocks/{block_height}/claimed-rewards"
+    };
+  }
+
+  rpc ListDistributionRoots(ListDistributionRootsRequest) returns (ListDistributionRootsResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/distribution-roots"
     };
   }
 }

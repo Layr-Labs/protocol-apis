@@ -5,6 +5,8 @@
 */
 
 import * as fm from "../../../fetch.pb"
+import * as GoogleProtobufTimestamp from "../../../google/protobuf/timestamp.pb"
+import * as GoogleProtobufWrappers from "../../../google/protobuf/wrappers.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -64,9 +66,15 @@ export type AttributableReward = {
 
 export type DistributionRoot = {
   root?: string
+  rootIndex?: string
+  rewardsCalculationEnd?: GoogleProtobufTimestamp.Timestamp
+  rewardsCalculationEndUnit?: string
+  activatedAt?: GoogleProtobufTimestamp.Timestamp
+  activatedAtUnit?: string
+  createdAtBlockNumber?: string
+  transactionHash?: string
   blockHeight?: string
-  calculationEndTimestamp?: string
-  activatedAt?: string
+  logIndex?: string
   disabled?: boolean
 }
 
@@ -143,11 +151,14 @@ export type GetAttributableRewardsForDistributionRootResponse = {
   rewards?: AttributableReward[]
 }
 
-export type GenerateClaimProofRequest = {
+
+type BaseGenerateClaimProofRequest = {
   earnerAddress?: string
   tokens?: string[]
-  snapshot?: string
 }
+
+export type GenerateClaimProofRequest = BaseGenerateClaimProofRequest
+  & OneOf<{ rootIndex: GoogleProtobufWrappers.Int64Value }>
 
 export type GenerateClaimProofResponse = {
   proof?: Proof
@@ -216,6 +227,13 @@ export type GetClaimedRewardsByBlockResponse = {
   rewards?: ClaimedReward[]
 }
 
+export type ListDistributionRootsRequest = {
+}
+
+export type ListDistributionRootsResponse = {
+  distributionRoots?: DistributionRoot[]
+}
+
 export class Rewards {
   static GetRewardsRoot(req: GetRewardsRootRequest, initReq?: fm.InitReq): Promise<GetRewardsRootResponse> {
     return fm.fetchReq<GetRewardsRootRequest, GetRewardsRootResponse>(`/rewards/v1/blocks/${req["blockHeight"]}/rewards-root?${fm.renderURLSearchParams(req, ["blockHeight"])}`, {...initReq, method: "GET"})
@@ -258,5 +276,8 @@ export class Rewards {
   }
   static GetClaimedRewardsByBlock(req: GetClaimedRewardsByBlockRequest, initReq?: fm.InitReq): Promise<GetClaimedRewardsByBlockResponse> {
     return fm.fetchReq<GetClaimedRewardsByBlockRequest, GetClaimedRewardsByBlockResponse>(`/rewards/v1/blocks/${req["blockHeight"]}/claimed-rewards?${fm.renderURLSearchParams(req, ["blockHeight"])}`, {...initReq, method: "GET"})
+  }
+  static ListDistributionRoots(req: ListDistributionRootsRequest, initReq?: fm.InitReq): Promise<ListDistributionRootsResponse> {
+    return fm.fetchReq<ListDistributionRootsRequest, ListDistributionRootsResponse>(`/rewards/v1/distribution-roots?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
   }
 }
