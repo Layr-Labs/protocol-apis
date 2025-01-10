@@ -1,0 +1,518 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "eigenlayer/sidecar/v1/events/events.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Events"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/events/v1/stream-eigen-state-changes": {
+      "post": {
+        "operationId": "Events_StreamEigenStateChanges",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/eventsStreamEigenStateChangesResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of eventsStreamEigenStateChangesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventsStreamEigenStateChangesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Events"
+        ]
+      }
+    },
+    "/events/v1/stream-indexed-blocks": {
+      "post": {
+        "operationId": "Events_StreamIndexedBlocks",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/eventsStreamIndexedBlocksResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of eventsStreamIndexedBlocksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/eventsStreamIndexedBlocksRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Events"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "RewardSubmissionRewardType": {
+      "type": "string",
+      "enum": [
+        "AVS",
+        "ALL_STAKERS",
+        "ALL_EARNERS"
+      ],
+      "default": "AVS"
+    },
+    "eventTypesAvsOperatorStateChange": {
+      "type": "object",
+      "properties": {
+        "avs": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "registered": {
+          "type": "boolean"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesBlock": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockHash": {
+          "type": "string"
+        },
+        "parentHash": {
+          "type": "string"
+        },
+        "blockTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventTypesTransaction"
+          }
+        }
+      }
+    },
+    "eventTypesDisabledDistributionRoot": {
+      "type": "object",
+      "properties": {
+        "rootIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesEigenStateChange": {
+      "type": "object",
+      "properties": {
+        "avsOperatorStateChange": {
+          "$ref": "#/definitions/eventTypesAvsOperatorStateChange"
+        },
+        "operatorShareDelta": {
+          "$ref": "#/definitions/eventTypesOperatorShareDelta"
+        },
+        "rewardSubmission": {
+          "$ref": "#/definitions/eventTypesRewardSubmission"
+        },
+        "stakerDelegationChange": {
+          "$ref": "#/definitions/eventTypesStakerDelegationChange"
+        },
+        "stakerShareDelta": {
+          "$ref": "#/definitions/eventTypesStakerShareDelta"
+        },
+        "submittedDistributionRoot": {
+          "$ref": "#/definitions/eventTypesSubmittedDistributionRoot"
+        },
+        "disabledDistributionRoot": {
+          "$ref": "#/definitions/eventTypesDisabledDistributionRoot"
+        }
+      }
+    },
+    "eventTypesOperatorShareDelta": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string"
+        },
+        "staker": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string"
+        },
+        "shares": {
+          "type": "string"
+        },
+        "blockTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockDate": {
+          "type": "string"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesRewardSubmission": {
+      "type": "object",
+      "properties": {
+        "avs": {
+          "type": "string"
+        },
+        "rewardHash": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string"
+        },
+        "strategyIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "multiplier": {
+          "type": "string"
+        },
+        "startTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "rewardType": {
+          "$ref": "#/definitions/RewardSubmissionRewardType"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesStakerDelegationChange": {
+      "type": "object",
+      "properties": {
+        "staker": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "delegated": {
+          "type": "boolean"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesStakerShareDelta": {
+      "type": "object",
+      "properties": {
+        "staker": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string"
+        },
+        "shares": {
+          "type": "string"
+        },
+        "strategyIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "blockDate": {
+          "type": "string"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesStateRoot": {
+      "type": "object",
+      "properties": {
+        "ethBlockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ethBlockHash": {
+          "type": "string"
+        },
+        "stateRoot": {
+          "type": "string"
+        }
+      }
+    },
+    "eventTypesSubmittedDistributionRoot": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "type": "string"
+        },
+        "rootIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "rewardsCalculationEnd": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rewardsCalculationEndUnit": {
+          "type": "string"
+        },
+        "activatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "activatedAtUnit": {
+          "type": "string"
+        },
+        "createdAtBlockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionMetadata": {
+          "$ref": "#/definitions/eventTypesTransactionMetadata"
+        }
+      }
+    },
+    "eventTypesTransaction": {
+      "type": "object",
+      "properties": {
+        "transactionHash": {
+          "type": "string"
+        },
+        "transactionIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "fromAddress": {
+          "type": "string"
+        },
+        "toAddress": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string"
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventTypesTransactionLog"
+          }
+        }
+      }
+    },
+    "eventTypesTransactionLog": {
+      "type": "object",
+      "properties": {
+        "transactionHash": {
+          "type": "string"
+        },
+        "transactionIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "address": {
+          "type": "string"
+        },
+        "eventName": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "string",
+          "format": "byte"
+        },
+        "outputData": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "eventTypesTransactionMetadata": {
+      "type": "object",
+      "properties": {
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "eventsStreamEigenStateChangesRequest": {
+      "type": "object"
+    },
+    "eventsStreamEigenStateChangesResponse": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "stateRoot": {
+          "$ref": "#/definitions/eventTypesStateRoot"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventTypesEigenStateChange"
+          }
+        }
+      }
+    },
+    "eventsStreamIndexedBlocksRequest": {
+      "type": "object",
+      "properties": {
+        "includeStateChanges": {
+          "type": "boolean",
+          "title": "In addition to block data, include EigenState changes related to the block"
+        }
+      }
+    },
+    "eventsStreamIndexedBlocksResponse": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/eventTypesBlock"
+        },
+        "stateRoot": {
+          "$ref": "#/definitions/eventTypesStateRoot"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eventTypesEigenStateChange"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
