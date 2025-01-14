@@ -13,6 +13,8 @@ plugins:
     opt: paths=source_relative
   - plugin: openapiv2
     out: gen/openapiv2
+    opt:
+      - allow_merge=true
   - plugin: grpc-gateway-ts
     out: gen/api-ts
   - plugin: buf.build/protocolbuffers/python
