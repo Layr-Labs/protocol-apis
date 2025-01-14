@@ -1,10 +1,19 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "eigenlayer/sidecar/v1/rewards.proto",
+    "title": "eigenlayer/sidecar/v1/api.proto",
     "version": "version not set"
   },
   "tags": [
+    {
+      "name": "Rpc"
+    },
+    {
+      "name": "Health"
+    },
+    {
+      "name": "Protocol"
+    },
     {
       "name": "Rewards"
     }
@@ -16,6 +25,216 @@
     "application/json"
   ],
   "paths": {
+    "/protocol/v1/operators/{operatorAddress}/delegated-stakers": {
+      "get": {
+        "summary": "GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.\nBlockHeight is optional, otherwise latest is used.",
+        "operationId": "Protocol_GetDelegatedStakersForOperator",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDelegatedStakersForOperatorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operatorAddress}/delegated-strategies": {
+      "get": {
+        "summary": "GetDelegatedStrategiesForOperator returns strategies an Operator has delegated",
+        "operationId": "Protocol_GetDelegatedStrategiesForOperator",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDelegatedStrategiesForOperatorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operatorAddress}/registered-avs": {
+      "get": {
+        "summary": "GetRegisteredAvsForOperator returns the list of registered AVs for a given operator\nBlockHeight is optional, otherwise latest is used.",
+        "operationId": "Protocol_GetRegisteredAvsForOperator",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetRegisteredAvsForOperatorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/delegated-stake": {
+      "get": {
+        "summary": "GetOperatorDelegatedStakeForStrategy returns the amount of delegated stake for a given strategy for an operator",
+        "operationId": "Protocol_GetOperatorDelegatedStakeForStrategy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetOperatorDelegatedStakeForStrategyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/shares": {
+      "get": {
+        "summary": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and\nthe AVS the operator has registered with.",
+        "operationId": "Protocol_GetStakerShares",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetStakerSharesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
     "/rewards/v1/attributable-rewards-by-root/{distributionRoot}": {
       "get": {
         "operationId": "Rewards_GetAttributableRewardsForDistributionRoot",
@@ -472,9 +691,146 @@
           "Rewards"
         ]
       }
+    },
+    "/rpc/v1/latest-block": {
+      "post": {
+        "operationId": "Rpc_GetBlockHeight",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetBlockHeightResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetBlockHeightRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
+    "/rpc/v1/state-roots/{blockNumber}": {
+      "post": {
+        "operationId": "Rpc_GetStateRoot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetStateRootResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "blockNumber",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RpcGetStateRootBody"
+            }
+          }
+        ],
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "operationId": "Health_HealthCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1HealthCheckResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/v1/ready": {
+      "get": {
+        "operationId": "Health_ReadyCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReadyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
     }
   },
   "definitions": {
+    "HealthCheckResponseServingStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SERVING",
+        "NOT_SERVING",
+        "SERVICE_UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "description": " - SERVICE_UNKNOWN: Used only by the Watch method."
+    },
+    "RpcGetStateRootBody": {
+      "type": "object"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -748,6 +1104,26 @@
         }
       }
     },
+    "v1GetBlockHeightRequest": {
+      "type": "object",
+      "properties": {
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1GetBlockHeightResponse": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockHash": {
+          "type": "string"
+        }
+      }
+    },
     "v1GetClaimedRewardsByBlockResponse": {
       "type": "object",
       "properties": {
@@ -756,6 +1132,53 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1ClaimedReward"
+          }
+        }
+      }
+    },
+    "v1GetDelegatedStakersForOperatorResponse": {
+      "type": "object",
+      "properties": {
+        "stakerAddress": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1GetDelegatedStrategiesForOperatorResponse": {
+      "type": "object",
+      "properties": {
+        "strategyAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1GetOperatorDelegatedStakeForStrategyResponse": {
+      "type": "object",
+      "properties": {
+        "shares": {
+          "type": "string"
+        },
+        "avsAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1GetRegisteredAvsForOperatorResponse": {
+      "type": "object",
+      "properties": {
+        "avsAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
@@ -780,6 +1203,33 @@
         }
       }
     },
+    "v1GetStakerSharesResponse": {
+      "type": "object",
+      "properties": {
+        "shares": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1StakerShare"
+          }
+        }
+      }
+    },
+    "v1GetStateRootResponse": {
+      "type": "object",
+      "properties": {
+        "ethBlockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ethBlockHash": {
+          "type": "string"
+        },
+        "stateRoot": {
+          "type": "string"
+        }
+      }
+    },
     "v1GetSummarizedRewardsForEarnerResponse": {
       "type": "object",
       "properties": {
@@ -801,6 +1251,14 @@
             "type": "object",
             "$ref": "#/definitions/v1Reward"
           }
+        }
+      }
+    },
+    "v1HealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/HealthCheckResponseServingStatus"
         }
       }
     },
@@ -846,6 +1304,14 @@
         }
       }
     },
+    "v1ReadyResponse": {
+      "type": "object",
+      "properties": {
+        "ready": {
+          "type": "boolean"
+        }
+      }
+    },
     "v1Reward": {
       "type": "object",
       "properties": {
@@ -860,6 +1326,28 @@
         },
         "snapshot": {
           "type": "string"
+        }
+      }
+    },
+    "v1StakerShare": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string"
+        },
+        "shares": {
+          "type": "string"
+        },
+        "operatorAddress": {
+          "type": "string",
+          "title": "Operator the staker has delegated to if present"
+        },
+        "avsAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "The operator could be regietered with 0 or many AVSs"
         }
       }
     },
