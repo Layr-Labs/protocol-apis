@@ -665,6 +665,24 @@ func local_request_Rewards_GetClaimedRewardsByBlock_0(ctx context.Context, marsh
 
 }
 
+func request_Rewards_ListDistributionRoots_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListDistributionRootsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.ListDistributionRoots(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Rewards_ListDistributionRoots_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListDistributionRootsRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.ListDistributionRoots(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 // RegisterRewardsHandlerServer registers the http handlers for service Rewards to "mux".
 // UnaryRPC     :call RewardsServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -1022,6 +1040,31 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 
 	})
 
+	mux.Handle("GET", pattern_Rewards_ListDistributionRoots_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.rewards.v1.Rewards/ListDistributionRoots", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Rewards_ListDistributionRoots_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Rewards_ListDistributionRoots_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -1371,6 +1414,28 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 
 	})
 
+	mux.Handle("GET", pattern_Rewards_ListDistributionRoots_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.rewards.v1.Rewards/ListDistributionRoots", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Rewards_ListDistributionRoots_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Rewards_ListDistributionRoots_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -1402,6 +1467,8 @@ var (
 	pattern_Rewards_GetSummarizedRewardsForEarner_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "summarized-rewards"}, ""))
 
 	pattern_Rewards_GetClaimedRewardsByBlock_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "blocks", "block_height", "claimed-rewards"}, ""))
+
+	pattern_Rewards_ListDistributionRoots_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "distribution-roots"}, ""))
 )
 
 var (
@@ -1432,4 +1499,6 @@ var (
 	forward_Rewards_GetSummarizedRewardsForEarner_0 = runtime.ForwardResponseMessage
 
 	forward_Rewards_GetClaimedRewardsByBlock_0 = runtime.ForwardResponseMessage
+
+	forward_Rewards_ListDistributionRoots_0 = runtime.ForwardResponseMessage
 )

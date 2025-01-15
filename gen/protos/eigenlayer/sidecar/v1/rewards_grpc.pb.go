@@ -33,6 +33,7 @@ const (
 	Rewards_GetAvailableRewardsTokens_FullMethodName                 = "/eigenlayer.sidecar.rewards.v1.Rewards/GetAvailableRewardsTokens"
 	Rewards_GetSummarizedRewardsForEarner_FullMethodName             = "/eigenlayer.sidecar.rewards.v1.Rewards/GetSummarizedRewardsForEarner"
 	Rewards_GetClaimedRewardsByBlock_FullMethodName                  = "/eigenlayer.sidecar.rewards.v1.Rewards/GetClaimedRewardsByBlock"
+	Rewards_ListDistributionRoots_FullMethodName                     = "/eigenlayer.sidecar.rewards.v1.Rewards/ListDistributionRoots"
 )
 
 // RewardsClient is the client API for Rewards service.
@@ -73,6 +74,7 @@ type RewardsClient interface {
 	GetSummarizedRewardsForEarner(ctx context.Context, in *GetSummarizedRewardsForEarnerRequest, opts ...grpc.CallOption) (*GetSummarizedRewardsForEarnerResponse, error)
 	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
 	GetClaimedRewardsByBlock(ctx context.Context, in *GetClaimedRewardsByBlockRequest, opts ...grpc.CallOption) (*GetClaimedRewardsByBlockResponse, error)
+	ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error)
 }
 
 type rewardsClient struct {
@@ -223,6 +225,16 @@ func (c *rewardsClient) GetClaimedRewardsByBlock(ctx context.Context, in *GetCla
 	return out, nil
 }
 
+func (c *rewardsClient) ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListDistributionRootsResponse)
+	err := c.cc.Invoke(ctx, Rewards_ListDistributionRoots_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RewardsServer is the server API for Rewards service.
 // All implementations should embed UnimplementedRewardsServer
 // for forward compatibility.
@@ -261,6 +273,7 @@ type RewardsServer interface {
 	GetSummarizedRewardsForEarner(context.Context, *GetSummarizedRewardsForEarnerRequest) (*GetSummarizedRewardsForEarnerResponse, error)
 	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
 	GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error)
+	ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error)
 }
 
 // UnimplementedRewardsServer should be embedded to have
@@ -311,6 +324,9 @@ func (UnimplementedRewardsServer) GetSummarizedRewardsForEarner(context.Context,
 }
 func (UnimplementedRewardsServer) GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClaimedRewardsByBlock not implemented")
+}
+func (UnimplementedRewardsServer) ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDistributionRoots not implemented")
 }
 func (UnimplementedRewardsServer) testEmbeddedByValue() {}
 
@@ -584,6 +600,24 @@ func _Rewards_GetClaimedRewardsByBlock_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_ListDistributionRoots_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDistributionRootsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).ListDistributionRoots(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_ListDistributionRoots_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).ListDistributionRoots(ctx, req.(*ListDistributionRootsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Rewards_ServiceDesc is the grpc.ServiceDesc for Rewards service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -646,6 +680,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClaimedRewardsByBlock",
 			Handler:    _Rewards_GetClaimedRewardsByBlock_Handler,
+		},
+		{
+			MethodName: "ListDistributionRoots",
+			Handler:    _Rewards_ListDistributionRoots_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
