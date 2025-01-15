@@ -74,12 +74,15 @@ type BaseGetStakerSharesRequest = {
 export type GetStakerSharesRequest = BaseGetStakerSharesRequest
   & OneOf<{ blockHeight: string }>
 
-export type StakerShare = {
+
+type BaseStakerShare = {
   strategy?: string
   shares?: string
-  operatorAddress?: string
   avsAddresses?: string[]
 }
+
+export type StakerShare = BaseStakerShare
+  & OneOf<{ operatorAddress: string }>
 
 export type GetStakerSharesResponse = {
   shares?: StakerShare[]

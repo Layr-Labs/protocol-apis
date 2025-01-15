@@ -57,7 +57,7 @@ message StakerShare {
   string shares = 2;
 
   // Operator the staker has delegated to if present
-  string operator_address = 3;
+  optional string operator_address = 3;
   // The operator could be regietered with 0 or many AVSs
   repeated string avs_addresses = 4;
 }
