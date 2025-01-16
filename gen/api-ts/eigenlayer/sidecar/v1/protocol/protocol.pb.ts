@@ -63,7 +63,7 @@ export type GetDelegatedStakersForOperatorRequest = BaseGetDelegatedStakersForOp
   & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
 
 export type GetDelegatedStakersForOperatorResponse = {
-  stakerAddress?: string[]
+  stakerAddresses?: string[]
 }
 
 

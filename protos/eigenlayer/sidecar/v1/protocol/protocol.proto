@@ -44,7 +44,7 @@ message GetDelegatedStakersForOperatorRequest {
 }
 
 message GetDelegatedStakersForOperatorResponse {
-  repeated string staker_address = 1;
+  repeated string staker_addresses = 1;
 }
 
 message GetStakerSharesRequest {
