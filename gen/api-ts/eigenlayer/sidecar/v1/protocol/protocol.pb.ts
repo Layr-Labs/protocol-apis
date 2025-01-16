@@ -5,6 +5,7 @@
 */
 
 import * as fm from "../../../../fetch.pb"
+import * as EigenlayerSidecarV1CommonTypes from "../common/types.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -55,12 +56,11 @@ export type GetOperatorDelegatedStakeForStrategyResponse = {
 
 type BaseGetDelegatedStakersForOperatorRequest = {
   operatorAddress?: string
-  pageNumber?: number
-  pageSize?: number
 }
 
 export type GetDelegatedStakersForOperatorRequest = BaseGetDelegatedStakersForOperatorRequest
   & OneOf<{ blockHeight: string }>
+  & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
 
 export type GetDelegatedStakersForOperatorResponse = {
   stakerAddress?: string[]
