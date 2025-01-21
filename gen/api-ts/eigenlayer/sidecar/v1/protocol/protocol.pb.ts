@@ -62,9 +62,13 @@ export type GetDelegatedStakersForOperatorRequest = BaseGetDelegatedStakersForOp
   & OneOf<{ blockHeight: string }>
   & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
 
-export type GetDelegatedStakersForOperatorResponse = {
+
+type BaseGetDelegatedStakersForOperatorResponse = {
   stakerAddresses?: string[]
 }
+
+export type GetDelegatedStakersForOperatorResponse = BaseGetDelegatedStakersForOperatorResponse
+  & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>
 
 
 type BaseGetStakerSharesRequest = {

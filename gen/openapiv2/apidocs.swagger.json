@@ -1,17 +1,102 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "eigenlayer/sidecar/v1/common/types.proto",
+    "title": "eigenlayer/sidecar/v1/health/health.proto",
     "version": "version not set"
   },
+  "tags": [
+    {
+      "name": "Health"
+    }
+  ],
   "consumes": [
     "application/json"
   ],
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "operationId": "Health_HealthCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/healthHealthCheckResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/v1/ready": {
+      "get": {
+        "operationId": "Health_ReadyCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/healthReadyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    }
+  },
   "definitions": {
+    "HealthCheckResponseServingStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SERVING",
+        "NOT_SERVING",
+        "SERVICE_UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "description": " - SERVICE_UNKNOWN: Used only by the Watch method."
+    },
+    "healthHealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/HealthCheckResponseServingStatus"
+        }
+      }
+    },
+    "healthReadyResponse": {
+      "type": "object",
+      "properties": {
+        "ready": {
+          "type": "boolean"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {

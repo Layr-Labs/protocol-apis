@@ -45,6 +45,7 @@ message GetDelegatedStakersForOperatorRequest {
 
 message GetDelegatedStakersForOperatorResponse {
   repeated string staker_addresses = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination next_page = 2;
 }
 
 message GetStakerSharesRequest {
