@@ -217,7 +217,9 @@ message GetClaimedRewardsByBlockResponse {
   repeated ClaimedReward rewards = 1;
 }
 
-message ListDistributionRootsRequest {}
+message ListDistributionRootsRequest {
+  optional uint64 block_height = 1;
+}
 
 message ListDistributionRootsResponse {
   repeated DistributionRoot distribution_roots = 1;
@@ -314,8 +316,8 @@ service Rewards {
     };
   }
 
-  // GetTotalClaimedRewards returns the total claimed rewards for the given earner address
-  // BlockHeight is optional. If omitted, the latest block height is used.
+  // GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
+  // the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
   rpc GetTotalClaimedRewards(GetTotalClaimedRewardsRequest) returns (GetTotalClaimedRewardsResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earner_address}/total-claimed-rewards"
@@ -337,13 +339,15 @@ service Rewards {
     };
   }
 
-  // GetClaimedRewardsByBlock returns the claimed rewards for the given block height
+  // GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
   rpc GetClaimedRewardsByBlock(GetClaimedRewardsByBlockRequest) returns (GetClaimedRewardsByBlockResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/blocks/{block_height}/claimed-rewards"
     };
   }
 
+  // ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
+  // inclusive of the start and end block heights
   rpc ListClaimedRewardsByBlockRange(ListClaimedRewardsByBlockRangeRequest) returns (ListClaimedRewardsByBlockRangeResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earner_address}/claimed-rewards"

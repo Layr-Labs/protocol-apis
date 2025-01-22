@@ -234,8 +234,12 @@ export type GetClaimedRewardsByBlockResponse = {
   rewards?: ClaimedReward[]
 }
 
-export type ListDistributionRootsRequest = {
+
+type BaseListDistributionRootsRequest = {
 }
+
+export type ListDistributionRootsRequest = BaseListDistributionRootsRequest
+  & OneOf<{ blockHeight: string }>
 
 export type ListDistributionRootsResponse = {
   distributionRoots?: DistributionRoot[]

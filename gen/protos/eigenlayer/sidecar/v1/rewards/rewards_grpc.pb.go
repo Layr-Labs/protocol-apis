@@ -65,16 +65,18 @@ type RewardsClient interface {
 	// GetAvailableRewards returns the available rewards for the given earner address
 	// This takes the amount earned from the current active root and subtracts total claimed.
 	GetAvailableRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error)
-	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address
-	// BlockHeight is optional. If omitted, the latest block height is used.
+	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
+	// the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
 	GetTotalClaimedRewards(ctx context.Context, in *GetTotalClaimedRewardsRequest, opts ...grpc.CallOption) (*GetTotalClaimedRewardsResponse, error)
 	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(ctx context.Context, in *GetAvailableRewardsTokensRequest, opts ...grpc.CallOption) (*GetAvailableRewardsTokensResponse, error)
 	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
 	// theyve earned, how much is currently claimable, and how much has been claimed.
 	GetSummarizedRewardsForEarner(ctx context.Context, in *GetSummarizedRewardsForEarnerRequest, opts ...grpc.CallOption) (*GetSummarizedRewardsForEarnerResponse, error)
-	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
+	// GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
 	GetClaimedRewardsByBlock(ctx context.Context, in *GetClaimedRewardsByBlockRequest, opts ...grpc.CallOption) (*GetClaimedRewardsByBlockResponse, error)
+	// ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
+	// inclusive of the start and end block heights
 	ListClaimedRewardsByBlockRange(ctx context.Context, in *ListClaimedRewardsByBlockRangeRequest, opts ...grpc.CallOption) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error)
 }
@@ -275,16 +277,18 @@ type RewardsServer interface {
 	// GetAvailableRewards returns the available rewards for the given earner address
 	// This takes the amount earned from the current active root and subtracts total claimed.
 	GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error)
-	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address
-	// BlockHeight is optional. If omitted, the latest block height is used.
+	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
+	// the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
 	GetTotalClaimedRewards(context.Context, *GetTotalClaimedRewardsRequest) (*GetTotalClaimedRewardsResponse, error)
 	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(context.Context, *GetAvailableRewardsTokensRequest) (*GetAvailableRewardsTokensResponse, error)
 	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
 	// theyve earned, how much is currently claimable, and how much has been claimed.
 	GetSummarizedRewardsForEarner(context.Context, *GetSummarizedRewardsForEarnerRequest) (*GetSummarizedRewardsForEarnerResponse, error)
-	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
+	// GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
 	GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error)
+	// ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
+	// inclusive of the start and end block heights
 	ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error)
 }

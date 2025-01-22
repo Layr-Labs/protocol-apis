@@ -496,7 +496,7 @@
     },
     "/rewards/v1/blocks/{blockHeight}/claimed-rewards": {
       "get": {
-        "summary": "GetClaimedRewardsByBlock returns the claimed rewards for the given block height",
+        "summary": "GetClaimedRewardsByBlock returns the claimed rewards for the provided block height",
         "operationId": "Rewards_GetClaimedRewardsByBlock",
         "responses": {
           "200": {
@@ -608,6 +608,15 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
         "tags": [
           "Rewards"
         ]
@@ -677,6 +686,7 @@
     },
     "/rewards/v1/earners/{earnerAddress}/claimed-rewards": {
       "get": {
+        "summary": "ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,\ninclusive of the start and end block heights",
         "operationId": "Rewards_ListClaimedRewardsByBlockRange",
         "responses": {
           "200": {
@@ -759,7 +769,7 @@
     },
     "/rewards/v1/earners/{earnerAddress}/total-claimed-rewards": {
       "get": {
-        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address\nBlockHeight is optional. If omitted, the latest block height is used.",
+        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including\nthe provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.",
         "operationId": "Rewards_GetTotalClaimedRewards",
         "responses": {
           "200": {

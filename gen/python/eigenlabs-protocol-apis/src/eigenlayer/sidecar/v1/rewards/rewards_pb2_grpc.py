@@ -174,8 +174,8 @@ class RewardsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetTotalClaimedRewards(self, request, context):
-        """GetTotalClaimedRewards returns the total claimed rewards for the given earner address
-        BlockHeight is optional. If omitted, the latest block height is used.
+        """GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
+        the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -197,14 +197,16 @@ class RewardsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetClaimedRewardsByBlock(self, request, context):
-        """GetClaimedRewardsByBlock returns the claimed rewards for the given block height
+        """GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ListClaimedRewardsByBlockRange(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
+        inclusive of the start and end block heights
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
