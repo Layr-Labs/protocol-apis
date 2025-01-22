@@ -13,8 +13,9 @@ plugins:
     opt: paths=source_relative
   - plugin: openapiv2
     out: gen/openapiv2
-    opt:
-      - allow_merge=true
+    opt: allow_merge=true,merge_file_name=apidocs
+    strategy: all
+    # https://grpc-ecosystem.github.io/grpc-gateway/docs/mapping/customizing_openapi_output/#merging-output
   - plugin: grpc-gateway-ts
     out: gen/api-ts
   - plugin: buf.build/protocolbuffers/python
