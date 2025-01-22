@@ -208,6 +208,7 @@ message ClaimedReward {
   string token = 3;
   string amount = 4;
   string distribution_root = 5;
+  uint64 block_number = 6;
 }
 message GetClaimedRewardsByBlockRequest {
   uint64 block_height = 1;
@@ -220,6 +221,16 @@ message ListDistributionRootsRequest {}
 
 message ListDistributionRootsResponse {
   repeated DistributionRoot distribution_roots = 1;
+}
+
+message ListClaimedRewardsByBlockRangeRequest {
+  string earner_address = 1;
+  uint64 start_block_height = 2;
+  uint64 end_block_height = 3;
+}
+
+message ListClaimedRewardsByBlockRangeResponse {
+  repeated ClaimedReward rewards = 1;
 }
 
 service Rewards {
@@ -330,6 +341,12 @@ service Rewards {
   rpc GetClaimedRewardsByBlock(GetClaimedRewardsByBlockRequest) returns (GetClaimedRewardsByBlockResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/blocks/{block_height}/claimed-rewards"
+    };
+  }
+
+  rpc ListClaimedRewardsByBlockRange(ListClaimedRewardsByBlockRangeRequest) returns (ListClaimedRewardsByBlockRangeResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/earners/{earner_address}/claimed-rewards"
     };
   }
 

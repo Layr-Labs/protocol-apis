@@ -33,6 +33,7 @@ const (
 	Rewards_GetAvailableRewardsTokens_FullMethodName                 = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens"
 	Rewards_GetSummarizedRewardsForEarner_FullMethodName             = "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner"
 	Rewards_GetClaimedRewardsByBlock_FullMethodName                  = "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock"
+	Rewards_ListClaimedRewardsByBlockRange_FullMethodName            = "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange"
 	Rewards_ListDistributionRoots_FullMethodName                     = "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots"
 )
 
@@ -74,6 +75,7 @@ type RewardsClient interface {
 	GetSummarizedRewardsForEarner(ctx context.Context, in *GetSummarizedRewardsForEarnerRequest, opts ...grpc.CallOption) (*GetSummarizedRewardsForEarnerResponse, error)
 	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
 	GetClaimedRewardsByBlock(ctx context.Context, in *GetClaimedRewardsByBlockRequest, opts ...grpc.CallOption) (*GetClaimedRewardsByBlockResponse, error)
+	ListClaimedRewardsByBlockRange(ctx context.Context, in *ListClaimedRewardsByBlockRangeRequest, opts ...grpc.CallOption) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error)
 }
 
@@ -225,6 +227,16 @@ func (c *rewardsClient) GetClaimedRewardsByBlock(ctx context.Context, in *GetCla
 	return out, nil
 }
 
+func (c *rewardsClient) ListClaimedRewardsByBlockRange(ctx context.Context, in *ListClaimedRewardsByBlockRangeRequest, opts ...grpc.CallOption) (*ListClaimedRewardsByBlockRangeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListClaimedRewardsByBlockRangeResponse)
+	err := c.cc.Invoke(ctx, Rewards_ListClaimedRewardsByBlockRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rewardsClient) ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListDistributionRootsResponse)
@@ -273,6 +285,7 @@ type RewardsServer interface {
 	GetSummarizedRewardsForEarner(context.Context, *GetSummarizedRewardsForEarnerRequest) (*GetSummarizedRewardsForEarnerResponse, error)
 	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
 	GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error)
+	ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error)
 }
 
@@ -324,6 +337,9 @@ func (UnimplementedRewardsServer) GetSummarizedRewardsForEarner(context.Context,
 }
 func (UnimplementedRewardsServer) GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClaimedRewardsByBlock not implemented")
+}
+func (UnimplementedRewardsServer) ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListClaimedRewardsByBlockRange not implemented")
 }
 func (UnimplementedRewardsServer) ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDistributionRoots not implemented")
@@ -600,6 +616,24 @@ func _Rewards_GetClaimedRewardsByBlock_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_ListClaimedRewardsByBlockRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListClaimedRewardsByBlockRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).ListClaimedRewardsByBlockRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_ListClaimedRewardsByBlockRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).ListClaimedRewardsByBlockRange(ctx, req.(*ListClaimedRewardsByBlockRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Rewards_ListDistributionRoots_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListDistributionRootsRequest)
 	if err := dec(in); err != nil {
@@ -680,6 +714,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClaimedRewardsByBlock",
 			Handler:    _Rewards_GetClaimedRewardsByBlock_Handler,
+		},
+		{
+			MethodName: "ListClaimedRewardsByBlockRange",
+			Handler:    _Rewards_ListClaimedRewardsByBlockRange_Handler,
 		},
 		{
 			MethodName: "ListDistributionRoots",

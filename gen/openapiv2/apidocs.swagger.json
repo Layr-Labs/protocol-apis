@@ -675,6 +675,50 @@
         ]
       }
     },
+    "/rewards/v1/earners/{earnerAddress}/claimed-rewards": {
+      "get": {
+        "operationId": "Rewards_ListClaimedRewardsByBlockRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsListClaimedRewardsByBlockRangeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startBlockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "endBlockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/earners/{earnerAddress}/summarized-rewards": {
       "get": {
         "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much\ntheyve earned, how much is currently claimable, and how much has been claimed.",
@@ -1595,6 +1639,10 @@
         },
         "distributionRoot": {
           "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -1847,6 +1895,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/rewardsTotalClaimedReward"
+          }
+        }
+      }
+    },
+    "rewardsListClaimedRewardsByBlockRangeResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsClaimedReward"
           }
         }
       }

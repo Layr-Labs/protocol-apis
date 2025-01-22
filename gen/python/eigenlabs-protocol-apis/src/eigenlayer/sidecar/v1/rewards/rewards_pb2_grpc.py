@@ -84,6 +84,11 @@ class RewardsStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimedRewardsByBlockRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimedRewardsByBlockResponse.FromString,
                 _registered_method=True)
+        self.ListClaimedRewardsByBlockRange = channel.unary_unary(
+                '/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListClaimedRewardsByBlockRangeRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListClaimedRewardsByBlockRangeResponse.FromString,
+                _registered_method=True)
         self.ListDistributionRoots = channel.unary_unary(
                 '/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots',
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListDistributionRootsRequest.SerializeToString,
@@ -198,6 +203,12 @@ class RewardsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListClaimedRewardsByBlockRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ListDistributionRoots(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -276,6 +287,11 @@ def add_RewardsServicer_to_server(servicer, server):
                     servicer.GetClaimedRewardsByBlock,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimedRewardsByBlockRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimedRewardsByBlockResponse.SerializeToString,
+            ),
+            'ListClaimedRewardsByBlockRange': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListClaimedRewardsByBlockRange,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListClaimedRewardsByBlockRangeRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListClaimedRewardsByBlockRangeResponse.SerializeToString,
             ),
             'ListDistributionRoots': grpc.unary_unary_rpc_method_handler(
                     servicer.ListDistributionRoots,
@@ -661,6 +677,33 @@ class Rewards(object):
             '/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock',
             eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimedRewardsByBlockRequest.SerializeToString,
             eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimedRewardsByBlockResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListClaimedRewardsByBlockRange(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange',
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListClaimedRewardsByBlockRangeRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.ListClaimedRewardsByBlockRangeResponse.FromString,
             options,
             channel_credentials,
             insecure,
