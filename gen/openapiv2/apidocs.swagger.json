@@ -731,7 +731,7 @@
     },
     "/rewards/v1/earners/{earnerAddress}/summarized-rewards": {
       "get": {
-        "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much\ntheyve earned, how much is currently claimable, and how much has been claimed.",
+        "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:\n- total tokens earned\n- total tokens active (subset of earned that are in roots that have surpassed their activation delay)\n- total claimed\n- total claimable (total active - total claimed)",
         "operationId": "Rewards_GetSummarizedRewardsForEarner",
         "responses": {
           "200": {
@@ -2002,13 +2002,17 @@
           "type": "string",
           "title": "Rewards that have been earned but not necessarily activated yet"
         },
-        "claimable": {
+        "active": {
           "type": "string",
           "title": "total rewards that are claimable (does not account for claimed)"
         },
         "claimed": {
           "type": "string",
           "title": "total rewards that have been claimed"
+        },
+        "claimable": {
+          "type": "string",
+          "title": "rewards that can be claimed at the block height"
         }
       }
     },

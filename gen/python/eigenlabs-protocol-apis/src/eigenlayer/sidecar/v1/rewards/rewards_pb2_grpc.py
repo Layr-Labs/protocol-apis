@@ -189,8 +189,11 @@ class RewardsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetSummarizedRewardsForEarner(self, request, context):
-        """GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
-        theyve earned, how much is currently claimable, and how much has been claimed.
+        """GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:
+        - total tokens earned
+        - total tokens active (subset of earned that are in roots that have surpassed their activation delay)
+        - total claimed
+        - total claimable (total active - total claimed)
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

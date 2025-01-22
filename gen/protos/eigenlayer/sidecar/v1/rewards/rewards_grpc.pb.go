@@ -70,8 +70,11 @@ type RewardsClient interface {
 	GetTotalClaimedRewards(ctx context.Context, in *GetTotalClaimedRewardsRequest, opts ...grpc.CallOption) (*GetTotalClaimedRewardsResponse, error)
 	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(ctx context.Context, in *GetAvailableRewardsTokensRequest, opts ...grpc.CallOption) (*GetAvailableRewardsTokensResponse, error)
-	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
-	// theyve earned, how much is currently claimable, and how much has been claimed.
+	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:
+	// - total tokens earned
+	// - total tokens active (subset of earned that are in roots that have surpassed their activation delay)
+	// - total claimed
+	// - total claimable (total active - total claimed)
 	GetSummarizedRewardsForEarner(ctx context.Context, in *GetSummarizedRewardsForEarnerRequest, opts ...grpc.CallOption) (*GetSummarizedRewardsForEarnerResponse, error)
 	// GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
 	GetClaimedRewardsByBlock(ctx context.Context, in *GetClaimedRewardsByBlockRequest, opts ...grpc.CallOption) (*GetClaimedRewardsByBlockResponse, error)
@@ -282,8 +285,11 @@ type RewardsServer interface {
 	GetTotalClaimedRewards(context.Context, *GetTotalClaimedRewardsRequest) (*GetTotalClaimedRewardsResponse, error)
 	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(context.Context, *GetAvailableRewardsTokensRequest) (*GetAvailableRewardsTokensResponse, error)
-	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
-	// theyve earned, how much is currently claimable, and how much has been claimed.
+	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:
+	// - total tokens earned
+	// - total tokens active (subset of earned that are in roots that have surpassed their activation delay)
+	// - total claimed
+	// - total claimable (total active - total claimed)
 	GetSummarizedRewardsForEarner(context.Context, *GetSummarizedRewardsForEarnerRequest) (*GetSummarizedRewardsForEarnerResponse, error)
 	// GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
 	GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error)

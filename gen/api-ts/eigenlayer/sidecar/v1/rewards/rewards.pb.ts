@@ -201,8 +201,9 @@ export type GetAvailableRewardsTokensResponse = {
 export type SummarizedEarnerReward = {
   token?: string
   earned?: string
-  claimable?: string
+  active?: string
   claimed?: string
+  claimable?: string
 }
 
 

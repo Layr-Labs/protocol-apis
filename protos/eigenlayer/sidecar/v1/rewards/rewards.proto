@@ -188,16 +188,20 @@ message SummarizedEarnerReward {
   string earned = 2;
 
   // total rewards that are claimable (does not account for claimed)
-  string claimable = 3;
+  string active = 3;
 
   // total rewards that have been claimed
   string claimed = 4;
+
+  // rewards that can be claimed at the block height
+  string claimable = 5;
 }
 
 message GetSummarizedRewardsForEarnerRequest {
   string earner_address = 1;
   optional uint64 block_height = 2;
 }
+
 message GetSummarizedRewardsForEarnerResponse {
   repeated SummarizedEarnerReward rewards = 1;
 }
@@ -331,8 +335,11 @@ service Rewards {
     };
   }
 
-  // GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
-  // theyve earned, how much is currently claimable, and how much has been claimed.
+  // GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:
+  // - total tokens earned
+  // - total tokens active (subset of earned that are in roots that have surpassed their activation delay)
+  // - total claimed
+  // - total claimable (total active - total claimed)
   rpc GetSummarizedRewardsForEarner(GetSummarizedRewardsForEarnerRequest) returns (GetSummarizedRewardsForEarnerResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earner_address}/summarized-rewards"
