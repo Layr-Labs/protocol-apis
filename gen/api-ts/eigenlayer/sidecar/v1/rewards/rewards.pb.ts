@@ -172,6 +172,12 @@ export type GetAvailableRewardsResponse = {
   rewards?: Reward[]
 }
 
+export type TotalClaimedReward = {
+  earner?: string
+  token?: string
+  amount?: string
+}
+
 
 type BaseGetTotalClaimedRewardsRequest = {
   earnerAddress?: string
@@ -181,7 +187,7 @@ export type GetTotalClaimedRewardsRequest = BaseGetTotalClaimedRewardsRequest
   & OneOf<{ blockHeight: string }>
 
 export type GetTotalClaimedRewardsResponse = {
-  rewards?: Reward[]
+  rewards?: TotalClaimedReward[]
 }
 
 export type GetAvailableRewardsTokensRequest = {

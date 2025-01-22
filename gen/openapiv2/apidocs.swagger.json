@@ -1846,7 +1846,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/rewardsReward"
+            "$ref": "#/definitions/rewardsTotalClaimedReward"
           }
         }
       }
@@ -1949,6 +1949,20 @@
           "type": "string"
         },
         "cumulativeEarnings": {
+          "type": "string"
+        }
+      }
+    },
+    "rewardsTotalClaimedReward": {
+      "type": "object",
+      "properties": {
+        "earner": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "amount": {
           "type": "string"
         }
       }
