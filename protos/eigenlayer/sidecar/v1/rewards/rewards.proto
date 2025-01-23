@@ -154,6 +154,7 @@ message GenerateClaimProofResponse {
 
 message GetAvailableRewardsRequest {
   string earner_address = 1;
+  uint64 block_height = 2;
 }
 message GetAvailableRewardsResponse {
   repeated Reward rewards = 1;

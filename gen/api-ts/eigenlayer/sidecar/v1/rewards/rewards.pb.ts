@@ -166,6 +166,7 @@ export type GenerateClaimProofResponse = {
 
 export type GetAvailableRewardsRequest = {
   earnerAddress?: string
+  blockHeight?: string
 }
 
 export type GetAvailableRewardsResponse = {
