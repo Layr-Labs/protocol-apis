@@ -1515,7 +1515,7 @@ func (x *GenerateClaimProofResponse) GetProof() *Proof {
 	return nil
 }
 
-type GetAvailableRewardsRequest struct {
+type GetClaimableRewardsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1524,8 +1524,8 @@ type GetAvailableRewardsRequest struct {
 	BlockHeight   uint64 `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
 }
 
-func (x *GetAvailableRewardsRequest) Reset() {
-	*x = GetAvailableRewardsRequest{}
+func (x *GetClaimableRewardsRequest) Reset() {
+	*x = GetClaimableRewardsRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_eigenlayer_sidecar_v1_rewards_rewards_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1533,13 +1533,13 @@ func (x *GetAvailableRewardsRequest) Reset() {
 	}
 }
 
-func (x *GetAvailableRewardsRequest) String() string {
+func (x *GetClaimableRewardsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetAvailableRewardsRequest) ProtoMessage() {}
+func (*GetClaimableRewardsRequest) ProtoMessage() {}
 
-func (x *GetAvailableRewardsRequest) ProtoReflect() protoreflect.Message {
+func (x *GetClaimableRewardsRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_eigenlayer_sidecar_v1_rewards_rewards_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1551,26 +1551,26 @@ func (x *GetAvailableRewardsRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAvailableRewardsRequest.ProtoReflect.Descriptor instead.
-func (*GetAvailableRewardsRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetClaimableRewardsRequest.ProtoReflect.Descriptor instead.
+func (*GetClaimableRewardsRequest) Descriptor() ([]byte, []int) {
 	return file_eigenlayer_sidecar_v1_rewards_rewards_proto_rawDescGZIP(), []int{24}
 }
 
-func (x *GetAvailableRewardsRequest) GetEarnerAddress() string {
+func (x *GetClaimableRewardsRequest) GetEarnerAddress() string {
 	if x != nil {
 		return x.EarnerAddress
 	}
 	return ""
 }
 
-func (x *GetAvailableRewardsRequest) GetBlockHeight() uint64 {
+func (x *GetClaimableRewardsRequest) GetBlockHeight() uint64 {
 	if x != nil {
 		return x.BlockHeight
 	}
 	return 0
 }
 
-type GetAvailableRewardsResponse struct {
+type GetClaimableRewardsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1578,8 +1578,8 @@ type GetAvailableRewardsResponse struct {
 	Rewards []*Reward `protobuf:"bytes,1,rep,name=rewards,proto3" json:"rewards,omitempty"`
 }
 
-func (x *GetAvailableRewardsResponse) Reset() {
-	*x = GetAvailableRewardsResponse{}
+func (x *GetClaimableRewardsResponse) Reset() {
+	*x = GetClaimableRewardsResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_eigenlayer_sidecar_v1_rewards_rewards_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1587,13 +1587,13 @@ func (x *GetAvailableRewardsResponse) Reset() {
 	}
 }
 
-func (x *GetAvailableRewardsResponse) String() string {
+func (x *GetClaimableRewardsResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetAvailableRewardsResponse) ProtoMessage() {}
+func (*GetClaimableRewardsResponse) ProtoMessage() {}
 
-func (x *GetAvailableRewardsResponse) ProtoReflect() protoreflect.Message {
+func (x *GetClaimableRewardsResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_eigenlayer_sidecar_v1_rewards_rewards_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1605,12 +1605,12 @@ func (x *GetAvailableRewardsResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAvailableRewardsResponse.ProtoReflect.Descriptor instead.
-func (*GetAvailableRewardsResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetClaimableRewardsResponse.ProtoReflect.Descriptor instead.
+func (*GetClaimableRewardsResponse) Descriptor() ([]byte, []int) {
 	return file_eigenlayer_sidecar_v1_rewards_rewards_proto_rawDescGZIP(), []int{25}
 }
 
-func (x *GetAvailableRewardsResponse) GetRewards() []*Reward {
+func (x *GetClaimableRewardsResponse) GetRewards() []*Reward {
 	if x != nil {
 		return x.Rewards
 	}
@@ -2670,14 +2670,14 @@ var file_eigenlayer_sidecar_v1_rewards_rewards_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x6f, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x65, 0x69, 0x67,
 	0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2e,
 	0x76, 0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2e, 0x50, 0x72, 0x6f, 0x6f, 0x66,
-	0x52, 0x05, 0x70, 0x72, 0x6f, 0x6f, 0x66, 0x22, 0x66, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x41, 0x76,
-	0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65,
+	0x52, 0x05, 0x70, 0x72, 0x6f, 0x6f, 0x66, 0x22, 0x66, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x43, 0x6c,
+	0x61, 0x69, 0x6d, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x0e, 0x65, 0x61, 0x72, 0x6e, 0x65, 0x72, 0x5f,
 	0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x65,
 	0x61, 0x72, 0x6e, 0x65, 0x72, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x21, 0x0a, 0x0c,
 	0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x5f, 0x68, 0x65, 0x69, 0x67, 0x68, 0x74, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x04, 0x52, 0x0b, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x22,
-	0x5e, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x41, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x52,
+	0x5e, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x43, 0x6c, 0x61, 0x69, 0x6d, 0x61, 0x62, 0x6c, 0x65, 0x52,
 	0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3f,
 	0x0a, 0x07, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x25, 0x2e, 0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64,
@@ -2908,19 +2908,19 @@ var file_eigenlayer_sidecar_v1_rewards_rewards_proto_rawDesc = []byte{
 	0x50, 0x72, 0x6f, 0x6f, 0x66, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x22, 0x82,
 	0xd3, 0xe4, 0x93, 0x02, 0x1c, 0x3a, 0x01, 0x2a, 0x22, 0x17, 0x2f, 0x72, 0x65, 0x77, 0x61, 0x72,
 	0x64, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x6c, 0x61, 0x69, 0x6d, 0x2d, 0x70, 0x72, 0x6f, 0x6f,
-	0x66, 0x12, 0xcc, 0x01, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x41, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62,
+	0x66, 0x12, 0xcc, 0x01, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x43, 0x6c, 0x61, 0x69, 0x6d, 0x61, 0x62,
 	0x6c, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x39, 0x2e, 0x65, 0x69, 0x67, 0x65,
 	0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2e, 0x76,
-	0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x76, 0x61,
-	0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71,
+	0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x6c, 0x61,
+	0x69, 0x6d, 0x61, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x1a, 0x3a, 0x2e, 0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65,
 	0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x72, 0x65, 0x77,
-	0x61, 0x72, 0x64, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c,
+	0x61, 0x72, 0x64, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x6c, 0x61, 0x69, 0x6d, 0x61, 0x62, 0x6c,
 	0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x22, 0x3e, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x38, 0x12, 0x36, 0x2f, 0x72, 0x65, 0x77, 0x61, 0x72,
 	0x64, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x65, 0x61, 0x72, 0x6e, 0x65, 0x72, 0x73, 0x2f, 0x7b, 0x65,
-	0x61, 0x72, 0x6e, 0x65, 0x72, 0x5f, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x7d, 0x2f, 0x61,
-	0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65, 0x2d, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0x61, 0x72, 0x6e, 0x65, 0x72, 0x5f, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x7d, 0x2f, 0x63,
+	0x6c, 0x61, 0x69, 0x6d, 0x61, 0x62, 0x6c, 0x65, 0x2d, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
 	0x12, 0xd9, 0x01, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x54, 0x6f, 0x74, 0x61, 0x6c, 0x43, 0x6c, 0x61,
 	0x69, 0x6d, 0x65, 0x64, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0x3c, 0x2e, 0x65, 0x69,
 	0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72,
@@ -3065,8 +3065,8 @@ var file_eigenlayer_sidecar_v1_rewards_rewards_proto_goTypes = []any{
 	(*GetAttributableRewardsForDistributionRootResponse)(nil), // 22: eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse
 	(*GenerateClaimProofRequest)(nil),                         // 23: eigenlayer.sidecar.v1.rewards.GenerateClaimProofRequest
 	(*GenerateClaimProofResponse)(nil),                        // 24: eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse
-	(*GetAvailableRewardsRequest)(nil),                        // 25: eigenlayer.sidecar.v1.rewards.GetAvailableRewardsRequest
-	(*GetAvailableRewardsResponse)(nil),                       // 26: eigenlayer.sidecar.v1.rewards.GetAvailableRewardsResponse
+	(*GetClaimableRewardsRequest)(nil),                        // 25: eigenlayer.sidecar.v1.rewards.GetClaimableRewardsRequest
+	(*GetClaimableRewardsResponse)(nil),                       // 26: eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse
 	(*TotalClaimedReward)(nil),                                // 27: eigenlayer.sidecar.v1.rewards.TotalClaimedReward
 	(*GetTotalClaimedRewardsRequest)(nil),                     // 28: eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsRequest
 	(*GetTotalClaimedRewardsResponse)(nil),                    // 29: eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse
@@ -3097,7 +3097,7 @@ var file_eigenlayer_sidecar_v1_rewards_rewards_proto_depIdxs = []int32{
 	5,  // 8: eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse.rewards:type_name -> eigenlayer.sidecar.v1.rewards.AttributableReward
 	43, // 9: eigenlayer.sidecar.v1.rewards.GenerateClaimProofRequest.root_index:type_name -> google.protobuf.Int64Value
 	3,  // 10: eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse.proof:type_name -> eigenlayer.sidecar.v1.rewards.Proof
-	4,  // 11: eigenlayer.sidecar.v1.rewards.GetAvailableRewardsResponse.rewards:type_name -> eigenlayer.sidecar.v1.rewards.Reward
+	4,  // 11: eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse.rewards:type_name -> eigenlayer.sidecar.v1.rewards.Reward
 	27, // 12: eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse.rewards:type_name -> eigenlayer.sidecar.v1.rewards.TotalClaimedReward
 	32, // 13: eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerResponse.rewards:type_name -> eigenlayer.sidecar.v1.rewards.SummarizedEarnerReward
 	35, // 14: eigenlayer.sidecar.v1.rewards.GetClaimedRewardsByBlockResponse.rewards:type_name -> eigenlayer.sidecar.v1.rewards.ClaimedReward
@@ -3112,7 +3112,7 @@ var file_eigenlayer_sidecar_v1_rewards_rewards_proto_depIdxs = []int32{
 	19, // 23: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForSnapshot:input_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForSnapshotRequest
 	21, // 24: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForDistributionRoot:input_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootRequest
 	23, // 25: eigenlayer.sidecar.v1.rewards.Rewards.GenerateClaimProof:input_type -> eigenlayer.sidecar.v1.rewards.GenerateClaimProofRequest
-	25, // 26: eigenlayer.sidecar.v1.rewards.Rewards.GetAvailableRewards:input_type -> eigenlayer.sidecar.v1.rewards.GetAvailableRewardsRequest
+	25, // 26: eigenlayer.sidecar.v1.rewards.Rewards.GetClaimableRewards:input_type -> eigenlayer.sidecar.v1.rewards.GetClaimableRewardsRequest
 	28, // 27: eigenlayer.sidecar.v1.rewards.Rewards.GetTotalClaimedRewards:input_type -> eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsRequest
 	30, // 28: eigenlayer.sidecar.v1.rewards.Rewards.GetAvailableRewardsTokens:input_type -> eigenlayer.sidecar.v1.rewards.GetAvailableRewardsTokensRequest
 	33, // 29: eigenlayer.sidecar.v1.rewards.Rewards.GetSummarizedRewardsForEarner:input_type -> eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerRequest
@@ -3128,7 +3128,7 @@ var file_eigenlayer_sidecar_v1_rewards_rewards_proto_depIdxs = []int32{
 	20, // 39: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForSnapshot:output_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForSnapshotResponse
 	22, // 40: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse
 	24, // 41: eigenlayer.sidecar.v1.rewards.Rewards.GenerateClaimProof:output_type -> eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse
-	26, // 42: eigenlayer.sidecar.v1.rewards.Rewards.GetAvailableRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetAvailableRewardsResponse
+	26, // 42: eigenlayer.sidecar.v1.rewards.Rewards.GetClaimableRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse
 	29, // 43: eigenlayer.sidecar.v1.rewards.Rewards.GetTotalClaimedRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse
 	31, // 44: eigenlayer.sidecar.v1.rewards.Rewards.GetAvailableRewardsTokens:output_type -> eigenlayer.sidecar.v1.rewards.GetAvailableRewardsTokensResponse
 	34, // 45: eigenlayer.sidecar.v1.rewards.Rewards.GetSummarizedRewardsForEarner:output_type -> eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerResponse
@@ -3437,7 +3437,7 @@ func file_eigenlayer_sidecar_v1_rewards_rewards_proto_init() {
 			}
 		}
 		file_eigenlayer_sidecar_v1_rewards_rewards_proto_msgTypes[24].Exporter = func(v any, i int) any {
-			switch v := v.(*GetAvailableRewardsRequest); i {
+			switch v := v.(*GetClaimableRewardsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3449,7 +3449,7 @@ func file_eigenlayer_sidecar_v1_rewards_rewards_proto_init() {
 			}
 		}
 		file_eigenlayer_sidecar_v1_rewards_rewards_proto_msgTypes[25].Exporter = func(v any, i int) any {
-			switch v := v.(*GetAvailableRewardsResponse); i {
+			switch v := v.(*GetClaimableRewardsResponse); i {
 			case 0:
 				return &v.state
 			case 1:

@@ -152,11 +152,11 @@ message GenerateClaimProofResponse {
 }
 
 
-message GetAvailableRewardsRequest {
+message GetClaimableRewardsRequest {
   string earner_address = 1;
   uint64 block_height = 2;
 }
-message GetAvailableRewardsResponse {
+message GetClaimableRewardsResponse {
   repeated Reward rewards = 1;
 }
 
@@ -313,11 +313,11 @@ service Rewards {
     };
   }
 
-  // GetAvailableRewards returns the available rewards for the given earner address
-  // This takes the amount earned from the current active root and subtracts total claimed.
-  rpc GetAvailableRewards(GetAvailableRewardsRequest) returns (GetAvailableRewardsResponse) {
+  // GetClaimableRewards returns the claimable rewards for the given earner address.
+  // This takes the current active tokens earned and subtracts total claimed.
+  rpc GetClaimableRewards(GetClaimableRewardsRequest) returns (GetClaimableRewardsResponse) {
     option (google.api.http) = {
-      get: "/rewards/v1/earners/{earner_address}/available-rewards"
+      get: "/rewards/v1/earners/{earner_address}/claimable-rewards"
     };
   }
 

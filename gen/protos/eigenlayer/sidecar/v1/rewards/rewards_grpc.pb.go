@@ -28,7 +28,7 @@ const (
 	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot"
 	Rewards_GenerateClaimProof_FullMethodName                        = "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof"
-	Rewards_GetAvailableRewards_FullMethodName                       = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewards"
+	Rewards_GetClaimableRewards_FullMethodName                       = "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards"
 	Rewards_GetTotalClaimedRewards_FullMethodName                    = "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards"
 	Rewards_GetAvailableRewardsTokens_FullMethodName                 = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens"
 	Rewards_GetSummarizedRewardsForEarner_FullMethodName             = "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner"
@@ -62,9 +62,9 @@ type RewardsClient interface {
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(ctx context.Context, in *GenerateClaimProofRequest, opts ...grpc.CallOption) (*GenerateClaimProofResponse, error)
-	// GetAvailableRewards returns the available rewards for the given earner address
-	// This takes the amount earned from the current active root and subtracts total claimed.
-	GetAvailableRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error)
+	// GetClaimableRewards returns the claimable rewards for the given earner address.
+	// This takes the current active tokens earned and subtracts total claimed.
+	GetClaimableRewards(ctx context.Context, in *GetClaimableRewardsRequest, opts ...grpc.CallOption) (*GetClaimableRewardsResponse, error)
 	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
 	// the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
 	GetTotalClaimedRewards(ctx context.Context, in *GetTotalClaimedRewardsRequest, opts ...grpc.CallOption) (*GetTotalClaimedRewardsResponse, error)
@@ -182,10 +182,10 @@ func (c *rewardsClient) GenerateClaimProof(ctx context.Context, in *GenerateClai
 	return out, nil
 }
 
-func (c *rewardsClient) GetAvailableRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error) {
+func (c *rewardsClient) GetClaimableRewards(ctx context.Context, in *GetClaimableRewardsRequest, opts ...grpc.CallOption) (*GetClaimableRewardsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAvailableRewardsResponse)
-	err := c.cc.Invoke(ctx, Rewards_GetAvailableRewards_FullMethodName, in, out, cOpts...)
+	out := new(GetClaimableRewardsResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetClaimableRewards_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -277,9 +277,9 @@ type RewardsServer interface {
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error)
-	// GetAvailableRewards returns the available rewards for the given earner address
-	// This takes the amount earned from the current active root and subtracts total claimed.
-	GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error)
+	// GetClaimableRewards returns the claimable rewards for the given earner address.
+	// This takes the current active tokens earned and subtracts total claimed.
+	GetClaimableRewards(context.Context, *GetClaimableRewardsRequest) (*GetClaimableRewardsResponse, error)
 	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
 	// the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
 	GetTotalClaimedRewards(context.Context, *GetTotalClaimedRewardsRequest) (*GetTotalClaimedRewardsResponse, error)
@@ -333,8 +333,8 @@ func (UnimplementedRewardsServer) GetAttributableRewardsForDistributionRoot(cont
 func (UnimplementedRewardsServer) GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateClaimProof not implemented")
 }
-func (UnimplementedRewardsServer) GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAvailableRewards not implemented")
+func (UnimplementedRewardsServer) GetClaimableRewards(context.Context, *GetClaimableRewardsRequest) (*GetClaimableRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetClaimableRewards not implemented")
 }
 func (UnimplementedRewardsServer) GetTotalClaimedRewards(context.Context, *GetTotalClaimedRewardsRequest) (*GetTotalClaimedRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTotalClaimedRewards not implemented")
@@ -536,20 +536,20 @@ func _Rewards_GenerateClaimProof_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Rewards_GetAvailableRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAvailableRewardsRequest)
+func _Rewards_GetClaimableRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetClaimableRewardsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RewardsServer).GetAvailableRewards(ctx, in)
+		return srv.(RewardsServer).GetClaimableRewards(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Rewards_GetAvailableRewards_FullMethodName,
+		FullMethod: Rewards_GetClaimableRewards_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RewardsServer).GetAvailableRewards(ctx, req.(*GetAvailableRewardsRequest))
+		return srv.(RewardsServer).GetClaimableRewards(ctx, req.(*GetClaimableRewardsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -706,8 +706,8 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Rewards_GenerateClaimProof_Handler,
 		},
 		{
-			MethodName: "GetAvailableRewards",
-			Handler:    _Rewards_GetAvailableRewards_Handler,
+			MethodName: "GetClaimableRewards",
+			Handler:    _Rewards_GetClaimableRewards_Handler,
 		},
 		{
 			MethodName: "GetTotalClaimedRewards",

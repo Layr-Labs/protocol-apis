@@ -164,12 +164,12 @@ export type GenerateClaimProofResponse = {
   proof?: Proof
 }
 
-export type GetAvailableRewardsRequest = {
+export type GetClaimableRewardsRequest = {
   earnerAddress?: string
   blockHeight?: string
 }
 
-export type GetAvailableRewardsResponse = {
+export type GetClaimableRewardsResponse = {
   rewards?: Reward[]
 }
 
@@ -285,8 +285,8 @@ export class Rewards {
   static GenerateClaimProof(req: GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<GenerateClaimProofResponse> {
     return fm.fetchReq<GenerateClaimProofRequest, GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
-  static GetAvailableRewards(req: GetAvailableRewardsRequest, initReq?: fm.InitReq): Promise<GetAvailableRewardsResponse> {
-    return fm.fetchReq<GetAvailableRewardsRequest, GetAvailableRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/available-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
+  static GetClaimableRewards(req: GetClaimableRewardsRequest, initReq?: fm.InitReq): Promise<GetClaimableRewardsResponse> {
+    return fm.fetchReq<GetClaimableRewardsRequest, GetClaimableRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/claimable-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
   }
   static GetTotalClaimedRewards(req: GetTotalClaimedRewardsRequest, initReq?: fm.InitReq): Promise<GetTotalClaimedRewardsResponse> {
     return fm.fetchReq<GetTotalClaimedRewardsRequest, GetTotalClaimedRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/total-claimed-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})

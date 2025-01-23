@@ -622,44 +622,6 @@
         ]
       }
     },
-    "/rewards/v1/earners/{earnerAddress}/available-rewards": {
-      "get": {
-        "summary": "GetAvailableRewards returns the available rewards for the given earner address\nThis takes the amount earned from the current active root and subtracts total claimed.",
-        "operationId": "Rewards_GetAvailableRewards",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/rewardsGetAvailableRewardsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "earnerAddress",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "blockHeight",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "uint64"
-          }
-        ],
-        "tags": [
-          "Rewards"
-        ]
-      }
-    },
     "/rewards/v1/earners/{earnerAddress}/available-rewards-tokens": {
       "get": {
         "summary": "GetAvailableRewardsTokens returns the available rewards tokens for the given earner address",
@@ -684,6 +646,44 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/claimable-rewards": {
+      "get": {
+        "summary": "GetClaimableRewards returns the claimable rewards for the given earner address.\nThis takes the current active tokens earned and subtracts total claimed.",
+        "operationId": "Rewards_GetClaimableRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsGetClaimableRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -1837,18 +1837,6 @@
         }
       }
     },
-    "rewardsGetAvailableRewardsResponse": {
-      "type": "object",
-      "properties": {
-        "rewards": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/rewardsReward"
-          }
-        }
-      }
-    },
     "rewardsGetAvailableRewardsTokensResponse": {
       "type": "object",
       "properties": {
@@ -1856,6 +1844,18 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "rewardsGetClaimableRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsReward"
           }
         }
       }

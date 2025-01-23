@@ -59,10 +59,10 @@ class RewardsStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GenerateClaimProofRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GenerateClaimProofResponse.FromString,
                 _registered_method=True)
-        self.GetAvailableRewards = channel.unary_unary(
-                '/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewards',
-                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAvailableRewardsRequest.SerializeToString,
-                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAvailableRewardsResponse.FromString,
+        self.GetClaimableRewards = channel.unary_unary(
+                '/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimableRewardsRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimableRewardsResponse.FromString,
                 _registered_method=True)
         self.GetTotalClaimedRewards = channel.unary_unary(
                 '/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards',
@@ -165,9 +165,9 @@ class RewardsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetAvailableRewards(self, request, context):
-        """GetAvailableRewards returns the available rewards for the given earner address
-        This takes the amount earned from the current active root and subtracts total claimed.
+    def GetClaimableRewards(self, request, context):
+        """GetClaimableRewards returns the claimable rewards for the given earner address.
+        This takes the current active tokens earned and subtracts total claimed.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -268,10 +268,10 @@ def add_RewardsServicer_to_server(servicer, server):
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GenerateClaimProofRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GenerateClaimProofResponse.SerializeToString,
             ),
-            'GetAvailableRewards': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAvailableRewards,
-                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAvailableRewardsRequest.FromString,
-                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAvailableRewardsResponse.SerializeToString,
+            'GetClaimableRewards': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetClaimableRewards,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimableRewardsRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimableRewardsResponse.SerializeToString,
             ),
             'GetTotalClaimedRewards': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTotalClaimedRewards,
@@ -558,7 +558,7 @@ class Rewards(object):
             _registered_method=True)
 
     @staticmethod
-    def GetAvailableRewards(request,
+    def GetClaimableRewards(request,
             target,
             options=(),
             channel_credentials=None,
@@ -571,9 +571,9 @@ class Rewards(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewards',
-            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAvailableRewardsRequest.SerializeToString,
-            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAvailableRewardsResponse.FromString,
+            '/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards',
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimableRewardsRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetClaimableRewardsResponse.FromString,
             options,
             channel_credentials,
             insecure,
