@@ -646,6 +646,13 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [

@@ -177,6 +177,7 @@ message GetTotalClaimedRewardsResponse {
 
 message GetAvailableRewardsTokensRequest {
   string earner_address = 1;
+  optional uint64 block_height = 2;
 }
 message GetAvailableRewardsTokensResponse {
   repeated string tokens = 1;
