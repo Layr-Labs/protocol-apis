@@ -28,11 +28,12 @@ const (
 	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot"
 	Rewards_GenerateClaimProof_FullMethodName                        = "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof"
-	Rewards_GetAvailableRewards_FullMethodName                       = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewards"
+	Rewards_GetClaimableRewards_FullMethodName                       = "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards"
 	Rewards_GetTotalClaimedRewards_FullMethodName                    = "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards"
 	Rewards_GetAvailableRewardsTokens_FullMethodName                 = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens"
 	Rewards_GetSummarizedRewardsForEarner_FullMethodName             = "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner"
 	Rewards_GetClaimedRewardsByBlock_FullMethodName                  = "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock"
+	Rewards_ListClaimedRewardsByBlockRange_FullMethodName            = "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange"
 	Rewards_ListDistributionRoots_FullMethodName                     = "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots"
 )
 
@@ -61,19 +62,25 @@ type RewardsClient interface {
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(ctx context.Context, in *GenerateClaimProofRequest, opts ...grpc.CallOption) (*GenerateClaimProofResponse, error)
-	// GetAvailableRewards returns the available rewards for the given earner address
-	// This takes the amount earned from the current active root and subtracts total claimed.
-	GetAvailableRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error)
-	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address
-	// BlockHeight is optional. If omitted, the latest block height is used.
+	// GetClaimableRewards returns the claimable rewards for the given earner address.
+	// This takes the current active tokens earned and subtracts total claimed.
+	GetClaimableRewards(ctx context.Context, in *GetClaimableRewardsRequest, opts ...grpc.CallOption) (*GetClaimableRewardsResponse, error)
+	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
+	// the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
 	GetTotalClaimedRewards(ctx context.Context, in *GetTotalClaimedRewardsRequest, opts ...grpc.CallOption) (*GetTotalClaimedRewardsResponse, error)
 	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(ctx context.Context, in *GetAvailableRewardsTokensRequest, opts ...grpc.CallOption) (*GetAvailableRewardsTokensResponse, error)
-	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
-	// theyve earned, how much is currently claimable, and how much has been claimed.
+	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:
+	// - total tokens earned
+	// - total tokens active (subset of earned that are in roots that have surpassed their activation delay)
+	// - total claimed
+	// - total claimable (total active - total claimed)
 	GetSummarizedRewardsForEarner(ctx context.Context, in *GetSummarizedRewardsForEarnerRequest, opts ...grpc.CallOption) (*GetSummarizedRewardsForEarnerResponse, error)
-	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
+	// GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
 	GetClaimedRewardsByBlock(ctx context.Context, in *GetClaimedRewardsByBlockRequest, opts ...grpc.CallOption) (*GetClaimedRewardsByBlockResponse, error)
+	// ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
+	// inclusive of the start and end block heights
+	ListClaimedRewardsByBlockRange(ctx context.Context, in *ListClaimedRewardsByBlockRangeRequest, opts ...grpc.CallOption) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error)
 }
 
@@ -175,10 +182,10 @@ func (c *rewardsClient) GenerateClaimProof(ctx context.Context, in *GenerateClai
 	return out, nil
 }
 
-func (c *rewardsClient) GetAvailableRewards(ctx context.Context, in *GetAvailableRewardsRequest, opts ...grpc.CallOption) (*GetAvailableRewardsResponse, error) {
+func (c *rewardsClient) GetClaimableRewards(ctx context.Context, in *GetClaimableRewardsRequest, opts ...grpc.CallOption) (*GetClaimableRewardsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAvailableRewardsResponse)
-	err := c.cc.Invoke(ctx, Rewards_GetAvailableRewards_FullMethodName, in, out, cOpts...)
+	out := new(GetClaimableRewardsResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetClaimableRewards_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -225,6 +232,16 @@ func (c *rewardsClient) GetClaimedRewardsByBlock(ctx context.Context, in *GetCla
 	return out, nil
 }
 
+func (c *rewardsClient) ListClaimedRewardsByBlockRange(ctx context.Context, in *ListClaimedRewardsByBlockRangeRequest, opts ...grpc.CallOption) (*ListClaimedRewardsByBlockRangeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListClaimedRewardsByBlockRangeResponse)
+	err := c.cc.Invoke(ctx, Rewards_ListClaimedRewardsByBlockRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rewardsClient) ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListDistributionRootsResponse)
@@ -260,19 +277,25 @@ type RewardsServer interface {
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error)
-	// GetAvailableRewards returns the available rewards for the given earner address
-	// This takes the amount earned from the current active root and subtracts total claimed.
-	GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error)
-	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address
-	// BlockHeight is optional. If omitted, the latest block height is used.
+	// GetClaimableRewards returns the claimable rewards for the given earner address.
+	// This takes the current active tokens earned and subtracts total claimed.
+	GetClaimableRewards(context.Context, *GetClaimableRewardsRequest) (*GetClaimableRewardsResponse, error)
+	// GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including
+	// the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.
 	GetTotalClaimedRewards(context.Context, *GetTotalClaimedRewardsRequest) (*GetTotalClaimedRewardsResponse, error)
 	// GetAvailableRewardsTokens returns the available rewards tokens for the given earner address
 	GetAvailableRewardsTokens(context.Context, *GetAvailableRewardsTokensRequest) (*GetAvailableRewardsTokensResponse, error)
-	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much
-	// theyve earned, how much is currently claimable, and how much has been claimed.
+	// GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:
+	// - total tokens earned
+	// - total tokens active (subset of earned that are in roots that have surpassed their activation delay)
+	// - total claimed
+	// - total claimable (total active - total claimed)
 	GetSummarizedRewardsForEarner(context.Context, *GetSummarizedRewardsForEarnerRequest) (*GetSummarizedRewardsForEarnerResponse, error)
-	// GetClaimedRewardsByBlock returns the claimed rewards for the given block height
+	// GetClaimedRewardsByBlock returns the claimed rewards for the provided block height
 	GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error)
+	// ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
+	// inclusive of the start and end block heights
+	ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error)
 }
 
@@ -310,8 +333,8 @@ func (UnimplementedRewardsServer) GetAttributableRewardsForDistributionRoot(cont
 func (UnimplementedRewardsServer) GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateClaimProof not implemented")
 }
-func (UnimplementedRewardsServer) GetAvailableRewards(context.Context, *GetAvailableRewardsRequest) (*GetAvailableRewardsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAvailableRewards not implemented")
+func (UnimplementedRewardsServer) GetClaimableRewards(context.Context, *GetClaimableRewardsRequest) (*GetClaimableRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetClaimableRewards not implemented")
 }
 func (UnimplementedRewardsServer) GetTotalClaimedRewards(context.Context, *GetTotalClaimedRewardsRequest) (*GetTotalClaimedRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTotalClaimedRewards not implemented")
@@ -324,6 +347,9 @@ func (UnimplementedRewardsServer) GetSummarizedRewardsForEarner(context.Context,
 }
 func (UnimplementedRewardsServer) GetClaimedRewardsByBlock(context.Context, *GetClaimedRewardsByBlockRequest) (*GetClaimedRewardsByBlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClaimedRewardsByBlock not implemented")
+}
+func (UnimplementedRewardsServer) ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListClaimedRewardsByBlockRange not implemented")
 }
 func (UnimplementedRewardsServer) ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDistributionRoots not implemented")
@@ -510,20 +536,20 @@ func _Rewards_GenerateClaimProof_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Rewards_GetAvailableRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAvailableRewardsRequest)
+func _Rewards_GetClaimableRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetClaimableRewardsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RewardsServer).GetAvailableRewards(ctx, in)
+		return srv.(RewardsServer).GetClaimableRewards(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Rewards_GetAvailableRewards_FullMethodName,
+		FullMethod: Rewards_GetClaimableRewards_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RewardsServer).GetAvailableRewards(ctx, req.(*GetAvailableRewardsRequest))
+		return srv.(RewardsServer).GetClaimableRewards(ctx, req.(*GetClaimableRewardsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -600,6 +626,24 @@ func _Rewards_GetClaimedRewardsByBlock_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_ListClaimedRewardsByBlockRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListClaimedRewardsByBlockRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).ListClaimedRewardsByBlockRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_ListClaimedRewardsByBlockRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).ListClaimedRewardsByBlockRange(ctx, req.(*ListClaimedRewardsByBlockRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Rewards_ListDistributionRoots_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListDistributionRootsRequest)
 	if err := dec(in); err != nil {
@@ -662,8 +706,8 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Rewards_GenerateClaimProof_Handler,
 		},
 		{
-			MethodName: "GetAvailableRewards",
-			Handler:    _Rewards_GetAvailableRewards_Handler,
+			MethodName: "GetClaimableRewards",
+			Handler:    _Rewards_GetClaimableRewards_Handler,
 		},
 		{
 			MethodName: "GetTotalClaimedRewards",
@@ -680,6 +724,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClaimedRewardsByBlock",
 			Handler:    _Rewards_GetClaimedRewardsByBlock_Handler,
+		},
+		{
+			MethodName: "ListClaimedRewardsByBlockRange",
+			Handler:    _Rewards_ListClaimedRewardsByBlockRange_Handler,
 		},
 		{
 			MethodName: "ListDistributionRoots",

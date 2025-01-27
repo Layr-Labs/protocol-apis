@@ -164,12 +164,19 @@ export type GenerateClaimProofResponse = {
   proof?: Proof
 }
 
-export type GetAvailableRewardsRequest = {
+export type GetClaimableRewardsRequest = {
   earnerAddress?: string
+  blockHeight?: string
 }
 
-export type GetAvailableRewardsResponse = {
+export type GetClaimableRewardsResponse = {
   rewards?: Reward[]
+}
+
+export type TotalClaimedReward = {
+  earner?: string
+  token?: string
+  amount?: string
 }
 
 
@@ -181,12 +188,16 @@ export type GetTotalClaimedRewardsRequest = BaseGetTotalClaimedRewardsRequest
   & OneOf<{ blockHeight: string }>
 
 export type GetTotalClaimedRewardsResponse = {
-  rewards?: Reward[]
+  rewards?: TotalClaimedReward[]
 }
 
-export type GetAvailableRewardsTokensRequest = {
+
+type BaseGetAvailableRewardsTokensRequest = {
   earnerAddress?: string
 }
+
+export type GetAvailableRewardsTokensRequest = BaseGetAvailableRewardsTokensRequest
+  & OneOf<{ blockHeight: string }>
 
 export type GetAvailableRewardsTokensResponse = {
   tokens?: string[]
@@ -195,8 +206,9 @@ export type GetAvailableRewardsTokensResponse = {
 export type SummarizedEarnerReward = {
   token?: string
   earned?: string
-  claimable?: string
+  active?: string
   claimed?: string
+  claimable?: string
 }
 
 
@@ -217,6 +229,7 @@ export type ClaimedReward = {
   token?: string
   amount?: string
   distributionRoot?: string
+  blockNumber?: string
 }
 
 export type GetClaimedRewardsByBlockRequest = {
@@ -227,11 +240,25 @@ export type GetClaimedRewardsByBlockResponse = {
   rewards?: ClaimedReward[]
 }
 
-export type ListDistributionRootsRequest = {
+
+type BaseListDistributionRootsRequest = {
 }
+
+export type ListDistributionRootsRequest = BaseListDistributionRootsRequest
+  & OneOf<{ blockHeight: string }>
 
 export type ListDistributionRootsResponse = {
   distributionRoots?: DistributionRoot[]
+}
+
+export type ListClaimedRewardsByBlockRangeRequest = {
+  earnerAddress?: string
+  startBlockHeight?: string
+  endBlockHeight?: string
+}
+
+export type ListClaimedRewardsByBlockRangeResponse = {
+  rewards?: ClaimedReward[]
 }
 
 export class Rewards {
@@ -262,8 +289,8 @@ export class Rewards {
   static GenerateClaimProof(req: GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<GenerateClaimProofResponse> {
     return fm.fetchReq<GenerateClaimProofRequest, GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
-  static GetAvailableRewards(req: GetAvailableRewardsRequest, initReq?: fm.InitReq): Promise<GetAvailableRewardsResponse> {
-    return fm.fetchReq<GetAvailableRewardsRequest, GetAvailableRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/available-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
+  static GetClaimableRewards(req: GetClaimableRewardsRequest, initReq?: fm.InitReq): Promise<GetClaimableRewardsResponse> {
+    return fm.fetchReq<GetClaimableRewardsRequest, GetClaimableRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/claimable-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
   }
   static GetTotalClaimedRewards(req: GetTotalClaimedRewardsRequest, initReq?: fm.InitReq): Promise<GetTotalClaimedRewardsResponse> {
     return fm.fetchReq<GetTotalClaimedRewardsRequest, GetTotalClaimedRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/total-claimed-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
@@ -276,6 +303,9 @@ export class Rewards {
   }
   static GetClaimedRewardsByBlock(req: GetClaimedRewardsByBlockRequest, initReq?: fm.InitReq): Promise<GetClaimedRewardsByBlockResponse> {
     return fm.fetchReq<GetClaimedRewardsByBlockRequest, GetClaimedRewardsByBlockResponse>(`/rewards/v1/blocks/${req["blockHeight"]}/claimed-rewards?${fm.renderURLSearchParams(req, ["blockHeight"])}`, {...initReq, method: "GET"})
+  }
+  static ListClaimedRewardsByBlockRange(req: ListClaimedRewardsByBlockRangeRequest, initReq?: fm.InitReq): Promise<ListClaimedRewardsByBlockRangeResponse> {
+    return fm.fetchReq<ListClaimedRewardsByBlockRangeRequest, ListClaimedRewardsByBlockRangeResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/claimed-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
   }
   static ListDistributionRoots(req: ListDistributionRootsRequest, initReq?: fm.InitReq): Promise<ListDistributionRootsResponse> {
     return fm.fetchReq<ListDistributionRootsRequest, ListDistributionRootsResponse>(`/rewards/v1/distribution-roots?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})

@@ -496,7 +496,7 @@
     },
     "/rewards/v1/blocks/{blockHeight}/claimed-rewards": {
       "get": {
-        "summary": "GetClaimedRewardsByBlock returns the claimed rewards for the given block height",
+        "summary": "GetClaimedRewardsByBlock returns the claimed rewards for the provided block height",
         "operationId": "Rewards_GetClaimedRewardsByBlock",
         "responses": {
           "200": {
@@ -608,35 +608,13 @@
             }
           }
         },
-        "tags": [
-          "Rewards"
-        ]
-      }
-    },
-    "/rewards/v1/earners/{earnerAddress}/available-rewards": {
-      "get": {
-        "summary": "GetAvailableRewards returns the available rewards for the given earner address\nThis takes the amount earned from the current active root and subtracts total claimed.",
-        "operationId": "Rewards_GetAvailableRewards",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/rewardsGetAvailableRewardsResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
         "parameters": [
           {
-            "name": "earnerAddress",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -668,6 +646,96 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/claimable-rewards": {
+      "get": {
+        "summary": "GetClaimableRewards returns the claimable rewards for the given earner address.\nThis takes the current active tokens earned and subtracts total claimed.",
+        "operationId": "Rewards_GetClaimableRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsGetClaimableRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/claimed-rewards": {
+      "get": {
+        "summary": "ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,\ninclusive of the start and end block heights",
+        "operationId": "Rewards_ListClaimedRewardsByBlockRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsListClaimedRewardsByBlockRangeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startBlockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "endBlockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -677,7 +745,7 @@
     },
     "/rewards/v1/earners/{earnerAddress}/summarized-rewards": {
       "get": {
-        "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including how much\ntheyve earned, how much is currently claimable, and how much has been claimed.",
+        "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:\n- total tokens earned\n- total tokens active (subset of earned that are in roots that have surpassed their activation delay)\n- total claimed\n- total claimable (total active - total claimed)",
         "operationId": "Rewards_GetSummarizedRewardsForEarner",
         "responses": {
           "200": {
@@ -715,7 +783,7 @@
     },
     "/rewards/v1/earners/{earnerAddress}/total-claimed-rewards": {
       "get": {
-        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address\nBlockHeight is optional. If omitted, the latest block height is used.",
+        "summary": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including\nthe provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.",
         "operationId": "Rewards_GetTotalClaimedRewards",
         "responses": {
           "200": {
@@ -1595,6 +1663,10 @@
         },
         "distributionRoot": {
           "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -1772,18 +1844,6 @@
         }
       }
     },
-    "rewardsGetAvailableRewardsResponse": {
-      "type": "object",
-      "properties": {
-        "rewards": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/rewardsReward"
-          }
-        }
-      }
-    },
     "rewardsGetAvailableRewardsTokensResponse": {
       "type": "object",
       "properties": {
@@ -1791,6 +1851,18 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "rewardsGetClaimableRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsReward"
           }
         }
       }
@@ -1846,7 +1918,19 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/rewardsReward"
+            "$ref": "#/definitions/rewardsTotalClaimedReward"
+          }
+        }
+      }
+    },
+    "rewardsListClaimedRewardsByBlockRangeResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsClaimedReward"
           }
         }
       }
@@ -1932,13 +2016,17 @@
           "type": "string",
           "title": "Rewards that have been earned but not necessarily activated yet"
         },
-        "claimable": {
+        "active": {
           "type": "string",
           "title": "total rewards that are claimable (does not account for claimed)"
         },
         "claimed": {
           "type": "string",
           "title": "total rewards that have been claimed"
+        },
+        "claimable": {
+          "type": "string",
+          "title": "rewards that can be claimed at the block height"
         }
       }
     },
@@ -1949,6 +2037,20 @@
           "type": "string"
         },
         "cumulativeEarnings": {
+          "type": "string"
+        }
+      }
+    },
+    "rewardsTotalClaimedReward": {
+      "type": "object",
+      "properties": {
+        "earner": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "amount": {
           "type": "string"
         }
       }
