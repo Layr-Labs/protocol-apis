@@ -24,6 +24,11 @@ class RpcStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.GetStateRootRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.GetStateRootResponse.FromString,
                 _registered_method=True)
+        self.About = channel.unary_unary(
+                '/eigenlayer.sidecar.v1.sidecar.Rpc/About',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.AboutRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.AboutResponse.FromString,
+                _registered_method=True)
 
 
 class RpcServicer(object):
@@ -41,6 +46,13 @@ class RpcServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def About(self, request, context):
+        """About returns information about the running sidecar process
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_RpcServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +65,11 @@ def add_RpcServicer_to_server(servicer, server):
                     servicer.GetStateRoot,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.GetStateRootRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.GetStateRootResponse.SerializeToString,
+            ),
+            'About': grpc.unary_unary_rpc_method_handler(
+                    servicer.About,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.AboutRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.AboutResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -109,6 +126,33 @@ class Rpc(object):
             '/eigenlayer.sidecar.v1.sidecar.Rpc/GetStateRoot',
             eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.GetStateRootRequest.SerializeToString,
             eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.GetStateRootResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def About(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/eigenlayer.sidecar.v1.sidecar.Rpc/About',
+            eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.AboutRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_sidecar_dot_sidecar__pb2.AboutResponse.FromString,
             options,
             channel_credentials,
             insecure,

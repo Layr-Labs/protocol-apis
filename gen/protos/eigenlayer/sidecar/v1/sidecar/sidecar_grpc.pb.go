@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Rpc_GetBlockHeight_FullMethodName = "/eigenlayer.sidecar.v1.sidecar.Rpc/GetBlockHeight"
 	Rpc_GetStateRoot_FullMethodName   = "/eigenlayer.sidecar.v1.sidecar.Rpc/GetStateRoot"
+	Rpc_About_FullMethodName          = "/eigenlayer.sidecar.v1.sidecar.Rpc/About"
 )
 
 // RpcClient is the client API for Rpc service.
@@ -29,6 +30,8 @@ const (
 type RpcClient interface {
 	GetBlockHeight(ctx context.Context, in *GetBlockHeightRequest, opts ...grpc.CallOption) (*GetBlockHeightResponse, error)
 	GetStateRoot(ctx context.Context, in *GetStateRootRequest, opts ...grpc.CallOption) (*GetStateRootResponse, error)
+	// About returns information about the running sidecar process
+	About(ctx context.Context, in *AboutRequest, opts ...grpc.CallOption) (*AboutResponse, error)
 }
 
 type rpcClient struct {
@@ -59,12 +62,24 @@ func (c *rpcClient) GetStateRoot(ctx context.Context, in *GetStateRootRequest, o
 	return out, nil
 }
 
+func (c *rpcClient) About(ctx context.Context, in *AboutRequest, opts ...grpc.CallOption) (*AboutResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AboutResponse)
+	err := c.cc.Invoke(ctx, Rpc_About_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RpcServer is the server API for Rpc service.
 // All implementations should embed UnimplementedRpcServer
 // for forward compatibility.
 type RpcServer interface {
 	GetBlockHeight(context.Context, *GetBlockHeightRequest) (*GetBlockHeightResponse, error)
 	GetStateRoot(context.Context, *GetStateRootRequest) (*GetStateRootResponse, error)
+	// About returns information about the running sidecar process
+	About(context.Context, *AboutRequest) (*AboutResponse, error)
 }
 
 // UnimplementedRpcServer should be embedded to have
@@ -79,6 +94,9 @@ func (UnimplementedRpcServer) GetBlockHeight(context.Context, *GetBlockHeightReq
 }
 func (UnimplementedRpcServer) GetStateRoot(context.Context, *GetStateRootRequest) (*GetStateRootResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStateRoot not implemented")
+}
+func (UnimplementedRpcServer) About(context.Context, *AboutRequest) (*AboutResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method About not implemented")
 }
 func (UnimplementedRpcServer) testEmbeddedByValue() {}
 
@@ -136,6 +154,24 @@ func _Rpc_GetStateRoot_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rpc_About_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AboutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcServer).About(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rpc_About_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcServer).About(ctx, req.(*AboutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Rpc_ServiceDesc is the grpc.ServiceDesc for Rpc service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -150,6 +186,10 @@ var Rpc_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStateRoot",
 			Handler:    _Rpc_GetStateRoot_Handler,
+		},
+		{
+			MethodName: "About",
+			Handler:    _Rpc_About_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
