@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+eigenlayer/sidecar/v1/sidecar/sidecar.proto\x12\x1d\x65igenlayer.sidecar.v1.sidecar\x1a\x1cgoogle/api/annotations.proto\"3\n\x15GetBlockHeightRequest\x12\x1a\n\x08verified\x18\x01 \x01(\x08R\x08verified\"X\n\x16GetBlockHeightResponse\x12 \n\x0b\x62lockNumber\x18\x01 \x01(\x04R\x0b\x62lockNumber\x12\x1c\n\tblockHash\x18\x02 \x01(\tR\tblockHash\"7\n\x13GetStateRootRequest\x12 \n\x0b\x62lockNumber\x18\x01 \x01(\x04R\x0b\x62lockNumber\"\x80\x01\n\x14GetStateRootResponse\x12&\n\x0e\x65thBlockNumber\x18\x01 \x01(\x04R\x0e\x65thBlockNumber\x12\"\n\x0c\x65thBlockHash\x18\x02 \x01(\tR\x0c\x65thBlockHash\x12\x1c\n\tstateRoot\x18\x03 \x01(\tR\tstateRoot2\xce\x02\n\x03Rpc\x12\x9e\x01\n\x0eGetBlockHeight\x12\x34.eigenlayer.sidecar.v1.sidecar.GetBlockHeightRequest\x1a\x35.eigenlayer.sidecar.v1.sidecar.GetBlockHeightResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\"\x14/rpc/v1/latest-block:\x01*\x12\xa5\x01\n\x0cGetStateRoot\x12\x32.eigenlayer.sidecar.v1.sidecar.GetStateRootRequest\x1a\x33.eigenlayer.sidecar.v1.sidecar.GetStateRootResponse\",\x82\xd3\xe4\x93\x02&\"!/rpc/v1/state-roots/{blockNumber}:\x01*B\x96\x02\n!com.eigenlayer.sidecar.v1.sidecarB\x0cSidecarProtoP\x01ZKgithub.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/sidecar\xa2\x02\x04\x45SVS\xaa\x02\x1d\x45igenlayer.Sidecar.V1.Sidecar\xca\x02\x1d\x45igenlayer\\Sidecar\\V1\\Sidecar\xe2\x02)Eigenlayer\\Sidecar\\V1\\Sidecar\\GPBMetadata\xea\x02 Eigenlayer::Sidecar::V1::Sidecarb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+eigenlayer/sidecar/v1/sidecar/sidecar.proto\x12\x1d\x65igenlayer.sidecar.v1.sidecar\x1a\x1cgoogle/api/annotations.proto\"3\n\x15GetBlockHeightRequest\x12\x1a\n\x08verified\x18\x01 \x01(\x08R\x08verified\"X\n\x16GetBlockHeightResponse\x12 \n\x0b\x62lockNumber\x18\x01 \x01(\x04R\x0b\x62lockNumber\x12\x1c\n\tblockHash\x18\x02 \x01(\tR\tblockHash\"7\n\x13GetStateRootRequest\x12 \n\x0b\x62lockNumber\x18\x01 \x01(\x04R\x0b\x62lockNumber\"\x80\x01\n\x14GetStateRootResponse\x12&\n\x0e\x65thBlockNumber\x18\x01 \x01(\x04R\x0e\x65thBlockNumber\x12\"\n\x0c\x65thBlockHash\x18\x02 \x01(\tR\x0c\x65thBlockHash\x12\x1c\n\tstateRoot\x18\x03 \x01(\tR\tstateRoot\"\x0e\n\x0c\x41\x62outRequest\"W\n\rAboutResponse\x12\x18\n\x07version\x18\x01 \x01(\tR\x07version\x12\x16\n\x06\x63ommit\x18\x02 \x01(\tR\x06\x63ommit\x12\x14\n\x05\x63hain\x18\x03 \x01(\tR\x05\x63hain2\xc9\x03\n\x03Rpc\x12\x9e\x01\n\x0eGetBlockHeight\x12\x34.eigenlayer.sidecar.v1.sidecar.GetBlockHeightRequest\x1a\x35.eigenlayer.sidecar.v1.sidecar.GetBlockHeightResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\"\x14/rpc/v1/latest-block:\x01*\x12\xa5\x01\n\x0cGetStateRoot\x12\x32.eigenlayer.sidecar.v1.sidecar.GetStateRootRequest\x1a\x33.eigenlayer.sidecar.v1.sidecar.GetStateRootResponse\",\x82\xd3\xe4\x93\x02&\"!/rpc/v1/state-roots/{blockNumber}:\x01*\x12y\n\x05\x41\x62out\x12+.eigenlayer.sidecar.v1.sidecar.AboutRequest\x1a,.eigenlayer.sidecar.v1.sidecar.AboutResponse\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/rpc/v1/aboutB\x96\x02\n!com.eigenlayer.sidecar.v1.sidecarB\x0cSidecarProtoP\x01ZKgithub.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/sidecar\xa2\x02\x04\x45SVS\xaa\x02\x1d\x45igenlayer.Sidecar.V1.Sidecar\xca\x02\x1d\x45igenlayer\\Sidecar\\V1\\Sidecar\xe2\x02)Eigenlayer\\Sidecar\\V1\\Sidecar\\GPBMetadata\xea\x02 Eigenlayer::Sidecar::V1::Sidecarb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,6 +37,8 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_RPC'].methods_by_name['GetBlockHeight']._serialized_options = b'\202\323\344\223\002\031\"\024/rpc/v1/latest-block:\001*'
   _globals['_RPC'].methods_by_name['GetStateRoot']._loaded_options = None
   _globals['_RPC'].methods_by_name['GetStateRoot']._serialized_options = b'\202\323\344\223\002&\"!/rpc/v1/state-roots/{blockNumber}:\001*'
+  _globals['_RPC'].methods_by_name['About']._loaded_options = None
+  _globals['_RPC'].methods_by_name['About']._serialized_options = b'\202\323\344\223\002\017\022\r/rpc/v1/about'
   _globals['_GETBLOCKHEIGHTREQUEST']._serialized_start=108
   _globals['_GETBLOCKHEIGHTREQUEST']._serialized_end=159
   _globals['_GETBLOCKHEIGHTRESPONSE']._serialized_start=161
@@ -45,6 +47,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GETSTATEROOTREQUEST']._serialized_end=306
   _globals['_GETSTATEROOTRESPONSE']._serialized_start=309
   _globals['_GETSTATEROOTRESPONSE']._serialized_end=437
-  _globals['_RPC']._serialized_start=440
-  _globals['_RPC']._serialized_end=774
+  _globals['_ABOUTREQUEST']._serialized_start=439
+  _globals['_ABOUTREQUEST']._serialized_end=453
+  _globals['_ABOUTRESPONSE']._serialized_start=455
+  _globals['_ABOUTRESPONSE']._serialized_end=542
+  _globals['_RPC']._serialized_start=545
+  _globals['_RPC']._serialized_end=1002
 # @@protoc_insertion_point(module_scope)

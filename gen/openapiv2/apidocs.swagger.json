@@ -948,6 +948,29 @@
         ]
       }
     },
+    "/rpc/v1/about": {
+      "get": {
+        "summary": "About returns information about the running sidecar process",
+        "operationId": "Rpc_About",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sidecarAboutResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
     "/rpc/v1/latest-block": {
       "post": {
         "operationId": "Rpc_GetBlockHeight",
@@ -2071,6 +2094,20 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "sidecarAboutResponse": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "chain": {
+          "type": "string"
         }
       }
     },
