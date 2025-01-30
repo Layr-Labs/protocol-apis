@@ -27,6 +27,7 @@ const (
 	Rewards_GetRewardsForSnapshot_FullMethodName                     = "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot"
+	Rewards_GetRewardsByAvsForDistributionRoot_FullMethodName        = "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot"
 	Rewards_GenerateClaimProof_FullMethodName                        = "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof"
 	Rewards_GetClaimableRewards_FullMethodName                       = "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards"
 	Rewards_GetTotalClaimedRewards_FullMethodName                    = "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards"
@@ -59,6 +60,7 @@ type RewardsClient interface {
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(ctx context.Context, in *GetAttributableRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetAttributableRewardsForSnapshotResponse, error)
 	GetAttributableRewardsForDistributionRoot(ctx context.Context, in *GetAttributableRewardsForDistributionRootRequest, opts ...grpc.CallOption) (*GetAttributableRewardsForDistributionRootResponse, error)
+	GetRewardsByAvsForDistributionRoot(ctx context.Context, in *GetRewardsByAvsForDistributionRootRequest, opts ...grpc.CallOption) (*GetRewardsByAvsForDistributionRootResponse, error)
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(ctx context.Context, in *GenerateClaimProofRequest, opts ...grpc.CallOption) (*GenerateClaimProofResponse, error)
@@ -172,6 +174,16 @@ func (c *rewardsClient) GetAttributableRewardsForDistributionRoot(ctx context.Co
 	return out, nil
 }
 
+func (c *rewardsClient) GetRewardsByAvsForDistributionRoot(ctx context.Context, in *GetRewardsByAvsForDistributionRootRequest, opts ...grpc.CallOption) (*GetRewardsByAvsForDistributionRootResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRewardsByAvsForDistributionRootResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetRewardsByAvsForDistributionRoot_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rewardsClient) GenerateClaimProof(ctx context.Context, in *GenerateClaimProofRequest, opts ...grpc.CallOption) (*GenerateClaimProofResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GenerateClaimProofResponse)
@@ -274,6 +286,7 @@ type RewardsServer interface {
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(context.Context, *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error)
 	GetAttributableRewardsForDistributionRoot(context.Context, *GetAttributableRewardsForDistributionRootRequest) (*GetAttributableRewardsForDistributionRootResponse, error)
+	GetRewardsByAvsForDistributionRoot(context.Context, *GetRewardsByAvsForDistributionRootRequest) (*GetRewardsByAvsForDistributionRootResponse, error)
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error)
@@ -329,6 +342,9 @@ func (UnimplementedRewardsServer) GetAttributableRewardsForSnapshot(context.Cont
 }
 func (UnimplementedRewardsServer) GetAttributableRewardsForDistributionRoot(context.Context, *GetAttributableRewardsForDistributionRootRequest) (*GetAttributableRewardsForDistributionRootResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAttributableRewardsForDistributionRoot not implemented")
+}
+func (UnimplementedRewardsServer) GetRewardsByAvsForDistributionRoot(context.Context, *GetRewardsByAvsForDistributionRootRequest) (*GetRewardsByAvsForDistributionRootResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewardsByAvsForDistributionRoot not implemented")
 }
 func (UnimplementedRewardsServer) GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateClaimProof not implemented")
@@ -518,6 +534,24 @@ func _Rewards_GetAttributableRewardsForDistributionRoot_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_GetRewardsByAvsForDistributionRoot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardsByAvsForDistributionRootRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GetRewardsByAvsForDistributionRoot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GetRewardsByAvsForDistributionRoot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GetRewardsByAvsForDistributionRoot(ctx, req.(*GetRewardsByAvsForDistributionRootRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Rewards_GenerateClaimProof_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GenerateClaimProofRequest)
 	if err := dec(in); err != nil {
@@ -700,6 +734,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAttributableRewardsForDistributionRoot",
 			Handler:    _Rewards_GetAttributableRewardsForDistributionRoot_Handler,
+		},
+		{
+			MethodName: "GetRewardsByAvsForDistributionRoot",
+			Handler:    _Rewards_GetRewardsByAvsForDistributionRoot_Handler,
 		},
 		{
 			MethodName: "GenerateClaimProof",

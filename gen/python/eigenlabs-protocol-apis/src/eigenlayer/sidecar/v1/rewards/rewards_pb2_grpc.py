@@ -54,6 +54,11 @@ class RewardsStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAttributableRewardsForDistributionRootRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAttributableRewardsForDistributionRootResponse.FromString,
                 _registered_method=True)
+        self.GetRewardsByAvsForDistributionRoot = channel.unary_unary(
+                '/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetRewardsByAvsForDistributionRootRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetRewardsByAvsForDistributionRootResponse.FromString,
+                _registered_method=True)
         self.GenerateClaimProof = channel.unary_unary(
                 '/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof',
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GenerateClaimProofRequest.SerializeToString,
@@ -152,6 +157,12 @@ class RewardsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetAttributableRewardsForDistributionRoot(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRewardsByAvsForDistributionRoot(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -262,6 +273,11 @@ def add_RewardsServicer_to_server(servicer, server):
                     servicer.GetAttributableRewardsForDistributionRoot,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAttributableRewardsForDistributionRootRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAttributableRewardsForDistributionRootResponse.SerializeToString,
+            ),
+            'GetRewardsByAvsForDistributionRoot': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRewardsByAvsForDistributionRoot,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetRewardsByAvsForDistributionRootRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetRewardsByAvsForDistributionRootResponse.SerializeToString,
             ),
             'GenerateClaimProof': grpc.unary_unary_rpc_method_handler(
                     servicer.GenerateClaimProof,
@@ -520,6 +536,33 @@ class Rewards(object):
             '/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot',
             eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAttributableRewardsForDistributionRootRequest.SerializeToString,
             eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetAttributableRewardsForDistributionRootResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetRewardsByAvsForDistributionRoot(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot',
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetRewardsByAvsForDistributionRootRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_rewards_dot_rewards__pb2.GetRewardsByAvsForDistributionRootResponse.FromString,
             options,
             channel_credentials,
             insecure,

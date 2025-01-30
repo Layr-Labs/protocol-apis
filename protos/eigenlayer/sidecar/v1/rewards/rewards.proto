@@ -55,6 +55,22 @@ message AttributableReward {
   }
 }
 
+message AvsReward {
+  string earner = 1;
+  string operator = 2;
+  string avs = 3;
+  string token = 4;
+  string amount = 7;
+  string shares = 8;
+  string reward_hash = 9;
+  string snapshot = 10;
+  enum reward_type {
+    REWARD_TYPE_AVS = 0;
+    REWARD_TYPE_FOR_ALL = 1;
+    REWARD_TYPE_FOR_ALL_EARNERS = 2;
+  }
+}
+
 message DistributionRoot {
   string root = 1;
   uint64 root_index = 2;
@@ -138,6 +154,14 @@ message GetAttributableRewardsForDistributionRootRequest {
 }
 message GetAttributableRewardsForDistributionRootResponse {
   repeated AttributableReward rewards = 1;
+}
+
+message GetRewardsByAvsForDistributionRootRequest {
+  string distribution_root = 1;
+}
+
+message GetRewardsByAvsForDistributionRootResponse {
+  repeated AvsReward rewards = 1;
 }
 
 
@@ -302,6 +326,12 @@ service Rewards {
   rpc GetAttributableRewardsForDistributionRoot(GetAttributableRewardsForDistributionRootRequest) returns (GetAttributableRewardsForDistributionRootResponse) {
     option (google.api.http) = {
       get: "/rewards/v1/attributable-rewards-by-root/{distribution_root}"
+    };
+  }
+
+  rpc GetRewardsByAvsForDistributionRoot(GetRewardsByAvsForDistributionRootRequest) returns (GetRewardsByAvsForDistributionRootResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/avs-rewards-by-root/{distribution_root}"
     };
   }
 

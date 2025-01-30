@@ -343,6 +343,58 @@ func local_request_Rewards_GetAttributableRewardsForDistributionRoot_0(ctx conte
 
 }
 
+func request_Rewards_GetRewardsByAvsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRewardsByAvsForDistributionRootRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["distribution_root"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "distribution_root")
+	}
+
+	protoReq.DistributionRoot, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "distribution_root", err)
+	}
+
+	msg, err := client.GetRewardsByAvsForDistributionRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Rewards_GetRewardsByAvsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetRewardsByAvsForDistributionRootRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["distribution_root"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "distribution_root")
+	}
+
+	protoReq.DistributionRoot, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "distribution_root", err)
+	}
+
+	msg, err := server.GetRewardsByAvsForDistributionRoot(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_Rewards_GenerateClaimProof_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GenerateClaimProofRequest
 	var metadata runtime.ServerMetadata
@@ -1014,6 +1066,31 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 
 	})
 
+	mux.Handle("GET", pattern_Rewards_GetRewardsByAvsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{distribution_root}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Rewards_GetRewardsByAvsForDistributionRoot_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Rewards_GetRewardsByAvsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_Rewards_GenerateClaimProof_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1431,6 +1508,28 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 
 	})
 
+	mux.Handle("GET", pattern_Rewards_GetRewardsByAvsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{distribution_root}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Rewards_GetRewardsByAvsForDistributionRoot_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Rewards_GetRewardsByAvsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_Rewards_GenerateClaimProof_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -1627,6 +1726,8 @@ var (
 
 	pattern_Rewards_GetAttributableRewardsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "attributable-rewards-by-root", "distribution_root"}, ""))
 
+	pattern_Rewards_GetRewardsByAvsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "avs-rewards-by-root", "distribution_root"}, ""))
+
 	pattern_Rewards_GenerateClaimProof_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "claim-proof"}, ""))
 
 	pattern_Rewards_GetClaimableRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "claimable-rewards"}, ""))
@@ -1660,6 +1761,8 @@ var (
 	forward_Rewards_GetAttributableRewardsForSnapshot_0 = runtime.ForwardResponseMessage
 
 	forward_Rewards_GetAttributableRewardsForDistributionRoot_0 = runtime.ForwardResponseMessage
+
+	forward_Rewards_GetRewardsByAvsForDistributionRoot_0 = runtime.ForwardResponseMessage
 
 	forward_Rewards_GenerateClaimProof_0 = runtime.ForwardResponseMessage
 

@@ -462,6 +462,36 @@
         ]
       }
     },
+    "/rewards/v1/avs-rewards-by-root/{distributionRoot}": {
+      "get": {
+        "operationId": "Rewards_GetRewardsByAvsForDistributionRoot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsGetRewardsByAvsForDistributionRootResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "distributionRoot",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/backfill-staker-operators": {
       "post": {
         "operationId": "Rewards_BackfillStakerOperators",
@@ -1653,6 +1683,35 @@
         }
       }
     },
+    "rewardsAvsReward": {
+      "type": "object",
+      "properties": {
+        "earner": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "avs": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "shares": {
+          "type": "string"
+        },
+        "rewardHash": {
+          "type": "string"
+        },
+        "snapshot": {
+          "type": "string"
+        }
+      }
+    },
     "rewardsBackfillStakerOperatorsRequest": {
       "type": "object",
       "properties": {
@@ -1898,6 +1957,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/rewardsClaimedReward"
+          }
+        }
+      }
+    },
+    "rewardsGetRewardsByAvsForDistributionRootResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsAvsReward"
           }
         }
       }
