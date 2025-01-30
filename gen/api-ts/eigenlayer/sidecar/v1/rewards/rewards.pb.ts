@@ -23,6 +23,12 @@ export enum AttributableRewardreward_type {
   REWARD_TYPE_FOR_ALL_EARNERS = "REWARD_TYPE_FOR_ALL_EARNERS",
 }
 
+export enum AvsRewardreward_type {
+  REWARD_TYPE_AVS = "REWARD_TYPE_AVS",
+  REWARD_TYPE_FOR_ALL = "REWARD_TYPE_FOR_ALL",
+  REWARD_TYPE_FOR_ALL_EARNERS = "REWARD_TYPE_FOR_ALL_EARNERS",
+}
+
 export type EarnerLeaf = {
   earner?: string
   earnerTokenRoot?: string
@@ -58,6 +64,17 @@ export type AttributableReward = {
   token?: string
   strategy?: string
   multiplier?: string
+  amount?: string
+  shares?: string
+  rewardHash?: string
+  snapshot?: string
+}
+
+export type AvsReward = {
+  earner?: string
+  operator?: string
+  avs?: string
+  token?: string
   amount?: string
   shares?: string
   rewardHash?: string
@@ -149,6 +166,14 @@ export type GetAttributableRewardsForDistributionRootRequest = {
 
 export type GetAttributableRewardsForDistributionRootResponse = {
   rewards?: AttributableReward[]
+}
+
+export type GetRewardsByAvsForDistributionRootRequest = {
+  distributionRoot?: string
+}
+
+export type GetRewardsByAvsForDistributionRootResponse = {
+  rewards?: AvsReward[]
 }
 
 
@@ -285,6 +310,9 @@ export class Rewards {
   }
   static GetAttributableRewardsForDistributionRoot(req: GetAttributableRewardsForDistributionRootRequest, initReq?: fm.InitReq): Promise<GetAttributableRewardsForDistributionRootResponse> {
     return fm.fetchReq<GetAttributableRewardsForDistributionRootRequest, GetAttributableRewardsForDistributionRootResponse>(`/rewards/v1/attributable-rewards-by-root/${req["distributionRoot"]}?${fm.renderURLSearchParams(req, ["distributionRoot"])}`, {...initReq, method: "GET"})
+  }
+  static GetRewardsByAvsForDistributionRoot(req: GetRewardsByAvsForDistributionRootRequest, initReq?: fm.InitReq): Promise<GetRewardsByAvsForDistributionRootResponse> {
+    return fm.fetchReq<GetRewardsByAvsForDistributionRootRequest, GetRewardsByAvsForDistributionRootResponse>(`/rewards/v1/avs-rewards-by-root/${req["distributionRoot"]}?${fm.renderURLSearchParams(req, ["distributionRoot"])}`, {...initReq, method: "GET"})
   }
   static GenerateClaimProof(req: GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<GenerateClaimProofResponse> {
     return fm.fetchReq<GenerateClaimProofRequest, GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
