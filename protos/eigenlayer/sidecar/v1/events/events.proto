@@ -5,15 +5,15 @@ package eigenlayer.sidecar.v1.events;
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/events";
 
 import "google/api/annotations.proto";
-import "eigenlayer/sidecar/v1/eventTypes/eigenState.proto";
-import "eigenlayer/sidecar/v1/eventTypes/ethereumTypes.proto";
+import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
+import "eigenlayer/sidecar/v1/ethereumTypes/ethereumTypes.proto";
 
 message StreamEigenStateChangesRequest {}
 
 message StreamEigenStateChangesResponse {
   uint64 block_number = 1;
-  eigenlayer.sidecar.v1.eventTypes.StateRoot state_root = 2;
-  repeated eigenlayer.sidecar.v1.eventTypes.EigenStateChange changes = 3;
+  eigenlayer.sidecar.v1.eigenState.StateRoot state_root = 2;
+  repeated eigenlayer.sidecar.v1.eigenState.EigenStateChange changes = 3;
 }
 
 
@@ -22,9 +22,9 @@ message StreamIndexedBlocksRequest {
   bool include_state_changes = 1;
 }
 message StreamIndexedBlocksResponse {
-  eigenlayer.sidecar.v1.eventTypes.Block block = 1;
-  eigenlayer.sidecar.v1.eventTypes.StateRoot state_root = 2;
-  repeated eigenlayer.sidecar.v1.eventTypes.EigenStateChange changes = 3;
+  eigenlayer.sidecar.v1.ethereumTypes.Block block = 1;
+  eigenlayer.sidecar.v1.eigenState.StateRoot state_root = 2;
+  repeated eigenlayer.sidecar.v1.eigenState.EigenStateChange changes = 3;
 }
 
 service Events {

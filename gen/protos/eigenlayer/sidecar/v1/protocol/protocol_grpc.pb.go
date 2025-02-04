@@ -24,6 +24,7 @@ const (
 	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy"
 	Protocol_GetDelegatedStakersForOperator_FullMethodName       = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator"
 	Protocol_GetStakerShares_FullMethodName                      = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares"
+	Protocol_GetEigenStateChanges_FullMethodName                 = "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -43,6 +44,7 @@ type ProtocolClient interface {
 	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
 	// the AVS the operator has registered with.
 	GetStakerShares(ctx context.Context, in *GetStakerSharesRequest, opts ...grpc.CallOption) (*GetStakerSharesResponse, error)
+	GetEigenStateChanges(ctx context.Context, in *GetEigenStateChangesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GetEigenStateChangesResponse], error)
 }
 
 type protocolClient struct {
@@ -103,6 +105,25 @@ func (c *protocolClient) GetStakerShares(ctx context.Context, in *GetStakerShare
 	return out, nil
 }
 
+func (c *protocolClient) GetEigenStateChanges(ctx context.Context, in *GetEigenStateChangesRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GetEigenStateChangesResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &Protocol_ServiceDesc.Streams[0], Protocol_GetEigenStateChanges_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[GetEigenStateChangesRequest, GetEigenStateChangesResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Protocol_GetEigenStateChangesClient = grpc.ServerStreamingClient[GetEigenStateChangesResponse]
+
 // ProtocolServer is the server API for Protocol service.
 // All implementations should embed UnimplementedProtocolServer
 // for forward compatibility.
@@ -120,6 +141,7 @@ type ProtocolServer interface {
 	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
 	// the AVS the operator has registered with.
 	GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error)
+	GetEigenStateChanges(*GetEigenStateChangesRequest, grpc.ServerStreamingServer[GetEigenStateChangesResponse]) error
 }
 
 // UnimplementedProtocolServer should be embedded to have
@@ -143,6 +165,9 @@ func (UnimplementedProtocolServer) GetDelegatedStakersForOperator(context.Contex
 }
 func (UnimplementedProtocolServer) GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStakerShares not implemented")
+}
+func (UnimplementedProtocolServer) GetEigenStateChanges(*GetEigenStateChangesRequest, grpc.ServerStreamingServer[GetEigenStateChangesResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method GetEigenStateChanges not implemented")
 }
 func (UnimplementedProtocolServer) testEmbeddedByValue() {}
 
@@ -254,6 +279,17 @@ func _Protocol_GetStakerShares_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Protocol_GetEigenStateChanges_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetEigenStateChangesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProtocolServer).GetEigenStateChanges(m, &grpc.GenericServerStream[GetEigenStateChangesRequest, GetEigenStateChangesResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Protocol_GetEigenStateChangesServer = grpc.ServerStreamingServer[GetEigenStateChangesResponse]
+
 // Protocol_ServiceDesc is the grpc.ServiceDesc for Protocol service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -282,6 +318,12 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Protocol_GetStakerShares_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetEigenStateChanges",
+			Handler:       _Protocol_GetEigenStateChanges_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "eigenlayer/sidecar/v1/protocol/protocol.proto",
 }

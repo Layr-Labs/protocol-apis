@@ -23,11 +23,11 @@ _sym_db = _symbol_database.Default()
 
 
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
-from eigenlayer.sidecar.v1.eventTypes import eigenState_pb2 as eigenlayer_dot_sidecar_dot_v1_dot_eventTypes_dot_eigenState__pb2
-from eigenlayer.sidecar.v1.eventTypes import ethereumTypes_pb2 as eigenlayer_dot_sidecar_dot_v1_dot_eventTypes_dot_ethereumTypes__pb2
+from eigenlayer.sidecar.v1.eigenState import eigenState_pb2 as eigenlayer_dot_sidecar_dot_v1_dot_eigenState_dot_eigenState__pb2
+from eigenlayer.sidecar.v1.ethereumTypes import ethereumTypes_pb2 as eigenlayer_dot_sidecar_dot_v1_dot_ethereumTypes_dot_ethereumTypes__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)eigenlayer/sidecar/v1/events/events.proto\x12\x1c\x65igenlayer.sidecar.v1.events\x1a\x1cgoogle/api/annotations.proto\x1a\x31\x65igenlayer/sidecar/v1/eventTypes/eigenState.proto\x1a\x34\x65igenlayer/sidecar/v1/eventTypes/ethereumTypes.proto\" \n\x1eStreamEigenStateChangesRequest\"\xde\x01\n\x1fStreamEigenStateChangesResponse\x12!\n\x0c\x62lock_number\x18\x01 \x01(\x04R\x0b\x62lockNumber\x12J\n\nstate_root\x18\x02 \x01(\x0b\x32+.eigenlayer.sidecar.v1.eventTypes.StateRootR\tstateRoot\x12L\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\x32.eigenlayer.sidecar.v1.eventTypes.EigenStateChangeR\x07\x63hanges\"P\n\x1aStreamIndexedBlocksRequest\x12\x32\n\x15include_state_changes\x18\x01 \x01(\x08R\x13includeStateChanges\"\xf6\x01\n\x1bStreamIndexedBlocksResponse\x12=\n\x05\x62lock\x18\x01 \x01(\x0b\x32\'.eigenlayer.sidecar.v1.eventTypes.BlockR\x05\x62lock\x12J\n\nstate_root\x18\x02 \x01(\x0b\x32+.eigenlayer.sidecar.v1.eventTypes.StateRootR\tstateRoot\x12L\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\x32.eigenlayer.sidecar.v1.eventTypes.EigenStateChangeR\x07\x63hanges2\x91\x03\n\x06\x45vents\x12\xca\x01\n\x17StreamEigenStateChanges\x12<.eigenlayer.sidecar.v1.events.StreamEigenStateChangesRequest\x1a=.eigenlayer.sidecar.v1.events.StreamEigenStateChangesResponse\"0\x82\xd3\xe4\x93\x02*\"%/events/v1/stream-eigen-state-changes:\x01*0\x01\x12\xb9\x01\n\x13StreamIndexedBlocks\x12\x38.eigenlayer.sidecar.v1.events.StreamIndexedBlocksRequest\x1a\x39.eigenlayer.sidecar.v1.events.StreamIndexedBlocksResponse\"+\x82\xd3\xe4\x93\x02%\" /events/v1/stream-indexed-blocks:\x01*0\x01\x42\x8f\x02\n com.eigenlayer.sidecar.v1.eventsB\x0b\x45ventsProtoP\x01ZJgithub.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/events\xa2\x02\x04\x45SVE\xaa\x02\x1c\x45igenlayer.Sidecar.V1.Events\xca\x02\x1c\x45igenlayer\\Sidecar\\V1\\Events\xe2\x02(Eigenlayer\\Sidecar\\V1\\Events\\GPBMetadata\xea\x02\x1f\x45igenlayer::Sidecar::V1::Eventsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)eigenlayer/sidecar/v1/events/events.proto\x12\x1c\x65igenlayer.sidecar.v1.events\x1a\x1cgoogle/api/annotations.proto\x1a\x31\x65igenlayer/sidecar/v1/eigenState/eigenState.proto\x1a\x37\x65igenlayer/sidecar/v1/ethereumTypes/ethereumTypes.proto\" \n\x1eStreamEigenStateChangesRequest\"\xde\x01\n\x1fStreamEigenStateChangesResponse\x12!\n\x0c\x62lock_number\x18\x01 \x01(\x04R\x0b\x62lockNumber\x12J\n\nstate_root\x18\x02 \x01(\x0b\x32+.eigenlayer.sidecar.v1.eigenState.StateRootR\tstateRoot\x12L\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\x32.eigenlayer.sidecar.v1.eigenState.EigenStateChangeR\x07\x63hanges\"P\n\x1aStreamIndexedBlocksRequest\x12\x32\n\x15include_state_changes\x18\x01 \x01(\x08R\x13includeStateChanges\"\xf9\x01\n\x1bStreamIndexedBlocksResponse\x12@\n\x05\x62lock\x18\x01 \x01(\x0b\x32*.eigenlayer.sidecar.v1.ethereumTypes.BlockR\x05\x62lock\x12J\n\nstate_root\x18\x02 \x01(\x0b\x32+.eigenlayer.sidecar.v1.eigenState.StateRootR\tstateRoot\x12L\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\x32.eigenlayer.sidecar.v1.eigenState.EigenStateChangeR\x07\x63hanges2\x91\x03\n\x06\x45vents\x12\xca\x01\n\x17StreamEigenStateChanges\x12<.eigenlayer.sidecar.v1.events.StreamEigenStateChangesRequest\x1a=.eigenlayer.sidecar.v1.events.StreamEigenStateChangesResponse\"0\x82\xd3\xe4\x93\x02*\"%/events/v1/stream-eigen-state-changes:\x01*0\x01\x12\xb9\x01\n\x13StreamIndexedBlocks\x12\x38.eigenlayer.sidecar.v1.events.StreamIndexedBlocksRequest\x1a\x39.eigenlayer.sidecar.v1.events.StreamIndexedBlocksResponse\"+\x82\xd3\xe4\x93\x02%\" /events/v1/stream-indexed-blocks:\x01*0\x01\x42\x8f\x02\n com.eigenlayer.sidecar.v1.eventsB\x0b\x45ventsProtoP\x01ZJgithub.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/events\xa2\x02\x04\x45SVE\xaa\x02\x1c\x45igenlayer.Sidecar.V1.Events\xca\x02\x1c\x45igenlayer\\Sidecar\\V1\\Events\xe2\x02(Eigenlayer\\Sidecar\\V1\\Events\\GPBMetadata\xea\x02\x1f\x45igenlayer::Sidecar::V1::Eventsb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -39,14 +39,14 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EVENTS'].methods_by_name['StreamEigenStateChanges']._serialized_options = b'\202\323\344\223\002*\"%/events/v1/stream-eigen-state-changes:\001*'
   _globals['_EVENTS'].methods_by_name['StreamIndexedBlocks']._loaded_options = None
   _globals['_EVENTS'].methods_by_name['StreamIndexedBlocks']._serialized_options = b'\202\323\344\223\002%\" /events/v1/stream-indexed-blocks:\001*'
-  _globals['_STREAMEIGENSTATECHANGESREQUEST']._serialized_start=210
-  _globals['_STREAMEIGENSTATECHANGESREQUEST']._serialized_end=242
-  _globals['_STREAMEIGENSTATECHANGESRESPONSE']._serialized_start=245
-  _globals['_STREAMEIGENSTATECHANGESRESPONSE']._serialized_end=467
-  _globals['_STREAMINDEXEDBLOCKSREQUEST']._serialized_start=469
-  _globals['_STREAMINDEXEDBLOCKSREQUEST']._serialized_end=549
-  _globals['_STREAMINDEXEDBLOCKSRESPONSE']._serialized_start=552
-  _globals['_STREAMINDEXEDBLOCKSRESPONSE']._serialized_end=798
-  _globals['_EVENTS']._serialized_start=801
-  _globals['_EVENTS']._serialized_end=1202
+  _globals['_STREAMEIGENSTATECHANGESREQUEST']._serialized_start=213
+  _globals['_STREAMEIGENSTATECHANGESREQUEST']._serialized_end=245
+  _globals['_STREAMEIGENSTATECHANGESRESPONSE']._serialized_start=248
+  _globals['_STREAMEIGENSTATECHANGESRESPONSE']._serialized_end=470
+  _globals['_STREAMINDEXEDBLOCKSREQUEST']._serialized_start=472
+  _globals['_STREAMINDEXEDBLOCKSREQUEST']._serialized_end=552
+  _globals['_STREAMINDEXEDBLOCKSRESPONSE']._serialized_start=555
+  _globals['_STREAMINDEXEDBLOCKSRESPONSE']._serialized_end=804
+  _globals['_EVENTS']._serialized_start=807
+  _globals['_EVENTS']._serialized_end=1208
 # @@protoc_insertion_point(module_scope)

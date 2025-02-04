@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package eigenlayer.sidecar.v1.eventTypes;
+package eigenlayer.sidecar.v1.eigenState;
 
-option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/eventTypes";
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/eigenState";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";

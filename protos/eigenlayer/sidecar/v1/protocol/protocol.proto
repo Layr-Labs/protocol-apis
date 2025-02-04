@@ -4,6 +4,7 @@ package eigenlayer.sidecar.v1.protocol;
 
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/protocol";
 
+import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/common/types.proto";
 
@@ -67,6 +68,14 @@ message GetStakerSharesResponse {
   repeated StakerShare shares = 1;
 }
 
+message GetEigenStateChangesRequest {
+  uint64 block_height = 1;
+}
+
+message GetEigenStateChangesResponse {
+  repeated eigenlayer.sidecar.v1.eigenState.EigenStateChange changes = 1;
+}
+
 
 service Protocol {
   // GetRegisteredAvsForOperator returns the list of registered AVs for a given operator
@@ -105,6 +114,13 @@ service Protocol {
   rpc GetStakerShares(GetStakerSharesRequest) returns (GetStakerSharesResponse) {
     option (google.api.http) = {
       get: "/protocol/v1/stakers/{staker_address}/shares"
+    };
+  }
+
+  rpc GetEigenStateChanges(GetEigenStateChangesRequest) returns (stream GetEigenStateChangesResponse) {
+    option (google.api.http) = {
+      post: "/protocol/v1/eigen-state-changes"
+      body: "*"
     };
   }
 }
