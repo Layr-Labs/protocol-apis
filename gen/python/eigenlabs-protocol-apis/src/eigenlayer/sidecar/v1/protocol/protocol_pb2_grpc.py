@@ -39,7 +39,7 @@ class ProtocolStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesResponse.FromString,
                 _registered_method=True)
-        self.GetEigenStateChanges = channel.unary_stream(
+        self.GetEigenStateChanges = channel.unary_unary(
                 '/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges',
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesResponse.FromString,
@@ -121,7 +121,7 @@ def add_ProtocolServicer_to_server(servicer, server):
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesResponse.SerializeToString,
             ),
-            'GetEigenStateChanges': grpc.unary_stream_rpc_method_handler(
+            'GetEigenStateChanges': grpc.unary_unary_rpc_method_handler(
                     servicer.GetEigenStateChanges,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesResponse.SerializeToString,
@@ -283,7 +283,7 @@ class Protocol(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(
+        return grpc.experimental.unary_unary(
             request,
             target,
             '/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges',

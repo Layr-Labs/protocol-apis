@@ -401,7 +401,7 @@ func local_request_Protocol_GetStakerShares_0(ctx context.Context, marshaler run
 
 }
 
-func request_Protocol_GetEigenStateChanges_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (Protocol_GetEigenStateChangesClient, runtime.ServerMetadata, error) {
+func request_Protocol_GetEigenStateChanges_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetEigenStateChangesRequest
 	var metadata runtime.ServerMetadata
 
@@ -409,16 +409,21 @@ func request_Protocol_GetEigenStateChanges_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	stream, err := client.GetEigenStateChanges(ctx, &protoReq)
-	if err != nil {
-		return nil, metadata, err
+	msg, err := client.GetEigenStateChanges(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Protocol_GetEigenStateChanges_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetEigenStateChangesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	header, err := stream.Header()
-	if err != nil {
-		return nil, metadata, err
-	}
-	metadata.HeaderMD = header
-	return stream, metadata, nil
+
+	msg, err := server.GetEigenStateChanges(ctx, &protoReq)
+	return msg, metadata, err
 
 }
 
@@ -555,10 +560,28 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 	})
 
 	mux.Handle("POST", pattern_Protocol_GetEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
-		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-		return
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges", runtime.WithHTTPPathPattern("/protocol/v1/eigen-state-changes"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Protocol_GetEigenStateChanges_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Protocol_GetEigenStateChanges_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
@@ -730,7 +753,7 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			return
 		}
 
-		forward_Protocol_GetEigenStateChanges_0(annotatedContext, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
+		forward_Protocol_GetEigenStateChanges_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -762,5 +785,5 @@ var (
 
 	forward_Protocol_GetStakerShares_0 = runtime.ForwardResponseMessage
 
-	forward_Protocol_GetEigenStateChanges_0 = runtime.ForwardResponseStream
+	forward_Protocol_GetEigenStateChanges_0 = runtime.ForwardResponseMessage
 )

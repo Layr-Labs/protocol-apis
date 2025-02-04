@@ -196,18 +196,9 @@
         "operationId": "Protocol_GetEigenStateChanges",
         "responses": {
           "200": {
-            "description": "A successful response.(streaming responses)",
+            "description": "A successful response.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/protocolGetEigenStateChangesResponse"
-                },
-                "error": {
-                  "$ref": "#/definitions/rpcStatus"
-                }
-              },
-              "title": "Stream result of protocolGetEigenStateChangesResponse"
+              "$ref": "#/definitions/protocolGetEigenStateChangesResponse"
             }
           },
           "default": {

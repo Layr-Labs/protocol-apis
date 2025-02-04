@@ -117,7 +117,7 @@ export class Protocol {
   static GetStakerShares(req: GetStakerSharesRequest, initReq?: fm.InitReq): Promise<GetStakerSharesResponse> {
     return fm.fetchReq<GetStakerSharesRequest, GetStakerSharesResponse>(`/protocol/v1/stakers/${req["stakerAddress"]}/shares?${fm.renderURLSearchParams(req, ["stakerAddress"])}`, {...initReq, method: "GET"})
   }
-  static GetEigenStateChanges(req: GetEigenStateChangesRequest, entityNotifier?: fm.NotifyStreamEntityArrival<GetEigenStateChangesResponse>, initReq?: fm.InitReq): Promise<void> {
-    return fm.fetchStreamingRequest<GetEigenStateChangesRequest, GetEigenStateChangesResponse>(`/protocol/v1/eigen-state-changes`, entityNotifier, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  static GetEigenStateChanges(req: GetEigenStateChangesRequest, initReq?: fm.InitReq): Promise<GetEigenStateChangesResponse> {
+    return fm.fetchReq<GetEigenStateChangesRequest, GetEigenStateChangesResponse>(`/protocol/v1/eigen-state-changes`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
 }
