@@ -6,6 +6,7 @@
 
 import * as fm from "../../../../fetch.pb"
 import * as EigenlayerSidecarV1CommonTypes from "../common/types.pb"
+import * as EigenlayerSidecarV1EigenStateEigenState from "../eigenState/eigenState.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -92,6 +93,14 @@ export type GetStakerSharesResponse = {
   shares?: StakerShare[]
 }
 
+export type GetEigenStateChangesRequest = {
+  blockHeight?: string
+}
+
+export type GetEigenStateChangesResponse = {
+  changes?: EigenlayerSidecarV1EigenStateEigenState.EigenStateChange[]
+}
+
 export class Protocol {
   static GetRegisteredAvsForOperator(req: GetRegisteredAvsForOperatorRequest, initReq?: fm.InitReq): Promise<GetRegisteredAvsForOperatorResponse> {
     return fm.fetchReq<GetRegisteredAvsForOperatorRequest, GetRegisteredAvsForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/registered-avs?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
@@ -107,5 +116,8 @@ export class Protocol {
   }
   static GetStakerShares(req: GetStakerSharesRequest, initReq?: fm.InitReq): Promise<GetStakerSharesResponse> {
     return fm.fetchReq<GetStakerSharesRequest, GetStakerSharesResponse>(`/protocol/v1/stakers/${req["stakerAddress"]}/shares?${fm.renderURLSearchParams(req, ["stakerAddress"])}`, {...initReq, method: "GET"})
+  }
+  static GetEigenStateChanges(req: GetEigenStateChangesRequest, initReq?: fm.InitReq): Promise<GetEigenStateChangesResponse> {
+    return fm.fetchReq<GetEigenStateChangesRequest, GetEigenStateChangesResponse>(`/protocol/v1/eigen-state-changes`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
 }

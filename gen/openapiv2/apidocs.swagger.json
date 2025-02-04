@@ -191,6 +191,38 @@
         ]
       }
     },
+    "/protocol/v1/eigen-state-changes": {
+      "post": {
+        "operationId": "Protocol_GetEigenStateChanges",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolGetEigenStateChangesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protocolGetEigenStateChangesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
     "/protocol/v1/operators/{operatorAddress}/delegated-stakers": {
       "get": {
         "summary": "GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.\nBlockHeight is optional, otherwise latest is used.",
@@ -1162,7 +1194,7 @@
         }
       }
     },
-    "eventTypesAvsOperatorStateChange": {
+    "eigenStateAvsOperatorStateChange": {
       "type": "object",
       "properties": {
         "avs": {
@@ -1175,37 +1207,11 @@
           "type": "boolean"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesBlock": {
-      "type": "object",
-      "properties": {
-        "blockNumber": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "blockHash": {
-          "type": "string"
-        },
-        "parentHash": {
-          "type": "string"
-        },
-        "blockTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/eventTypesTransaction"
-          }
-        }
-      }
-    },
-    "eventTypesDisabledDistributionRoot": {
+    "eigenStateDisabledDistributionRoot": {
       "type": "object",
       "properties": {
         "rootIndex": {
@@ -1213,37 +1219,37 @@
           "format": "uint64"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesEigenStateChange": {
+    "eigenStateEigenStateChange": {
       "type": "object",
       "properties": {
         "avsOperatorStateChange": {
-          "$ref": "#/definitions/eventTypesAvsOperatorStateChange"
+          "$ref": "#/definitions/eigenStateAvsOperatorStateChange"
         },
         "operatorShareDelta": {
-          "$ref": "#/definitions/eventTypesOperatorShareDelta"
+          "$ref": "#/definitions/eigenStateOperatorShareDelta"
         },
         "rewardSubmission": {
-          "$ref": "#/definitions/eventTypesRewardSubmission"
+          "$ref": "#/definitions/eigenStateRewardSubmission"
         },
         "stakerDelegationChange": {
-          "$ref": "#/definitions/eventTypesStakerDelegationChange"
+          "$ref": "#/definitions/eigenStateStakerDelegationChange"
         },
         "stakerShareDelta": {
-          "$ref": "#/definitions/eventTypesStakerShareDelta"
+          "$ref": "#/definitions/eigenStateStakerShareDelta"
         },
         "submittedDistributionRoot": {
-          "$ref": "#/definitions/eventTypesSubmittedDistributionRoot"
+          "$ref": "#/definitions/eigenStateSubmittedDistributionRoot"
         },
         "disabledDistributionRoot": {
-          "$ref": "#/definitions/eventTypesDisabledDistributionRoot"
+          "$ref": "#/definitions/eigenStateDisabledDistributionRoot"
         }
       }
     },
-    "eventTypesOperatorShareDelta": {
+    "eigenStateOperatorShareDelta": {
       "type": "object",
       "properties": {
         "operator": {
@@ -1266,11 +1272,11 @@
           "type": "string"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesRewardSubmission": {
+    "eigenStateRewardSubmission": {
       "type": "object",
       "properties": {
         "avs": {
@@ -1311,11 +1317,11 @@
           "$ref": "#/definitions/RewardSubmissionRewardType"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesStakerDelegationChange": {
+    "eigenStateStakerDelegationChange": {
       "type": "object",
       "properties": {
         "staker": {
@@ -1328,11 +1334,11 @@
           "type": "boolean"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesStakerShareDelta": {
+    "eigenStateStakerShareDelta": {
       "type": "object",
       "properties": {
         "staker": {
@@ -1356,11 +1362,11 @@
           "type": "string"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesStateRoot": {
+    "eigenStateStateRoot": {
       "type": "object",
       "properties": {
         "ethBlockNumber": {
@@ -1375,7 +1381,7 @@
         }
       }
     },
-    "eventTypesSubmittedDistributionRoot": {
+    "eigenStateSubmittedDistributionRoot": {
       "type": "object",
       "properties": {
         "root": {
@@ -1404,11 +1410,53 @@
           "format": "uint64"
         },
         "transactionMetadata": {
-          "$ref": "#/definitions/eventTypesTransactionMetadata"
+          "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
     },
-    "eventTypesTransaction": {
+    "eigenStateTransactionMetadata": {
+      "type": "object",
+      "properties": {
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "ethereumTypesBlock": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockHash": {
+          "type": "string"
+        },
+        "parentHash": {
+          "type": "string"
+        },
+        "blockTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ethereumTypesTransaction"
+          }
+        }
+      }
+    },
+    "ethereumTypesTransaction": {
       "type": "object",
       "properties": {
         "transactionHash": {
@@ -1435,12 +1483,12 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/eventTypesTransactionLog"
+            "$ref": "#/definitions/ethereumTypesTransactionLog"
           }
         }
       }
     },
-    "eventTypesTransactionLog": {
+    "ethereumTypesTransactionLog": {
       "type": "object",
       "properties": {
         "transactionHash": {
@@ -1474,22 +1522,6 @@
         }
       }
     },
-    "eventTypesTransactionMetadata": {
-      "type": "object",
-      "properties": {
-        "logIndex": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "transactionHash": {
-          "type": "string"
-        },
-        "blockHeight": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
     "eventsStreamEigenStateChangesRequest": {
       "type": "object"
     },
@@ -1501,13 +1533,13 @@
           "format": "uint64"
         },
         "stateRoot": {
-          "$ref": "#/definitions/eventTypesStateRoot"
+          "$ref": "#/definitions/eigenStateStateRoot"
         },
         "changes": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/eventTypesEigenStateChange"
+            "$ref": "#/definitions/eigenStateEigenStateChange"
           }
         }
       }
@@ -1525,16 +1557,16 @@
       "type": "object",
       "properties": {
         "block": {
-          "$ref": "#/definitions/eventTypesBlock"
+          "$ref": "#/definitions/ethereumTypesBlock"
         },
         "stateRoot": {
-          "$ref": "#/definitions/eventTypesStateRoot"
+          "$ref": "#/definitions/eigenStateStateRoot"
         },
         "changes": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/eventTypesEigenStateChange"
+            "$ref": "#/definitions/eigenStateEigenStateChange"
           }
         }
       }
@@ -1585,6 +1617,27 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "protocolGetEigenStateChangesRequest": {
+      "type": "object",
+      "properties": {
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "protocolGetEigenStateChangesResponse": {
+      "type": "object",
+      "properties": {
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/eigenStateEigenStateChange"
           }
         }
       }

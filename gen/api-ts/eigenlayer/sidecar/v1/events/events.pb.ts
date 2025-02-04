@@ -5,15 +5,15 @@
 */
 
 import * as fm from "../../../../fetch.pb"
-import * as EigenlayerSidecarV1EventTypesEigenState from "../eventTypes/eigenState.pb"
-import * as EigenlayerSidecarV1EventTypesEthereumTypes from "../eventTypes/ethereumTypes.pb"
+import * as EigenlayerSidecarV1EigenStateEigenState from "../eigenState/eigenState.pb"
+import * as EigenlayerSidecarV1EthereumTypesEthereumTypes from "../ethereumTypes/ethereumTypes.pb"
 export type StreamEigenStateChangesRequest = {
 }
 
 export type StreamEigenStateChangesResponse = {
   blockNumber?: string
-  stateRoot?: EigenlayerSidecarV1EventTypesEigenState.StateRoot
-  changes?: EigenlayerSidecarV1EventTypesEigenState.EigenStateChange[]
+  stateRoot?: EigenlayerSidecarV1EigenStateEigenState.StateRoot
+  changes?: EigenlayerSidecarV1EigenStateEigenState.EigenStateChange[]
 }
 
 export type StreamIndexedBlocksRequest = {
@@ -21,9 +21,9 @@ export type StreamIndexedBlocksRequest = {
 }
 
 export type StreamIndexedBlocksResponse = {
-  block?: EigenlayerSidecarV1EventTypesEthereumTypes.Block
-  stateRoot?: EigenlayerSidecarV1EventTypesEigenState.StateRoot
-  changes?: EigenlayerSidecarV1EventTypesEigenState.EigenStateChange[]
+  block?: EigenlayerSidecarV1EthereumTypesEthereumTypes.Block
+  stateRoot?: EigenlayerSidecarV1EigenStateEigenState.StateRoot
+  changes?: EigenlayerSidecarV1EigenStateEigenState.EigenStateChange[]
 }
 
 export class Events {

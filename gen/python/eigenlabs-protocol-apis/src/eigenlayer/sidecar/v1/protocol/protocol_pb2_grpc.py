@@ -39,6 +39,11 @@ class ProtocolStub(object):
                 request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesRequest.SerializeToString,
                 response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesResponse.FromString,
                 _registered_method=True)
+        self.GetEigenStateChanges = channel.unary_unary(
+                '/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges',
+                request_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesRequest.SerializeToString,
+                response_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesResponse.FromString,
+                _registered_method=True)
 
 
 class ProtocolServicer(object):
@@ -82,6 +87,12 @@ class ProtocolServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetEigenStateChanges(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ProtocolServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -109,6 +120,11 @@ def add_ProtocolServicer_to_server(servicer, server):
                     servicer.GetStakerShares,
                     request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesRequest.FromString,
                     response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesResponse.SerializeToString,
+            ),
+            'GetEigenStateChanges': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEigenStateChanges,
+                    request_deserializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesRequest.FromString,
+                    response_serializer=eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -246,6 +262,33 @@ class Protocol(object):
             '/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares',
             eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesRequest.SerializeToString,
             eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetStakerSharesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetEigenStateChanges(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges',
+            eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesRequest.SerializeToString,
+            eigenlayer_dot_sidecar_dot_v1_dot_protocol_dot_protocol__pb2.GetEigenStateChangesResponse.FromString,
             options,
             channel_credentials,
             insecure,

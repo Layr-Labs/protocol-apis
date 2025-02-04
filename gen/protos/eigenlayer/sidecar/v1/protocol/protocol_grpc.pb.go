@@ -24,6 +24,7 @@ const (
 	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy"
 	Protocol_GetDelegatedStakersForOperator_FullMethodName       = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator"
 	Protocol_GetStakerShares_FullMethodName                      = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares"
+	Protocol_GetEigenStateChanges_FullMethodName                 = "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -43,6 +44,7 @@ type ProtocolClient interface {
 	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
 	// the AVS the operator has registered with.
 	GetStakerShares(ctx context.Context, in *GetStakerSharesRequest, opts ...grpc.CallOption) (*GetStakerSharesResponse, error)
+	GetEigenStateChanges(ctx context.Context, in *GetEigenStateChangesRequest, opts ...grpc.CallOption) (*GetEigenStateChangesResponse, error)
 }
 
 type protocolClient struct {
@@ -103,6 +105,16 @@ func (c *protocolClient) GetStakerShares(ctx context.Context, in *GetStakerShare
 	return out, nil
 }
 
+func (c *protocolClient) GetEigenStateChanges(ctx context.Context, in *GetEigenStateChangesRequest, opts ...grpc.CallOption) (*GetEigenStateChangesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEigenStateChangesResponse)
+	err := c.cc.Invoke(ctx, Protocol_GetEigenStateChanges_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProtocolServer is the server API for Protocol service.
 // All implementations should embed UnimplementedProtocolServer
 // for forward compatibility.
@@ -120,6 +132,7 @@ type ProtocolServer interface {
 	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
 	// the AVS the operator has registered with.
 	GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error)
+	GetEigenStateChanges(context.Context, *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error)
 }
 
 // UnimplementedProtocolServer should be embedded to have
@@ -143,6 +156,9 @@ func (UnimplementedProtocolServer) GetDelegatedStakersForOperator(context.Contex
 }
 func (UnimplementedProtocolServer) GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStakerShares not implemented")
+}
+func (UnimplementedProtocolServer) GetEigenStateChanges(context.Context, *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEigenStateChanges not implemented")
 }
 func (UnimplementedProtocolServer) testEmbeddedByValue() {}
 
@@ -254,6 +270,24 @@ func _Protocol_GetStakerShares_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Protocol_GetEigenStateChanges_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEigenStateChangesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).GetEigenStateChanges(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_GetEigenStateChanges_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).GetEigenStateChanges(ctx, req.(*GetEigenStateChangesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Protocol_ServiceDesc is the grpc.ServiceDesc for Protocol service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -280,6 +314,10 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStakerShares",
 			Handler:    _Protocol_GetStakerShares_Handler,
+		},
+		{
+			MethodName: "GetEigenStateChanges",
+			Handler:    _Protocol_GetEigenStateChanges_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
