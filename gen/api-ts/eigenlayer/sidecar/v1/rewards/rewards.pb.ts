@@ -31,7 +31,7 @@ export enum AvsRewardreward_type {
 
 export type EarnerLeaf = {
   earner?: string
-  earnerTokenRoot?: string
+  earnerTokenRoot?: Uint8Array
 }
 
 export type TokenLeaf = {
@@ -40,13 +40,13 @@ export type TokenLeaf = {
 }
 
 export type Proof = {
-  root?: string
+  root?: Uint8Array
   rootIndex?: number
   earnerIndex?: number
-  earnerTreeProof?: string
+  earnerTreeProof?: Uint8Array
   earnerLeaf?: EarnerLeaf
-  leafIndices?: number[]
-  tokenTreeProofs?: string[]
+  tokenIndices?: number[]
+  tokenTreeProofs?: Uint8Array[]
   tokenLeaves?: TokenLeaf[]
 }
 
