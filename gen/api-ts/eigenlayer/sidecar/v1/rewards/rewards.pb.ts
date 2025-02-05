@@ -40,7 +40,7 @@ export type TokenLeaf = {
 }
 
 export type Proof = {
-  root?: string
+  root?: Uint8Array
   rootIndex?: number
   earnerIndex?: number
   earnerTreeProof?: Uint8Array
