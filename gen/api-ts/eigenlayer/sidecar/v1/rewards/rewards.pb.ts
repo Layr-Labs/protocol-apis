@@ -45,7 +45,7 @@ export type Proof = {
   earnerIndex?: number
   earnerTreeProof?: Uint8Array
   earnerLeaf?: EarnerLeaf
-  leafIndices?: number[]
+  tokenIndices?: number[]
   tokenTreeProofs?: Uint8Array[]
   tokenLeaves?: TokenLeaf[]
 }

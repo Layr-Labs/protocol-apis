@@ -2116,7 +2116,7 @@
         "earnerLeaf": {
           "$ref": "#/definitions/rewardsEarnerLeaf"
         },
-        "leafIndices": {
+        "tokenIndices": {
           "type": "array",
           "items": {
             "type": "integer",

@@ -27,7 +27,7 @@ message Proof {
   uint32 earner_index = 3;
   bytes earner_tree_proof = 4;
   EarnerLeaf earner_leaf = 5;
-  repeated uint32 leaf_indices = 6;
+  repeated uint32 token_indices = 6;
   repeated bytes token_tree_proofs = 7;
   repeated TokenLeaf token_leaves = 8;
 }
