@@ -1856,7 +1856,8 @@
           "type": "string"
         },
         "earnerTokenRoot": {
-          "type": "string"
+          "type": "string",
+          "format": "byte"
         }
       }
     },
@@ -2109,7 +2110,8 @@
           "format": "int64"
         },
         "earnerTreeProof": {
-          "type": "string"
+          "type": "string",
+          "format": "byte"
         },
         "earnerLeaf": {
           "$ref": "#/definitions/rewardsEarnerLeaf"
@@ -2124,7 +2126,8 @@
         "tokenTreeProofs": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "format": "byte"
           }
         },
         "tokenLeaves": {
@@ -2134,7 +2137,8 @@
             "$ref": "#/definitions/rewardsTokenLeaf"
           }
         }
-      }
+      },
+      "title": "Proof closely models the IRewardsCoordinatorRewardsMerkleClaim interface found\nin the RewardsCoordinator contract"
     },
     "rewardsReward": {
       "type": "object",

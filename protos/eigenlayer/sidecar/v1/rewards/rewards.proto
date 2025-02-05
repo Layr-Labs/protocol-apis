@@ -11,7 +11,7 @@ import "google/protobuf/timestamp.proto";
 
 message EarnerLeaf {
   string earner = 1;
-  string earner_token_root = 2;
+  bytes earner_token_root = 2;
 }
 
 message TokenLeaf {
@@ -19,14 +19,16 @@ message TokenLeaf {
   string cumulative_earnings = 2;
 }
 
+// Proof closely models the IRewardsCoordinatorRewardsMerkleClaim interface found
+// in the RewardsCoordinator contract
 message Proof {
   string root = 1;
   uint32 root_index = 2;
   uint32 earner_index = 3;
-  string earner_tree_proof = 4;
+  bytes earner_tree_proof = 4;
   EarnerLeaf earner_leaf = 5;
   repeated uint32 leaf_indices = 6;
-  repeated string token_tree_proofs = 7;
+  repeated bytes token_tree_proofs = 7;
   repeated TokenLeaf token_leaves = 8;
 }
 
