@@ -22,3 +22,8 @@ plugins:
     out: gen/pre-python
   - plugin: buf.build/grpc/python
     out: gen/pre-python
+  - name: gateway-client
+    path: protoc-gen-grpc-gateway-client
+    out: gen/protos
+    opt:
+      - paths=source_relative
