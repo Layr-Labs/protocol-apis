@@ -32,6 +32,12 @@ message Proof {
   repeated TokenLeaf token_leaves = 8;
 }
 
+enum RewardType {
+  REWARD_TYPE_AVS = 0;
+  REWARD_TYPE_FOR_ALL = 1;
+  REWARD_TYPE_FOR_ALL_EARNERS = 2;
+}
+
 message Reward {
   string earner = 1;
   string token = 2;
@@ -50,11 +56,7 @@ message AttributableReward {
   string shares = 8;
   string reward_hash = 9;
   string snapshot = 10;
-  enum reward_type {
-    REWARD_TYPE_AVS = 0;
-    REWARD_TYPE_FOR_ALL = 1;
-    REWARD_TYPE_FOR_ALL_EARNERS = 2;
-  }
+  RewardType reward_type = 11;
 }
 
 message AvsReward {
@@ -63,14 +65,9 @@ message AvsReward {
   string avs = 3;
   string token = 4;
   string amount = 7;
-  string shares = 8;
-  string reward_hash = 9;
-  string snapshot = 10;
-  enum reward_type {
-    REWARD_TYPE_AVS = 0;
-    REWARD_TYPE_FOR_ALL = 1;
-    REWARD_TYPE_FOR_ALL_EARNERS = 2;
-  }
+  string reward_hash = 8;
+  string snapshot = 9;
+  RewardType reward_type = 10;
 }
 
 message DistributionRoot {

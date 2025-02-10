@@ -17,13 +17,7 @@ type OneOf<T> =
         : never)
     : never);
 
-export enum AttributableRewardreward_type {
-  REWARD_TYPE_AVS = "REWARD_TYPE_AVS",
-  REWARD_TYPE_FOR_ALL = "REWARD_TYPE_FOR_ALL",
-  REWARD_TYPE_FOR_ALL_EARNERS = "REWARD_TYPE_FOR_ALL_EARNERS",
-}
-
-export enum AvsRewardreward_type {
+export enum RewardType {
   REWARD_TYPE_AVS = "REWARD_TYPE_AVS",
   REWARD_TYPE_FOR_ALL = "REWARD_TYPE_FOR_ALL",
   REWARD_TYPE_FOR_ALL_EARNERS = "REWARD_TYPE_FOR_ALL_EARNERS",
@@ -68,6 +62,7 @@ export type AttributableReward = {
   shares?: string
   rewardHash?: string
   snapshot?: string
+  rewardType?: RewardType
 }
 
 export type AvsReward = {
@@ -76,9 +71,9 @@ export type AvsReward = {
   avs?: string
   token?: string
   amount?: string
-  shares?: string
   rewardHash?: string
   snapshot?: string
+  rewardType?: RewardType
 }
 
 export type DistributionRoot = {
