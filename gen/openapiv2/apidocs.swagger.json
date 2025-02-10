@@ -1746,9 +1746,6 @@
         "earner": {
           "type": "string"
         },
-        "operator": {
-          "type": "string"
-        },
         "avs": {
           "type": "string"
         },

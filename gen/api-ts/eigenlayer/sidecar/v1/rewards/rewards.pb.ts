@@ -67,7 +67,6 @@ export type AttributableReward = {
 
 export type AvsReward = {
   earner?: string
-  operator?: string
   avs?: string
   token?: string
   amount?: string

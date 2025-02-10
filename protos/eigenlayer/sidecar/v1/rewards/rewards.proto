@@ -61,13 +61,12 @@ message AttributableReward {
 
 message AvsReward {
   string earner = 1;
-  string operator = 2;
-  string avs = 3;
-  string token = 4;
-  string amount = 7;
-  string reward_hash = 8;
-  string snapshot = 9;
-  RewardType reward_type = 10;
+  string avs = 2;
+  string token = 3;
+  string amount = 4;
+  string reward_hash = 5;
+  string snapshot = 6;
+  RewardType reward_type = 7;
 }
 
 message DistributionRoot {
