@@ -159,7 +159,7 @@ message GetAttributableRewardsForDistributionRootResponse {
 }
 
 message GetRewardsByAvsForDistributionRootRequest {
-  string distribution_root = 1;
+  uint64 root_index = 1;
 }
 
 message GetRewardsByAvsForDistributionRootResponse {
@@ -333,7 +333,7 @@ service Rewards {
 
   rpc GetRewardsByAvsForDistributionRoot(GetRewardsByAvsForDistributionRootRequest) returns (GetRewardsByAvsForDistributionRootResponse) {
     option (google.api.http) = {
-      get: "/rewards/v1/avs-rewards-by-root/{distribution_root}"
+      get: "/rewards/v1/avs-rewards-by-root/{root_index}"
     };
   }
 

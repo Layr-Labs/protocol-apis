@@ -115,8 +115,8 @@ func (c *rewardsGatewayClient) GetAttributableRewardsForDistributionRoot(ctx con
 }
 
 func (c *rewardsGatewayClient) GetRewardsByAvsForDistributionRoot(ctx context.Context, req *GetRewardsByAvsForDistributionRootRequest) (*GetRewardsByAvsForDistributionRootResponse, error) {
-	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/avs-rewards-by-root/{distribution_root}")
-	gwReq.SetPathParam("distribution_root", fmt.Sprintf("%v", req.DistributionRoot))
+	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/avs-rewards-by-root/{root_index}")
+	gwReq.SetPathParam("root_index", fmt.Sprintf("%v", req.RootIndex))
 	return gateway.DoRequest[GetRewardsByAvsForDistributionRootResponse](ctx, gwReq)
 }
 

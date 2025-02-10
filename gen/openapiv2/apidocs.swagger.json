@@ -494,7 +494,7 @@
         ]
       }
     },
-    "/rewards/v1/avs-rewards-by-root/{distributionRoot}": {
+    "/rewards/v1/avs-rewards-by-root/{rootIndex}": {
       "get": {
         "operationId": "Rewards_GetRewardsByAvsForDistributionRoot",
         "responses": {
@@ -513,10 +513,11 @@
         },
         "parameters": [
           {
-            "name": "distributionRoot",
+            "name": "rootIndex",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [

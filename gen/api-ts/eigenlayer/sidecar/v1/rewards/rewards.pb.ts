@@ -169,7 +169,7 @@ export type GetAttributableRewardsForDistributionRootResponse = {
 }
 
 export type GetRewardsByAvsForDistributionRootRequest = {
-  distributionRoot?: string
+  rootIndex?: string
 }
 
 export type GetRewardsByAvsForDistributionRootResponse = {
@@ -312,7 +312,7 @@ export class Rewards {
     return fm.fetchReq<GetAttributableRewardsForDistributionRootRequest, GetAttributableRewardsForDistributionRootResponse>(`/rewards/v1/attributable-rewards-by-root/${req["distributionRoot"]}?${fm.renderURLSearchParams(req, ["distributionRoot"])}`, {...initReq, method: "GET"})
   }
   static GetRewardsByAvsForDistributionRoot(req: GetRewardsByAvsForDistributionRootRequest, initReq?: fm.InitReq): Promise<GetRewardsByAvsForDistributionRootResponse> {
-    return fm.fetchReq<GetRewardsByAvsForDistributionRootRequest, GetRewardsByAvsForDistributionRootResponse>(`/rewards/v1/avs-rewards-by-root/${req["distributionRoot"]}?${fm.renderURLSearchParams(req, ["distributionRoot"])}`, {...initReq, method: "GET"})
+    return fm.fetchReq<GetRewardsByAvsForDistributionRootRequest, GetRewardsByAvsForDistributionRootResponse>(`/rewards/v1/avs-rewards-by-root/${req["rootIndex"]}?${fm.renderURLSearchParams(req, ["rootIndex"])}`, {...initReq, method: "GET"})
   }
   static GenerateClaimProof(req: GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<GenerateClaimProofResponse> {
     return fm.fetchReq<GenerateClaimProofRequest, GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})

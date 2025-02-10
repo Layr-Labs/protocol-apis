@@ -354,14 +354,14 @@ func request_Rewards_GetRewardsByAvsForDistributionRoot_0(ctx context.Context, m
 		_   = err
 	)
 
-	val, ok = pathParams["distribution_root"]
+	val, ok = pathParams["root_index"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "distribution_root")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "root_index")
 	}
 
-	protoReq.DistributionRoot, err = runtime.String(val)
+	protoReq.RootIndex, err = runtime.Uint64(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "distribution_root", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "root_index", err)
 	}
 
 	msg, err := client.GetRewardsByAvsForDistributionRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -380,14 +380,14 @@ func local_request_Rewards_GetRewardsByAvsForDistributionRoot_0(ctx context.Cont
 		_   = err
 	)
 
-	val, ok = pathParams["distribution_root"]
+	val, ok = pathParams["root_index"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "distribution_root")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "root_index")
 	}
 
-	protoReq.DistributionRoot, err = runtime.String(val)
+	protoReq.RootIndex, err = runtime.Uint64(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "distribution_root", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "root_index", err)
 	}
 
 	msg, err := server.GetRewardsByAvsForDistributionRoot(ctx, &protoReq)
@@ -1074,7 +1074,7 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{distribution_root}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{root_index}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1514,7 +1514,7 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{distribution_root}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{root_index}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1726,7 +1726,7 @@ var (
 
 	pattern_Rewards_GetAttributableRewardsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "attributable-rewards-by-root", "distribution_root"}, ""))
 
-	pattern_Rewards_GetRewardsByAvsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "avs-rewards-by-root", "distribution_root"}, ""))
+	pattern_Rewards_GetRewardsByAvsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "avs-rewards-by-root", "root_index"}, ""))
 
 	pattern_Rewards_GenerateClaimProof_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "claim-proof"}, ""))
 
