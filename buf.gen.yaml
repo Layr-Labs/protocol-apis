@@ -27,3 +27,5 @@ plugins:
     out: gen/protos
     opt:
       - paths=source_relative
+  - plugin: buf.build/community/google-gnostic-openapi
+    out: gen/openapi

@@ -494,7 +494,7 @@
         ]
       }
     },
-    "/rewards/v1/avs-rewards-by-root/{distributionRoot}": {
+    "/rewards/v1/avs-rewards-by-root/{rootIndex}": {
       "get": {
         "operationId": "Rewards_GetRewardsByAvsForDistributionRoot",
         "responses": {
@@ -513,10 +513,11 @@
         },
         "parameters": [
           {
-            "name": "distributionRoot",
+            "name": "rootIndex",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "uint64"
           }
         ],
         "tags": [
@@ -1169,15 +1170,6 @@
       "default": "UNKNOWN",
       "description": " - SERVICE_UNKNOWN: Used only by the Watch method."
     },
-    "RewardSubmissionRewardType": {
-      "type": "string",
-      "enum": [
-        "AVS",
-        "ALL_STAKERS",
-        "ALL_EARNERS"
-      ],
-      "default": "AVS"
-    },
     "RpcGetStateRootBody": {
       "type": "object"
     },
@@ -1314,12 +1306,21 @@
           "format": "uint64"
         },
         "rewardType": {
-          "$ref": "#/definitions/RewardSubmissionRewardType"
+          "$ref": "#/definitions/eigenStateRewardSubmissionRewardType"
         },
         "transactionMetadata": {
           "$ref": "#/definitions/eigenStateTransactionMetadata"
         }
       }
+    },
+    "eigenStateRewardSubmissionRewardType": {
+      "type": "string",
+      "enum": [
+        "AVS",
+        "ALL_STAKERS",
+        "ALL_EARNERS"
+      ],
+      "default": "AVS"
     },
     "eigenStateStakerDelegationChange": {
       "type": "object",
@@ -1733,6 +1734,9 @@
         },
         "snapshot": {
           "type": "string"
+        },
+        "rewardType": {
+          "$ref": "#/definitions/v1rewardsRewardType"
         }
       }
     },
@@ -1740,9 +1744,6 @@
       "type": "object",
       "properties": {
         "earner": {
-          "type": "string"
-        },
-        "operator": {
           "type": "string"
         },
         "avs": {
@@ -1754,14 +1755,14 @@
         "amount": {
           "type": "string"
         },
-        "shares": {
-          "type": "string"
-        },
         "rewardHash": {
           "type": "string"
         },
         "snapshot": {
           "type": "string"
+        },
+        "rewardType": {
+          "$ref": "#/definitions/v1rewardsRewardType"
         }
       }
     },
@@ -2305,6 +2306,15 @@
           "type": "string"
         }
       }
+    },
+    "v1rewardsRewardType": {
+      "type": "string",
+      "enum": [
+        "REWARD_TYPE_AVS",
+        "REWARD_TYPE_FOR_ALL",
+        "REWARD_TYPE_FOR_ALL_EARNERS"
+      ],
+      "default": "REWARD_TYPE_AVS"
     }
   }
 }

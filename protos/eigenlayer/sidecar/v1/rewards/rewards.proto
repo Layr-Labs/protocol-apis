@@ -32,6 +32,12 @@ message Proof {
   repeated TokenLeaf token_leaves = 8;
 }
 
+enum RewardType {
+  REWARD_TYPE_AVS = 0;
+  REWARD_TYPE_FOR_ALL = 1;
+  REWARD_TYPE_FOR_ALL_EARNERS = 2;
+}
+
 message Reward {
   string earner = 1;
   string token = 2;
@@ -50,27 +56,17 @@ message AttributableReward {
   string shares = 8;
   string reward_hash = 9;
   string snapshot = 10;
-  enum reward_type {
-    REWARD_TYPE_AVS = 0;
-    REWARD_TYPE_FOR_ALL = 1;
-    REWARD_TYPE_FOR_ALL_EARNERS = 2;
-  }
+  RewardType reward_type = 11;
 }
 
 message AvsReward {
   string earner = 1;
-  string operator = 2;
-  string avs = 3;
-  string token = 4;
-  string amount = 7;
-  string shares = 8;
-  string reward_hash = 9;
-  string snapshot = 10;
-  enum reward_type {
-    REWARD_TYPE_AVS = 0;
-    REWARD_TYPE_FOR_ALL = 1;
-    REWARD_TYPE_FOR_ALL_EARNERS = 2;
-  }
+  string avs = 2;
+  string token = 3;
+  string amount = 4;
+  string reward_hash = 5;
+  string snapshot = 6;
+  RewardType reward_type = 7;
 }
 
 message DistributionRoot {
@@ -159,7 +155,7 @@ message GetAttributableRewardsForDistributionRootResponse {
 }
 
 message GetRewardsByAvsForDistributionRootRequest {
-  string distribution_root = 1;
+  uint64 root_index = 1;
 }
 
 message GetRewardsByAvsForDistributionRootResponse {
@@ -333,7 +329,7 @@ service Rewards {
 
   rpc GetRewardsByAvsForDistributionRoot(GetRewardsByAvsForDistributionRootRequest) returns (GetRewardsByAvsForDistributionRootResponse) {
     option (google.api.http) = {
-      get: "/rewards/v1/avs-rewards-by-root/{distribution_root}"
+      get: "/rewards/v1/avs-rewards-by-root/{root_index}"
     };
   }
 
