@@ -33,10 +33,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: javascript-typescript
-          build-mode: autobuild
-        - language: python
-          build-mode: autobuild
         - language: go
           build-mode: autobuild
     steps:
