@@ -237,6 +237,7 @@ message ClaimedReward {
   string amount = 4;
   string distribution_root = 5;
   uint64 block_number = 6;
+  string recipient = 7;
 }
 message GetClaimedRewardsByBlockRequest {
   uint64 block_height = 1;

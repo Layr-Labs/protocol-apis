@@ -249,6 +249,7 @@ export type ClaimedReward = {
   amount?: string
   distributionRoot?: string
   blockNumber?: string
+  recipient?: string
 }
 
 export type GetClaimedRewardsByBlockRequest = {
