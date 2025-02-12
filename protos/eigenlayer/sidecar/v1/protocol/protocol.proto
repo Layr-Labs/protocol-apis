@@ -119,8 +119,7 @@ service Protocol {
 
   rpc GetEigenStateChanges(GetEigenStateChangesRequest) returns (GetEigenStateChangesResponse) {
     option (google.api.http) = {
-      post: "/protocol/v1/eigen-state-changes"
-      body: "*"
+      get: "/protocol/v1/eigen-state-changes"
     };
   }
 }

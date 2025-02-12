@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	gateway "github.com/akuity/grpc-gateway-client/pkg/grpc/gateway"
+	url "net/url"
 )
 
 // RpcGatewayClient is the interface for Rpc service client.
@@ -28,15 +29,16 @@ type rpcGatewayClient struct {
 }
 
 func (c *rpcGatewayClient) GetBlockHeight(ctx context.Context, req *GetBlockHeightRequest) (*GetBlockHeightResponse, error) {
-	gwReq := c.gwc.NewRequest("POST", "/rpc/v1/latest-block")
-	gwReq.SetBody(req)
+	gwReq := c.gwc.NewRequest("GET", "/rpc/v1/latest-block")
+	q := url.Values{}
+	q.Add("verified", fmt.Sprintf("%v", req.Verified))
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetBlockHeightResponse](ctx, gwReq)
 }
 
 func (c *rpcGatewayClient) GetStateRoot(ctx context.Context, req *GetStateRootRequest) (*GetStateRootResponse, error) {
-	gwReq := c.gwc.NewRequest("POST", "/rpc/v1/state-roots/{blockNumber}")
+	gwReq := c.gwc.NewRequest("GET", "/rpc/v1/state-roots/{blockNumber}")
 	gwReq.SetPathParam("blockNumber", fmt.Sprintf("%v", req.BlockNumber))
-	gwReq.SetBody(req)
 	return gateway.DoRequest[GetStateRootResponse](ctx, gwReq)
 }
 

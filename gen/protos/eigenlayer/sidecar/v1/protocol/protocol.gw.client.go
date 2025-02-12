@@ -99,7 +99,9 @@ func (c *protocolGatewayClient) GetStakerShares(ctx context.Context, req *GetSta
 }
 
 func (c *protocolGatewayClient) GetEigenStateChanges(ctx context.Context, req *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error) {
-	gwReq := c.gwc.NewRequest("POST", "/protocol/v1/eigen-state-changes")
-	gwReq.SetBody(req)
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/eigen-state-changes")
+	q := url.Values{}
+	q.Add("blockHeight", fmt.Sprintf("%v", req.BlockHeight))
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetEigenStateChangesResponse](ctx, gwReq)
 }

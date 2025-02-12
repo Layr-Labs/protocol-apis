@@ -18,14 +18,17 @@ plugins:
     # https://grpc-ecosystem.github.io/grpc-gateway/docs/mapping/customizing_openapi_output/#merging-output
   - plugin: grpc-gateway-ts
     out: gen/api-ts
-  - plugin: buf.build/protocolbuffers/python
-    out: gen/pre-python
-  - plugin: buf.build/grpc/python
-    out: gen/pre-python
   - name: gateway-client
     path: protoc-gen-grpc-gateway-client
     out: gen/protos
     opt:
       - paths=source_relative
-  - plugin: buf.build/community/google-gnostic-openapi
-    out: gen/openapi
+###############################################################################
+# Unused
+###############################################################################
+  # - plugin: buf.build/protocolbuffers/python
+  #   out: gen/pre-python
+  # - plugin: buf.build/grpc/python
+  #   out: gen/pre-python
+  # - plugin: buf.build/community/google-gnostic-openapi
+  #   out: gen/openapi

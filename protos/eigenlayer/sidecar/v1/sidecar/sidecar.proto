@@ -37,15 +37,13 @@ message AboutResponse {
 service Rpc {
   rpc GetBlockHeight(GetBlockHeightRequest) returns (GetBlockHeightResponse) {
     option (google.api.http) = {
-      post: "/rpc/v1/latest-block"
-      body: "*"
+      get: "/rpc/v1/latest-block"
     };
   }
 
   rpc GetStateRoot(GetStateRootRequest) returns (GetStateRootResponse) {
     option (google.api.http) = {
-      post: "/rpc/v1/state-roots/{blockNumber}"
-      body: "*"
+      get: "/rpc/v1/state-roots/{blockNumber}"
     };
   }
 

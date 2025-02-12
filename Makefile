@@ -26,7 +26,7 @@ proto:
 	rm -rf gen/python || true
 	rm -rf gen/pre-python || true
 	buf generate protos
-	./scripts/generatePipModule.sh
-	mkdir gen/openapiv3 || true
-	./node_modules/.bin/swagger2openapi --outfile gen/openapiv3/openapi.yaml gen/openapiv2/apidocs.swagger.json
+	# ./scripts/generatePipModule.sh
+	# mkdir gen/openapiv3 || true
+	# ./node_modules/.bin/swagger2openapi --outfile gen/openapiv3/openapi.yaml gen/openapiv2/apidocs.swagger.json
 
