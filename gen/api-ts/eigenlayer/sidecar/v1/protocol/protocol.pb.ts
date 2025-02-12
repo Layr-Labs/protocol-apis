@@ -118,6 +118,6 @@ export class Protocol {
     return fm.fetchReq<GetStakerSharesRequest, GetStakerSharesResponse>(`/protocol/v1/stakers/${req["stakerAddress"]}/shares?${fm.renderURLSearchParams(req, ["stakerAddress"])}`, {...initReq, method: "GET"})
   }
   static GetEigenStateChanges(req: GetEigenStateChangesRequest, initReq?: fm.InitReq): Promise<GetEigenStateChangesResponse> {
-    return fm.fetchReq<GetEigenStateChangesRequest, GetEigenStateChangesResponse>(`/protocol/v1/eigen-state-changes`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+    return fm.fetchReq<GetEigenStateChangesRequest, GetEigenStateChangesResponse>(`/protocol/v1/eigen-state-changes?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
   }
 }
