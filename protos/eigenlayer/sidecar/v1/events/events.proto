@@ -8,7 +8,9 @@ import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
 import "eigenlayer/sidecar/v1/ethereumTypes/ethereumTypes.proto";
 
-message StreamEigenStateChangesRequest {}
+message StreamEigenStateChangesRequest {
+  optional string state_change_filter = 1;
+}
 
 message StreamEigenStateChangesResponse {
   uint64 block_number = 1;
@@ -20,6 +22,16 @@ message StreamEigenStateChangesResponse {
 message StreamIndexedBlocksRequest {
   // In addition to block data, include EigenState changes related to the block
   bool include_state_changes = 1;
+
+  // If true, only returns blocks that had transactions/logs index or state changes if included
+  bool only_blocks_with_data = 2;
+
+  message Filters {
+    optional string block_filter = 1;
+    optional string state_change_filter = 2;
+  }
+
+  optional Filters filters = 3;
 }
 message StreamIndexedBlocksResponse {
   eigenlayer.sidecar.v1.ethereumTypes.Block block = 1;
