@@ -29,6 +29,8 @@ message StreamIndexedBlocksRequest {
   message Filters {
     optional string block_filter = 1;
     optional string state_change_filter = 2;
+    optional string transaction_filter = 3;
+    optional string transaction_log_filter = 4;
   }
 
   optional Filters filters = 3;
