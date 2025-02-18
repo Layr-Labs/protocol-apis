@@ -1167,6 +1167,12 @@
         },
         "stateChangeFilter": {
           "type": "string"
+        },
+        "transactionFilter": {
+          "type": "string"
+        },
+        "transactionLogFilter": {
+          "type": "string"
         }
       }
     },

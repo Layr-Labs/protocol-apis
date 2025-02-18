@@ -36,6 +36,8 @@ type BaseStreamIndexedBlocksRequestFilters = {
 export type StreamIndexedBlocksRequestFilters = BaseStreamIndexedBlocksRequestFilters
   & OneOf<{ blockFilter: string }>
   & OneOf<{ stateChangeFilter: string }>
+  & OneOf<{ transactionFilter: string }>
+  & OneOf<{ transactionLogFilter: string }>
 
 
 type BaseStreamIndexedBlocksRequest = {
