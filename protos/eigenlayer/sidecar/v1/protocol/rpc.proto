@@ -73,4 +73,28 @@ service Protocol {
       get: "/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"
     };
   }
+
+  rpc ListStakerQueuedWithdrawals(ListStakerQueuedWithdrawalsRequest) returns (ListStakerQueuedWithdrawalsResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/stakers/{stakerAddress}/queued-withdrawals"
+    };
+  }
+
+  rpc ListStrategyQueuedWithdrawals(ListStrategyQueuedWithdrawalsRequest) returns (ListStrategyQueuedWithdrawalsResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals"
+    };
+  }
+
+  rpc ListOperatorQueuedWithdrawals(ListOperatorQueuedWithdrawalsRequest) returns (ListOperatorQueuedWithdrawalsResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/operators/{operatorAddress}/queued-withdrawals"
+    };
+  }
+
+  rpc ListOperatorStrategyQueuedWithdrawals(ListOperatorStrategyQueuedWithdrawalsRequest) returns (ListOperatorStrategyQueuedWithdrawalsResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"
+    };
+  }
 }

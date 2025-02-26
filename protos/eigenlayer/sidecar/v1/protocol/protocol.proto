@@ -92,3 +92,34 @@ message GetStrategyForStakerResponse {
 }
 
 
+message ListStakerQueuedWithdrawalsRequest {
+  string stakerAddress = 1;
+}
+message ListStakerQueuedWithdrawalsResponse {
+  repeated QueuedStrategyWithdrawal queuedWithdrawals = 1;
+}
+
+
+message ListStrategyQueuedWithdrawalsRequest {
+  string strategyAddress = 1;
+}
+message ListStrategyQueuedWithdrawalsResponse {
+  repeated StakerWithdrawal withdrawals = 1;
+}
+
+
+message ListOperatorQueuedWithdrawalsRequest {
+  string operatorAddress = 1;
+}
+message ListOperatorQueuedWithdrawalsResponse {
+  repeated QueueStakerStrategyWithdrawal strategies = 1;
+}
+
+
+message ListOperatorStrategyQueuedWithdrawalsRequest {
+  string operatorAddress = 1;
+  string strategyAddress = 2;
+}
+message ListOperatorStrategyQueuedWithdrawalsResponse {
+  repeated StakerWithdrawal withdrawals = 1;
+}
