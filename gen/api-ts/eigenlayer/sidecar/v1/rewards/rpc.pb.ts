@@ -58,4 +58,10 @@ export class Rewards {
   static ListDistributionRoots(req: EigenlayerSidecarV1RewardsRewards.ListDistributionRootsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.ListDistributionRootsResponse> {
     return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.ListDistributionRootsRequest, EigenlayerSidecarV1RewardsRewards.ListDistributionRootsResponse>(`/rewards/v1/distribution-roots?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
   }
+  static ListEarnerLifetimeRewards(req: EigenlayerSidecarV1RewardsRewards.ListEarnerLifetimeRewardsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.ListEarnerLifetimeRewardsResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.ListEarnerLifetimeRewardsRequest, EigenlayerSidecarV1RewardsRewards.ListEarnerLifetimeRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/lifetime-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
+  }
+  static ListEarnerHistoricalRewards(req: EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsRequest, EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/historical-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
+  }
 }

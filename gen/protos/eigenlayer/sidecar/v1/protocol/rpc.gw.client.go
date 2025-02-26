@@ -26,6 +26,13 @@ type ProtocolGatewayClient interface {
 	// the AVS the operator has registered with.
 	GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error)
 	GetEigenStateChanges(context.Context, *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error)
+	ListStrategies(context.Context, *ListStrategiesRequest) (*ListStrategiesResponse, error)
+	ListStakerStrategies(context.Context, *ListStakerStrategiesRequest) (*ListStakerStrategiesResponse, error)
+	GetStrategyForStaker(context.Context, *GetStrategyForStakerRequest) (*GetStrategyForStakerResponse, error)
+	ListStakerQueuedWithdrawals(context.Context, *ListStakerQueuedWithdrawalsRequest) (*ListStakerQueuedWithdrawalsResponse, error)
+	ListStrategyQueuedWithdrawals(context.Context, *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error)
+	ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error)
+	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 }
 
 func NewProtocolGatewayClient(c gateway.Client) ProtocolGatewayClient {
@@ -104,4 +111,57 @@ func (c *protocolGatewayClient) GetEigenStateChanges(ctx context.Context, req *G
 	q.Add("blockHeight", fmt.Sprintf("%v", req.BlockHeight))
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetEigenStateChangesResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListStrategies(ctx context.Context, req *ListStrategiesRequest) (*ListStrategiesResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/strategies")
+	return gateway.DoRequest[ListStrategiesResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListStakerStrategies(ctx context.Context, req *ListStakerStrategiesRequest) (*ListStakerStrategiesResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/stakers/{stakerAddress}/strategies")
+	gwReq.SetPathParam("stakerAddress", fmt.Sprintf("%v", req.StakerAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListStakerStrategiesResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) GetStrategyForStaker(ctx context.Context, req *GetStrategyForStakerRequest) (*GetStrategyForStakerResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}")
+	gwReq.SetPathParam("stakerAddress", fmt.Sprintf("%v", req.StakerAddress))
+	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[GetStrategyForStakerResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListStakerQueuedWithdrawals(ctx context.Context, req *ListStakerQueuedWithdrawalsRequest) (*ListStakerQueuedWithdrawalsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/stakers/{stakerAddress}/queued-withdrawals")
+	gwReq.SetPathParam("stakerAddress", fmt.Sprintf("%v", req.StakerAddress))
+	return gateway.DoRequest[ListStakerQueuedWithdrawalsResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListStrategyQueuedWithdrawals(ctx context.Context, req *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals")
+	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
+	return gateway.DoRequest[ListStrategyQueuedWithdrawalsResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListOperatorQueuedWithdrawals(ctx context.Context, req *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/operators/{operatorAddress}/queued-withdrawals")
+	gwReq.SetPathParam("operatorAddress", fmt.Sprintf("%v", req.OperatorAddress))
+	return gateway.DoRequest[ListOperatorQueuedWithdrawalsResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListOperatorStrategyQueuedWithdrawals(ctx context.Context, req *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals")
+	gwReq.SetPathParam("operatorAddress", fmt.Sprintf("%v", req.OperatorAddress))
+	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
+	return gateway.DoRequest[ListOperatorStrategyQueuedWithdrawalsResponse](ctx, gwReq)
 }

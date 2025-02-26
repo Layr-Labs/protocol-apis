@@ -19,12 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Protocol_GetRegisteredAvsForOperator_FullMethodName          = "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator"
-	Protocol_GetDelegatedStrategiesForOperator_FullMethodName    = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator"
-	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy"
-	Protocol_GetDelegatedStakersForOperator_FullMethodName       = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator"
-	Protocol_GetStakerShares_FullMethodName                      = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares"
-	Protocol_GetEigenStateChanges_FullMethodName                 = "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges"
+	Protocol_GetRegisteredAvsForOperator_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator"
+	Protocol_GetDelegatedStrategiesForOperator_FullMethodName     = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator"
+	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName  = "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy"
+	Protocol_GetDelegatedStakersForOperator_FullMethodName        = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator"
+	Protocol_GetStakerShares_FullMethodName                       = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares"
+	Protocol_GetEigenStateChanges_FullMethodName                  = "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges"
+	Protocol_ListStrategies_FullMethodName                        = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies"
+	Protocol_ListStakerStrategies_FullMethodName                  = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies"
+	Protocol_GetStrategyForStaker_FullMethodName                  = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker"
+	Protocol_ListStakerQueuedWithdrawals_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals"
+	Protocol_ListStrategyQueuedWithdrawals_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals"
+	Protocol_ListOperatorQueuedWithdrawals_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals"
+	Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -45,6 +52,13 @@ type ProtocolClient interface {
 	// the AVS the operator has registered with.
 	GetStakerShares(ctx context.Context, in *GetStakerSharesRequest, opts ...grpc.CallOption) (*GetStakerSharesResponse, error)
 	GetEigenStateChanges(ctx context.Context, in *GetEigenStateChangesRequest, opts ...grpc.CallOption) (*GetEigenStateChangesResponse, error)
+	ListStrategies(ctx context.Context, in *ListStrategiesRequest, opts ...grpc.CallOption) (*ListStrategiesResponse, error)
+	ListStakerStrategies(ctx context.Context, in *ListStakerStrategiesRequest, opts ...grpc.CallOption) (*ListStakerStrategiesResponse, error)
+	GetStrategyForStaker(ctx context.Context, in *GetStrategyForStakerRequest, opts ...grpc.CallOption) (*GetStrategyForStakerResponse, error)
+	ListStakerQueuedWithdrawals(ctx context.Context, in *ListStakerQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListStakerQueuedWithdrawalsResponse, error)
+	ListStrategyQueuedWithdrawals(ctx context.Context, in *ListStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListStrategyQueuedWithdrawalsResponse, error)
+	ListOperatorQueuedWithdrawals(ctx context.Context, in *ListOperatorQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorQueuedWithdrawalsResponse, error)
+	ListOperatorStrategyQueuedWithdrawals(ctx context.Context, in *ListOperatorStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 }
 
 type protocolClient struct {
@@ -115,6 +129,76 @@ func (c *protocolClient) GetEigenStateChanges(ctx context.Context, in *GetEigenS
 	return out, nil
 }
 
+func (c *protocolClient) ListStrategies(ctx context.Context, in *ListStrategiesRequest, opts ...grpc.CallOption) (*ListStrategiesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListStrategiesResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListStrategies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) ListStakerStrategies(ctx context.Context, in *ListStakerStrategiesRequest, opts ...grpc.CallOption) (*ListStakerStrategiesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListStakerStrategiesResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListStakerStrategies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) GetStrategyForStaker(ctx context.Context, in *GetStrategyForStakerRequest, opts ...grpc.CallOption) (*GetStrategyForStakerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetStrategyForStakerResponse)
+	err := c.cc.Invoke(ctx, Protocol_GetStrategyForStaker_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) ListStakerQueuedWithdrawals(ctx context.Context, in *ListStakerQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListStakerQueuedWithdrawalsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListStakerQueuedWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListStakerQueuedWithdrawals_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) ListStrategyQueuedWithdrawals(ctx context.Context, in *ListStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListStrategyQueuedWithdrawalsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListStrategyQueuedWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListStrategyQueuedWithdrawals_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) ListOperatorQueuedWithdrawals(ctx context.Context, in *ListOperatorQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorQueuedWithdrawalsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListOperatorQueuedWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListOperatorQueuedWithdrawals_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) ListOperatorStrategyQueuedWithdrawals(ctx context.Context, in *ListOperatorStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorStrategyQueuedWithdrawalsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListOperatorStrategyQueuedWithdrawalsResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProtocolServer is the server API for Protocol service.
 // All implementations should embed UnimplementedProtocolServer
 // for forward compatibility.
@@ -133,6 +217,13 @@ type ProtocolServer interface {
 	// the AVS the operator has registered with.
 	GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error)
 	GetEigenStateChanges(context.Context, *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error)
+	ListStrategies(context.Context, *ListStrategiesRequest) (*ListStrategiesResponse, error)
+	ListStakerStrategies(context.Context, *ListStakerStrategiesRequest) (*ListStakerStrategiesResponse, error)
+	GetStrategyForStaker(context.Context, *GetStrategyForStakerRequest) (*GetStrategyForStakerResponse, error)
+	ListStakerQueuedWithdrawals(context.Context, *ListStakerQueuedWithdrawalsRequest) (*ListStakerQueuedWithdrawalsResponse, error)
+	ListStrategyQueuedWithdrawals(context.Context, *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error)
+	ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error)
+	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 }
 
 // UnimplementedProtocolServer should be embedded to have
@@ -159,6 +250,27 @@ func (UnimplementedProtocolServer) GetStakerShares(context.Context, *GetStakerSh
 }
 func (UnimplementedProtocolServer) GetEigenStateChanges(context.Context, *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEigenStateChanges not implemented")
+}
+func (UnimplementedProtocolServer) ListStrategies(context.Context, *ListStrategiesRequest) (*ListStrategiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStrategies not implemented")
+}
+func (UnimplementedProtocolServer) ListStakerStrategies(context.Context, *ListStakerStrategiesRequest) (*ListStakerStrategiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStakerStrategies not implemented")
+}
+func (UnimplementedProtocolServer) GetStrategyForStaker(context.Context, *GetStrategyForStakerRequest) (*GetStrategyForStakerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStrategyForStaker not implemented")
+}
+func (UnimplementedProtocolServer) ListStakerQueuedWithdrawals(context.Context, *ListStakerQueuedWithdrawalsRequest) (*ListStakerQueuedWithdrawalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStakerQueuedWithdrawals not implemented")
+}
+func (UnimplementedProtocolServer) ListStrategyQueuedWithdrawals(context.Context, *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStrategyQueuedWithdrawals not implemented")
+}
+func (UnimplementedProtocolServer) ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOperatorQueuedWithdrawals not implemented")
+}
+func (UnimplementedProtocolServer) ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOperatorStrategyQueuedWithdrawals not implemented")
 }
 func (UnimplementedProtocolServer) testEmbeddedByValue() {}
 
@@ -288,6 +400,132 @@ func _Protocol_GetEigenStateChanges_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Protocol_ListStrategies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListStrategiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListStrategies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListStrategies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListStrategies(ctx, req.(*ListStrategiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_ListStakerStrategies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListStakerStrategiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListStakerStrategies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListStakerStrategies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListStakerStrategies(ctx, req.(*ListStakerStrategiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_GetStrategyForStaker_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStrategyForStakerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).GetStrategyForStaker(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_GetStrategyForStaker_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).GetStrategyForStaker(ctx, req.(*GetStrategyForStakerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_ListStakerQueuedWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListStakerQueuedWithdrawalsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListStakerQueuedWithdrawals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListStakerQueuedWithdrawals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListStakerQueuedWithdrawals(ctx, req.(*ListStakerQueuedWithdrawalsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_ListStrategyQueuedWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListStrategyQueuedWithdrawalsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListStrategyQueuedWithdrawals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListStrategyQueuedWithdrawals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListStrategyQueuedWithdrawals(ctx, req.(*ListStrategyQueuedWithdrawalsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_ListOperatorQueuedWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOperatorQueuedWithdrawalsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListOperatorQueuedWithdrawals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListOperatorQueuedWithdrawals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListOperatorQueuedWithdrawals(ctx, req.(*ListOperatorQueuedWithdrawalsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_ListOperatorStrategyQueuedWithdrawals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOperatorStrategyQueuedWithdrawalsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListOperatorStrategyQueuedWithdrawals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListOperatorStrategyQueuedWithdrawals(ctx, req.(*ListOperatorStrategyQueuedWithdrawalsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Protocol_ServiceDesc is the grpc.ServiceDesc for Protocol service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -318,6 +556,34 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEigenStateChanges",
 			Handler:    _Protocol_GetEigenStateChanges_Handler,
+		},
+		{
+			MethodName: "ListStrategies",
+			Handler:    _Protocol_ListStrategies_Handler,
+		},
+		{
+			MethodName: "ListStakerStrategies",
+			Handler:    _Protocol_ListStakerStrategies_Handler,
+		},
+		{
+			MethodName: "GetStrategyForStaker",
+			Handler:    _Protocol_GetStrategyForStaker_Handler,
+		},
+		{
+			MethodName: "ListStakerQueuedWithdrawals",
+			Handler:    _Protocol_ListStakerQueuedWithdrawals_Handler,
+		},
+		{
+			MethodName: "ListStrategyQueuedWithdrawals",
+			Handler:    _Protocol_ListStrategyQueuedWithdrawals_Handler,
+		},
+		{
+			MethodName: "ListOperatorQueuedWithdrawals",
+			Handler:    _Protocol_ListOperatorQueuedWithdrawals_Handler,
+		},
+		{
+			MethodName: "ListOperatorStrategyQueuedWithdrawals",
+			Handler:    _Protocol_ListOperatorStrategyQueuedWithdrawals_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

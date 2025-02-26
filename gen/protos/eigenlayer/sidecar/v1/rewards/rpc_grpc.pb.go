@@ -36,6 +36,8 @@ const (
 	Rewards_GetClaimedRewardsByBlock_FullMethodName                  = "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock"
 	Rewards_ListClaimedRewardsByBlockRange_FullMethodName            = "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange"
 	Rewards_ListDistributionRoots_FullMethodName                     = "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots"
+	Rewards_ListEarnerLifetimeRewards_FullMethodName                 = "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerLifetimeRewards"
+	Rewards_ListEarnerHistoricalRewards_FullMethodName               = "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerHistoricalRewards"
 )
 
 // RewardsClient is the client API for Rewards service.
@@ -84,6 +86,14 @@ type RewardsClient interface {
 	// inclusive of the start and end block heights
 	ListClaimedRewardsByBlockRange(ctx context.Context, in *ListClaimedRewardsByBlockRangeRequest, opts ...grpc.CallOption) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(ctx context.Context, in *ListDistributionRootsRequest, opts ...grpc.CallOption) (*ListDistributionRootsResponse, error)
+	// Lists the lifetime rewards for an earner
+	//
+	// Returns a list of tokens and the total amount accumulated
+	ListEarnerLifetimeRewards(ctx context.Context, in *ListEarnerLifetimeRewardsRequest, opts ...grpc.CallOption) (*ListEarnerLifetimeRewardsResponse, error)
+	// List historical rewards for a given earner address
+	//
+	// Returns a list of tokens containing a list of delta rewards for each snapshot date
+	ListEarnerHistoricalRewards(ctx context.Context, in *ListEarnerHistoricalRewardsRequest, opts ...grpc.CallOption) (*ListEarnerHistoricalRewardsResponse, error)
 }
 
 type rewardsClient struct {
@@ -264,6 +274,26 @@ func (c *rewardsClient) ListDistributionRoots(ctx context.Context, in *ListDistr
 	return out, nil
 }
 
+func (c *rewardsClient) ListEarnerLifetimeRewards(ctx context.Context, in *ListEarnerLifetimeRewardsRequest, opts ...grpc.CallOption) (*ListEarnerLifetimeRewardsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListEarnerLifetimeRewardsResponse)
+	err := c.cc.Invoke(ctx, Rewards_ListEarnerLifetimeRewards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) ListEarnerHistoricalRewards(ctx context.Context, in *ListEarnerHistoricalRewardsRequest, opts ...grpc.CallOption) (*ListEarnerHistoricalRewardsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListEarnerHistoricalRewardsResponse)
+	err := c.cc.Invoke(ctx, Rewards_ListEarnerHistoricalRewards_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RewardsServer is the server API for Rewards service.
 // All implementations should embed UnimplementedRewardsServer
 // for forward compatibility.
@@ -310,6 +340,14 @@ type RewardsServer interface {
 	// inclusive of the start and end block heights
 	ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error)
+	// Lists the lifetime rewards for an earner
+	//
+	// Returns a list of tokens and the total amount accumulated
+	ListEarnerLifetimeRewards(context.Context, *ListEarnerLifetimeRewardsRequest) (*ListEarnerLifetimeRewardsResponse, error)
+	// List historical rewards for a given earner address
+	//
+	// Returns a list of tokens containing a list of delta rewards for each snapshot date
+	ListEarnerHistoricalRewards(context.Context, *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error)
 }
 
 // UnimplementedRewardsServer should be embedded to have
@@ -369,6 +407,12 @@ func (UnimplementedRewardsServer) ListClaimedRewardsByBlockRange(context.Context
 }
 func (UnimplementedRewardsServer) ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDistributionRoots not implemented")
+}
+func (UnimplementedRewardsServer) ListEarnerLifetimeRewards(context.Context, *ListEarnerLifetimeRewardsRequest) (*ListEarnerLifetimeRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListEarnerLifetimeRewards not implemented")
+}
+func (UnimplementedRewardsServer) ListEarnerHistoricalRewards(context.Context, *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListEarnerHistoricalRewards not implemented")
 }
 func (UnimplementedRewardsServer) testEmbeddedByValue() {}
 
@@ -696,6 +740,42 @@ func _Rewards_ListDistributionRoots_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_ListEarnerLifetimeRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListEarnerLifetimeRewardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).ListEarnerLifetimeRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_ListEarnerLifetimeRewards_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).ListEarnerLifetimeRewards(ctx, req.(*ListEarnerLifetimeRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Rewards_ListEarnerHistoricalRewards_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListEarnerHistoricalRewardsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).ListEarnerHistoricalRewards(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_ListEarnerHistoricalRewards_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).ListEarnerHistoricalRewards(ctx, req.(*ListEarnerHistoricalRewardsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Rewards_ServiceDesc is the grpc.ServiceDesc for Rewards service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -770,6 +850,14 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListDistributionRoots",
 			Handler:    _Rewards_ListDistributionRoots_Handler,
+		},
+		{
+			MethodName: "ListEarnerLifetimeRewards",
+			Handler:    _Rewards_ListEarnerLifetimeRewards_Handler,
+		},
+		{
+			MethodName: "ListEarnerHistoricalRewards",
+			Handler:    _Rewards_ListEarnerHistoricalRewards_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

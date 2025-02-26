@@ -4,8 +4,9 @@
 * This file is a generated Typescript file for GRPC Gateway, DO NOT MODIFY
 */
 
-import * as GoogleProtobufTimestamp from "../../../../google/protobuf/timestamp.pb"
 import * as GoogleProtobufWrappers from "../../../../google/protobuf/wrappers.pb"
+import * as EigenlayerSidecarV1CommonTypes from "../common/types.pb"
+import * as EigenlayerSidecarV1RewardsCommon from "./common.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -15,85 +16,12 @@ type OneOf<T> =
       (K extends string & keyof T ? { [k in K]: T[K] } & Absent<T, K>
         : never)
     : never);
-
-export enum RewardType {
-  REWARD_TYPE_AVS = "REWARD_TYPE_AVS",
-  REWARD_TYPE_FOR_ALL = "REWARD_TYPE_FOR_ALL",
-  REWARD_TYPE_FOR_ALL_EARNERS = "REWARD_TYPE_FOR_ALL_EARNERS",
-}
-
-export type EarnerLeaf = {
-  earner?: string
-  earnerTokenRoot?: Uint8Array
-}
-
-export type TokenLeaf = {
-  token?: string
-  cumulativeEarnings?: string
-}
-
-export type Proof = {
-  root?: Uint8Array
-  rootIndex?: number
-  earnerIndex?: number
-  earnerTreeProof?: Uint8Array
-  earnerLeaf?: EarnerLeaf
-  tokenIndices?: number[]
-  tokenTreeProofs?: Uint8Array[]
-  tokenLeaves?: TokenLeaf[]
-}
-
-export type Reward = {
-  earner?: string
-  token?: string
-  amount?: string
-  snapshot?: string
-}
-
-export type AttributableReward = {
-  earner?: string
-  operator?: string
-  avs?: string
-  token?: string
-  strategy?: string
-  multiplier?: string
-  amount?: string
-  shares?: string
-  rewardHash?: string
-  snapshot?: string
-  rewardType?: RewardType
-}
-
-export type AvsReward = {
-  earner?: string
-  avs?: string
-  token?: string
-  amount?: string
-  rewardHash?: string
-  snapshot?: string
-  rewardType?: RewardType
-}
-
-export type DistributionRoot = {
-  root?: string
-  rootIndex?: string
-  rewardsCalculationEnd?: GoogleProtobufTimestamp.Timestamp
-  rewardsCalculationEndUnit?: string
-  activatedAt?: GoogleProtobufTimestamp.Timestamp
-  activatedAtUnit?: string
-  createdAtBlockNumber?: string
-  transactionHash?: string
-  blockHeight?: string
-  logIndex?: string
-  disabled?: boolean
-}
-
 export type GetRewardsRootRequest = {
   blockHeight?: string
 }
 
 export type GetRewardsRootResponse = {
-  rewardsRoot?: DistributionRoot
+  rewardsRoot?: EigenlayerSidecarV1RewardsCommon.DistributionRoot
 }
 
 export type GenerateRewardsRequest = {
@@ -109,7 +37,7 @@ type BaseGenerateRewardsResponse = {
 }
 
 export type GenerateRewardsResponse = BaseGenerateRewardsResponse
-  & OneOf<{ rewards: Reward }>
+  & OneOf<{ rewards: EigenlayerSidecarV1RewardsCommon.Reward }>
 
 export type GenerateStakerOperatorsRequest = {
   cutoffDate?: string
@@ -142,7 +70,7 @@ export type GetRewardsForSnapshotRequest = {
 }
 
 export type GetRewardsForSnapshotResponse = {
-  rewards?: Reward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
 }
 
 export type GetAttributableRewardsForSnapshotRequest = {
@@ -150,7 +78,7 @@ export type GetAttributableRewardsForSnapshotRequest = {
 }
 
 export type GetAttributableRewardsForSnapshotResponse = {
-  rewards?: AttributableReward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.AttributableReward[]
 }
 
 export type GetAttributableRewardsForDistributionRootRequest = {
@@ -158,7 +86,7 @@ export type GetAttributableRewardsForDistributionRootRequest = {
 }
 
 export type GetAttributableRewardsForDistributionRootResponse = {
-  rewards?: AttributableReward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.AttributableReward[]
 }
 
 export type GetRewardsByAvsForDistributionRootRequest = {
@@ -166,7 +94,7 @@ export type GetRewardsByAvsForDistributionRootRequest = {
 }
 
 export type GetRewardsByAvsForDistributionRootResponse = {
-  rewards?: AvsReward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.AvsReward[]
 }
 
 
@@ -179,7 +107,7 @@ export type GenerateClaimProofRequest = BaseGenerateClaimProofRequest
   & OneOf<{ rootIndex: GoogleProtobufWrappers.Int64Value }>
 
 export type GenerateClaimProofResponse = {
-  proof?: Proof
+  proof?: EigenlayerSidecarV1RewardsCommon.Proof
 }
 
 export type GetClaimableRewardsRequest = {
@@ -188,13 +116,7 @@ export type GetClaimableRewardsRequest = {
 }
 
 export type GetClaimableRewardsResponse = {
-  rewards?: Reward[]
-}
-
-export type TotalClaimedReward = {
-  earner?: string
-  token?: string
-  amount?: string
+  rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
 }
 
 
@@ -206,7 +128,7 @@ export type GetTotalClaimedRewardsRequest = BaseGetTotalClaimedRewardsRequest
   & OneOf<{ blockHeight: string }>
 
 export type GetTotalClaimedRewardsResponse = {
-  rewards?: TotalClaimedReward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.TotalClaimedReward[]
 }
 
 
@@ -221,14 +143,6 @@ export type GetAvailableRewardsTokensResponse = {
   tokens?: string[]
 }
 
-export type SummarizedEarnerReward = {
-  token?: string
-  earned?: string
-  active?: string
-  claimed?: string
-  claimable?: string
-}
-
 
 type BaseGetSummarizedRewardsForEarnerRequest = {
   earnerAddress?: string
@@ -238,17 +152,7 @@ export type GetSummarizedRewardsForEarnerRequest = BaseGetSummarizedRewardsForEa
   & OneOf<{ blockHeight: string }>
 
 export type GetSummarizedRewardsForEarnerResponse = {
-  rewards?: SummarizedEarnerReward[]
-}
-
-export type ClaimedReward = {
-  earner?: string
-  claimer?: string
-  token?: string
-  amount?: string
-  distributionRoot?: string
-  blockNumber?: string
-  recipient?: string
+  rewards?: EigenlayerSidecarV1RewardsCommon.SummarizedEarnerReward[]
 }
 
 export type GetClaimedRewardsByBlockRequest = {
@@ -256,7 +160,7 @@ export type GetClaimedRewardsByBlockRequest = {
 }
 
 export type GetClaimedRewardsByBlockResponse = {
-  rewards?: ClaimedReward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.ClaimedReward[]
 }
 
 
@@ -267,7 +171,7 @@ export type ListDistributionRootsRequest = BaseListDistributionRootsRequest
   & OneOf<{ blockHeight: string }>
 
 export type ListDistributionRootsResponse = {
-  distributionRoots?: DistributionRoot[]
+  distributionRoots?: EigenlayerSidecarV1RewardsCommon.DistributionRoot[]
 }
 
 export type ListClaimedRewardsByBlockRangeRequest = {
@@ -277,5 +181,41 @@ export type ListClaimedRewardsByBlockRangeRequest = {
 }
 
 export type ListClaimedRewardsByBlockRangeResponse = {
-  rewards?: ClaimedReward[]
+  rewards?: EigenlayerSidecarV1RewardsCommon.ClaimedReward[]
 }
+
+
+type BaseListEarnerLifetimeRewardsRequest = {
+  earnerAddress?: string
+}
+
+export type ListEarnerLifetimeRewardsRequest = BaseListEarnerLifetimeRewardsRequest
+  & OneOf<{ blockHeight: string }>
+  & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseListEarnerLifetimeRewardsResponse = {
+  rewards?: EigenlayerSidecarV1RewardsCommon.RewardAmount[]
+}
+
+export type ListEarnerLifetimeRewardsResponse = BaseListEarnerLifetimeRewardsResponse
+  & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseListEarnerHistoricalRewardsRequest = {
+  earnerAddress?: string
+  tokens?: string[]
+}
+
+export type ListEarnerHistoricalRewardsRequest = BaseListEarnerHistoricalRewardsRequest
+  & OneOf<{ startBlockHeight: string }>
+  & OneOf<{ endBlockHeight: string }>
+  & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseListEarnerHistoricalRewardsResponse = {
+  rewards?: EigenlayerSidecarV1RewardsCommon.HistoricalReward[]
+}
+
+export type ListEarnerHistoricalRewardsResponse = BaseListEarnerHistoricalRewardsResponse
+  & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>

@@ -54,6 +54,14 @@ type RewardsGatewayClient interface {
 	// inclusive of the start and end block heights
 	ListClaimedRewardsByBlockRange(context.Context, *ListClaimedRewardsByBlockRangeRequest) (*ListClaimedRewardsByBlockRangeResponse, error)
 	ListDistributionRoots(context.Context, *ListDistributionRootsRequest) (*ListDistributionRootsResponse, error)
+	// Lists the lifetime rewards for an earner
+	//
+	// Returns a list of tokens and the total amount accumulated
+	ListEarnerLifetimeRewards(context.Context, *ListEarnerLifetimeRewardsRequest) (*ListEarnerLifetimeRewardsResponse, error)
+	// List historical rewards for a given earner address
+	//
+	// Returns a list of tokens containing a list of delta rewards for each snapshot date
+	ListEarnerHistoricalRewards(context.Context, *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error)
 }
 
 func NewRewardsGatewayClient(c gateway.Client) RewardsGatewayClient {
@@ -192,4 +200,40 @@ func (c *rewardsGatewayClient) ListDistributionRoots(ctx context.Context, req *L
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListDistributionRootsResponse](ctx, gwReq)
+}
+
+func (c *rewardsGatewayClient) ListEarnerLifetimeRewards(ctx context.Context, req *ListEarnerLifetimeRewardsRequest) (*ListEarnerLifetimeRewardsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/earners/{earnerAddress}/lifetime-rewards")
+	gwReq.SetPathParam("earnerAddress", fmt.Sprintf("%v", req.EarnerAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	if req.Pagination != nil {
+		q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+		q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListEarnerLifetimeRewardsResponse](ctx, gwReq)
+}
+
+func (c *rewardsGatewayClient) ListEarnerHistoricalRewards(ctx context.Context, req *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/earners/{earnerAddress}/historical-rewards")
+	gwReq.SetPathParam("earnerAddress", fmt.Sprintf("%v", req.EarnerAddress))
+	q := url.Values{}
+	if req.StartBlockHeight != nil {
+		q.Add("startBlockHeight", fmt.Sprintf("%v", *req.StartBlockHeight))
+	}
+	if req.EndBlockHeight != nil {
+		q.Add("endBlockHeight", fmt.Sprintf("%v", *req.EndBlockHeight))
+	}
+	for _, v := range req.Tokens {
+		q.Add("tokens", fmt.Sprintf("%v", v))
+	}
+	if req.Pagination != nil {
+		q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+		q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListEarnerHistoricalRewardsResponse](ctx, gwReq)
 }

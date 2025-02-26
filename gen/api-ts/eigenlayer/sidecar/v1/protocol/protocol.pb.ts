@@ -6,6 +6,7 @@
 
 import * as EigenlayerSidecarV1CommonTypes from "../common/types.pb"
 import * as EigenlayerSidecarV1EigenStateEigenState from "../eigenState/eigenState.pb"
+import * as EigenlayerSidecarV1ProtocolCommon from "./common.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -78,18 +79,8 @@ type BaseGetStakerSharesRequest = {
 export type GetStakerSharesRequest = BaseGetStakerSharesRequest
   & OneOf<{ blockHeight: string }>
 
-
-type BaseStakerShare = {
-  strategy?: string
-  shares?: string
-  avsAddresses?: string[]
-}
-
-export type StakerShare = BaseStakerShare
-  & OneOf<{ operatorAddress: string }>
-
 export type GetStakerSharesResponse = {
-  shares?: StakerShare[]
+  shares?: EigenlayerSidecarV1ProtocolCommon.StakerShare[]
 }
 
 export type GetEigenStateChangesRequest = {
@@ -98,4 +89,69 @@ export type GetEigenStateChangesRequest = {
 
 export type GetEigenStateChangesResponse = {
   changes?: EigenlayerSidecarV1EigenStateEigenState.EigenStateChange[]
+}
+
+export type ListStrategiesRequest = {
+}
+
+export type ListStrategiesResponse = {
+  strategies?: EigenlayerSidecarV1ProtocolCommon.Strategy[]
+}
+
+
+type BaseListStakerStrategiesRequest = {
+  stakerAddress?: string
+}
+
+export type ListStakerStrategiesRequest = BaseListStakerStrategiesRequest
+  & OneOf<{ blockHeight: string }>
+
+export type ListStakerStrategiesResponse = {
+  stakerStrategies?: EigenlayerSidecarV1ProtocolCommon.StakerStrategy[]
+}
+
+
+type BaseGetStrategyForStakerRequest = {
+  stakerAddress?: string
+  strategyAddress?: string
+}
+
+export type GetStrategyForStakerRequest = BaseGetStrategyForStakerRequest
+  & OneOf<{ blockHeight: string }>
+
+export type GetStrategyForStakerResponse = {
+  stakerStrategy?: EigenlayerSidecarV1ProtocolCommon.StakerStrategy
+}
+
+export type ListStakerQueuedWithdrawalsRequest = {
+  stakerAddress?: string
+}
+
+export type ListStakerQueuedWithdrawalsResponse = {
+  queuedWithdrawals?: EigenlayerSidecarV1ProtocolCommon.QueuedStrategyWithdrawal[]
+}
+
+export type ListStrategyQueuedWithdrawalsRequest = {
+  strategyAddress?: string
+}
+
+export type ListStrategyQueuedWithdrawalsResponse = {
+  withdrawals?: EigenlayerSidecarV1ProtocolCommon.StakerWithdrawal[]
+}
+
+export type ListOperatorQueuedWithdrawalsRequest = {
+  operatorAddress?: string
+}
+
+export type ListOperatorQueuedWithdrawalsResponse = {
+  strategies?: EigenlayerSidecarV1ProtocolCommon.QueueStakerStrategyWithdrawal[]
+}
+
+export type ListOperatorStrategyQueuedWithdrawalsRequest = {
+  operatorAddress?: string
+  strategyAddress?: string
+}
+
+export type ListOperatorStrategyQueuedWithdrawalsResponse = {
+  withdrawals?: EigenlayerSidecarV1ProtocolCommon.StakerWithdrawal[]
 }
