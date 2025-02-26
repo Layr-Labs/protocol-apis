@@ -7,81 +7,9 @@ option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/si
 import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
+import "eigenlayer/sidecar/v1/rewards/common.proto";
+import "eigenlayer/sidecar/v1/common/types.proto";
 
-
-message EarnerLeaf {
-  string earner = 1;
-  bytes earner_token_root = 2;
-}
-
-message TokenLeaf {
-  string token = 1;
-  string cumulative_earnings = 2;
-}
-
-// Proof closely models the IRewardsCoordinatorRewardsMerkleClaim interface found
-// in the RewardsCoordinator contract
-message Proof {
-  bytes root = 1;
-  uint32 root_index = 2;
-  uint32 earner_index = 3;
-  bytes earner_tree_proof = 4;
-  EarnerLeaf earner_leaf = 5;
-  repeated uint32 token_indices = 6;
-  repeated bytes token_tree_proofs = 7;
-  repeated TokenLeaf token_leaves = 8;
-}
-
-enum RewardType {
-  REWARD_TYPE_AVS = 0;
-  REWARD_TYPE_FOR_ALL = 1;
-  REWARD_TYPE_FOR_ALL_EARNERS = 2;
-}
-
-message Reward {
-  string earner = 1;
-  string token = 2;
-  string amount = 3;
-  string snapshot = 4;
-}
-
-message AttributableReward {
-  string earner = 1;
-  string operator = 2;
-  string avs = 3;
-  string token = 4;
-  string strategy = 5;
-  string multiplier = 6;
-  string amount = 7;
-  string shares = 8;
-  string reward_hash = 9;
-  string snapshot = 10;
-  RewardType reward_type = 11;
-}
-
-message AvsReward {
-  string earner = 1;
-  string avs = 2;
-  string token = 3;
-  string amount = 4;
-  string reward_hash = 5;
-  string snapshot = 6;
-  RewardType reward_type = 7;
-}
-
-message DistributionRoot {
-  string root = 1;
-  uint64 root_index = 2;
-  google.protobuf.Timestamp rewards_calculation_end = 3;
-  string rewards_calculation_end_unit = 4;
-  google.protobuf.Timestamp activated_at = 5;
-  string activated_at_unit = 6;
-  uint64 created_at_block_number = 7;
-  string transaction_hash = 8;
-  uint64 block_height = 9;
-  uint64 log_index = 10;
-  bool disabled = 11;
-}
 
 message GetRewardsRootRequest {
   uint64 block_height = 1;
@@ -89,6 +17,7 @@ message GetRewardsRootRequest {
 message GetRewardsRootResponse {
   DistributionRoot rewards_root = 1;
 }
+
 
 message GenerateRewardsRequest {
   string cutoff_date = 1;
@@ -108,15 +37,14 @@ message GenerateStakerOperatorsRequest {
   string cutoff_date = 1;
   bool wait_for_complete = 2;
 }
-
 message GenerateStakerOperatorsResponse {
   bool queued = 1;
 }
 
+
 message BackfillStakerOperatorsRequest {
   bool wait_for_complete = 1;
 }
-
 message BackfillStakerOperatorsResponse {
   bool queued = 1;
 }
@@ -147,6 +75,7 @@ message GetAttributableRewardsForSnapshotResponse {
   repeated AttributableReward rewards = 1;
 }
 
+
 message GetAttributableRewardsForDistributionRootRequest {
   string distribution_root = 1;
 }
@@ -154,10 +83,10 @@ message GetAttributableRewardsForDistributionRootResponse {
   repeated AttributableReward rewards = 1;
 }
 
+
 message GetRewardsByAvsForDistributionRootRequest {
   uint64 root_index = 1;
 }
-
 message GetRewardsByAvsForDistributionRootResponse {
   repeated AvsReward rewards = 1;
 }
@@ -182,11 +111,6 @@ message GetClaimableRewardsResponse {
   repeated Reward rewards = 1;
 }
 
-message TotalClaimedReward {
-  string earner = 1;
-  string token = 2;
-  string amount = 3;
-}
 
 message GetTotalClaimedRewardsRequest {
   string earner_address = 1;
@@ -205,40 +129,16 @@ message GetAvailableRewardsTokensResponse {
   repeated string tokens = 1;
 }
 
-message SummarizedEarnerReward {
-  string token = 1;
-
-  // Rewards that have been earned but not necessarily activated yet
-  string earned = 2;
-
-  // total rewards that are claimable (does not account for claimed)
-  string active = 3;
-
-  // total rewards that have been claimed
-  string claimed = 4;
-
-  // rewards that can be claimed at the block height
-  string claimable = 5;
-}
 
 message GetSummarizedRewardsForEarnerRequest {
   string earner_address = 1;
   optional uint64 block_height = 2;
 }
-
 message GetSummarizedRewardsForEarnerResponse {
   repeated SummarizedEarnerReward rewards = 1;
 }
 
-message ClaimedReward {
-  string earner = 1;
-  string claimer = 2;
-  string token = 3;
-  string amount = 4;
-  string distribution_root = 5;
-  uint64 block_number = 6;
-  string recipient = 7;
-}
+
 message GetClaimedRewardsByBlockRequest {
   uint64 block_height = 1;
 }
@@ -246,20 +146,44 @@ message GetClaimedRewardsByBlockResponse {
   repeated ClaimedReward rewards = 1;
 }
 
+
 message ListDistributionRootsRequest {
   optional uint64 block_height = 1;
 }
-
 message ListDistributionRootsResponse {
   repeated DistributionRoot distribution_roots = 1;
 }
+
 
 message ListClaimedRewardsByBlockRangeRequest {
   string earner_address = 1;
   uint64 start_block_height = 2;
   uint64 end_block_height = 3;
 }
-
 message ListClaimedRewardsByBlockRangeResponse {
   repeated ClaimedReward rewards = 1;
+}
+
+
+message ListEarnerLifetimeRewardsRequest {
+  string earnerAddress = 1;
+  optional uint64 blockHeight = 2;
+  optional eigenlayer.sidecar.v1.common.Pagination pagination = 3;
+}
+message ListEarnerLifetimeRewardsResponse {
+  repeated RewardAmount rewards = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination nextPage = 2;
+}
+
+
+message ListEarnerHistoricalRewardsRequest {
+  string earnerAddress = 1;
+  optional uint64 startBlockHeight = 2;
+  optional uint64 endBlockHeight = 3;
+  repeated string tokens = 4;
+  optional eigenlayer.sidecar.v1.common.Pagination pagination = 4;
+}
+message ListEarnerHistoricalRewardsResponse {
+  repeated HistoricalReward rewards = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination nextPage = 2;
 }

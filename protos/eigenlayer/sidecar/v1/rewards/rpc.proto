@@ -146,4 +146,22 @@ service Rewards {
       get: "/rewards/v1/distribution-roots"
     };
   }
+
+  // Lists the lifetime rewards for an earner
+  //
+  // Returns a list of tokens and the total amount accumulated
+  rpc ListEarnerLifetimeRewards(ListEarnerLifetimeRewardsRequest) returns (ListEarnerLifetimeRewardsResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/earners/{earnerAddress}/lifetime-rewards"
+    };
+  }
+
+  // List historical rewards for a given earner address
+  //
+  // Returns a list of tokens containing a list of delta rewards for each snapshot date
+  rpc ListEarnerHistoricalRewards(ListEarnerHistoricalRewardsRequest) returns (ListEarnerHistoricalRewardsResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/earners/{earnerAddress}/historical-rewards"
+    };
+  }
 }
