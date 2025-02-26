@@ -5,6 +5,7 @@ package eigenlayer.sidecar.v1.protocol;
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/protocol";
 
 import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
+import "eigenlayer/sidecar/v1/protocol/common.proto";
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/common/types.proto";
 
@@ -13,65 +14,81 @@ message GetRegisteredAvsForOperatorRequest {
   string operator_address = 1;
   optional uint64 block_height = 2;
 }
-
 message GetRegisteredAvsForOperatorResponse {
   repeated string avs_addresses = 1;
 }
+
 
 message GetDelegatedStrategiesForOperatorRequest {
   string operator_address = 1;
   optional uint64 block_height = 2;
 }
-
 message GetDelegatedStrategiesForOperatorResponse {
   repeated string strategy_addresses = 1;
 }
+
 
 message GetOperatorDelegatedStakeForStrategyRequest {
   string operator_address = 1;
   string strategy_address = 2;
   optional uint64 block_height = 3;
 }
-
 message GetOperatorDelegatedStakeForStrategyResponse {
   string shares = 1;
   repeated string avs_addresses = 2;
 }
+
 
 message GetDelegatedStakersForOperatorRequest {
   string operator_address = 1;
   optional uint64 block_height = 2;
   optional eigenlayer.sidecar.v1.common.Pagination pagination = 3;
 }
-
 message GetDelegatedStakersForOperatorResponse {
   repeated string staker_addresses = 1;
   optional eigenlayer.sidecar.v1.common.Pagination next_page = 2;
 }
 
+
 message GetStakerSharesRequest {
   string staker_address = 1;
   optional uint64 block_height = 2;
 }
-
-message StakerShare {
-  string strategy = 1;
-  string shares = 2;
-
-  // Operator the staker has delegated to if present
-  optional string operator_address = 3;
-  // The operator could be regietered with 0 or many AVSs
-  repeated string avs_addresses = 4;
-}
-
 message GetStakerSharesResponse {
   repeated StakerShare shares = 1;
 }
 
+
 message GetEigenStateChangesRequest {
   uint64 block_height = 1;
 }
-
 message GetEigenStateChangesResponse {
   repeated eigenlayer.sidecar.v1.eigenState.EigenStateChange changes = 1;
 }
+
+
+message ListStrategiesRequest {}
+message ListStrategiesResponse {
+  repeated Strategy strategies = 1;
+}
+
+
+message ListStakerStrategiesRequest {
+  string stakerAddress = 1;
+  optional uint64 block_height = 2;
+}
+message ListStakerStrategiesResponse {
+  repeated StakerStrategy stakerStrategies = 1;
+}
+
+
+message GetStrategyForStakerRequest {
+  string stakerAddress = 1;
+  string strategyAddress = 2;
+  optional uint64 block_height = 3;
+}
+message GetStrategyForStakerResponse {
+  StakerStrategy stakerStrategy = 1;
+}
+
+

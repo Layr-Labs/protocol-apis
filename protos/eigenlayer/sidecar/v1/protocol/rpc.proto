@@ -55,4 +55,22 @@ service Protocol {
       get: "/protocol/v1/eigen-state-changes"
     };
   }
+
+  rpc ListStrategies(ListStrategiesRequest) returns (ListStrategiesResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/strategies"
+    };
+  }
+
+  rpc ListStakerStrategies(ListStakerStrategiesRequest) returns (ListStakerStrategiesResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/stakers/{stakerAddress}/strategies"
+    };
+  }
+
+  rpc GetStrategyForStaker(GetStrategyForStakerRequest) returns (GetStrategyForStakerResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"
+    };
+  }
 }
