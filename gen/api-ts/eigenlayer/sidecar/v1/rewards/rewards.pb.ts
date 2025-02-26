@@ -4,7 +4,6 @@
 * This file is a generated Typescript file for GRPC Gateway, DO NOT MODIFY
 */
 
-import * as fm from "../../../../fetch.pb"
 import * as GoogleProtobufTimestamp from "../../../../google/protobuf/timestamp.pb"
 import * as GoogleProtobufWrappers from "../../../../google/protobuf/wrappers.pb"
 
@@ -279,58 +278,4 @@ export type ListClaimedRewardsByBlockRangeRequest = {
 
 export type ListClaimedRewardsByBlockRangeResponse = {
   rewards?: ClaimedReward[]
-}
-
-export class Rewards {
-  static GetRewardsRoot(req: GetRewardsRootRequest, initReq?: fm.InitReq): Promise<GetRewardsRootResponse> {
-    return fm.fetchReq<GetRewardsRootRequest, GetRewardsRootResponse>(`/rewards/v1/blocks/${req["blockHeight"]}/rewards-root?${fm.renderURLSearchParams(req, ["blockHeight"])}`, {...initReq, method: "GET"})
-  }
-  static GenerateRewards(req: GenerateRewardsRequest, initReq?: fm.InitReq): Promise<GenerateRewardsResponse> {
-    return fm.fetchReq<GenerateRewardsRequest, GenerateRewardsResponse>(`/rewards/v1/generate-rewards`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
-  }
-  static GenerateStakerOperators(req: GenerateStakerOperatorsRequest, initReq?: fm.InitReq): Promise<GenerateStakerOperatorsResponse> {
-    return fm.fetchReq<GenerateStakerOperatorsRequest, GenerateStakerOperatorsResponse>(`/rewards/v1/generate-staker-operators`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
-  }
-  static BackfillStakerOperators(req: BackfillStakerOperatorsRequest, initReq?: fm.InitReq): Promise<BackfillStakerOperatorsResponse> {
-    return fm.fetchReq<BackfillStakerOperatorsRequest, BackfillStakerOperatorsResponse>(`/rewards/v1/backfill-staker-operators`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
-  }
-  static GenerateRewardsRoot(req: GenerateRewardsRootRequest, initReq?: fm.InitReq): Promise<GenerateRewardsRootResponse> {
-    return fm.fetchReq<GenerateRewardsRootRequest, GenerateRewardsRootResponse>(`/rewards/v1/generate-rewards-root`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
-  }
-  static GetRewardsForSnapshot(req: GetRewardsForSnapshotRequest, initReq?: fm.InitReq): Promise<GetRewardsForSnapshotResponse> {
-    return fm.fetchReq<GetRewardsForSnapshotRequest, GetRewardsForSnapshotResponse>(`/rewards/v1/rewards/${req["snapshot"]}?${fm.renderURLSearchParams(req, ["snapshot"])}`, {...initReq, method: "GET"})
-  }
-  static GetAttributableRewardsForSnapshot(req: GetAttributableRewardsForSnapshotRequest, initReq?: fm.InitReq): Promise<GetAttributableRewardsForSnapshotResponse> {
-    return fm.fetchReq<GetAttributableRewardsForSnapshotRequest, GetAttributableRewardsForSnapshotResponse>(`/rewards/v1/attributable-rewards/${req["snapshot"]}?${fm.renderURLSearchParams(req, ["snapshot"])}`, {...initReq, method: "GET"})
-  }
-  static GetAttributableRewardsForDistributionRoot(req: GetAttributableRewardsForDistributionRootRequest, initReq?: fm.InitReq): Promise<GetAttributableRewardsForDistributionRootResponse> {
-    return fm.fetchReq<GetAttributableRewardsForDistributionRootRequest, GetAttributableRewardsForDistributionRootResponse>(`/rewards/v1/attributable-rewards-by-root/${req["distributionRoot"]}?${fm.renderURLSearchParams(req, ["distributionRoot"])}`, {...initReq, method: "GET"})
-  }
-  static GetRewardsByAvsForDistributionRoot(req: GetRewardsByAvsForDistributionRootRequest, initReq?: fm.InitReq): Promise<GetRewardsByAvsForDistributionRootResponse> {
-    return fm.fetchReq<GetRewardsByAvsForDistributionRootRequest, GetRewardsByAvsForDistributionRootResponse>(`/rewards/v1/avs-rewards-by-root/${req["rootIndex"]}?${fm.renderURLSearchParams(req, ["rootIndex"])}`, {...initReq, method: "GET"})
-  }
-  static GenerateClaimProof(req: GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<GenerateClaimProofResponse> {
-    return fm.fetchReq<GenerateClaimProofRequest, GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
-  }
-  static GetClaimableRewards(req: GetClaimableRewardsRequest, initReq?: fm.InitReq): Promise<GetClaimableRewardsResponse> {
-    return fm.fetchReq<GetClaimableRewardsRequest, GetClaimableRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/claimable-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetTotalClaimedRewards(req: GetTotalClaimedRewardsRequest, initReq?: fm.InitReq): Promise<GetTotalClaimedRewardsResponse> {
-    return fm.fetchReq<GetTotalClaimedRewardsRequest, GetTotalClaimedRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/total-claimed-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetAvailableRewardsTokens(req: GetAvailableRewardsTokensRequest, initReq?: fm.InitReq): Promise<GetAvailableRewardsTokensResponse> {
-    return fm.fetchReq<GetAvailableRewardsTokensRequest, GetAvailableRewardsTokensResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/available-rewards-tokens?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetSummarizedRewardsForEarner(req: GetSummarizedRewardsForEarnerRequest, initReq?: fm.InitReq): Promise<GetSummarizedRewardsForEarnerResponse> {
-    return fm.fetchReq<GetSummarizedRewardsForEarnerRequest, GetSummarizedRewardsForEarnerResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/summarized-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetClaimedRewardsByBlock(req: GetClaimedRewardsByBlockRequest, initReq?: fm.InitReq): Promise<GetClaimedRewardsByBlockResponse> {
-    return fm.fetchReq<GetClaimedRewardsByBlockRequest, GetClaimedRewardsByBlockResponse>(`/rewards/v1/blocks/${req["blockHeight"]}/claimed-rewards?${fm.renderURLSearchParams(req, ["blockHeight"])}`, {...initReq, method: "GET"})
-  }
-  static ListClaimedRewardsByBlockRange(req: ListClaimedRewardsByBlockRangeRequest, initReq?: fm.InitReq): Promise<ListClaimedRewardsByBlockRangeResponse> {
-    return fm.fetchReq<ListClaimedRewardsByBlockRangeRequest, ListClaimedRewardsByBlockRangeResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/claimed-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
-  }
-  static ListDistributionRoots(req: ListDistributionRootsRequest, initReq?: fm.InitReq): Promise<ListDistributionRootsResponse> {
-    return fm.fetchReq<ListDistributionRootsRequest, ListDistributionRootsResponse>(`/rewards/v1/distribution-roots?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
-  }
 }

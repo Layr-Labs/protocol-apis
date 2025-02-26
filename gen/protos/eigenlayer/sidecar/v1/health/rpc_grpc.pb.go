@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: eigenlayer/sidecar/v1/health/health.proto
+// source: eigenlayer/sidecar/v1/health/rpc.proto
 
 package health
 
@@ -153,5 +153,5 @@ var Health_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "eigenlayer/sidecar/v1/health/health.proto",
+	Metadata: "eigenlayer/sidecar/v1/health/rpc.proto",
 }

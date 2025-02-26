@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: eigenlayer/sidecar/v1/events/events.proto
+// source: eigenlayer/sidecar/v1/events/rpc.proto
 
 package events
 
@@ -159,5 +159,5 @@ var Events_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "eigenlayer/sidecar/v1/events/events.proto",
+	Metadata: "eigenlayer/sidecar/v1/events/rpc.proto",
 }

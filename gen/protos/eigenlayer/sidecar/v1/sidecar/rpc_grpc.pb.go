@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: eigenlayer/sidecar/v1/sidecar/sidecar.proto
+// source: eigenlayer/sidecar/v1/sidecar/rpc.proto
 
 package sidecar
 
@@ -193,5 +193,5 @@ var Rpc_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "eigenlayer/sidecar/v1/sidecar/sidecar.proto",
+	Metadata: "eigenlayer/sidecar/v1/sidecar/rpc.proto",
 }

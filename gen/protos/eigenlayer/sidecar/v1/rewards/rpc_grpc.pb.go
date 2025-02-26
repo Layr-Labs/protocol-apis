@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: eigenlayer/sidecar/v1/rewards/rewards.proto
+// source: eigenlayer/sidecar/v1/rewards/rpc.proto
 
 package rewards
 
@@ -773,5 +773,5 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "eigenlayer/sidecar/v1/rewards/rewards.proto",
+	Metadata: "eigenlayer/sidecar/v1/rewards/rpc.proto",
 }

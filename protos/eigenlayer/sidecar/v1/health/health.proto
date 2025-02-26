@@ -5,7 +5,6 @@ package eigenlayer.sidecar.v1.health;
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/health";
 
 import "google/api/annotations.proto";
-import "annotations/annotations.proto";
 import "google/protobuf/descriptor.proto";
 
 message HealthCheckRequest {
@@ -26,19 +25,4 @@ message ReadyRequest {}
 
 message ReadyResponse {
   bool ready = 1;
-}
-
-service Health {
-  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
-    option (eigenlayer.annotations.isPublic) = true;
-    option (google.api.http) = {
-      get: "/v1/health"
-    };
-  }
-
-  rpc ReadyCheck(ReadyRequest) returns (ReadyResponse) {
-    option (google.api.http) = {
-      get: "/v1/ready"
-    };
-  }
 }
