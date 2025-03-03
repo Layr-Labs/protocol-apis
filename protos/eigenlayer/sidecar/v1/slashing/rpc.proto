@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.slashing;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/slashing";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "eigenlayer/sidecar/v1/slashing/slashing.proto";
+
+service Slashing {
+  rpc ListStakerSlashingHistory(ListStakerSlashingHistoryRequest) returns (ListStakerSlashingHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/slashing/stakers/{stakerAddress}/slashing-history"
+    };
+  }
+
+  rpc ListOperatorSlashingHistory(ListOperatorSlashingHistoryRequest) returns (ListOperatorSlashingHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/slashing/operators/{operatorAddress}/slashing-history"
+    };
+  }
+
+  rpc ListAvsSlashingHistory(ListAvsSlashingHistoryRequest) returns (ListAvsSlashingHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/slashing/avss/{avsAddress}/slashing-history"
+    };
+  }
+
+  rpc ListAvsOperatorSetSlashingHistory(ListAvsOperatorSetSlashingHistoryRequest) returns (ListAvsOperatorSetSlashingHistoryResponse) {
+    option (google.api.http) = {
+      get: "/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history"
+    };
+  }
+}

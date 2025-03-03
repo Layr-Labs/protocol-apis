@@ -38,19 +38,3 @@ message StreamIndexedBlocksResponse {
   eigenlayer.sidecar.v1.eigenState.StateRoot state_root = 2;
   repeated eigenlayer.sidecar.v1.eigenState.EigenStateChange changes = 3;
 }
-
-service Events {
-  rpc StreamEigenStateChanges(StreamEigenStateChangesRequest) returns (stream StreamEigenStateChangesResponse) {
-    option (google.api.http) = {
-      post: "/events/v1/stream-eigen-state-changes"
-      body: "*"
-    };
-  }
-
-  rpc StreamIndexedBlocks(StreamIndexedBlocksRequest) returns (stream StreamIndexedBlocksResponse) {
-    option (google.api.http) = {
-      post: "/events/v1/stream-indexed-blocks"
-      body: "*"
-    };
-  }
-}

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.operatorSets;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/operatorSets";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "eigenlayer/sidecar/v1/operatorSets/common.proto";
+
+
+message ListOperatorsForStakerRequest {
+  string stakerAddress = 1;
+}
+message ListOperatorsForStakerResponse {
+  repeated Operator operators = 1;
+}
+
+
+message ListOperatorsForStrategyRequest {
+  string strategyAddress = 1;
+}
+message ListOperatorsForStrategyResponse {
+  repeated Operator operators = 1;
+}
+
+
+message ListOperatorsForAvsRequest {
+  string avsAddress = 1;
+}
+message ListOperatorsForAvsResponse {
+  repeated Operator operators = 1;
+}
+

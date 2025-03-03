@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.operatorSets;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/operatorSets";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "eigenlayer/sidecar/v1/operatorSets/operatorSets.proto";
+
+
+service OperatorSets {
+  rpc ListOperatorsForStaker(ListOperatorsForStakerRequest) returns (ListOperatorsForStakerResponse) {
+    option (google.api.http) = {
+      get: "/v1/operatorSets/stakers/{stakerAddress}/operators"
+    };
+  }
+
+  rpc ListOperatorsForStrategy(ListOperatorsForStrategyRequest) returns (ListOperatorsForStrategyResponse) {
+    option (google.api.http) = {
+      get: "/v1/operatorSets/strategies/{strategyAddress}/operators"
+    };
+  }
+
+  rpc ListOperatorsForAvs(ListOperatorsForAvsRequest) returns (ListOperatorsForAvsResponse) {
+    option (google.api.http) = {
+      get: "/v1/operatorSets/avss/{avsAddress}/operators"
+    };
+  }
+}
