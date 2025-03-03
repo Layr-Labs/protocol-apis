@@ -259,7 +259,7 @@
     "/protocol/v1/operators/{operator_address}/delegated-stakers": {
       "get": {
         "summary": "GetDelegatedStakersForOperator",
-        "description": "GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator. BlockHeight is optional, otherwise latest is used.",
+        "description": "GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.\nBlockHeight is optional, otherwise latest is used.",
         "operationId": "Protocol_GetDelegatedStakersForOperator",
         "parameters": [
           {
@@ -341,7 +341,7 @@
     "/protocol/v1/operators/{operator_address}/registered-avs": {
       "get": {
         "summary": "GetRegisteredAvsForOperator",
-        "description": "GetRegisteredAvsForOperator returns the list of registered AVs for a given operator BlockHeight is optional, otherwise latest is used.",
+        "description": "GetRegisteredAvsForOperator returns the list of registered AVs for a given operator\nBlockHeight is optional, otherwise latest is used.",
         "operationId": "Protocol_GetRegisteredAvsForOperator",
         "parameters": [
           {
@@ -428,7 +428,7 @@
     "/protocol/v1/stakers/{staker_address}/shares": {
       "get": {
         "summary": "GetStakerShares",
-        "description": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and the AVS the operator has registered with.",
+        "description": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and\nthe AVS the operator has registered with.",
         "operationId": "Protocol_GetStakerShares",
         "parameters": [
           {
@@ -503,7 +503,7 @@
     "/rewards/v1/attributable-rewards/{snapshot}": {
       "get": {
         "summary": "GetAttributableRewardsForSnapshot",
-        "description": "GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot. This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc",
+        "description": "GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.\nThis takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc",
         "operationId": "Rewards_GetAttributableRewardsForSnapshot",
         "parameters": [
           {
@@ -699,7 +699,7 @@
     "/rewards/v1/claim-proof": {
       "post": {
         "summary": "GenerateClaimProof",
-        "description": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming tokens against the RewardsCoordinator",
+        "description": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming\ntokens against the RewardsCoordinator",
         "operationId": "Rewards_GenerateClaimProof",
         "requestBody": {
           "required": true,
@@ -821,7 +821,7 @@
     "/rewards/v1/earners/{earner_address}/claimable-rewards": {
       "get": {
         "summary": "GetClaimableRewards",
-        "description": "GetClaimableRewards returns the claimable rewards for the given earner address. This takes the current active tokens earned and subtracts total claimed.",
+        "description": "GetClaimableRewards returns the claimable rewards for the given earner address.\nThis takes the current active tokens earned and subtracts total claimed.",
         "operationId": "Rewards_GetClaimableRewards",
         "parameters": [
           {
@@ -859,7 +859,7 @@
     "/rewards/v1/earners/{earner_address}/claimed-rewards": {
       "get": {
         "summary": "ListClaimedRewardsByBlockRange",
-        "description": "ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range, inclusive of the start and end block heights",
+        "description": "ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,\ninclusive of the start and end block heights",
         "operationId": "Rewards_ListClaimedRewardsByBlockRange",
         "parameters": [
           {
@@ -897,7 +897,7 @@
     "/rewards/v1/earners/{earner_address}/summarized-rewards": {
       "get": {
         "summary": "GetSummarizedRewardsForEarner",
-        "description": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including: - total tokens earned - total tokens active (subset of earned that are in roots that have surpassed their activation delay) - total claimed - total claimable (total active - total claimed)",
+        "description": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:\n- total tokens earned\n- total tokens active (subset of earned that are in roots that have surpassed their activation delay)\n- total claimed\n- total claimable (total active - total claimed)",
         "operationId": "Rewards_GetSummarizedRewardsForEarner",
         "parameters": [
           {
@@ -936,7 +936,7 @@
     "/rewards/v1/earners/{earner_address}/total-claimed-rewards": {
       "get": {
         "summary": "GetTotalClaimedRewards",
-        "description": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including the provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.",
+        "description": "GetTotalClaimedRewards returns the total claimed rewards for the given earner address, summed up to and including\nthe provided blockHeight. If a blockHeight is omitted, the most recent indexed block is used.",
         "operationId": "Rewards_GetTotalClaimedRewards",
         "parameters": [
           {
@@ -974,7 +974,7 @@
     "/rewards/v1/generate-rewards": {
       "post": {
         "summary": "GenerateRewards",
-        "description": "GenerateRewards generates rewards for the given cutoff_date. If respondWithRewardsData is true, the response will include the rewards data, otherwise the sidecar will cache the data to be requested later.",
+        "description": "GenerateRewards generates rewards for the given cutoff_date.\nIf respondWithRewardsData is true, the response will include the rewards data, otherwise\nthe sidecar will cache the data to be requested later.",
         "operationId": "Rewards_GenerateRewards",
         "requestBody": {
           "required": true,
@@ -1032,7 +1032,7 @@
     "/rewards/v1/generate-rewards-root": {
       "post": {
         "summary": "GenerateRewardsRoot",
-        "description": "GenerateRewardsRoot generates a rewards root for the given snapshot. Returns an error if the rewards have not been generated for the snapshot.",
+        "description": "GenerateRewardsRoot generates a rewards root for the given snapshot.\nReturns an error if the rewards have not been generated for the snapshot.",
         "operationId": "Rewards_GenerateRewardsRoot",
         "requestBody": {
           "required": true,
@@ -1123,7 +1123,7 @@
     "/rewards/v1/rewards/{snapshot}": {
       "get": {
         "summary": "GetRewardsForSnapshot",
-        "description": "GetRewardsForSnapshot returns the rewards for the provided snapshot. Useful if you generated the rewards and want to fetch them later.",
+        "description": "GetRewardsForSnapshot returns the rewards for the provided snapshot.\nUseful if you generated the rewards and want to fetch them later.",
         "operationId": "Rewards_GetRewardsForSnapshot",
         "parameters": [
           {

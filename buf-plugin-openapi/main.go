@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"unicode"
 
 	openapiAnnotations "github.com/Layr-Labs/protocol-apis-annotations/protos/annotations"
 	"google.golang.org/genproto/googleapis/api/annotations"
@@ -104,20 +105,40 @@ type Tag struct {
 
 // Helper function to extract leading comments from a location
 func extractLeadingComments(method *protogen.Method) string {
-	comments := strings.TrimSpace(method.Comments.Leading.String())
+	comments := method.Comments.Leading.String()
 	if comments == "" {
 		return ""
 	}
-	// Remove any common comment prefixes and trim spaces
+
+	// Split into lines while preserving newlines
 	lines := strings.Split(comments, "\n")
-	for i, line := range lines {
-		line = strings.TrimSpace(line)
+	var processedLines []string
+
+	for _, line := range lines {
+		// Remove comment markers but preserve indentation
+		line = strings.TrimRightFunc(line, unicode.IsSpace) // Only trim right spaces
 		line = strings.TrimPrefix(line, "//")
 		line = strings.TrimPrefix(line, "/*")
 		line = strings.TrimSuffix(line, "*/")
-		lines[i] = strings.TrimSpace(line)
+
+		// If it's an empty line (after removing markers), keep it as an empty line
+		if strings.TrimSpace(line) == "" {
+			processedLines = append(processedLines, "")
+			continue
+		}
+
+		// If there was a comment marker, trim one leading space if it exists
+		// This handles the common case of "// Comment" -> "Comment"
+		if strings.HasPrefix(line, " ") {
+			line = line[1:]
+		}
+
+		processedLines = append(processedLines, line)
 	}
-	return strings.Join(lines, " ")
+
+	// Join lines back together with newlines
+	// Trim any leading/trailing empty lines from the final result
+	return strings.Trim(strings.Join(processedLines, "\n"), "\n")
 }
 
 func main() {

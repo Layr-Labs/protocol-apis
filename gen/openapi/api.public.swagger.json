@@ -18,7 +18,7 @@
     "/rewards/v1/claim-proof": {
       "post": {
         "summary": "GenerateClaimProof",
-        "description": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming tokens against the RewardsCoordinator",
+        "description": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming\ntokens against the RewardsCoordinator",
         "operationId": "Rewards_GenerateClaimProof",
         "requestBody": {
           "required": true,
@@ -102,7 +102,7 @@
     "/rewards/v1/earners/{earner_address}/summarized-rewards": {
       "get": {
         "summary": "GetSummarizedRewardsForEarner",
-        "description": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including: - total tokens earned - total tokens active (subset of earned that are in roots that have surpassed their activation delay) - total claimed - total claimable (total active - total claimed)",
+        "description": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:\n- total tokens earned\n- total tokens active (subset of earned that are in roots that have surpassed their activation delay)\n- total claimed\n- total claimable (total active - total claimed)",
         "operationId": "Rewards_GetSummarizedRewardsForEarner",
         "parameters": [
           {
