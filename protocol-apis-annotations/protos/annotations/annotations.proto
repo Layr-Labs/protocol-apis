@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package eigenlayer.annotations;
+
+option go_package = "github.com/Layr-Labs/protocol-apis-annotations/protos/annotations";
+
+import "google/protobuf/descriptor.proto";
+
+// Define your custom method option
+extend google.protobuf.MethodOptions {
+  optional bool isPublic = 50000;
+}
