@@ -1,0 +1,4 @@
+version: v1
+directories:
+  - protocol-apis-annotations/protos
+  - protos

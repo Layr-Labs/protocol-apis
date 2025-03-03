@@ -20,9 +20,12 @@ deps/go:
 	${GO} mod tidy
 	npm install
 
+pre-build:
+	cd protocol-apis-annotations && make proto
+	cd buf-plugin-openapi && make install
 
 .PHONY: proto
-proto:
+proto: pre-build
 	rm -rf gen/python || true
 	rm -rf gen/pre-python || true
 	buf generate protos

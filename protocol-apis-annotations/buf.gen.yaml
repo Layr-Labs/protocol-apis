@@ -1,0 +1,8 @@
+version: v1
+managed:
+  enabled: true
+plugins:
+  # Generate Go code for annotations in OpenAPI plugin
+  - plugin: go
+    out: ./protos
+    opt: paths=source_relative

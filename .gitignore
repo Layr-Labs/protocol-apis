@@ -3,3 +3,5 @@
 *.sw*
 node_modules
 !gen
+/buf-plugin-openapi/bin
+/openapi-debug.log
