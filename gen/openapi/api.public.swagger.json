@@ -15,6 +15,129 @@
     }
   },
   "paths": {
+    "/rewards/v1/claim-proof": {
+      "post": {
+        "summary": "GenerateClaimProof",
+        "description": "GenerateClaimProof generates a proof for the given earner address and tokens for claiming tokens against the RewardsCoordinator",
+        "operationId": "Rewards_GenerateClaimProof",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "earnerAddress": {
+                    "type": "string"
+                  },
+                  "rootIndex": {
+                    "$ref": "#/components/schemas/Int64Value"
+                  },
+                  "tokens": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "root_index"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "proof": {
+                      "$ref": "#/components/schemas/Proof"
+                    }
+                  },
+                  "required": [
+                    "proof"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards",
+          "rewards/rewards",
+          "public_rpc"
+        ]
+      }
+    },
+    "/rewards/v1/distribution-roots": {
+      "get": {
+        "summary": "ListDistributionRoots",
+        "operationId": "Rewards_ListDistributionRoots",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "distributionRoots": {
+                      "$ref": "#/components/schemas/DistributionRoot"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards",
+          "rewards/rewards",
+          "public_rpc"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earner_address}/summarized-rewards": {
+      "get": {
+        "summary": "GetSummarizedRewardsForEarner",
+        "description": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including: - total tokens earned - total tokens active (subset of earned that are in roots that have surpassed their activation delay) - total claimed - total claimable (total active - total claimed)",
+        "operationId": "Rewards_GetSummarizedRewardsForEarner",
+        "parameters": [
+          {
+            "name": "earner_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rewards": {
+                      "$ref": "#/components/schemas/SummarizedEarnerReward"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards",
+          "rewards/rewards",
+          "public_rpc"
+        ]
+      }
+    },
     "/v1/health": {
       "get": {
         "summary": "HealthCheck",
@@ -1431,6 +1554,14 @@
     {
       "name": "health/health",
       "description": "Operations for service Health"
+    },
+    {
+      "name": "rewards",
+      "description": "Operations from package rewards"
+    },
+    {
+      "name": "rewards/rewards",
+      "description": "Operations for service Rewards"
     }
   ]
 }

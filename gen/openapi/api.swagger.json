@@ -747,7 +747,8 @@
         },
         "tags": [
           "rewards",
-          "rewards/rewards"
+          "rewards/rewards",
+          "public_rpc"
         ]
       }
     },
@@ -774,7 +775,8 @@
         },
         "tags": [
           "rewards",
-          "rewards/rewards"
+          "rewards/rewards",
+          "public_rpc"
         ]
       }
     },
@@ -926,7 +928,8 @@
         },
         "tags": [
           "rewards",
-          "rewards/rewards"
+          "rewards/rewards",
+          "public_rpc"
         ]
       }
     },
