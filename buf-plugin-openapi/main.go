@@ -8,7 +8,7 @@ import (
 	"strings"
 	"unicode"
 
-	openapiAnnotations "github.com/Layr-Labs/protocol-apis-annotations/protos/annotations"
+	openapiAnnotations "github.com/Layr-Labs/protobuf-libs/protos/eigenlayer/lib/annotations"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
@@ -219,10 +219,10 @@ func main() {
 			// Add tag if not seen before
 			if !seenTags[moduleTag] {
 				seenTags[moduleTag] = true
-				allPathsSpec.Tags = append(allPathsSpec.Tags, Tag{
-					Name:        moduleTag,
-					Description: fmt.Sprintf("Operations from package %s", moduleTag),
-				})
+				// allPathsSpec.Tags = append(allPathsSpec.Tags, Tag{
+				// 	Name:        moduleTag,
+				// 	Description: fmt.Sprintf("Operations from package %s", moduleTag),
+				// })
 			}
 
 			// Process all services in the file
@@ -231,10 +231,10 @@ func main() {
 				serviceTag := fmt.Sprintf("%s/%s", moduleTag, strings.ToLower(service.GoName))
 				if !seenTags[serviceTag] {
 					seenTags[serviceTag] = true
-					allPathsSpec.Tags = append(allPathsSpec.Tags, Tag{
-						Name:        serviceTag,
-						Description: fmt.Sprintf("Operations for service %s", service.GoName),
-					})
+					// allPathsSpec.Tags = append(allPathsSpec.Tags, Tag{
+					// 	Name:        serviceTag,
+					// 	Description: fmt.Sprintf("Operations for service %s", service.GoName),
+					// })
 				}
 
 				for _, method := range service.Methods {
@@ -261,7 +261,7 @@ func main() {
 						Summary:     method.GoName,
 						Description: extractLeadingComments(method),
 						OperationID: fmt.Sprintf("%s_%s", service.GoName, method.GoName),
-						Tags:        []string{moduleTag, serviceTag},
+						Tags:        []string{moduleTag}, // []string{moduleTag, serviceTag},
 						Responses: map[string]Response{
 							"200": {
 								Description: "Successful response",
@@ -281,7 +281,7 @@ func main() {
 						if isPublicVal != nil {
 							isPublic = isPublicVal.(bool)
 							if isPublic {
-								operation.Tags = append(operation.Tags, "public_rpc")
+								//operation.Tags = append(operation.Tags, "public_rpc")
 							}
 						}
 					}
@@ -342,10 +342,10 @@ func main() {
 						}
 						if !seenPublicTags[serviceTag] {
 							seenPublicTags[serviceTag] = true
-							publicPathsSpec.Tags = append(publicPathsSpec.Tags, Tag{
-								Name:        serviceTag,
-								Description: fmt.Sprintf("Operations for service %s", service.GoName),
-							})
+							// publicPathsSpec.Tags = append(publicPathsSpec.Tags, Tag{
+							// 	Name:        serviceTag,
+							// 	Description: fmt.Sprintf("Operations for service %s", service.GoName),
+							// })
 						}
 
 						// Add operation to publicPathsSpec

@@ -33,24 +33,3 @@ message AboutResponse {
   string chain = 3;
 }
 
-
-service Rpc {
-  rpc GetBlockHeight(GetBlockHeightRequest) returns (GetBlockHeightResponse) {
-    option (google.api.http) = {
-      get: "/rpc/v1/latest-block"
-    };
-  }
-
-  rpc GetStateRoot(GetStateRootRequest) returns (GetStateRootResponse) {
-    option (google.api.http) = {
-      get: "/rpc/v1/state-roots/{blockNumber}"
-    };
-  }
-
-  // About returns information about the running sidecar process
-  rpc About(AboutRequest) returns (AboutResponse) {
-    option (google.api.http) = {
-      get: "/rpc/v1/about"
-    };
-  }
-}

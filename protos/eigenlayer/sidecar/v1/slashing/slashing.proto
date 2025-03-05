@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.slashing;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/slashing";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "eigenlayer/sidecar/v1/slashing/common.proto";
+
+message ListStakerSlashingHistoryRequest {
+  string stakerAddress = 1;
+}
+message ListStakerSlashingHistoryResponse {
+  repeated StakerSlashingEvent stakerSlashingEvents = 1;
+}
+
+
+message ListOperatorSlashingHistoryRequest {
+  string operatorAddress = 1;
+}
+message ListOperatorSlashingHistoryResponse {
+  repeated SlashingEvent slashingEvents = 1;
+}
+
+
+message ListAvsSlashingHistoryRequest {
+  string avsAddress = 1;
+}
+message ListAvsSlashingHistoryResponse {
+  repeated SlashingEvent slashingEvents = 1;
+}
+
+
+message ListAvsOperatorSetSlashingHistoryRequest {
+  string avsAddress = 1;
+  uint64 operatorSetId = 2;
+}
+message ListAvsOperatorSetSlashingHistoryResponse {
+  repeated SlashingEvent slashingEvents = 1;
+}

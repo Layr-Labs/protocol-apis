@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.protocol;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/protocol";
+
+import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
+import "google/api/annotations.proto";
+import "eigenlayer/sidecar/v1/common/types.proto";
+
+
+message StakerShare {
+  string strategy = 1;
+  string shares = 2;
+
+  // Operator the staker has delegated to if present
+  optional string operator_address = 3;
+  // The operator could be regietered with 0 or many AVSs
+  repeated string avs_addresses = 4;
+}
+
+message Strategy {
+  string strategy = 1;
+  string totalStake = 2;
+  repeated string rewardedTokens = 3;
+}
+
+message StakerStrategy {
+  string stakedAmount = 1;
+  Strategy strategy = 2;
+}
+
+message QueuedStrategyWithdrawal {
+  string strategy = 1;
+  string amount = 2;
+  uint64 blockNumber = 3;
+}
+
+message StakerWithdrawal {
+  string staker = 1;
+  string amount = 2;
+  uint64 blockNumber = 3;
+}
+
+message QueueStakerStrategyWithdrawal {
+  string strategy = 1;
+  repeated StakerWithdrawal withdrawals = 2;
+}

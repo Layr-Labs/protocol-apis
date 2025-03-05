@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.operatorSets;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/operatorSets";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+message OperatorSet {
+  uint64 id = 1;
+  string avs = 2;
+  string strategy = 3;
+  string magnitude = 4;
+  string totalStaked = 5;
+}
+
+message Operator {
+  string operator = 1;
+  repeated OperatorSet operatorSets = 2;
+}

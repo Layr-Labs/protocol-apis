@@ -4,9 +4,9 @@
 * This file is a generated Typescript file for GRPC Gateway, DO NOT MODIFY
 */
 
-import * as fm from "../../../../fetch.pb"
 import * as EigenlayerSidecarV1CommonTypes from "../common/types.pb"
 import * as EigenlayerSidecarV1EigenStateEigenState from "../eigenState/eigenState.pb"
+import * as EigenlayerSidecarV1ProtocolCommon from "./common.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -79,18 +79,8 @@ type BaseGetStakerSharesRequest = {
 export type GetStakerSharesRequest = BaseGetStakerSharesRequest
   & OneOf<{ blockHeight: string }>
 
-
-type BaseStakerShare = {
-  strategy?: string
-  shares?: string
-  avsAddresses?: string[]
-}
-
-export type StakerShare = BaseStakerShare
-  & OneOf<{ operatorAddress: string }>
-
 export type GetStakerSharesResponse = {
-  shares?: StakerShare[]
+  shares?: EigenlayerSidecarV1ProtocolCommon.StakerShare[]
 }
 
 export type GetEigenStateChangesRequest = {
@@ -101,23 +91,67 @@ export type GetEigenStateChangesResponse = {
   changes?: EigenlayerSidecarV1EigenStateEigenState.EigenStateChange[]
 }
 
-export class Protocol {
-  static GetRegisteredAvsForOperator(req: GetRegisteredAvsForOperatorRequest, initReq?: fm.InitReq): Promise<GetRegisteredAvsForOperatorResponse> {
-    return fm.fetchReq<GetRegisteredAvsForOperatorRequest, GetRegisteredAvsForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/registered-avs?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetDelegatedStrategiesForOperator(req: GetDelegatedStrategiesForOperatorRequest, initReq?: fm.InitReq): Promise<GetDelegatedStrategiesForOperatorResponse> {
-    return fm.fetchReq<GetDelegatedStrategiesForOperatorRequest, GetDelegatedStrategiesForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/delegated-strategies?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetOperatorDelegatedStakeForStrategy(req: GetOperatorDelegatedStakeForStrategyRequest, initReq?: fm.InitReq): Promise<GetOperatorDelegatedStakeForStrategyResponse> {
-    return fm.fetchReq<GetOperatorDelegatedStakeForStrategyRequest, GetOperatorDelegatedStakeForStrategyResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/strategies/${req["strategyAddress"]}/delegated-stake?${fm.renderURLSearchParams(req, ["operatorAddress", "strategyAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetDelegatedStakersForOperator(req: GetDelegatedStakersForOperatorRequest, initReq?: fm.InitReq): Promise<GetDelegatedStakersForOperatorResponse> {
-    return fm.fetchReq<GetDelegatedStakersForOperatorRequest, GetDelegatedStakersForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/delegated-stakers?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetStakerShares(req: GetStakerSharesRequest, initReq?: fm.InitReq): Promise<GetStakerSharesResponse> {
-    return fm.fetchReq<GetStakerSharesRequest, GetStakerSharesResponse>(`/protocol/v1/stakers/${req["stakerAddress"]}/shares?${fm.renderURLSearchParams(req, ["stakerAddress"])}`, {...initReq, method: "GET"})
-  }
-  static GetEigenStateChanges(req: GetEigenStateChangesRequest, initReq?: fm.InitReq): Promise<GetEigenStateChangesResponse> {
-    return fm.fetchReq<GetEigenStateChangesRequest, GetEigenStateChangesResponse>(`/protocol/v1/eigen-state-changes?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
-  }
+export type ListStrategiesRequest = {
+}
+
+export type ListStrategiesResponse = {
+  strategies?: EigenlayerSidecarV1ProtocolCommon.Strategy[]
+}
+
+
+type BaseListStakerStrategiesRequest = {
+  stakerAddress?: string
+}
+
+export type ListStakerStrategiesRequest = BaseListStakerStrategiesRequest
+  & OneOf<{ blockHeight: string }>
+
+export type ListStakerStrategiesResponse = {
+  stakerStrategies?: EigenlayerSidecarV1ProtocolCommon.StakerStrategy[]
+}
+
+
+type BaseGetStrategyForStakerRequest = {
+  stakerAddress?: string
+  strategyAddress?: string
+}
+
+export type GetStrategyForStakerRequest = BaseGetStrategyForStakerRequest
+  & OneOf<{ blockHeight: string }>
+
+export type GetStrategyForStakerResponse = {
+  stakerStrategy?: EigenlayerSidecarV1ProtocolCommon.StakerStrategy
+}
+
+export type ListStakerQueuedWithdrawalsRequest = {
+  stakerAddress?: string
+}
+
+export type ListStakerQueuedWithdrawalsResponse = {
+  queuedWithdrawals?: EigenlayerSidecarV1ProtocolCommon.QueuedStrategyWithdrawal[]
+}
+
+export type ListStrategyQueuedWithdrawalsRequest = {
+  strategyAddress?: string
+}
+
+export type ListStrategyQueuedWithdrawalsResponse = {
+  withdrawals?: EigenlayerSidecarV1ProtocolCommon.StakerWithdrawal[]
+}
+
+export type ListOperatorQueuedWithdrawalsRequest = {
+  operatorAddress?: string
+}
+
+export type ListOperatorQueuedWithdrawalsResponse = {
+  strategies?: EigenlayerSidecarV1ProtocolCommon.QueueStakerStrategyWithdrawal[]
+}
+
+export type ListOperatorStrategyQueuedWithdrawalsRequest = {
+  operatorAddress?: string
+  strategyAddress?: string
+}
+
+export type ListOperatorStrategyQueuedWithdrawalsResponse = {
+  withdrawals?: EigenlayerSidecarV1ProtocolCommon.StakerWithdrawal[]
 }

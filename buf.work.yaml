@@ -1,4 +1,4 @@
 version: v1
 directories:
-  - protocol-apis-annotations/protos
+  - submodules/protobuf-libs/protos
   - protos

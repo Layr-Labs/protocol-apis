@@ -65,9 +65,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -93,9 +91,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -132,9 +128,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -160,9 +154,7 @@
           }
         },
         "tags": [
-          "health",
-          "health/health",
-          "public_rpc"
+          "health"
         ]
       }
     }
@@ -923,6 +915,35 @@
           }
         }
       },
+      "GetStrategyForStakerRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "stakerAddress": {
+            "type": "string"
+          },
+          "strategyAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "block_height"
+        ]
+      },
+      "GetStrategyForStakerResponse": {
+        "type": "object",
+        "properties": {
+          "stakerStrategy": {
+            "$ref": "#/components/schemas/StakerStrategy"
+          }
+        },
+        "required": [
+          "stakerStrategy"
+        ]
+      },
       "GetSummarizedRewardsForEarnerRequest": {
         "type": "object",
         "properties": {
@@ -985,12 +1006,70 @@
           }
         }
       },
+      "HistoricalReward": {
+        "type": "object",
+        "properties": {
+          "amounts": {
+            "$ref": "#/components/schemas/HistoricalReward_HistoricalRewardAmount"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "HistoricalReward_HistoricalRewardAmount": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "snapshot": {
+            "type": "string"
+          }
+        }
+      },
       "Int64Value": {
         "type": "object",
         "properties": {
           "value": {
             "type": "integer",
             "format": "int64"
+          }
+        }
+      },
+      "ListAvsOperatorSetSlashingHistoryRequest": {
+        "type": "object",
+        "properties": {
+          "avsAddress": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        }
+      },
+      "ListAvsOperatorSetSlashingHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "slashingEvents": {
+            "$ref": "#/components/schemas/SlashingEvent"
+          }
+        }
+      },
+      "ListAvsSlashingHistoryRequest": {
+        "type": "object",
+        "properties": {
+          "avsAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListAvsSlashingHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "slashingEvents": {
+            "$ref": "#/components/schemas/SlashingEvent"
           }
         }
       },
@@ -1035,6 +1114,293 @@
         "properties": {
           "distributionRoots": {
             "$ref": "#/components/schemas/DistributionRoot"
+          }
+        }
+      },
+      "ListEarnerHistoricalRewardsRequest": {
+        "type": "object",
+        "properties": {
+          "earnerAddress": {
+            "type": "string"
+          },
+          "endBlockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "startBlockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "tokens": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "startBlockHeight",
+          "endBlockHeight",
+          "pagination"
+        ]
+      },
+      "ListEarnerHistoricalRewardsResponse": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "rewards": {
+            "$ref": "#/components/schemas/HistoricalReward"
+          }
+        },
+        "required": [
+          "nextPage"
+        ]
+      },
+      "ListEarnerLifetimeRewardsRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "earnerAddress": {
+            "type": "string"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        },
+        "required": [
+          "blockHeight",
+          "pagination"
+        ]
+      },
+      "ListEarnerLifetimeRewardsResponse": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "rewards": {
+            "$ref": "#/components/schemas/RewardAmount"
+          }
+        },
+        "required": [
+          "nextPage"
+        ]
+      },
+      "ListOperatorQueuedWithdrawalsRequest": {
+        "type": "object",
+        "properties": {
+          "operatorAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListOperatorQueuedWithdrawalsResponse": {
+        "type": "object",
+        "properties": {
+          "strategies": {
+            "$ref": "#/components/schemas/QueueStakerStrategyWithdrawal"
+          }
+        }
+      },
+      "ListOperatorSlashingHistoryRequest": {
+        "type": "object",
+        "properties": {
+          "operatorAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListOperatorSlashingHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "slashingEvents": {
+            "$ref": "#/components/schemas/SlashingEvent"
+          }
+        }
+      },
+      "ListOperatorStrategyQueuedWithdrawalsRequest": {
+        "type": "object",
+        "properties": {
+          "operatorAddress": {
+            "type": "string"
+          },
+          "strategyAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListOperatorStrategyQueuedWithdrawalsResponse": {
+        "type": "object",
+        "properties": {
+          "withdrawals": {
+            "$ref": "#/components/schemas/StakerWithdrawal"
+          }
+        }
+      },
+      "ListOperatorsForAvsRequest": {
+        "type": "object",
+        "properties": {
+          "avsAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListOperatorsForAvsResponse": {
+        "type": "object",
+        "properties": {
+          "operators": {
+            "$ref": "#/components/schemas/Operator"
+          }
+        }
+      },
+      "ListOperatorsForStakerRequest": {
+        "type": "object",
+        "properties": {
+          "stakerAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListOperatorsForStakerResponse": {
+        "type": "object",
+        "properties": {
+          "operators": {
+            "$ref": "#/components/schemas/Operator"
+          }
+        }
+      },
+      "ListOperatorsForStrategyRequest": {
+        "type": "object",
+        "properties": {
+          "strategyAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListOperatorsForStrategyResponse": {
+        "type": "object",
+        "properties": {
+          "operators": {
+            "$ref": "#/components/schemas/Operator"
+          }
+        }
+      },
+      "ListStakerQueuedWithdrawalsRequest": {
+        "type": "object",
+        "properties": {
+          "stakerAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListStakerQueuedWithdrawalsResponse": {
+        "type": "object",
+        "properties": {
+          "queuedWithdrawals": {
+            "$ref": "#/components/schemas/QueuedStrategyWithdrawal"
+          }
+        }
+      },
+      "ListStakerSlashingHistoryRequest": {
+        "type": "object",
+        "properties": {
+          "stakerAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListStakerSlashingHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "stakerSlashingEvents": {
+            "$ref": "#/components/schemas/StakerSlashingEvent"
+          }
+        }
+      },
+      "ListStakerStrategiesRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "stakerAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "block_height"
+        ]
+      },
+      "ListStakerStrategiesResponse": {
+        "type": "object",
+        "properties": {
+          "stakerStrategies": {
+            "$ref": "#/components/schemas/StakerStrategy"
+          }
+        }
+      },
+      "ListStrategiesRequest": {
+        "type": "object"
+      },
+      "ListStrategiesResponse": {
+        "type": "object",
+        "properties": {
+          "strategies": {
+            "$ref": "#/components/schemas/Strategy"
+          }
+        }
+      },
+      "ListStrategyQueuedWithdrawalsRequest": {
+        "type": "object",
+        "properties": {
+          "strategyAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListStrategyQueuedWithdrawalsResponse": {
+        "type": "object",
+        "properties": {
+          "withdrawals": {
+            "$ref": "#/components/schemas/StakerWithdrawal"
+          }
+        }
+      },
+      "Operator": {
+        "type": "object",
+        "properties": {
+          "operator": {
+            "type": "string"
+          },
+          "operatorSets": {
+            "$ref": "#/components/schemas/OperatorSet"
+          }
+        }
+      },
+      "OperatorSet": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "magnitude": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "totalStaked": {
+            "type": "string"
           }
         }
       },
@@ -1131,6 +1497,32 @@
           "earner_leaf"
         ]
       },
+      "QueueStakerStrategyWithdrawal": {
+        "type": "object",
+        "properties": {
+          "strategy": {
+            "type": "string"
+          },
+          "withdrawals": {
+            "$ref": "#/components/schemas/StakerWithdrawal"
+          }
+        }
+      },
+      "QueuedStrategyWithdrawal": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "strategy": {
+            "type": "string"
+          }
+        }
+      },
       "ReadyRequest": {
         "type": "object"
       },
@@ -1152,6 +1544,17 @@
             "type": "string"
           },
           "snapshot": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "RewardAmount": {
+        "type": "object",
+        "properties": {
+          "amount": {
             "type": "string"
           },
           "token": {
@@ -1216,6 +1619,88 @@
           "REWARD_TYPE_FOR_ALL",
           "REWARD_TYPE_FOR_ALL_EARNERS"
         ]
+      },
+      "SlashedStaker": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "logIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "shares": {
+            "type": "string"
+          },
+          "staker": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
+          }
+        }
+      },
+      "SlashingEvent": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "logIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSet": {
+            "$ref": "#/components/schemas/SlashingEvent_OperatorSet"
+          },
+          "strategies": {
+            "$ref": "#/components/schemas/SlashingEvent_Strategy"
+          },
+          "transactionHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operatorSet"
+        ]
+      },
+      "SlashingEvent_OperatorSet": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        }
+      },
+      "SlashingEvent_Strategy": {
+        "type": "object",
+        "properties": {
+          "strategy": {
+            "type": "string"
+          },
+          "totalSharesSlashed": {
+            "type": "string"
+          },
+          "wadSlashed": {
+            "type": "string"
+          }
+        }
       },
       "StakerDelegationChange": {
         "type": "object",
@@ -1289,6 +1774,49 @@
           "transaction_metadata"
         ]
       },
+      "StakerSlashingEvent": {
+        "type": "object",
+        "properties": {
+          "slashingEvent": {
+            "$ref": "#/components/schemas/SlashingEvent"
+          },
+          "staker": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "slashingEvent"
+        ]
+      },
+      "StakerStrategy": {
+        "type": "object",
+        "properties": {
+          "stakedAmount": {
+            "type": "string"
+          },
+          "strategy": {
+            "$ref": "#/components/schemas/Strategy"
+          }
+        },
+        "required": [
+          "strategy"
+        ]
+      },
+      "StakerWithdrawal": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "staker": {
+            "type": "string"
+          }
+        }
+      },
       "StateRoot": {
         "type": "object",
         "properties": {
@@ -1300,6 +1828,20 @@
             "format": "uint64"
           },
           "stateRoot": {
+            "type": "string"
+          }
+        }
+      },
+      "Strategy": {
+        "type": "object",
+        "properties": {
+          "rewardedTokens": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "totalStake": {
             "type": "string"
           }
         }
@@ -1552,16 +2094,8 @@
       "description": "Operations from package health"
     },
     {
-      "name": "health/health",
-      "description": "Operations for service Health"
-    },
-    {
       "name": "rewards",
       "description": "Operations from package rewards"
-    },
-    {
-      "name": "rewards/rewards",
-      "description": "Operations for service Rewards"
     }
   ]
 }

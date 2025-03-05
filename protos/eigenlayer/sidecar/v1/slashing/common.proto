@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.slashing;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/slashing";
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+message SlashingEvent {
+  message Strategy {
+    string strategy = 1;
+    string wadSlashed = 2;
+    string totalSharesSlashed = 3;
+  }
+
+  message OperatorSet {
+    uint64 id = 1;
+    string avs = 2;
+  }
+
+  string description = 1;
+  string operator = 2;
+  string transactionHash = 3;
+  uint64 logIndex = 4;
+  uint64 blockNumber = 5;
+  repeated Strategy strategies = 6;
+  OperatorSet operatorSet = 7;
+}
+
+message SlashedStaker {
+  string staker = 1;
+  string transactionHash = 2;
+  uint64 logIndex = 3;
+  uint64 blockNumber = 4;
+  string strategy = 5;
+  string shares = 6;
+}
+
+message StakerSlashingEvent {
+  string staker = 1;
+  SlashingEvent slashingEvent = 2;
+}

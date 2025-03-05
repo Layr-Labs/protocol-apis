@@ -1,3 +1,5 @@
+github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab h1:O3mHv0TxACM+575aVjPRwPOd7Ygf4CAmZmNWs/2zjaA=
+github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab/go.mod h1:xc4NKuzjHpf6Xr9EnI7r6Uc99B1it1bkzQH6kJvhtW4=
 github.com/google/go-cmp v0.5.5 h1:Khx7svrCpmxxtHBq5j2mp/xVjsi8hQMfNLvJFAlrGgU=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 h1:E7g+9GITq07hpfrRu66IVDexMakfv52eLZ2CXBWiKr4=

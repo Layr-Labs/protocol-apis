@@ -15,6 +15,9 @@
       "name": "Health"
     },
     {
+      "name": "OperatorSets"
+    },
+    {
       "name": "Protocol"
     },
     {
@@ -22,6 +25,9 @@
     },
     {
       "name": "Rpc"
+    },
+    {
+      "name": "Slashing"
     }
   ],
   "consumes": [
@@ -312,6 +318,36 @@
         ]
       }
     },
+    "/protocol/v1/operators/{operatorAddress}/queued-withdrawals": {
+      "get": {
+        "operationId": "Protocol_ListOperatorQueuedWithdrawals",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolListOperatorQueuedWithdrawalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
     "/protocol/v1/operators/{operatorAddress}/registered-avs": {
       "get": {
         "summary": "GetRegisteredAvsForOperator returns the list of registered AVs for a given operator\nBlockHeight is optional, otherwise latest is used.",
@@ -394,6 +430,72 @@
         ]
       }
     },
+    "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals": {
+      "get": {
+        "operationId": "Protocol_ListOperatorStrategyQueuedWithdrawals",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolListOperatorStrategyQueuedWithdrawalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/queued-withdrawals": {
+      "get": {
+        "operationId": "Protocol_ListStakerQueuedWithdrawals",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolListStakerQueuedWithdrawalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
     "/protocol/v1/stakers/{stakerAddress}/shares": {
       "get": {
         "summary": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and\nthe AVS the operator has registered with.",
@@ -425,6 +527,138 @@
             "required": false,
             "type": "string",
             "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/strategies": {
+      "get": {
+        "operationId": "Protocol_ListStakerStrategies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolListStakerStrategiesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}": {
+      "get": {
+        "operationId": "Protocol_GetStrategyForStaker",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolGetStrategyForStakerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/strategies": {
+      "get": {
+        "operationId": "Protocol_ListStrategies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolListStrategiesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Protocol"
+        ]
+      }
+    },
+    "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals": {
+      "get": {
+        "operationId": "Protocol_ListStrategyQueuedWithdrawals",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protocolListStrategyQueuedWithdrawalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -805,6 +1039,129 @@
         ]
       }
     },
+    "/rewards/v1/earners/{earnerAddress}/historical-rewards": {
+      "get": {
+        "summary": "List historical rewards for a given earner address",
+        "description": "Returns a list of tokens containing a list of delta rewards for each snapshot date",
+        "operationId": "Rewards_ListEarnerHistoricalRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsListEarnerHistoricalRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startBlockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "endBlockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "tokens",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "pagination.pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pagination.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/lifetime-rewards": {
+      "get": {
+        "summary": "Lists the lifetime rewards for an earner",
+        "description": "Returns a list of tokens and the total amount accumulated",
+        "operationId": "Rewards_ListEarnerLifetimeRewards",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsListEarnerLifetimeRewardsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockHeight",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "pagination.pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pagination.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/earners/{earnerAddress}/summarized-rewards": {
       "get": {
         "summary": "GetSummarizedRewardsForEarner returns the summarized rewards for the given earner address, including:\n- total tokens earned\n- total tokens active (subset of earned that are in roots that have surpassed their activation delay)\n- total claimed\n- total claimable (total active - total claimed)",
@@ -1124,6 +1481,96 @@
         ]
       }
     },
+    "/v1/operatorSets/avss/{avsAddress}/operators": {
+      "get": {
+        "operationId": "OperatorSets_ListOperatorsForAvs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/operatorSetsListOperatorsForAvsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "avsAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "OperatorSets"
+        ]
+      }
+    },
+    "/v1/operatorSets/stakers/{stakerAddress}/operators": {
+      "get": {
+        "operationId": "OperatorSets_ListOperatorsForStaker",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/operatorSetsListOperatorsForStakerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "OperatorSets"
+        ]
+      }
+    },
+    "/v1/operatorSets/strategies/{strategyAddress}/operators": {
+      "get": {
+        "operationId": "OperatorSets_ListOperatorsForStrategy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/operatorSetsListOperatorsForStrategyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "OperatorSets"
+        ]
+      }
+    },
     "/v1/ready": {
       "get": {
         "operationId": "Health_ReadyCheck",
@@ -1145,6 +1592,133 @@
           "Health"
         ]
       }
+    },
+    "/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history": {
+      "get": {
+        "operationId": "Slashing_ListAvsOperatorSetSlashingHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/slashingListAvsOperatorSetSlashingHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "avsAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "operatorSetId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Slashing"
+        ]
+      }
+    },
+    "/v1/slashing/avss/{avsAddress}/slashing-history": {
+      "get": {
+        "operationId": "Slashing_ListAvsSlashingHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/slashingListAvsSlashingHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "avsAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Slashing"
+        ]
+      }
+    },
+    "/v1/slashing/operators/{operatorAddress}/slashing-history": {
+      "get": {
+        "operationId": "Slashing_ListOperatorSlashingHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/slashingListOperatorSlashingHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Slashing"
+        ]
+      }
+    },
+    "/v1/slashing/stakers/{stakerAddress}/slashing-history": {
+      "get": {
+        "operationId": "Slashing_ListStakerSlashingHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/slashingListStakerSlashingHistoryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Slashing"
+        ]
+      }
     }
   },
   "definitions": {
@@ -1158,6 +1732,17 @@
       ],
       "default": "UNKNOWN",
       "description": " - SERVICE_UNKNOWN: Used only by the Watch method."
+    },
+    "HistoricalRewardHistoricalRewardAmount": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string"
+        },
+        "snapshot": {
+          "type": "string"
+        }
+      }
     },
     "StreamIndexedBlocksRequestFilters": {
       "type": "object",
@@ -1597,6 +2182,57 @@
         }
       }
     },
+    "operatorSetsListOperatorsForAvsResponse": {
+      "type": "object",
+      "properties": {
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/operatorSetsOperator"
+          }
+        }
+      }
+    },
+    "operatorSetsListOperatorsForStakerResponse": {
+      "type": "object",
+      "properties": {
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/operatorSetsOperator"
+          }
+        }
+      }
+    },
+    "operatorSetsListOperatorsForStrategyResponse": {
+      "type": "object",
+      "properties": {
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/operatorSetsOperator"
+          }
+        }
+      }
+    },
+    "operatorSetsOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string"
+        },
+        "operatorSets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1operatorSetsOperatorSet"
+          }
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -1680,6 +2316,116 @@
         }
       }
     },
+    "protocolGetStrategyForStakerResponse": {
+      "type": "object",
+      "properties": {
+        "stakerStrategy": {
+          "$ref": "#/definitions/protocolStakerStrategy"
+        }
+      }
+    },
+    "protocolListOperatorQueuedWithdrawalsResponse": {
+      "type": "object",
+      "properties": {
+        "strategies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolQueueStakerStrategyWithdrawal"
+          }
+        }
+      }
+    },
+    "protocolListOperatorStrategyQueuedWithdrawalsResponse": {
+      "type": "object",
+      "properties": {
+        "withdrawals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolStakerWithdrawal"
+          }
+        }
+      }
+    },
+    "protocolListStakerQueuedWithdrawalsResponse": {
+      "type": "object",
+      "properties": {
+        "queuedWithdrawals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolQueuedStrategyWithdrawal"
+          }
+        }
+      }
+    },
+    "protocolListStakerStrategiesResponse": {
+      "type": "object",
+      "properties": {
+        "stakerStrategies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolStakerStrategy"
+          }
+        }
+      }
+    },
+    "protocolListStrategiesResponse": {
+      "type": "object",
+      "properties": {
+        "strategies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1protocolStrategy"
+          }
+        }
+      }
+    },
+    "protocolListStrategyQueuedWithdrawalsResponse": {
+      "type": "object",
+      "properties": {
+        "withdrawals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolStakerWithdrawal"
+          }
+        }
+      }
+    },
+    "protocolQueueStakerStrategyWithdrawal": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string"
+        },
+        "withdrawals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protocolStakerWithdrawal"
+          }
+        }
+      }
+    },
+    "protocolQueuedStrategyWithdrawal": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "protocolStakerShare": {
       "type": "object",
       "properties": {
@@ -1699,6 +2445,32 @@
             "type": "string"
           },
           "title": "The operator could be regietered with 0 or many AVSs"
+        }
+      }
+    },
+    "protocolStakerStrategy": {
+      "type": "object",
+      "properties": {
+        "stakedAmount": {
+          "type": "string"
+        },
+        "strategy": {
+          "$ref": "#/definitions/v1protocolStrategy"
+        }
+      }
+    },
+    "protocolStakerWithdrawal": {
+      "type": "object",
+      "properties": {
+        "staker": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -2075,6 +2847,21 @@
         }
       }
     },
+    "rewardsHistoricalReward": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "amounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/HistoricalRewardHistoricalRewardAmount"
+          }
+        }
+      }
+    },
     "rewardsListClaimedRewardsByBlockRangeResponse": {
       "type": "object",
       "properties": {
@@ -2096,6 +2883,36 @@
             "type": "object",
             "$ref": "#/definitions/rewardsDistributionRoot"
           }
+        }
+      }
+    },
+    "rewardsListEarnerHistoricalRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsHistoricalReward"
+          }
+        },
+        "nextPage": {
+          "$ref": "#/definitions/commonPagination"
+        }
+      }
+    },
+    "rewardsListEarnerLifetimeRewardsResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsRewardAmount"
+          }
+        },
+        "nextPage": {
+          "$ref": "#/definitions/commonPagination"
         }
       }
     },
@@ -2158,6 +2975,17 @@
           "type": "string"
         },
         "snapshot": {
+          "type": "string"
+        }
+      }
+    },
+    "rewardsRewardAmount": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "amount": {
           "type": "string"
         }
       }
@@ -2271,6 +3099,123 @@
         }
       }
     },
+    "slashingListAvsOperatorSetSlashingHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "slashingEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/slashingSlashingEvent"
+          }
+        }
+      }
+    },
+    "slashingListAvsSlashingHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "slashingEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/slashingSlashingEvent"
+          }
+        }
+      }
+    },
+    "slashingListOperatorSlashingHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "slashingEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/slashingSlashingEvent"
+          }
+        }
+      }
+    },
+    "slashingListStakerSlashingHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "stakerSlashingEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/slashingStakerSlashingEvent"
+          }
+        }
+      }
+    },
+    "slashingSlashingEvent": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "strategies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/slashingSlashingEventStrategy"
+          }
+        },
+        "operatorSet": {
+          "$ref": "#/definitions/slashingSlashingEventOperatorSet"
+        }
+      }
+    },
+    "slashingSlashingEventOperatorSet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "avs": {
+          "type": "string"
+        }
+      }
+    },
+    "slashingSlashingEventStrategy": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string"
+        },
+        "wadSlashed": {
+          "type": "string"
+        },
+        "totalSharesSlashed": {
+          "type": "string"
+        }
+      }
+    },
+    "slashingStakerSlashingEvent": {
+      "type": "object",
+      "properties": {
+        "staker": {
+          "type": "string"
+        },
+        "slashingEvent": {
+          "$ref": "#/definitions/slashingSlashingEvent"
+        }
+      }
+    },
     "v1GetDailyAprForEarnerStrategyResponse": {
       "type": "object",
       "properties": {
@@ -2299,6 +3244,44 @@
         },
         "apr": {
           "type": "string"
+        }
+      }
+    },
+    "v1operatorSetsOperatorSet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "avs": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string"
+        },
+        "magnitude": {
+          "type": "string"
+        },
+        "totalStaked": {
+          "type": "string"
+        }
+      }
+    },
+    "v1protocolStrategy": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string"
+        },
+        "totalStake": {
+          "type": "string"
+        },
+        "rewardedTokens": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

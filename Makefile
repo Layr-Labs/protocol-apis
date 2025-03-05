@@ -21,8 +21,8 @@ deps/go:
 	npm install
 
 pre-build:
-	cd protocol-apis-annotations && make proto
-	cd buf-plugin-openapi && make install
+	git submodule update --init --recursive
+	cd buf-plugin-openapi && make clean install
 
 .PHONY: proto
 proto: pre-build
