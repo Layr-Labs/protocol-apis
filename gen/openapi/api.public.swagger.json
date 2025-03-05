@@ -65,9 +65,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -93,9 +91,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -132,9 +128,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -160,9 +154,7 @@
           }
         },
         "tags": [
-          "health",
-          "health/health",
-          "public_rpc"
+          "health"
         ]
       }
     }
@@ -2102,16 +2094,8 @@
       "description": "Operations from package health"
     },
     {
-      "name": "health/health",
-      "description": "Operations for service Health"
-    },
-    {
       "name": "rewards",
       "description": "Operations from package rewards"
-    },
-    {
-      "name": "rewards/rewards",
-      "description": "Operations for service Rewards"
     }
   ]
 }

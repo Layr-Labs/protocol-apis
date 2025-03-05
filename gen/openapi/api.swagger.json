@@ -63,8 +63,7 @@
           }
         },
         "tags": [
-          "eigenlayer/pds/aprs/v1",
-          "eigenlayer/pds/aprs/v1/aprs"
+          "eigenlayer/pds/aprs/v1"
         ]
       }
     },
@@ -108,8 +107,7 @@
           }
         },
         "tags": [
-          "eigenlayer/pds/aprs/v1",
-          "eigenlayer/pds/aprs/v1/aprs"
+          "eigenlayer/pds/aprs/v1"
         ]
       }
     },
@@ -163,8 +161,7 @@
           }
         },
         "tags": [
-          "events",
-          "events/events"
+          "events"
         ]
       }
     },
@@ -224,8 +221,7 @@
           }
         },
         "tags": [
-          "events",
-          "events/events"
+          "events"
         ]
       }
     },
@@ -251,8 +247,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -288,8 +283,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -333,8 +327,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -377,8 +370,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -415,8 +407,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -453,8 +444,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -502,8 +492,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -539,8 +528,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -576,8 +564,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -624,8 +611,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -662,8 +648,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -689,8 +674,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -726,8 +710,7 @@
           }
         },
         "tags": [
-          "protocol",
-          "protocol/protocol"
+          "protocol"
         ]
       }
     },
@@ -763,8 +746,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -801,8 +783,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -838,8 +819,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -880,8 +860,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -918,8 +897,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -959,8 +937,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1014,9 +991,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -1042,9 +1017,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -1087,8 +1060,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1131,8 +1103,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1169,8 +1140,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1207,8 +1177,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1245,8 +1214,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1283,9 +1251,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards",
-          "public_rpc"
+          "rewards"
         ]
       }
     },
@@ -1322,8 +1288,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1380,8 +1345,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1426,8 +1390,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1471,8 +1434,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1509,8 +1471,7 @@
           }
         },
         "tags": [
-          "rewards",
-          "rewards/rewards"
+          "rewards"
         ]
       }
     },
@@ -1543,8 +1504,7 @@
           }
         },
         "tags": [
-          "sidecar",
-          "sidecar/rpc"
+          "sidecar"
         ]
       }
     },
@@ -1574,8 +1534,7 @@
           }
         },
         "tags": [
-          "sidecar",
-          "sidecar/rpc"
+          "sidecar"
         ]
       }
     },
@@ -1618,8 +1577,7 @@
           }
         },
         "tags": [
-          "sidecar",
-          "sidecar/rpc"
+          "sidecar"
         ]
       }
     },
@@ -1645,9 +1603,7 @@
           }
         },
         "tags": [
-          "health",
-          "health/health",
-          "public_rpc"
+          "health"
         ]
       }
     },
@@ -1683,8 +1639,7 @@
           }
         },
         "tags": [
-          "operatorSets",
-          "operatorSets/operatorsets"
+          "operatorSets"
         ]
       }
     },
@@ -1720,8 +1675,7 @@
           }
         },
         "tags": [
-          "operatorSets",
-          "operatorSets/operatorsets"
+          "operatorSets"
         ]
       }
     },
@@ -1757,8 +1711,7 @@
           }
         },
         "tags": [
-          "operatorSets",
-          "operatorSets/operatorsets"
+          "operatorSets"
         ]
       }
     },
@@ -1784,8 +1737,7 @@
           }
         },
         "tags": [
-          "health",
-          "health/health"
+          "health"
         ]
       }
     },
@@ -1829,8 +1781,7 @@
           }
         },
         "tags": [
-          "slashing",
-          "slashing/slashing"
+          "slashing"
         ]
       }
     },
@@ -1866,8 +1817,7 @@
           }
         },
         "tags": [
-          "slashing",
-          "slashing/slashing"
+          "slashing"
         ]
       }
     },
@@ -1903,8 +1853,7 @@
           }
         },
         "tags": [
-          "slashing",
-          "slashing/slashing"
+          "slashing"
         ]
       }
     },
@@ -1940,8 +1889,7 @@
           }
         },
         "tags": [
-          "slashing",
-          "slashing/slashing"
+          "slashing"
         ]
       }
     }
@@ -3874,83 +3822,5 @@
         }
       }
     }
-  },
-  "tags": [
-    {
-      "name": "eigenlayer/pds/aprs/v1",
-      "description": "Operations from package eigenlayer/pds/aprs/v1"
-    },
-    {
-      "name": "eigenlayer/pds/aprs/v1/aprs",
-      "description": "Operations for service Aprs"
-    },
-    {
-      "name": "common",
-      "description": "Operations from package common"
-    },
-    {
-      "name": "eigenState",
-      "description": "Operations from package eigenState"
-    },
-    {
-      "name": "ethereumTypes",
-      "description": "Operations from package ethereumTypes"
-    },
-    {
-      "name": "events",
-      "description": "Operations from package events"
-    },
-    {
-      "name": "events/events",
-      "description": "Operations for service Events"
-    },
-    {
-      "name": "health",
-      "description": "Operations from package health"
-    },
-    {
-      "name": "health/health",
-      "description": "Operations for service Health"
-    },
-    {
-      "name": "operatorSets",
-      "description": "Operations from package operatorSets"
-    },
-    {
-      "name": "operatorSets/operatorsets",
-      "description": "Operations for service OperatorSets"
-    },
-    {
-      "name": "protocol",
-      "description": "Operations from package protocol"
-    },
-    {
-      "name": "protocol/protocol",
-      "description": "Operations for service Protocol"
-    },
-    {
-      "name": "rewards",
-      "description": "Operations from package rewards"
-    },
-    {
-      "name": "rewards/rewards",
-      "description": "Operations for service Rewards"
-    },
-    {
-      "name": "sidecar",
-      "description": "Operations from package sidecar"
-    },
-    {
-      "name": "sidecar/rpc",
-      "description": "Operations for service Rpc"
-    },
-    {
-      "name": "slashing",
-      "description": "Operations from package slashing"
-    },
-    {
-      "name": "slashing/slashing",
-      "description": "Operations for service Slashing"
-    }
-  ]
+  }
 }

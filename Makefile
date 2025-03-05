@@ -22,7 +22,7 @@ deps/go:
 
 pre-build:
 	git submodule update --init --recursive
-	cd buf-plugin-openapi && make install
+	cd buf-plugin-openapi && make clean install
 
 .PHONY: proto
 proto: pre-build
