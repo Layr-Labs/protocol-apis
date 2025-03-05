@@ -123,7 +123,7 @@ message RewardAmount {
 message HistoricalReward {
   message HistoricalRewardAmount {
     string amount = 1;
-    string token = 2;
+    string snapshot = 2;
   }
 
   string token = 1;

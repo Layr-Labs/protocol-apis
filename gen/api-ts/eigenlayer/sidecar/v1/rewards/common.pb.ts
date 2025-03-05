@@ -109,7 +109,7 @@ export type RewardAmount = {
 
 export type HistoricalRewardHistoricalRewardAmount = {
   amount?: string
-  token?: string
+  snapshot?: string
 }
 
 export type HistoricalReward = {

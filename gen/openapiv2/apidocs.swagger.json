@@ -1739,7 +1739,7 @@
         "amount": {
           "type": "string"
         },
-        "token": {
+        "snapshot": {
           "type": "string"
         }
       }
