@@ -8,7 +8,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "eigenlayer/sidecar/v1/rewards/rewards.proto";
-import "annotations/annotations.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 service Rewards {
 
@@ -83,7 +83,7 @@ service Rewards {
   // GenerateClaimProof generates a proof for the given earner address and tokens for claiming
   // tokens against the RewardsCoordinator
   rpc GenerateClaimProof(GenerateClaimProofRequest) returns (GenerateClaimProofResponse) {
-    option (eigenlayer.annotations.isPublic) = true;
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       post: "/rewards/v1/claim-proof"
       body: "*"
@@ -119,7 +119,7 @@ service Rewards {
   // - total claimed
   // - total claimable (total active - total claimed)
   rpc GetSummarizedRewardsForEarner(GetSummarizedRewardsForEarnerRequest) returns (GetSummarizedRewardsForEarnerResponse) {
-    option (eigenlayer.annotations.isPublic) = true;
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earner_address}/summarized-rewards"
     };
@@ -141,7 +141,7 @@ service Rewards {
   }
 
   rpc ListDistributionRoots(ListDistributionRootsRequest) returns (ListDistributionRootsResponse) {
-    option (eigenlayer.annotations.isPublic) = true;
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/distribution-roots"
     };

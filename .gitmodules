@@ -1,0 +1,6 @@
+[submodule "protos/protobuf-libs"]
+	path = protos/protobuf-libs
+	url = https://github.com/Layr-Labs/protobuf-libs.git
+[submodule "submodules/protobuf-libs"]
+	path = submodules/protobuf-libs
+	url = https://github.com/Layr-Labs/protobuf-libs.git

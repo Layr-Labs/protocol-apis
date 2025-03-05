@@ -1,7 +1,8 @@
 .idea
 .DS_Store
-*.sw*
 node_modules
 !gen
 /buf-plugin-openapi/bin
 /openapi-debug.log
+/submodules
+!/submodules/README.md

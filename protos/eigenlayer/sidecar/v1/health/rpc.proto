@@ -6,11 +6,11 @@ option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/si
 
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/health/health.proto";
-import "annotations/annotations.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 service Health {
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
-    option (eigenlayer.annotations.isPublic) = true;
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/v1/health"
     };

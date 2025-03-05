@@ -8,7 +8,7 @@ import (
 	"strings"
 	"unicode"
 
-	openapiAnnotations "github.com/Layr-Labs/protocol-apis-annotations/protos/annotations"
+	openapiAnnotations "github.com/Layr-Labs/protobuf-libs/protos/eigenlayer/lib/annotations"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
