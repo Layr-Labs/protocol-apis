@@ -832,6 +832,23 @@
           }
         }
       },
+      "GetRewardsForDistributionRootRequest": {
+        "type": "object",
+        "properties": {
+          "rootIndex": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        }
+      },
+      "GetRewardsForDistributionRootResponse": {
+        "type": "object",
+        "properties": {
+          "rewards": {
+            "$ref": "#/components/schemas/Reward"
+          }
+        }
+      },
       "GetRewardsForSnapshotRequest": {
         "type": "object",
         "properties": {

@@ -25,6 +25,7 @@ const (
 	Rewards_BackfillStakerOperators_FullMethodName                   = "/eigenlayer.sidecar.v1.rewards.Rewards/BackfillStakerOperators"
 	Rewards_GenerateRewardsRoot_FullMethodName                       = "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewardsRoot"
 	Rewards_GetRewardsForSnapshot_FullMethodName                     = "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForSnapshot"
+	Rewards_GetRewardsForDistributionRoot_FullMethodName             = "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForDistributionRoot"
 	Rewards_GetAttributableRewardsForSnapshot_FullMethodName         = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot"
 	Rewards_GetAttributableRewardsForDistributionRoot_FullMethodName = "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot"
 	Rewards_GetRewardsByAvsForDistributionRoot_FullMethodName        = "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot"
@@ -58,6 +59,7 @@ type RewardsClient interface {
 	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
 	// Useful if you generated the rewards and want to fetch them later.
 	GetRewardsForSnapshot(ctx context.Context, in *GetRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetRewardsForSnapshotResponse, error)
+	GetRewardsForDistributionRoot(ctx context.Context, in *GetRewardsForDistributionRootRequest, opts ...grpc.CallOption) (*GetRewardsForDistributionRootResponse, error)
 	// GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(ctx context.Context, in *GetAttributableRewardsForSnapshotRequest, opts ...grpc.CallOption) (*GetAttributableRewardsForSnapshotResponse, error)
@@ -158,6 +160,16 @@ func (c *rewardsClient) GetRewardsForSnapshot(ctx context.Context, in *GetReward
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetRewardsForSnapshotResponse)
 	err := c.cc.Invoke(ctx, Rewards_GetRewardsForSnapshot_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rewardsClient) GetRewardsForDistributionRoot(ctx context.Context, in *GetRewardsForDistributionRootRequest, opts ...grpc.CallOption) (*GetRewardsForDistributionRootResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRewardsForDistributionRootResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetRewardsForDistributionRoot_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -312,6 +324,7 @@ type RewardsServer interface {
 	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
 	// Useful if you generated the rewards and want to fetch them later.
 	GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error)
+	GetRewardsForDistributionRoot(context.Context, *GetRewardsForDistributionRootRequest) (*GetRewardsForDistributionRootResponse, error)
 	// GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(context.Context, *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error)
@@ -374,6 +387,9 @@ func (UnimplementedRewardsServer) GenerateRewardsRoot(context.Context, *Generate
 }
 func (UnimplementedRewardsServer) GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRewardsForSnapshot not implemented")
+}
+func (UnimplementedRewardsServer) GetRewardsForDistributionRoot(context.Context, *GetRewardsForDistributionRootRequest) (*GetRewardsForDistributionRootResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewardsForDistributionRoot not implemented")
 }
 func (UnimplementedRewardsServer) GetAttributableRewardsForSnapshot(context.Context, *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAttributableRewardsForSnapshot not implemented")
@@ -538,6 +554,24 @@ func _Rewards_GetRewardsForSnapshot_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RewardsServer).GetRewardsForSnapshot(ctx, req.(*GetRewardsForSnapshotRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Rewards_GetRewardsForDistributionRoot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardsForDistributionRootRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GetRewardsForDistributionRoot(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GetRewardsForDistributionRoot_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GetRewardsForDistributionRoot(ctx, req.(*GetRewardsForDistributionRootRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -806,6 +840,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRewardsForSnapshot",
 			Handler:    _Rewards_GetRewardsForSnapshot_Handler,
+		},
+		{
+			MethodName: "GetRewardsForDistributionRoot",
+			Handler:    _Rewards_GetRewardsForDistributionRoot_Handler,
 		},
 		{
 			MethodName: "GetAttributableRewardsForSnapshot",

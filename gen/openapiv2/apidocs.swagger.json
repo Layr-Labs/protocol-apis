@@ -918,6 +918,37 @@
         ]
       }
     },
+    "/rewards/v1/distribution-roots/{rootIndex}/rewards": {
+      "get": {
+        "operationId": "Rewards_GetRewardsForDistributionRoot",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rewardsGetRewardsForDistributionRootResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rootIndex",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "Rewards"
+        ]
+      }
+    },
     "/rewards/v1/earners/{earnerAddress}/available-rewards-tokens": {
       "get": {
         "summary": "GetAvailableRewardsTokens returns the available rewards tokens for the given earner address",
@@ -2799,6 +2830,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/rewardsAvsReward"
+          }
+        }
+      }
+    },
+    "rewardsGetRewardsForDistributionRootResponse": {
+      "type": "object",
+      "properties": {
+        "rewards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/rewardsReward"
           }
         }
       }
