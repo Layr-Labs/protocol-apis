@@ -26,6 +26,7 @@ type RewardsGatewayClient interface {
 	// GetRewardsForSnapshot returns the rewards for the provided snapshot.
 	// Useful if you generated the rewards and want to fetch them later.
 	GetRewardsForSnapshot(context.Context, *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error)
+	GetRewardsForDistributionRoot(context.Context, *GetRewardsForDistributionRootRequest) (*GetRewardsForDistributionRootResponse, error)
 	// GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.
 	// This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
 	GetAttributableRewardsForSnapshot(context.Context, *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error)
@@ -108,6 +109,12 @@ func (c *rewardsGatewayClient) GetRewardsForSnapshot(ctx context.Context, req *G
 	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/rewards/{snapshot}")
 	gwReq.SetPathParam("snapshot", fmt.Sprintf("%v", req.Snapshot))
 	return gateway.DoRequest[GetRewardsForSnapshotResponse](ctx, gwReq)
+}
+
+func (c *rewardsGatewayClient) GetRewardsForDistributionRoot(ctx context.Context, req *GetRewardsForDistributionRootRequest) (*GetRewardsForDistributionRootResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/distribution-roots/{root_index}/rewards")
+	gwReq.SetPathParam("root_index", fmt.Sprintf("%v", req.RootIndex))
+	return gateway.DoRequest[GetRewardsForDistributionRootResponse](ctx, gwReq)
 }
 
 func (c *rewardsGatewayClient) GetAttributableRewardsForSnapshot(ctx context.Context, req *GetAttributableRewardsForSnapshotRequest) (*GetAttributableRewardsForSnapshotResponse, error) {

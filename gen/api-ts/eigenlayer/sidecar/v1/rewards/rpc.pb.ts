@@ -25,6 +25,9 @@ export class Rewards {
   static GetRewardsForSnapshot(req: EigenlayerSidecarV1RewardsRewards.GetRewardsForSnapshotRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GetRewardsForSnapshotResponse> {
     return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GetRewardsForSnapshotRequest, EigenlayerSidecarV1RewardsRewards.GetRewardsForSnapshotResponse>(`/rewards/v1/rewards/${req["snapshot"]}?${fm.renderURLSearchParams(req, ["snapshot"])}`, {...initReq, method: "GET"})
   }
+  static GetRewardsForDistributionRoot(req: EigenlayerSidecarV1RewardsRewards.GetRewardsForDistributionRootRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GetRewardsForDistributionRootResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GetRewardsForDistributionRootRequest, EigenlayerSidecarV1RewardsRewards.GetRewardsForDistributionRootResponse>(`/rewards/v1/distribution-roots/${req["rootIndex"]}/rewards?${fm.renderURLSearchParams(req, ["rootIndex"])}`, {...initReq, method: "GET"})
+  }
   static GetAttributableRewardsForSnapshot(req: EigenlayerSidecarV1RewardsRewards.GetAttributableRewardsForSnapshotRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GetAttributableRewardsForSnapshotResponse> {
     return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GetAttributableRewardsForSnapshotRequest, EigenlayerSidecarV1RewardsRewards.GetAttributableRewardsForSnapshotResponse>(`/rewards/v1/attributable-rewards/${req["snapshot"]}?${fm.renderURLSearchParams(req, ["snapshot"])}`, {...initReq, method: "GET"})
   }

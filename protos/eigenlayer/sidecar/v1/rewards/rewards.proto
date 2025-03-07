@@ -68,6 +68,14 @@ message GetRewardsForSnapshotResponse {
 }
 
 
+message GetRewardsForDistributionRootRequest {
+  uint64 root_index = 1;
+}
+message GetRewardsForDistributionRootResponse {
+  repeated Reward rewards = 1;
+}
+
+
 message GetAttributableRewardsForSnapshotRequest {
   string snapshot = 1;
 }

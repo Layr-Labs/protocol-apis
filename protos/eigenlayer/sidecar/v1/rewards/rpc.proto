@@ -60,6 +60,12 @@ service Rewards {
     };
   }
 
+  rpc GetRewardsForDistributionRoot(GetRewardsForDistributionRootRequest) returns (GetRewardsForDistributionRootResponse) {
+    option (google.api.http) = {
+      get: "/rewards/v1/distribution-roots/{root_index}/rewards"
+    };
+  }
+
   // GetAttributableRewardsForSnapshot returns the attributable rewards for the provided snapshot.
   // This takes the cumulative rewards amounts and breaks them down across operators, avss, strategies, etc
   rpc GetAttributableRewardsForSnapshot(GetAttributableRewardsForSnapshotRequest) returns (GetAttributableRewardsForSnapshotResponse) {

@@ -73,6 +73,14 @@ export type GetRewardsForSnapshotResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
 }
 
+export type GetRewardsForDistributionRootRequest = {
+  rootIndex?: string
+}
+
+export type GetRewardsForDistributionRootResponse = {
+  rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
+}
+
 export type GetAttributableRewardsForSnapshotRequest = {
   snapshot?: string
 }
