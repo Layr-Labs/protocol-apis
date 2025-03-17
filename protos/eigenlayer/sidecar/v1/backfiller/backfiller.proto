@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.backfiller;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/backfiller";
+
+import "google/api/annotations.proto";
+import "eigenlayer/sidecar/v1/ethereumTypes/ethereumTypes.proto";
+
+message BackfillRequest {
+  uint64 start_block = 1;
+  uint64 end_block = 2;
+  repeated string addresses = 3;
+}
+
+message BackfillResponse {
+  bool success = 1;
+}

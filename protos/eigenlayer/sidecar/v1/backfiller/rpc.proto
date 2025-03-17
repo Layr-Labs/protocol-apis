@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.backfiller;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/backfiller";
+
+import "google/api/annotations.proto";
+import "eigenlayer/sidecar/v1/backfiller/backfiller.proto";
+
+service Backfiller {
+  // BackfillBlocks initiates a backfill operation for a range of blocks
+  rpc BackfillBlocks(BackfillRequest) returns (BackfillResponse) {
+    option (google.api.http) = {
+      post: "/backfiller/v1/backfill-blocks"
+      body: "*"
+    };
+  }
+} 
