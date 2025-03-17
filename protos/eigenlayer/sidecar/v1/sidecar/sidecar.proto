@@ -33,3 +33,29 @@ message AboutResponse {
   string chain = 3;
 }
 
+message LoadContractRequest {
+  string address = 1;
+  // ABI of the contract in JSON format
+  string abi = 2;
+  // Bytecode hash of the contract (optional, will be fetched if not provided)
+  string bytecode_hash = 3;
+  // Block number for proxy association (required if associate_to_proxy is set)
+  uint64 block_number = 4;
+  // Address of the proxy contract to associate with (optional)
+  string associate_to_proxy = 5;
+  // Whether to load from a batch file (mutually exclusive with other fields)
+  bool batch = 6;
+  // Path to the batch file (required if batch is true)
+  string from_file = 7;
+}
+
+message LoadContractResponse {
+  // Address of the loaded contract
+  string address = 1;
+  // Whether the operation was successful
+  bool success = 2;
+  // Error message if the operation failed
+  string error = 3;
+  // Number of contracts loaded if batch mode was used
+  uint32 contracts_loaded = 4;
+}

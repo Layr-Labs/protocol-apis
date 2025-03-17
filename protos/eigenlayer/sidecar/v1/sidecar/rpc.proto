@@ -26,4 +26,11 @@ service Rpc {
       get: "/rpc/v1/about"
     };
   }
+  
+  rpc LoadContract(LoadContractRequest) returns (LoadContractResponse) {
+    option (google.api.http) = {
+      post: "/rpc/v1/load-contract"
+      body: "*"
+    };
+  }
 }
