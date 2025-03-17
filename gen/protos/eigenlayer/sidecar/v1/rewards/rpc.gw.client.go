@@ -108,6 +108,11 @@ func (c *rewardsGatewayClient) GenerateRewardsRoot(ctx context.Context, req *Gen
 func (c *rewardsGatewayClient) GetRewardsForSnapshot(ctx context.Context, req *GetRewardsForSnapshotRequest) (*GetRewardsForSnapshotResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/rewards/{snapshot}")
 	gwReq.SetPathParam("snapshot", fmt.Sprintf("%v", req.Snapshot))
+	q := url.Values{}
+	if req.Earner != nil {
+		q.Add("earner", fmt.Sprintf("%v", *req.Earner))
+	}
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetRewardsForSnapshotResponse](ctx, gwReq)
 }
 

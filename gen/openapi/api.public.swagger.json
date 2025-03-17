@@ -852,10 +852,16 @@
       "GetRewardsForSnapshotRequest": {
         "type": "object",
         "properties": {
+          "earner": {
+            "type": "string"
+          },
           "snapshot": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "earner"
+        ]
       },
       "GetRewardsForSnapshotResponse": {
         "type": "object",

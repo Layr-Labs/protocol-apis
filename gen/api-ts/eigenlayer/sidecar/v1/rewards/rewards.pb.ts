@@ -65,9 +65,13 @@ export type GenerateRewardsRootResponse = {
   rewardsCalcEndDate?: string
 }
 
-export type GetRewardsForSnapshotRequest = {
+
+type BaseGetRewardsForSnapshotRequest = {
   snapshot?: string
 }
+
+export type GetRewardsForSnapshotRequest = BaseGetRewardsForSnapshotRequest
+  & OneOf<{ earner: string }>
 
 export type GetRewardsForSnapshotResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
