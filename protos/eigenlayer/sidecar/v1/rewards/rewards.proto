@@ -62,6 +62,7 @@ message GenerateRewardsRootResponse {
 
 message GetRewardsForSnapshotRequest {
   string snapshot = 1;
+  optional string earner = 2;
 }
 message GetRewardsForSnapshotResponse {
   repeated Reward rewards = 1;
