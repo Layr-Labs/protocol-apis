@@ -30,3 +30,38 @@ export type AboutResponse = {
   commit?: string
   chain?: string
 }
+
+export type LoadContractRequest = {
+  address?: string
+  abi?: string
+  bytecodeHash?: string
+  blockNumber?: string
+  associateToProxy?: string
+}
+
+export type LoadContractResponse = {
+  blockHeight?: string
+  address?: string
+}
+
+export type CoreContract = {
+  contractAddress?: string
+  contractAbi?: string
+  bytecodeHash?: string
+}
+
+export type ProxyContract = {
+  contractAddress?: string
+  proxyContractAddress?: string
+  blockNumber?: string
+}
+
+export type LoadContractsRequest = {
+  coreContracts?: CoreContract[]
+  proxyContracts?: ProxyContract[]
+}
+
+export type LoadContractsResponse = {
+  blockHeight?: string
+  addresses?: string[]
+}

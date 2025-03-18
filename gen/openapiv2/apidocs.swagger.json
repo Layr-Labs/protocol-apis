@@ -1457,6 +1457,70 @@
         ]
       }
     },
+    "/rpc/v1/load-contract": {
+      "post": {
+        "operationId": "Rpc_LoadContract",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
+    "/rpc/v1/load-contracts": {
+      "post": {
+        "operationId": "Rpc_LoadContracts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
     "/rpc/v1/state-roots/{blockNumber}": {
       "get": {
         "operationId": "Rpc_GetStateRoot",
@@ -3121,6 +3185,20 @@
         }
       }
     },
+    "sidecarCoreContract": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string"
+        },
+        "contractAbi": {
+          "type": "string"
+        },
+        "bytecodeHash": {
+          "type": "string"
+        }
+      }
+    },
     "sidecarGetBlockHeightResponse": {
       "type": "object",
       "properties": {
@@ -3145,6 +3223,88 @@
         },
         "stateRoot": {
           "type": "string"
+        }
+      }
+    },
+    "sidecarLoadContractRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "abi": {
+          "type": "string"
+        },
+        "bytecodeHash": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "associateToProxy": {
+          "type": "string"
+        }
+      }
+    },
+    "sidecarLoadContractResponse": {
+      "type": "object",
+      "properties": {
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "sidecarLoadContractsRequest": {
+      "type": "object",
+      "properties": {
+        "coreContracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/sidecarCoreContract"
+          }
+        },
+        "proxyContracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/sidecarProxyContract"
+          }
+        }
+      }
+    },
+    "sidecarLoadContractsResponse": {
+      "type": "object",
+      "properties": {
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sidecarProxyContract": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string"
+        },
+        "proxyContractAddress": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

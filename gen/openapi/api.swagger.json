@@ -1574,6 +1574,112 @@
         ]
       }
     },
+    "/rpc/v1/load-contract": {
+      "post": {
+        "summary": "LoadContract",
+        "operationId": "Rpc_LoadContract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "abi": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "associateToProxy": {
+                    "type": "string"
+                  },
+                  "blockNumber": {
+                    "type": "integer",
+                    "format": "uint64"
+                  },
+                  "bytecodeHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string"
+                    },
+                    "blockHeight": {
+                      "type": "integer",
+                      "format": "uint64"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "sidecar"
+        ]
+      }
+    },
+    "/rpc/v1/load-contracts": {
+      "post": {
+        "summary": "LoadContracts",
+        "operationId": "Rpc_LoadContracts",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "coreContracts": {
+                    "$ref": "#/components/schemas/CoreContract"
+                  },
+                  "proxyContracts": {
+                    "$ref": "#/components/schemas/ProxyContract"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "addresses": {
+                      "type": "string"
+                    },
+                    "blockHeight": {
+                      "type": "integer",
+                      "format": "uint64"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "sidecar"
+        ]
+      }
+    },
     "/rpc/v1/state-roots/{blockNumber}": {
       "get": {
         "summary": "GetStateRoot",
@@ -2097,6 +2203,20 @@
             "type": "string"
           },
           "token": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreContract": {
+        "type": "object",
+        "properties": {
+          "bytecodeHash": {
+            "type": "string"
+          },
+          "contractAbi": {
+            "type": "string"
+          },
+          "contractAddress": {
             "type": "string"
           }
         }
@@ -3166,6 +3286,62 @@
           }
         }
       },
+      "LoadContractRequest": {
+        "type": "object",
+        "properties": {
+          "abi": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "associateToProxy": {
+            "type": "string"
+          },
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "bytecodeHash": {
+            "type": "string"
+          }
+        }
+      },
+      "LoadContractResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        }
+      },
+      "LoadContractsRequest": {
+        "type": "object",
+        "properties": {
+          "coreContracts": {
+            "$ref": "#/components/schemas/CoreContract"
+          },
+          "proxyContracts": {
+            "$ref": "#/components/schemas/ProxyContract"
+          }
+        }
+      },
+      "LoadContractsResponse": {
+        "type": "object",
+        "properties": {
+          "addresses": {
+            "type": "string"
+          },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        }
+      },
       "Operator": {
         "type": "object",
         "properties": {
@@ -3290,6 +3466,21 @@
         "required": [
           "earner_leaf"
         ]
+      },
+      "ProxyContract": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "contractAddress": {
+            "type": "string"
+          },
+          "proxyContractAddress": {
+            "type": "string"
+          }
+        }
       },
       "QueueStakerStrategyWithdrawal": {
         "type": "object",

@@ -16,6 +16,8 @@ type RpcGatewayClient interface {
 	GetStateRoot(context.Context, *GetStateRootRequest) (*GetStateRootResponse, error)
 	// About returns information about the running sidecar process
 	About(context.Context, *AboutRequest) (*AboutResponse, error)
+	LoadContract(context.Context, *LoadContractRequest) (*LoadContractResponse, error)
+	LoadContracts(context.Context, *LoadContractsRequest) (*LoadContractsResponse, error)
 }
 
 func NewRpcGatewayClient(c gateway.Client) RpcGatewayClient {
@@ -45,4 +47,16 @@ func (c *rpcGatewayClient) GetStateRoot(ctx context.Context, req *GetStateRootRe
 func (c *rpcGatewayClient) About(ctx context.Context, req *AboutRequest) (*AboutResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/rpc/v1/about")
 	return gateway.DoRequest[AboutResponse](ctx, gwReq)
+}
+
+func (c *rpcGatewayClient) LoadContract(ctx context.Context, req *LoadContractRequest) (*LoadContractResponse, error) {
+	gwReq := c.gwc.NewRequest("POST", "/rpc/v1/load-contract")
+	gwReq.SetBody(req)
+	return gateway.DoRequest[LoadContractResponse](ctx, gwReq)
+}
+
+func (c *rpcGatewayClient) LoadContracts(ctx context.Context, req *LoadContractsRequest) (*LoadContractsResponse, error) {
+	gwReq := c.gwc.NewRequest("POST", "/rpc/v1/load-contracts")
+	gwReq.SetBody(req)
+	return gateway.DoRequest[LoadContractsResponse](ctx, gwReq)
 }

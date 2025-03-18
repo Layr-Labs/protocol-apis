@@ -10,6 +10,7 @@ package rewards
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,1049 +25,797 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Rewards_GetRewardsRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["block_height"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["block_height"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_height")
 	}
-
 	protoReq.BlockHeight, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_height", err)
 	}
-
 	msg, err := client.GetRewardsRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetRewardsRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["block_height"]
+	val, ok := pathParams["block_height"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_height")
 	}
-
 	protoReq.BlockHeight, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_height", err)
 	}
-
 	msg, err := server.GetRewardsRoot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GenerateRewards_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateRewardsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateRewardsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GenerateRewards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GenerateRewards_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateRewardsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateRewardsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GenerateRewards(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GenerateStakerOperators_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateStakerOperatorsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateStakerOperatorsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GenerateStakerOperators(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GenerateStakerOperators_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateStakerOperatorsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateStakerOperatorsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GenerateStakerOperators(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_BackfillStakerOperators_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BackfillStakerOperatorsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq BackfillStakerOperatorsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.BackfillStakerOperators(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_BackfillStakerOperators_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BackfillStakerOperatorsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq BackfillStakerOperatorsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.BackfillStakerOperators(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GenerateRewardsRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateRewardsRootRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateRewardsRootRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GenerateRewardsRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GenerateRewardsRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateRewardsRootRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateRewardsRootRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GenerateRewardsRoot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_GetRewardsForSnapshot_0 = &utilities.DoubleArray{Encoding: map[string]int{"snapshot": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_GetRewardsForSnapshot_0 = &utilities.DoubleArray{Encoding: map[string]int{"snapshot": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_GetRewardsForSnapshot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsForSnapshotRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsForSnapshotRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["snapshot"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["snapshot"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "snapshot")
 	}
-
 	protoReq.Snapshot, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "snapshot", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetRewardsForSnapshot_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetRewardsForSnapshot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetRewardsForSnapshot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsForSnapshotRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsForSnapshotRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["snapshot"]
+	val, ok := pathParams["snapshot"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "snapshot")
 	}
-
 	protoReq.Snapshot, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "snapshot", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetRewardsForSnapshot_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetRewardsForSnapshot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GetRewardsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsForDistributionRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsForDistributionRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["root_index"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["root_index"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "root_index")
 	}
-
 	protoReq.RootIndex, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "root_index", err)
 	}
-
 	msg, err := client.GetRewardsForDistributionRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetRewardsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsForDistributionRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsForDistributionRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["root_index"]
+	val, ok := pathParams["root_index"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "root_index")
 	}
-
 	protoReq.RootIndex, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "root_index", err)
 	}
-
 	msg, err := server.GetRewardsForDistributionRoot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GetAttributableRewardsForSnapshot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAttributableRewardsForSnapshotRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetAttributableRewardsForSnapshotRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["snapshot"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["snapshot"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "snapshot")
 	}
-
 	protoReq.Snapshot, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "snapshot", err)
 	}
-
 	msg, err := client.GetAttributableRewardsForSnapshot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetAttributableRewardsForSnapshot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAttributableRewardsForSnapshotRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetAttributableRewardsForSnapshotRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["snapshot"]
+	val, ok := pathParams["snapshot"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "snapshot")
 	}
-
 	protoReq.Snapshot, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "snapshot", err)
 	}
-
 	msg, err := server.GetAttributableRewardsForSnapshot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GetAttributableRewardsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAttributableRewardsForDistributionRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetAttributableRewardsForDistributionRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["distribution_root"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["distribution_root"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "distribution_root")
 	}
-
 	protoReq.DistributionRoot, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "distribution_root", err)
 	}
-
 	msg, err := client.GetAttributableRewardsForDistributionRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetAttributableRewardsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAttributableRewardsForDistributionRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetAttributableRewardsForDistributionRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["distribution_root"]
+	val, ok := pathParams["distribution_root"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "distribution_root")
 	}
-
 	protoReq.DistributionRoot, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "distribution_root", err)
 	}
-
 	msg, err := server.GetAttributableRewardsForDistributionRoot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GetRewardsByAvsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsByAvsForDistributionRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsByAvsForDistributionRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["root_index"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["root_index"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "root_index")
 	}
-
 	protoReq.RootIndex, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "root_index", err)
 	}
-
 	msg, err := client.GetRewardsByAvsForDistributionRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetRewardsByAvsForDistributionRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRewardsByAvsForDistributionRootRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRewardsByAvsForDistributionRootRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["root_index"]
+	val, ok := pathParams["root_index"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "root_index")
 	}
-
 	protoReq.RootIndex, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "root_index", err)
 	}
-
 	msg, err := server.GetRewardsByAvsForDistributionRoot(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GenerateClaimProof_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateClaimProofRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateClaimProofRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GenerateClaimProof(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GenerateClaimProof_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GenerateClaimProofRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GenerateClaimProofRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GenerateClaimProof(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_GetClaimableRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_GetClaimableRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_GetClaimableRewards_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetClaimableRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetClaimableRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetClaimableRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetClaimableRewards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetClaimableRewards_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetClaimableRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetClaimableRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetClaimableRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetClaimableRewards(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_GetTotalClaimedRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_GetTotalClaimedRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_GetTotalClaimedRewards_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetTotalClaimedRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetTotalClaimedRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetTotalClaimedRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetTotalClaimedRewards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetTotalClaimedRewards_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetTotalClaimedRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetTotalClaimedRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetTotalClaimedRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetTotalClaimedRewards(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_GetAvailableRewardsTokens_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_GetAvailableRewardsTokens_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_GetAvailableRewardsTokens_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAvailableRewardsTokensRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetAvailableRewardsTokensRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetAvailableRewardsTokens_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetAvailableRewardsTokens(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetAvailableRewardsTokens_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAvailableRewardsTokensRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetAvailableRewardsTokensRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetAvailableRewardsTokens_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetAvailableRewardsTokens(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_GetSummarizedRewardsForEarner_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_GetSummarizedRewardsForEarner_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_GetSummarizedRewardsForEarner_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetSummarizedRewardsForEarnerRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetSummarizedRewardsForEarnerRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetSummarizedRewardsForEarner_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetSummarizedRewardsForEarner(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetSummarizedRewardsForEarner_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetSummarizedRewardsForEarnerRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetSummarizedRewardsForEarnerRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_GetSummarizedRewardsForEarner_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetSummarizedRewardsForEarner(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Rewards_GetClaimedRewardsByBlock_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetClaimedRewardsByBlockRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetClaimedRewardsByBlockRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["block_height"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["block_height"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_height")
 	}
-
 	protoReq.BlockHeight, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_height", err)
 	}
-
 	msg, err := client.GetClaimedRewardsByBlock(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_GetClaimedRewardsByBlock_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetClaimedRewardsByBlockRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetClaimedRewardsByBlockRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["block_height"]
+	val, ok := pathParams["block_height"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "block_height")
 	}
-
 	protoReq.BlockHeight, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "block_height", err)
 	}
-
 	msg, err := server.GetClaimedRewardsByBlock(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_ListClaimedRewardsByBlockRange_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_ListClaimedRewardsByBlockRange_0 = &utilities.DoubleArray{Encoding: map[string]int{"earner_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_ListClaimedRewardsByBlockRange_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListClaimedRewardsByBlockRangeRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListClaimedRewardsByBlockRangeRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListClaimedRewardsByBlockRange_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListClaimedRewardsByBlockRange(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_ListClaimedRewardsByBlockRange_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListClaimedRewardsByBlockRangeRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListClaimedRewardsByBlockRangeRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListClaimedRewardsByBlockRange_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListClaimedRewardsByBlockRange(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_ListDistributionRoots_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
+var filter_Rewards_ListDistributionRoots_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
 func request_Rewards_ListDistributionRoots_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListDistributionRootsRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq ListDistributionRootsRequest
+		metadata runtime.ServerMetadata
+	)
+	io.Copy(io.Discard, req.Body)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListDistributionRoots_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListDistributionRoots(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_ListDistributionRoots_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListDistributionRootsRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq ListDistributionRootsRequest
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListDistributionRoots_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListDistributionRoots(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_ListEarnerLifetimeRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earnerAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_ListEarnerLifetimeRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earnerAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_ListEarnerLifetimeRewards_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListEarnerLifetimeRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListEarnerLifetimeRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earnerAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earnerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earnerAddress")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earnerAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListEarnerLifetimeRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListEarnerLifetimeRewards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_ListEarnerLifetimeRewards_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListEarnerLifetimeRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListEarnerLifetimeRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earnerAddress"]
+	val, ok := pathParams["earnerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earnerAddress")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earnerAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListEarnerLifetimeRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListEarnerLifetimeRewards(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Rewards_ListEarnerHistoricalRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earnerAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Rewards_ListEarnerHistoricalRewards_0 = &utilities.DoubleArray{Encoding: map[string]int{"earnerAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Rewards_ListEarnerHistoricalRewards_0(ctx context.Context, marshaler runtime.Marshaler, client RewardsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListEarnerHistoricalRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListEarnerHistoricalRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earnerAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earnerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earnerAddress")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earnerAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListEarnerHistoricalRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListEarnerHistoricalRewards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Rewards_ListEarnerHistoricalRewards_0(ctx context.Context, marshaler runtime.Marshaler, server RewardsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListEarnerHistoricalRewardsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListEarnerHistoricalRewardsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earnerAddress"]
+	val, ok := pathParams["earnerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earnerAddress")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earnerAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rewards_ListEarnerHistoricalRewards_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListEarnerHistoricalRewards(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterRewardsHandlerServer registers the http handlers for service Rewards to "mux".
@@ -1075,16 +824,13 @@ func local_request_Rewards_ListEarnerHistoricalRewards_0(ctx context.Context, ma
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterRewardsHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, server RewardsServer) error {
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/rewards-root"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/rewards-root"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1096,20 +842,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewards", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewards", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1121,20 +862,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/generate-staker-operators"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/generate-staker-operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1146,20 +882,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateStakerOperators_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_BackfillStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_BackfillStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/BackfillStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/backfill-staker-operators"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/BackfillStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/backfill-staker-operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1171,20 +902,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_BackfillStakerOperators_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards-root"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards-root"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1196,20 +922,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateRewardsRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/rewards/{snapshot}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/rewards/{snapshot}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1221,20 +942,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsForSnapshot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots/{root_index}/rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots/{root_index}/rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1246,20 +962,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetAttributableRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetAttributableRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards/{snapshot}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards/{snapshot}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1271,20 +982,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetAttributableRewardsForSnapshot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetAttributableRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetAttributableRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards-by-root/{distribution_root}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards-by-root/{distribution_root}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1296,20 +1002,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetAttributableRewardsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsByAvsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsByAvsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{root_index}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{root_index}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1321,20 +1022,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsByAvsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateClaimProof_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateClaimProof_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof", runtime.WithHTTPPathPattern("/rewards/v1/claim-proof"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof", runtime.WithHTTPPathPattern("/rewards/v1/claim-proof"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1346,20 +1042,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateClaimProof_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetClaimableRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetClaimableRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimable-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimable-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1371,20 +1062,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetClaimableRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetTotalClaimedRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetTotalClaimedRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/total-claimed-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/total-claimed-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1396,20 +1082,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetTotalClaimedRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetAvailableRewardsTokens_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetAvailableRewardsTokens_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/available-rewards-tokens"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/available-rewards-tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1421,20 +1102,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetAvailableRewardsTokens_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetSummarizedRewardsForEarner_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetSummarizedRewardsForEarner_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/summarized-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/summarized-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1446,20 +1122,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetSummarizedRewardsForEarner_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetClaimedRewardsByBlock_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetClaimedRewardsByBlock_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/claimed-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/claimed-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1471,20 +1142,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetClaimedRewardsByBlock_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListClaimedRewardsByBlockRange_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListClaimedRewardsByBlockRange_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimed-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimed-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1496,20 +1162,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListClaimedRewardsByBlockRange_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListDistributionRoots_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListDistributionRoots_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1521,20 +1182,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListDistributionRoots_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListEarnerLifetimeRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListEarnerLifetimeRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerLifetimeRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/lifetime-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerLifetimeRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/lifetime-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1546,20 +1202,15 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListEarnerLifetimeRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListEarnerHistoricalRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListEarnerHistoricalRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerHistoricalRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/historical-rewards"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerHistoricalRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/historical-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1571,9 +1222,7 @@ func RegisterRewardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListEarnerHistoricalRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -1600,7 +1249,6 @@ func RegisterRewardsHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeM
 			}
 		}()
 	}()
-
 	return RegisterRewardsHandler(ctx, mux, conn)
 }
 
@@ -1616,14 +1264,11 @@ func RegisterRewardsHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "RewardsClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, client RewardsClient) error {
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/rewards-root"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/rewards-root"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1634,18 +1279,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewards", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewards", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1656,18 +1296,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/generate-staker-operators"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/generate-staker-operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1678,18 +1313,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateStakerOperators_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_BackfillStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_BackfillStakerOperators_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/BackfillStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/backfill-staker-operators"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/BackfillStakerOperators", runtime.WithHTTPPathPattern("/rewards/v1/backfill-staker-operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1700,18 +1330,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_BackfillStakerOperators_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateRewardsRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards-root"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateRewardsRoot", runtime.WithHTTPPathPattern("/rewards/v1/generate-rewards-root"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1722,18 +1347,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateRewardsRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/rewards/{snapshot}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/rewards/{snapshot}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1744,18 +1364,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsForSnapshot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots/{root_index}/rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots/{root_index}/rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1766,18 +1381,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetAttributableRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetAttributableRewardsForSnapshot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards/{snapshot}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForSnapshot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards/{snapshot}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1788,18 +1398,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetAttributableRewardsForSnapshot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetAttributableRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetAttributableRewardsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards-by-root/{distribution_root}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAttributableRewardsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/attributable-rewards-by-root/{distribution_root}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1810,18 +1415,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetAttributableRewardsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetRewardsByAvsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetRewardsByAvsForDistributionRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{root_index}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardsByAvsForDistributionRoot", runtime.WithHTTPPathPattern("/rewards/v1/avs-rewards-by-root/{root_index}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1832,18 +1432,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetRewardsByAvsForDistributionRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Rewards_GenerateClaimProof_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Rewards_GenerateClaimProof_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof", runtime.WithHTTPPathPattern("/rewards/v1/claim-proof"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GenerateClaimProof", runtime.WithHTTPPathPattern("/rewards/v1/claim-proof"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1854,18 +1449,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GenerateClaimProof_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetClaimableRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetClaimableRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimable-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimableRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimable-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1876,18 +1466,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetClaimableRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetTotalClaimedRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetTotalClaimedRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/total-claimed-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetTotalClaimedRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/total-claimed-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1898,18 +1483,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetTotalClaimedRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetAvailableRewardsTokens_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetAvailableRewardsTokens_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/available-rewards-tokens"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetAvailableRewardsTokens", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/available-rewards-tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1920,18 +1500,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetAvailableRewardsTokens_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetSummarizedRewardsForEarner_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetSummarizedRewardsForEarner_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/summarized-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetSummarizedRewardsForEarner", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/summarized-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1942,18 +1517,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetSummarizedRewardsForEarner_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_GetClaimedRewardsByBlock_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_GetClaimedRewardsByBlock_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/claimed-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/GetClaimedRewardsByBlock", runtime.WithHTTPPathPattern("/rewards/v1/blocks/{block_height}/claimed-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1964,18 +1534,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_GetClaimedRewardsByBlock_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListClaimedRewardsByBlockRange_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListClaimedRewardsByBlockRange_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimed-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListClaimedRewardsByBlockRange", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earner_address}/claimed-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1986,18 +1551,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListClaimedRewardsByBlockRange_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListDistributionRoots_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListDistributionRoots_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots", runtime.WithHTTPPathPattern("/rewards/v1/distribution-roots"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2008,18 +1568,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListDistributionRoots_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListEarnerLifetimeRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListEarnerLifetimeRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerLifetimeRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/lifetime-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerLifetimeRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/lifetime-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2030,18 +1585,13 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListEarnerLifetimeRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Rewards_ListEarnerHistoricalRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Rewards_ListEarnerHistoricalRewards_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerHistoricalRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/historical-rewards"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerHistoricalRewards", runtime.WithHTTPPathPattern("/rewards/v1/earners/{earnerAddress}/historical-rewards"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2052,94 +1602,53 @@ func RegisterRewardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Rewards_ListEarnerHistoricalRewards_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
-	pattern_Rewards_GetRewardsRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "blocks", "block_height", "rewards-root"}, ""))
-
-	pattern_Rewards_GenerateRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "generate-rewards"}, ""))
-
-	pattern_Rewards_GenerateStakerOperators_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "generate-staker-operators"}, ""))
-
-	pattern_Rewards_BackfillStakerOperators_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "backfill-staker-operators"}, ""))
-
-	pattern_Rewards_GenerateRewardsRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "generate-rewards-root"}, ""))
-
-	pattern_Rewards_GetRewardsForSnapshot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 0, 1, 0, 4, 1, 5, 2}, []string{"rewards", "v1", "snapshot"}, ""))
-
-	pattern_Rewards_GetRewardsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 0}, []string{"rewards", "v1", "distribution-roots", "root_index"}, ""))
-
-	pattern_Rewards_GetAttributableRewardsForSnapshot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "attributable-rewards", "snapshot"}, ""))
-
+	pattern_Rewards_GetRewardsRoot_0                            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "blocks", "block_height", "rewards-root"}, ""))
+	pattern_Rewards_GenerateRewards_0                           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "generate-rewards"}, ""))
+	pattern_Rewards_GenerateStakerOperators_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "generate-staker-operators"}, ""))
+	pattern_Rewards_BackfillStakerOperators_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "backfill-staker-operators"}, ""))
+	pattern_Rewards_GenerateRewardsRoot_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "generate-rewards-root"}, ""))
+	pattern_Rewards_GetRewardsForSnapshot_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 0, 1, 0, 4, 1, 5, 2}, []string{"rewards", "v1", "snapshot"}, ""))
+	pattern_Rewards_GetRewardsForDistributionRoot_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 0}, []string{"rewards", "v1", "distribution-roots", "root_index"}, ""))
+	pattern_Rewards_GetAttributableRewardsForSnapshot_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "attributable-rewards", "snapshot"}, ""))
 	pattern_Rewards_GetAttributableRewardsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "attributable-rewards-by-root", "distribution_root"}, ""))
-
-	pattern_Rewards_GetRewardsByAvsForDistributionRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "avs-rewards-by-root", "root_index"}, ""))
-
-	pattern_Rewards_GenerateClaimProof_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "claim-proof"}, ""))
-
-	pattern_Rewards_GetClaimableRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "claimable-rewards"}, ""))
-
-	pattern_Rewards_GetTotalClaimedRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "total-claimed-rewards"}, ""))
-
-	pattern_Rewards_GetAvailableRewardsTokens_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "available-rewards-tokens"}, ""))
-
-	pattern_Rewards_GetSummarizedRewardsForEarner_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "summarized-rewards"}, ""))
-
-	pattern_Rewards_GetClaimedRewardsByBlock_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "blocks", "block_height", "claimed-rewards"}, ""))
-
-	pattern_Rewards_ListClaimedRewardsByBlockRange_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "claimed-rewards"}, ""))
-
-	pattern_Rewards_ListDistributionRoots_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "distribution-roots"}, ""))
-
-	pattern_Rewards_ListEarnerLifetimeRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earnerAddress", "lifetime-rewards"}, ""))
-
-	pattern_Rewards_ListEarnerHistoricalRewards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earnerAddress", "historical-rewards"}, ""))
+	pattern_Rewards_GetRewardsByAvsForDistributionRoot_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rewards", "v1", "avs-rewards-by-root", "root_index"}, ""))
+	pattern_Rewards_GenerateClaimProof_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "claim-proof"}, ""))
+	pattern_Rewards_GetClaimableRewards_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "claimable-rewards"}, ""))
+	pattern_Rewards_GetTotalClaimedRewards_0                    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "total-claimed-rewards"}, ""))
+	pattern_Rewards_GetAvailableRewardsTokens_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "available-rewards-tokens"}, ""))
+	pattern_Rewards_GetSummarizedRewardsForEarner_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "summarized-rewards"}, ""))
+	pattern_Rewards_GetClaimedRewardsByBlock_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "blocks", "block_height", "claimed-rewards"}, ""))
+	pattern_Rewards_ListClaimedRewardsByBlockRange_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earner_address", "claimed-rewards"}, ""))
+	pattern_Rewards_ListDistributionRoots_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rewards", "v1", "distribution-roots"}, ""))
+	pattern_Rewards_ListEarnerLifetimeRewards_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earnerAddress", "lifetime-rewards"}, ""))
+	pattern_Rewards_ListEarnerHistoricalRewards_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"rewards", "v1", "earners", "earnerAddress", "historical-rewards"}, ""))
 )
 
 var (
-	forward_Rewards_GetRewardsRoot_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GenerateRewards_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GenerateStakerOperators_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_BackfillStakerOperators_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GenerateRewardsRoot_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetRewardsForSnapshot_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetRewardsForDistributionRoot_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetAttributableRewardsForSnapshot_0 = runtime.ForwardResponseMessage
-
+	forward_Rewards_GetRewardsRoot_0                            = runtime.ForwardResponseMessage
+	forward_Rewards_GenerateRewards_0                           = runtime.ForwardResponseMessage
+	forward_Rewards_GenerateStakerOperators_0                   = runtime.ForwardResponseMessage
+	forward_Rewards_BackfillStakerOperators_0                   = runtime.ForwardResponseMessage
+	forward_Rewards_GenerateRewardsRoot_0                       = runtime.ForwardResponseMessage
+	forward_Rewards_GetRewardsForSnapshot_0                     = runtime.ForwardResponseMessage
+	forward_Rewards_GetRewardsForDistributionRoot_0             = runtime.ForwardResponseMessage
+	forward_Rewards_GetAttributableRewardsForSnapshot_0         = runtime.ForwardResponseMessage
 	forward_Rewards_GetAttributableRewardsForDistributionRoot_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetRewardsByAvsForDistributionRoot_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GenerateClaimProof_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetClaimableRewards_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetTotalClaimedRewards_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetAvailableRewardsTokens_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetSummarizedRewardsForEarner_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_GetClaimedRewardsByBlock_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_ListClaimedRewardsByBlockRange_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_ListDistributionRoots_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_ListEarnerLifetimeRewards_0 = runtime.ForwardResponseMessage
-
-	forward_Rewards_ListEarnerHistoricalRewards_0 = runtime.ForwardResponseMessage
+	forward_Rewards_GetRewardsByAvsForDistributionRoot_0        = runtime.ForwardResponseMessage
+	forward_Rewards_GenerateClaimProof_0                        = runtime.ForwardResponseMessage
+	forward_Rewards_GetClaimableRewards_0                       = runtime.ForwardResponseMessage
+	forward_Rewards_GetTotalClaimedRewards_0                    = runtime.ForwardResponseMessage
+	forward_Rewards_GetAvailableRewardsTokens_0                 = runtime.ForwardResponseMessage
+	forward_Rewards_GetSummarizedRewardsForEarner_0             = runtime.ForwardResponseMessage
+	forward_Rewards_GetClaimedRewardsByBlock_0                  = runtime.ForwardResponseMessage
+	forward_Rewards_ListClaimedRewardsByBlockRange_0            = runtime.ForwardResponseMessage
+	forward_Rewards_ListDistributionRoots_0                     = runtime.ForwardResponseMessage
+	forward_Rewards_ListEarnerLifetimeRewards_0                 = runtime.ForwardResponseMessage
+	forward_Rewards_ListEarnerHistoricalRewards_0               = runtime.ForwardResponseMessage
 )
