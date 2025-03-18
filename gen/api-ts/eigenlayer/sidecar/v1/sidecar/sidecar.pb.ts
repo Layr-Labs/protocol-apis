@@ -30,3 +30,20 @@ export type AboutResponse = {
   commit?: string
   chain?: string
 }
+
+export type LoadContractRequest = {
+  address?: string
+  abi?: string
+  bytecodeHash?: string
+  blockNumber?: string
+  associateToProxy?: string
+  batch?: boolean
+  fromFile?: string
+}
+
+export type LoadContractResponse = {
+  address?: string
+  success?: boolean
+  error?: string
+  contractsLoaded?: number
+}

@@ -1457,6 +1457,38 @@
         ]
       }
     },
+    "/rpc/v1/load-contract": {
+      "post": {
+        "operationId": "Rpc_LoadContract",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
     "/rpc/v1/state-roots/{blockNumber}": {
       "get": {
         "operationId": "Rpc_GetStateRoot",
@@ -3145,6 +3177,61 @@
         },
         "stateRoot": {
           "type": "string"
+        }
+      }
+    },
+    "sidecarLoadContractRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "abi": {
+          "type": "string",
+          "title": "ABI of the contract in JSON format"
+        },
+        "bytecodeHash": {
+          "type": "string",
+          "title": "Bytecode hash of the contract (optional, will be fetched if not provided)"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Block number for proxy association (required if associate_to_proxy is set)"
+        },
+        "associateToProxy": {
+          "type": "string",
+          "title": "Address of the proxy contract to associate with (optional)"
+        },
+        "batch": {
+          "type": "boolean",
+          "title": "Whether to load from a batch file (mutually exclusive with other fields)"
+        },
+        "fromFile": {
+          "type": "string",
+          "title": "Path to the batch file (required if batch is true)"
+        }
+      }
+    },
+    "sidecarLoadContractResponse": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "title": "Address of the loaded contract"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "Whether the operation was successful"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error message if the operation failed"
+        },
+        "contractsLoaded": {
+          "type": "integer",
+          "format": "int64",
+          "title": "Number of contracts loaded if batch mode was used"
         }
       }
     },

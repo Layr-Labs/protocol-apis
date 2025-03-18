@@ -10,6 +10,7 @@ package protocol
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,823 +25,619 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
-
 var (
-	filter_Protocol_GetRegisteredAvsForOperator_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
 )
 
+var filter_Protocol_GetRegisteredAvsForOperator_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
 func request_Protocol_GetRegisteredAvsForOperator_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRegisteredAvsForOperatorRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRegisteredAvsForOperatorRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetRegisteredAvsForOperator_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetRegisteredAvsForOperator(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetRegisteredAvsForOperator_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetRegisteredAvsForOperatorRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetRegisteredAvsForOperatorRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetRegisteredAvsForOperator_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetRegisteredAvsForOperator(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_GetDelegatedStrategiesForOperator_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Protocol_GetDelegatedStrategiesForOperator_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Protocol_GetDelegatedStrategiesForOperator_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDelegatedStrategiesForOperatorRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDelegatedStrategiesForOperatorRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetDelegatedStrategiesForOperator_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetDelegatedStrategiesForOperator(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetDelegatedStrategiesForOperator_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDelegatedStrategiesForOperatorRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDelegatedStrategiesForOperatorRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetDelegatedStrategiesForOperator_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetDelegatedStrategiesForOperator(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_GetOperatorDelegatedStakeForStrategy_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0, "strategy_address": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Protocol_GetOperatorDelegatedStakeForStrategy_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0, "strategy_address": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
 
 func request_Protocol_GetOperatorDelegatedStakeForStrategy_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetOperatorDelegatedStakeForStrategyRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetOperatorDelegatedStakeForStrategyRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	val, ok = pathParams["strategy_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategy_address")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategy_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetOperatorDelegatedStakeForStrategy_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetOperatorDelegatedStakeForStrategy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetOperatorDelegatedStakeForStrategy_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetOperatorDelegatedStakeForStrategyRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetOperatorDelegatedStakeForStrategyRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	val, ok = pathParams["strategy_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategy_address")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategy_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetOperatorDelegatedStakeForStrategy_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetOperatorDelegatedStakeForStrategy(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_GetDelegatedStakersForOperator_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Protocol_GetDelegatedStakersForOperator_0 = &utilities.DoubleArray{Encoding: map[string]int{"operator_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Protocol_GetDelegatedStakersForOperator_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDelegatedStakersForOperatorRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDelegatedStakersForOperatorRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetDelegatedStakersForOperator_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetDelegatedStakersForOperator(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetDelegatedStakersForOperator_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDelegatedStakersForOperatorRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDelegatedStakersForOperatorRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetDelegatedStakersForOperator_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetDelegatedStakersForOperator(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_GetStakerShares_0 = &utilities.DoubleArray{Encoding: map[string]int{"staker_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Protocol_GetStakerShares_0 = &utilities.DoubleArray{Encoding: map[string]int{"staker_address": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Protocol_GetStakerShares_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetStakerSharesRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetStakerSharesRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["staker_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["staker_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "staker_address")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "staker_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetStakerShares_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetStakerShares(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetStakerShares_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetStakerSharesRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetStakerSharesRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["staker_address"]
+	val, ok := pathParams["staker_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "staker_address")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "staker_address", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetStakerShares_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetStakerShares(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_GetEigenStateChanges_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
+var filter_Protocol_GetEigenStateChanges_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
 func request_Protocol_GetEigenStateChanges_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetEigenStateChangesRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq GetEigenStateChangesRequest
+		metadata runtime.ServerMetadata
+	)
+	io.Copy(io.Discard, req.Body)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetEigenStateChanges_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetEigenStateChanges(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetEigenStateChanges_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetEigenStateChangesRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq GetEigenStateChangesRequest
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetEigenStateChanges_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetEigenStateChanges(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Protocol_ListStrategies_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStrategiesRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq ListStrategiesRequest
+		metadata runtime.ServerMetadata
+	)
+	io.Copy(io.Discard, req.Body)
 	msg, err := client.ListStrategies(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_ListStrategies_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStrategiesRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq ListStrategiesRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.ListStrategies(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_ListStakerStrategies_0 = &utilities.DoubleArray{Encoding: map[string]int{"stakerAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
+var filter_Protocol_ListStakerStrategies_0 = &utilities.DoubleArray{Encoding: map[string]int{"stakerAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 
 func request_Protocol_ListStakerStrategies_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStakerStrategiesRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListStakerStrategiesRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["stakerAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_ListStakerStrategies_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ListStakerStrategies(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_ListStakerStrategies_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStakerStrategiesRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListStakerStrategiesRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["stakerAddress"]
+	val, ok := pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_ListStakerStrategies_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ListStakerStrategies(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_Protocol_GetStrategyForStaker_0 = &utilities.DoubleArray{Encoding: map[string]int{"stakerAddress": 0, "strategyAddress": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
-)
+var filter_Protocol_GetStrategyForStaker_0 = &utilities.DoubleArray{Encoding: map[string]int{"stakerAddress": 0, "strategyAddress": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
 
 func request_Protocol_GetStrategyForStaker_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetStrategyForStakerRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetStrategyForStakerRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["stakerAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
-
 	val, ok = pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetStrategyForStaker_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetStrategyForStaker(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_GetStrategyForStaker_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetStrategyForStakerRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetStrategyForStakerRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["stakerAddress"]
+	val, ok := pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
-
 	val, ok = pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_GetStrategyForStaker_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetStrategyForStaker(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Protocol_ListStakerQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStakerQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListStakerQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["stakerAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
-
 	msg, err := client.ListStakerQueuedWithdrawals(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_ListStakerQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStakerQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListStakerQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["stakerAddress"]
+	val, ok := pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
-
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
-
 	msg, err := server.ListStakerQueuedWithdrawals(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Protocol_ListStrategyQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStrategyQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListStrategyQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["strategyAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
-
 	msg, err := client.ListStrategyQueuedWithdrawals(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_ListStrategyQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListStrategyQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListStrategyQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["strategyAddress"]
+	val, ok := pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
-
 	msg, err := server.ListStrategyQueuedWithdrawals(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Protocol_ListOperatorQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListOperatorQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListOperatorQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operatorAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operatorAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorAddress")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorAddress", err)
 	}
-
 	msg, err := client.ListOperatorQueuedWithdrawals(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_ListOperatorQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListOperatorQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListOperatorQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operatorAddress"]
+	val, ok := pathParams["operatorAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorAddress")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorAddress", err)
 	}
-
 	msg, err := server.ListOperatorQueuedWithdrawals(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Protocol_ListOperatorStrategyQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListOperatorStrategyQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListOperatorStrategyQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operatorAddress"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operatorAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorAddress")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorAddress", err)
 	}
-
 	val, ok = pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
-
 	msg, err := client.ListOperatorStrategyQueuedWithdrawals(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Protocol_ListOperatorStrategyQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListOperatorStrategyQueuedWithdrawalsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ListOperatorStrategyQueuedWithdrawalsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operatorAddress"]
+	val, ok := pathParams["operatorAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorAddress")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorAddress", err)
 	}
-
 	val, ok = pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
-
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
-
 	msg, err := server.ListOperatorStrategyQueuedWithdrawals(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterProtocolHandlerServer registers the http handlers for service Protocol to "mux".
@@ -849,16 +646,13 @@ func local_request_Protocol_ListOperatorStrategyQueuedWithdrawals_0(ctx context.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterProtocolHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ProtocolServer) error {
-
-	mux.Handle("GET", pattern_Protocol_GetRegisteredAvsForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetRegisteredAvsForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/registered-avs"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/registered-avs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -870,20 +664,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetRegisteredAvsForOperator_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetDelegatedStrategiesForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetDelegatedStrategiesForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-strategies"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-strategies"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -895,20 +684,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetDelegatedStrategiesForOperator_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetOperatorDelegatedStakeForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetOperatorDelegatedStakeForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/strategies/{strategy_address}/delegated-stake"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/strategies/{strategy_address}/delegated-stake"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -920,20 +704,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetOperatorDelegatedStakeForStrategy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetDelegatedStakersForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetDelegatedStakersForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-stakers"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-stakers"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -945,20 +724,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetDelegatedStakersForOperator_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetStakerShares_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetStakerShares_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{staker_address}/shares"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{staker_address}/shares"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -970,20 +744,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetStakerShares_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges", runtime.WithHTTPPathPattern("/protocol/v1/eigen-state-changes"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges", runtime.WithHTTPPathPattern("/protocol/v1/eigen-state-changes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -995,20 +764,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetEigenStateChanges_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies", runtime.WithHTTPPathPattern("/protocol/v1/strategies"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies", runtime.WithHTTPPathPattern("/protocol/v1/strategies"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1020,20 +784,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStrategies_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStakerStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStakerStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1045,20 +804,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStakerStrategies_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetStrategyForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetStrategyForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1070,20 +824,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetStrategyForStaker_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStakerQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStakerQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1095,20 +844,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStakerQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/strategies/{strategyAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/strategies/{strategyAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1120,20 +864,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStrategyQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListOperatorQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListOperatorQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1145,20 +884,15 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListOperatorQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListOperatorStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListOperatorStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1170,9 +904,7 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListOperatorStrategyQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -1199,7 +931,6 @@ func RegisterProtocolHandlerFromEndpoint(ctx context.Context, mux *runtime.Serve
 			}
 		}()
 	}()
-
 	return RegisterProtocolHandler(ctx, mux, conn)
 }
 
@@ -1215,14 +946,11 @@ func RegisterProtocolHandler(ctx context.Context, mux *runtime.ServeMux, conn *g
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "ProtocolClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ProtocolClient) error {
-
-	mux.Handle("GET", pattern_Protocol_GetRegisteredAvsForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetRegisteredAvsForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/registered-avs"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/registered-avs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1233,18 +961,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetRegisteredAvsForOperator_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetDelegatedStrategiesForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetDelegatedStrategiesForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-strategies"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-strategies"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1255,18 +978,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetDelegatedStrategiesForOperator_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetOperatorDelegatedStakeForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetOperatorDelegatedStakeForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/strategies/{strategy_address}/delegated-stake"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/strategies/{strategy_address}/delegated-stake"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1277,18 +995,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetOperatorDelegatedStakeForStrategy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetDelegatedStakersForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetDelegatedStakersForOperator_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-stakers"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operator_address}/delegated-stakers"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1299,18 +1012,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetDelegatedStakersForOperator_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetStakerShares_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetStakerShares_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{staker_address}/shares"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{staker_address}/shares"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1321,18 +1029,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetStakerShares_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges", runtime.WithHTTPPathPattern("/protocol/v1/eigen-state-changes"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges", runtime.WithHTTPPathPattern("/protocol/v1/eigen-state-changes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1343,18 +1046,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetEigenStateChanges_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies", runtime.WithHTTPPathPattern("/protocol/v1/strategies"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies", runtime.WithHTTPPathPattern("/protocol/v1/strategies"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1365,18 +1063,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStrategies_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStakerStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStakerStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1387,18 +1080,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStakerStrategies_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_GetStrategyForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_GetStrategyForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1409,18 +1097,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_GetStrategyForStaker_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStakerQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStakerQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/stakers/{stakerAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1431,18 +1114,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStakerQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/strategies/{strategyAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/strategies/{strategyAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1453,18 +1131,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListStrategyQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListOperatorQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListOperatorQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1475,18 +1148,13 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListOperatorQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Protocol_ListOperatorStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Protocol_ListOperatorStrategyQueuedWithdrawals_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals", runtime.WithHTTPPathPattern("/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1497,66 +1165,39 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Protocol_ListOperatorStrategyQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
-	pattern_Protocol_GetRegisteredAvsForOperator_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operator_address", "registered-avs"}, ""))
-
-	pattern_Protocol_GetDelegatedStrategiesForOperator_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operator_address", "delegated-strategies"}, ""))
-
-	pattern_Protocol_GetOperatorDelegatedStakeForStrategy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"protocol", "v1", "operators", "operator_address", "strategies", "strategy_address", "delegated-stake"}, ""))
-
-	pattern_Protocol_GetDelegatedStakersForOperator_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operator_address", "delegated-stakers"}, ""))
-
-	pattern_Protocol_GetStakerShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "stakers", "staker_address", "shares"}, ""))
-
-	pattern_Protocol_GetEigenStateChanges_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"protocol", "v1", "eigen-state-changes"}, ""))
-
-	pattern_Protocol_ListStrategies_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"protocol", "v1", "strategies"}, ""))
-
-	pattern_Protocol_ListStakerStrategies_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "stakers", "stakerAddress", "strategies"}, ""))
-
-	pattern_Protocol_GetStrategyForStaker_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"protocol", "v1", "stakers", "stakerAddress", "strategies", "strategyAddress"}, ""))
-
-	pattern_Protocol_ListStakerQueuedWithdrawals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "stakers", "stakerAddress", "queued-withdrawals"}, ""))
-
-	pattern_Protocol_ListStrategyQueuedWithdrawals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "strategies", "strategyAddress", "queued-withdrawals"}, ""))
-
-	pattern_Protocol_ListOperatorQueuedWithdrawals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operatorAddress", "queued-withdrawals"}, ""))
-
+	pattern_Protocol_GetRegisteredAvsForOperator_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operator_address", "registered-avs"}, ""))
+	pattern_Protocol_GetDelegatedStrategiesForOperator_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operator_address", "delegated-strategies"}, ""))
+	pattern_Protocol_GetOperatorDelegatedStakeForStrategy_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"protocol", "v1", "operators", "operator_address", "strategies", "strategy_address", "delegated-stake"}, ""))
+	pattern_Protocol_GetDelegatedStakersForOperator_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operator_address", "delegated-stakers"}, ""))
+	pattern_Protocol_GetStakerShares_0                       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "stakers", "staker_address", "shares"}, ""))
+	pattern_Protocol_GetEigenStateChanges_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"protocol", "v1", "eigen-state-changes"}, ""))
+	pattern_Protocol_ListStrategies_0                        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"protocol", "v1", "strategies"}, ""))
+	pattern_Protocol_ListStakerStrategies_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "stakers", "stakerAddress", "strategies"}, ""))
+	pattern_Protocol_GetStrategyForStaker_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"protocol", "v1", "stakers", "stakerAddress", "strategies", "strategyAddress"}, ""))
+	pattern_Protocol_ListStakerQueuedWithdrawals_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "stakers", "stakerAddress", "queued-withdrawals"}, ""))
+	pattern_Protocol_ListStrategyQueuedWithdrawals_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "strategies", "strategyAddress", "queued-withdrawals"}, ""))
+	pattern_Protocol_ListOperatorQueuedWithdrawals_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operatorAddress", "queued-withdrawals"}, ""))
 	pattern_Protocol_ListOperatorStrategyQueuedWithdrawals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"protocol", "v1", "operators", "operatorAddress", "strategies", "strategyAddress", "queued-withdrawals"}, ""))
 )
 
 var (
-	forward_Protocol_GetRegisteredAvsForOperator_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_GetDelegatedStrategiesForOperator_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_GetOperatorDelegatedStakeForStrategy_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_GetDelegatedStakersForOperator_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_GetStakerShares_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_GetEigenStateChanges_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_ListStrategies_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_ListStakerStrategies_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_GetStrategyForStaker_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_ListStakerQueuedWithdrawals_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_ListStrategyQueuedWithdrawals_0 = runtime.ForwardResponseMessage
-
-	forward_Protocol_ListOperatorQueuedWithdrawals_0 = runtime.ForwardResponseMessage
-
+	forward_Protocol_GetRegisteredAvsForOperator_0           = runtime.ForwardResponseMessage
+	forward_Protocol_GetDelegatedStrategiesForOperator_0     = runtime.ForwardResponseMessage
+	forward_Protocol_GetOperatorDelegatedStakeForStrategy_0  = runtime.ForwardResponseMessage
+	forward_Protocol_GetDelegatedStakersForOperator_0        = runtime.ForwardResponseMessage
+	forward_Protocol_GetStakerShares_0                       = runtime.ForwardResponseMessage
+	forward_Protocol_GetEigenStateChanges_0                  = runtime.ForwardResponseMessage
+	forward_Protocol_ListStrategies_0                        = runtime.ForwardResponseMessage
+	forward_Protocol_ListStakerStrategies_0                  = runtime.ForwardResponseMessage
+	forward_Protocol_GetStrategyForStaker_0                  = runtime.ForwardResponseMessage
+	forward_Protocol_ListStakerQueuedWithdrawals_0           = runtime.ForwardResponseMessage
+	forward_Protocol_ListStrategyQueuedWithdrawals_0         = runtime.ForwardResponseMessage
+	forward_Protocol_ListOperatorQueuedWithdrawals_0         = runtime.ForwardResponseMessage
 	forward_Protocol_ListOperatorStrategyQueuedWithdrawals_0 = runtime.ForwardResponseMessage
 )

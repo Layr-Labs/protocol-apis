@@ -1395,6 +1395,51 @@
           }
         }
       },
+      "LoadContractRequest": {
+        "type": "object",
+        "properties": {
+          "abi": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "associateToProxy": {
+            "type": "string"
+          },
+          "batch": {
+            "type": "boolean"
+          },
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "bytecodeHash": {
+            "type": "string"
+          },
+          "fromFile": {
+            "type": "string"
+          }
+        }
+      },
+      "LoadContractResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "contractsLoaded": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "error": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
       "Operator": {
         "type": "object",
         "properties": {

@@ -1574,6 +1574,76 @@
         ]
       }
     },
+    "/rpc/v1/load-contract": {
+      "post": {
+        "summary": "LoadContract",
+        "operationId": "Rpc_LoadContract",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "abi": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "associateToProxy": {
+                    "type": "string"
+                  },
+                  "batch": {
+                    "type": "boolean"
+                  },
+                  "blockNumber": {
+                    "type": "integer",
+                    "format": "uint64"
+                  },
+                  "bytecodeHash": {
+                    "type": "string"
+                  },
+                  "fromFile": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "address": {
+                      "type": "string"
+                    },
+                    "contractsLoaded": {
+                      "type": "integer",
+                      "format": "uint32"
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "sidecar"
+        ]
+      }
+    },
     "/rpc/v1/state-roots/{blockNumber}": {
       "get": {
         "summary": "GetStateRoot",
@@ -3163,6 +3233,51 @@
         "properties": {
           "withdrawals": {
             "$ref": "#/components/schemas/StakerWithdrawal"
+          }
+        }
+      },
+      "LoadContractRequest": {
+        "type": "object",
+        "properties": {
+          "abi": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "associateToProxy": {
+            "type": "string"
+          },
+          "batch": {
+            "type": "boolean"
+          },
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "bytecodeHash": {
+            "type": "string"
+          },
+          "fromFile": {
+            "type": "string"
+          }
+        }
+      },
+      "LoadContractResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "contractsLoaded": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "error": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
           }
         }
       },
