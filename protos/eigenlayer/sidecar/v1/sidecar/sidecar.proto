@@ -36,13 +36,13 @@ message AboutResponse {
 message LoadContractRequest {
   string address = 1;
   string abi = 2;
-  string bytecodeHash = 3;
-  uint64 blockNumber = 4;
-  string associateToProxy = 5;
+  string bytecode_hash = 3;
+  uint64 block_number = 4;
+  string associate_to_proxy = 5;
 }
 
 message LoadContractResponse {
-  uint64 blockHeight = 1;
+  uint64 block_height = 1;
   string address = 2;
 }
 
@@ -64,6 +64,6 @@ message LoadContractsRequest {
 }
 
 message LoadContractsResponse {
-  uint64 blockHeight = 1;
+  uint64 block_height = 1;
   repeated string addresses = 2;
 }
