@@ -1489,6 +1489,38 @@
         ]
       }
     },
+    "/rpc/v1/load-contracts": {
+      "post": {
+        "operationId": "Rpc_LoadContracts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sidecarLoadContractsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Rpc"
+        ]
+      }
+    },
     "/rpc/v1/state-roots/{blockNumber}": {
       "get": {
         "operationId": "Rpc_GetStateRoot",
@@ -3187,38 +3219,52 @@
           "type": "string"
         },
         "abi": {
-          "type": "string",
-          "title": "ABI of the contract in JSON format"
+          "type": "string"
         },
         "bytecodeHash": {
-          "type": "string",
-          "title": "Bytecode hash of the contract (optional, will be fetched if not provided)"
+          "type": "string"
         },
         "blockNumber": {
           "type": "string",
-          "format": "uint64",
-          "title": "Block number for proxy association (required if associate_to_proxy is set)"
+          "format": "uint64"
         },
         "associateToProxy": {
-          "type": "string",
-          "title": "Address of the proxy contract to associate with (optional)"
-        },
-        "batch": {
-          "type": "boolean",
-          "title": "Whether to load from a batch file (mutually exclusive with other fields)"
-        },
-        "fromFile": {
-          "type": "string",
-          "title": "Path to the batch file (required if batch is true)"
+          "type": "string"
         }
       }
     },
     "sidecarLoadContractResponse": {
       "type": "object",
       "properties": {
-        "address": {
+        "blockHeight": {
           "type": "string",
-          "title": "Address of the loaded contract"
+          "format": "uint64"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "sidecarLoadContractsRequest": {
+      "type": "object",
+      "properties": {
+        "contractsJson": {
+          "type": "string"
+        }
+      }
+    },
+    "sidecarLoadContractsResponse": {
+      "type": "object",
+      "properties": {
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

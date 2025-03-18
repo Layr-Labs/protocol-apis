@@ -37,10 +37,18 @@ export type LoadContractRequest = {
   bytecodeHash?: string
   blockNumber?: string
   associateToProxy?: string
-  batch?: boolean
-  fromFile?: string
 }
 
 export type LoadContractResponse = {
+  blockHeight?: string
   address?: string
+}
+
+export type LoadContractsRequest = {
+  contractsJson?: string
+}
+
+export type LoadContractsResponse = {
+  blockHeight?: string
+  addresses?: string[]
 }

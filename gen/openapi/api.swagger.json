@@ -1594,17 +1594,11 @@
                   "associateToProxy": {
                     "type": "string"
                   },
-                  "batch": {
-                    "type": "boolean"
-                  },
                   "blockNumber": {
                     "type": "integer",
                     "format": "uint64"
                   },
                   "bytecodeHash": {
-                    "type": "string"
-                  },
-                  "fromFile": {
                     "type": "string"
                   }
                 }
@@ -1622,6 +1616,55 @@
                   "properties": {
                     "address": {
                       "type": "string"
+                    },
+                    "blockHeight": {
+                      "type": "integer",
+                      "format": "uint64"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "sidecar"
+        ]
+      }
+    },
+    "/rpc/v1/load-contracts": {
+      "post": {
+        "summary": "LoadContracts",
+        "operationId": "Rpc_LoadContracts",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contractsJson": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "addresses": {
+                      "type": "string"
+                    },
+                    "blockHeight": {
+                      "type": "integer",
+                      "format": "uint64"
                     }
                   }
                 }
@@ -3238,17 +3281,11 @@
           "associateToProxy": {
             "type": "string"
           },
-          "batch": {
-            "type": "boolean"
-          },
           "blockNumber": {
             "type": "integer",
             "format": "uint64"
           },
           "bytecodeHash": {
-            "type": "string"
-          },
-          "fromFile": {
             "type": "string"
           }
         }
@@ -3258,6 +3295,30 @@
         "properties": {
           "address": {
             "type": "string"
+          },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        }
+      },
+      "LoadContractsRequest": {
+        "type": "object",
+        "properties": {
+          "contractsJson": {
+            "type": "string"
+          }
+        }
+      },
+      "LoadContractsResponse": {
+        "type": "object",
+        "properties": {
+          "addresses": {
+            "type": "string"
+          },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
           }
         }
       },
