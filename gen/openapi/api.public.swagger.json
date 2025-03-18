@@ -1427,16 +1427,6 @@
         "properties": {
           "address": {
             "type": "string"
-          },
-          "contractsLoaded": {
-            "type": "integer",
-            "format": "uint32"
-          },
-          "error": {
-            "type": "string"
-          },
-          "success": {
-            "type": "boolean"
           }
         }
       },

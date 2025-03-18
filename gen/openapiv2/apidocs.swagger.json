@@ -3219,19 +3219,6 @@
         "address": {
           "type": "string",
           "title": "Address of the loaded contract"
-        },
-        "success": {
-          "type": "boolean",
-          "title": "Whether the operation was successful"
-        },
-        "error": {
-          "type": "string",
-          "title": "Error message if the operation failed"
-        },
-        "contractsLoaded": {
-          "type": "integer",
-          "format": "int64",
-          "title": "Number of contracts loaded if batch mode was used"
         }
       }
     },

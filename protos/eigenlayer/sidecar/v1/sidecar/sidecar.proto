@@ -52,10 +52,4 @@ message LoadContractRequest {
 message LoadContractResponse {
   // Address of the loaded contract
   string address = 1;
-  // Whether the operation was successful
-  bool success = 2;
-  // Error message if the operation failed
-  string error = 3;
-  // Number of contracts loaded if batch mode was used
-  uint32 contractsLoaded = 4;
 }

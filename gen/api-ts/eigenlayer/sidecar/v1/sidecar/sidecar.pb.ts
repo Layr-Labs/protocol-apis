@@ -43,7 +43,4 @@ export type LoadContractRequest = {
 
 export type LoadContractResponse = {
   address?: string
-  success?: boolean
-  error?: string
-  contractsLoaded?: number
 }
