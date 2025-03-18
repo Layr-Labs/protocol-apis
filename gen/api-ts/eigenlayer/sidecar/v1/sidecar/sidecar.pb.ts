@@ -44,8 +44,21 @@ export type LoadContractResponse = {
   address?: string
 }
 
+export type CoreContract = {
+  contractAddress?: string
+  contractAbi?: string
+  bytecodeHash?: string
+}
+
+export type ProxyContract = {
+  contractAddress?: string
+  proxyContractAddress?: string
+  blockNumber?: string
+}
+
 export type LoadContractsRequest = {
-  contractsJson?: string
+  coreContracts?: CoreContract[]
+  proxyContracts?: ProxyContract[]
 }
 
 export type LoadContractsResponse = {

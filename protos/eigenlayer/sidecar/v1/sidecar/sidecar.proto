@@ -46,8 +46,21 @@ message LoadContractResponse {
   string address = 2;
 }
 
+message CoreContract {
+  string contract_address = 1;
+  string contract_abi = 2;
+  string bytecode_hash = 3;
+}
+
+message ProxyContract {
+  string contract_address = 1;
+  string proxy_contract_address = 2;
+  uint64 block_number = 3;
+}
+
 message LoadContractsRequest {
-  string contractsJson = 1;
+  repeated CoreContract core_contracts = 1;
+  repeated ProxyContract proxy_contracts = 2;
 }
 
 message LoadContractsResponse {

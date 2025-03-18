@@ -330,6 +330,20 @@
           }
         }
       },
+      "CoreContract": {
+        "type": "object",
+        "properties": {
+          "bytecodeHash": {
+            "type": "string"
+          },
+          "contractAbi": {
+            "type": "string"
+          },
+          "contractAddress": {
+            "type": "string"
+          }
+        }
+      },
       "DisabledDistributionRoot": {
         "type": "object",
         "properties": {
@@ -1431,8 +1445,11 @@
       "LoadContractsRequest": {
         "type": "object",
         "properties": {
-          "contractsJson": {
-            "type": "string"
+          "coreContracts": {
+            "$ref": "#/components/schemas/CoreContract"
+          },
+          "proxyContracts": {
+            "$ref": "#/components/schemas/ProxyContract"
           }
         }
       },
@@ -1572,6 +1589,21 @@
         "required": [
           "earner_leaf"
         ]
+      },
+      "ProxyContract": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "contractAddress": {
+            "type": "string"
+          },
+          "proxyContractAddress": {
+            "type": "string"
+          }
+        }
       },
       "QueueStakerStrategyWithdrawal": {
         "type": "object",

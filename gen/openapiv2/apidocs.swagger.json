@@ -3185,6 +3185,20 @@
         }
       }
     },
+    "sidecarCoreContract": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string"
+        },
+        "contractAbi": {
+          "type": "string"
+        },
+        "bytecodeHash": {
+          "type": "string"
+        }
+      }
+    },
     "sidecarGetBlockHeightResponse": {
       "type": "object",
       "properties": {
@@ -3248,8 +3262,19 @@
     "sidecarLoadContractsRequest": {
       "type": "object",
       "properties": {
-        "contractsJson": {
-          "type": "string"
+        "coreContracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/sidecarCoreContract"
+          }
+        },
+        "proxyContracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/sidecarProxyContract"
+          }
         }
       }
     },
@@ -3265,6 +3290,21 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "sidecarProxyContract": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string"
+        },
+        "proxyContractAddress": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
