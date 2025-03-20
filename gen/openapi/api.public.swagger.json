@@ -15,6 +15,495 @@
     }
   },
   "paths": {
+    "/protocol/v1/eigen-state-changes": {
+      "get": {
+        "summary": "GetEigenStateChanges",
+        "operationId": "Protocol_GetEigenStateChanges",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "changes": {
+                      "$ref": "#/components/schemas/EigenStateChange"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operatorAddress}/queued-withdrawals": {
+      "get": {
+        "summary": "ListOperatorQueuedWithdrawals",
+        "operationId": "Protocol_ListOperatorQueuedWithdrawals",
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "strategies": {
+                      "$ref": "#/components/schemas/QueueStakerStrategyWithdrawal"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals": {
+      "get": {
+        "summary": "ListOperatorStrategyQueuedWithdrawals",
+        "operationId": "Protocol_ListOperatorStrategyQueuedWithdrawals",
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "withdrawals": {
+                      "$ref": "#/components/schemas/StakerWithdrawal"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operator_address}/delegated-stakers": {
+      "get": {
+        "summary": "GetDelegatedStakersForOperator",
+        "description": "GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.\nBlockHeight is optional, otherwise latest is used.",
+        "operationId": "Protocol_GetDelegatedStakersForOperator",
+        "parameters": [
+          {
+            "name": "operator_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "stakerAddresses": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "next_page"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operator_address}/delegated-strategies": {
+      "get": {
+        "summary": "GetDelegatedStrategiesForOperator",
+        "description": "GetDelegatedStrategiesForOperator returns strategies an Operator has delegated",
+        "operationId": "Protocol_GetDelegatedStrategiesForOperator",
+        "parameters": [
+          {
+            "name": "operator_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "strategyAddresses": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operator_address}/registered-avs": {
+      "get": {
+        "summary": "GetRegisteredAvsForOperator",
+        "description": "GetRegisteredAvsForOperator returns the list of registered AVs for a given operator\nBlockHeight is optional, otherwise latest is used.",
+        "operationId": "Protocol_GetRegisteredAvsForOperator",
+        "parameters": [
+          {
+            "name": "operator_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "avsAddresses": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/operators/{operator_address}/strategies/{strategy_address}/delegated-stake": {
+      "get": {
+        "summary": "GetOperatorDelegatedStakeForStrategy",
+        "description": "GetOperatorDelegatedStakeForStrategy returns the amount of delegated stake for a given strategy for an operator",
+        "operationId": "Protocol_GetOperatorDelegatedStakeForStrategy",
+        "parameters": [
+          {
+            "name": "operator_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "strategy_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "avsAddresses": {
+                      "type": "string"
+                    },
+                    "shares": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/queued-withdrawals": {
+      "get": {
+        "summary": "ListStakerQueuedWithdrawals",
+        "operationId": "Protocol_ListStakerQueuedWithdrawals",
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "queuedWithdrawals": {
+                      "$ref": "#/components/schemas/QueuedStrategyWithdrawal"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/strategies": {
+      "get": {
+        "summary": "ListStakerStrategies",
+        "operationId": "Protocol_ListStakerStrategies",
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "stakerStrategies": {
+                      "$ref": "#/components/schemas/StakerStrategy"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}": {
+      "get": {
+        "summary": "GetStrategyForStaker",
+        "operationId": "Protocol_GetStrategyForStaker",
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "stakerStrategy": {
+                      "$ref": "#/components/schemas/StakerStrategy"
+                    }
+                  },
+                  "required": [
+                    "stakerStrategy"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/stakers/{staker_address}/shares": {
+      "get": {
+        "summary": "GetStakerShares",
+        "description": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and\nthe AVS the operator has registered with.",
+        "operationId": "Protocol_GetStakerShares",
+        "parameters": [
+          {
+            "name": "staker_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "shares": {
+                      "$ref": "#/components/schemas/StakerShare"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/strategies": {
+      "get": {
+        "summary": "ListStrategies",
+        "operationId": "Protocol_ListStrategies",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "strategies": {
+                      "$ref": "#/components/schemas/Strategy"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
+    "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals": {
+      "get": {
+        "summary": "ListStrategyQueuedWithdrawals",
+        "operationId": "Protocol_ListStrategyQueuedWithdrawals",
+        "parameters": [
+          {
+            "name": "strategyAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "withdrawals": {
+                      "$ref": "#/components/schemas/StakerWithdrawal"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
     "/rewards/v1/claim-proof": {
       "post": {
         "summary": "GenerateClaimProof",
@@ -95,6 +584,128 @@
         ]
       }
     },
+    "/rewards/v1/distribution-roots/{root_index}/rewards": {
+      "get": {
+        "summary": "GetRewardsForDistributionRoot",
+        "operationId": "Rewards_GetRewardsForDistributionRoot",
+        "parameters": [
+          {
+            "name": "root_index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rewards": {
+                      "$ref": "#/components/schemas/Reward"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/historical-rewards": {
+      "get": {
+        "summary": "ListEarnerHistoricalRewards",
+        "description": "List historical rewards for a given earner address\n\nReturns a list of tokens containing a list of delta rewards for each snapshot date",
+        "operationId": "Rewards_ListEarnerHistoricalRewards",
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "rewards": {
+                      "$ref": "#/components/schemas/HistoricalReward"
+                    }
+                  },
+                  "required": [
+                    "nextPage"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
+    "/rewards/v1/earners/{earnerAddress}/lifetime-rewards": {
+      "get": {
+        "summary": "ListEarnerLifetimeRewards",
+        "description": "Lists the lifetime rewards for an earner\n\nReturns a list of tokens and the total amount accumulated",
+        "operationId": "Rewards_ListEarnerLifetimeRewards",
+        "parameters": [
+          {
+            "name": "earnerAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "rewards": {
+                      "$ref": "#/components/schemas/RewardAmount"
+                    }
+                  },
+                  "required": [
+                    "nextPage"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
     "/rewards/v1/earners/{earner_address}/summarized-rewards": {
       "get": {
         "summary": "GetSummarizedRewardsForEarner",
@@ -155,6 +766,158 @@
         },
         "tags": [
           "health"
+        ]
+      }
+    },
+    "/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history": {
+      "get": {
+        "summary": "ListAvsOperatorSetSlashingHistory",
+        "operationId": "Slashing_ListAvsOperatorSetSlashingHistory",
+        "parameters": [
+          {
+            "name": "avsAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "operatorSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "slashingEvents": {
+                      "$ref": "#/components/schemas/SlashingEvent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "slashing"
+        ]
+      }
+    },
+    "/v1/slashing/avss/{avsAddress}/slashing-history": {
+      "get": {
+        "summary": "ListAvsSlashingHistory",
+        "operationId": "Slashing_ListAvsSlashingHistory",
+        "parameters": [
+          {
+            "name": "avsAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "slashingEvents": {
+                      "$ref": "#/components/schemas/SlashingEvent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "slashing"
+        ]
+      }
+    },
+    "/v1/slashing/operators/{operatorAddress}/slashing-history": {
+      "get": {
+        "summary": "ListOperatorSlashingHistory",
+        "operationId": "Slashing_ListOperatorSlashingHistory",
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "slashingEvents": {
+                      "$ref": "#/components/schemas/SlashingEvent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "slashing"
+        ]
+      }
+    },
+    "/v1/slashing/stakers/{stakerAddress}/slashing-history": {
+      "get": {
+        "summary": "ListStakerSlashingHistory",
+        "operationId": "Slashing_ListStakerSlashingHistory",
+        "parameters": [
+          {
+            "name": "stakerAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "stakerSlashingEvents": {
+                      "$ref": "#/components/schemas/StakerSlashingEvent"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "slashing"
         ]
       }
     }
@@ -2202,8 +2965,16 @@
       "description": "Operations from package health"
     },
     {
+      "name": "protocol",
+      "description": "Operations from package protocol"
+    },
+    {
       "name": "rewards",
       "description": "Operations from package rewards"
+    },
+    {
+      "name": "slashing",
+      "description": "Operations from package slashing"
     }
   ]
 }

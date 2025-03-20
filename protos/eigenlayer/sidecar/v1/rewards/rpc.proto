@@ -61,6 +61,7 @@ service Rewards {
   }
 
   rpc GetRewardsForDistributionRoot(GetRewardsForDistributionRootRequest) returns (GetRewardsForDistributionRootResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/distribution-roots/{root_index}/rewards"
     };
@@ -157,6 +158,7 @@ service Rewards {
   //
   // Returns a list of tokens and the total amount accumulated
   rpc ListEarnerLifetimeRewards(ListEarnerLifetimeRewardsRequest) returns (ListEarnerLifetimeRewardsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earnerAddress}/lifetime-rewards"
     };
@@ -166,6 +168,7 @@ service Rewards {
   //
   // Returns a list of tokens containing a list of delta rewards for each snapshot date
   rpc ListEarnerHistoricalRewards(ListEarnerHistoricalRewardsRequest) returns (ListEarnerHistoricalRewardsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earnerAddress}/historical-rewards"
     };

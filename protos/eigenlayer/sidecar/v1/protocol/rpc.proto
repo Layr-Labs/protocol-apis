@@ -8,12 +8,14 @@ import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
 import "eigenlayer/sidecar/v1/protocol/protocol.proto";
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/common/types.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 
 service Protocol {
   // GetRegisteredAvsForOperator returns the list of registered AVs for a given operator
   // BlockHeight is optional, otherwise latest is used.
   rpc GetRegisteredAvsForOperator(GetRegisteredAvsForOperatorRequest) returns (GetRegisteredAvsForOperatorResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operator_address}/registered-avs"
     };
@@ -21,6 +23,7 @@ service Protocol {
 
   // GetDelegatedStrategiesForOperator returns strategies an Operator has delegated
   rpc GetDelegatedStrategiesForOperator(GetDelegatedStrategiesForOperatorRequest) returns (GetDelegatedStrategiesForOperatorResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operator_address}/delegated-strategies"
     };
@@ -28,6 +31,7 @@ service Protocol {
 
   // GetOperatorDelegatedStakeForStrategy returns the amount of delegated stake for a given strategy for an operator
   rpc GetOperatorDelegatedStakeForStrategy(GetOperatorDelegatedStakeForStrategyRequest) returns (GetOperatorDelegatedStakeForStrategyResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operator_address}/strategies/{strategy_address}/delegated-stake"
     };
@@ -36,6 +40,7 @@ service Protocol {
   // GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
   // BlockHeight is optional, otherwise latest is used.
   rpc GetDelegatedStakersForOperator(GetDelegatedStakersForOperatorRequest) returns (GetDelegatedStakersForOperatorResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operator_address}/delegated-stakers"
     };
@@ -45,54 +50,63 @@ service Protocol {
   // GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
   // the AVS the operator has registered with.
   rpc GetStakerShares(GetStakerSharesRequest) returns (GetStakerSharesResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/stakers/{staker_address}/shares"
     };
   }
 
   rpc GetEigenStateChanges(GetEigenStateChangesRequest) returns (GetEigenStateChangesResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/eigen-state-changes"
     };
   }
 
   rpc ListStrategies(ListStrategiesRequest) returns (ListStrategiesResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/strategies"
     };
   }
 
   rpc ListStakerStrategies(ListStakerStrategiesRequest) returns (ListStakerStrategiesResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/stakers/{stakerAddress}/strategies"
     };
   }
 
   rpc GetStrategyForStaker(GetStrategyForStakerRequest) returns (GetStrategyForStakerResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/stakers/{stakerAddress}/strategies/{strategyAddress}"
     };
   }
 
   rpc ListStakerQueuedWithdrawals(ListStakerQueuedWithdrawalsRequest) returns (ListStakerQueuedWithdrawalsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/stakers/{stakerAddress}/queued-withdrawals"
     };
   }
 
   rpc ListStrategyQueuedWithdrawals(ListStrategyQueuedWithdrawalsRequest) returns (ListStrategyQueuedWithdrawalsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals"
     };
   }
 
   rpc ListOperatorQueuedWithdrawals(ListOperatorQueuedWithdrawalsRequest) returns (ListOperatorQueuedWithdrawalsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operatorAddress}/queued-withdrawals"
     };
   }
 
   rpc ListOperatorStrategyQueuedWithdrawals(ListOperatorStrategyQueuedWithdrawalsRequest) returns (ListOperatorStrategyQueuedWithdrawalsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"
     };

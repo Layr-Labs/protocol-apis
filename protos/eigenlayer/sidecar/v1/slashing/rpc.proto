@@ -8,27 +8,32 @@ import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "eigenlayer/sidecar/v1/slashing/slashing.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 service Slashing {
   rpc ListStakerSlashingHistory(ListStakerSlashingHistoryRequest) returns (ListStakerSlashingHistoryResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/v1/slashing/stakers/{stakerAddress}/slashing-history"
     };
   }
 
   rpc ListOperatorSlashingHistory(ListOperatorSlashingHistoryRequest) returns (ListOperatorSlashingHistoryResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/v1/slashing/operators/{operatorAddress}/slashing-history"
     };
   }
 
   rpc ListAvsSlashingHistory(ListAvsSlashingHistoryRequest) returns (ListAvsSlashingHistoryResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/v1/slashing/avss/{avsAddress}/slashing-history"
     };
   }
 
   rpc ListAvsOperatorSetSlashingHistory(ListAvsOperatorSetSlashingHistoryRequest) returns (ListAvsOperatorSetSlashingHistoryResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history"
     };

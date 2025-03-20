@@ -10,7 +10,6 @@ package slashing
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net/http"
 
@@ -25,178 +24,239 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var (
-	_ codes.Code
-	_ io.Reader
-	_ status.Status
-	_ = errors.New
-	_ = runtime.String
-	_ = utilities.NewDoubleArray
-	_ = metadata.Join
-)
+var _ codes.Code
+var _ io.Reader
+var _ status.Status
+var _ = runtime.String
+var _ = utilities.NewDoubleArray
+var _ = metadata.Join
 
 func request_Slashing_ListStakerSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, client SlashingClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListStakerSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListStakerSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["stakerAddress"]
+
+	val, ok = pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
+
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
+
 	msg, err := client.ListStakerSlashingHistory(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Slashing_ListStakerSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, server SlashingServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListStakerSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListStakerSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["stakerAddress"]
+
+	val, ok = pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
+
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
+
 	msg, err := server.ListStakerSlashingHistory(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Slashing_ListOperatorSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, client SlashingClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["operatorAddress"]
+
+	val, ok = pathParams["operatorAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorAddress")
 	}
+
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorAddress", err)
 	}
+
 	msg, err := client.ListOperatorSlashingHistory(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Slashing_ListOperatorSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, server SlashingServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["operatorAddress"]
+
+	val, ok = pathParams["operatorAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorAddress")
 	}
+
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorAddress", err)
 	}
+
 	msg, err := server.ListOperatorSlashingHistory(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Slashing_ListAvsSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, client SlashingClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListAvsSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListAvsSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["avsAddress"]
+
+	val, ok = pathParams["avsAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "avsAddress")
 	}
+
 	protoReq.AvsAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "avsAddress", err)
 	}
+
 	msg, err := client.ListAvsSlashingHistory(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Slashing_ListAvsSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, server SlashingServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListAvsSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListAvsSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["avsAddress"]
+
+	val, ok = pathParams["avsAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "avsAddress")
 	}
+
 	protoReq.AvsAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "avsAddress", err)
 	}
+
 	msg, err := server.ListAvsSlashingHistory(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Slashing_ListAvsOperatorSetSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, client SlashingClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListAvsOperatorSetSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListAvsOperatorSetSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["avsAddress"]
+
+	val, ok = pathParams["avsAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "avsAddress")
 	}
+
 	protoReq.AvsAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "avsAddress", err)
 	}
+
 	val, ok = pathParams["operatorSetId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorSetId")
 	}
+
 	protoReq.OperatorSetId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorSetId", err)
 	}
+
 	msg, err := client.ListAvsOperatorSetSlashingHistory(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Slashing_ListAvsOperatorSetSlashingHistory_0(ctx context.Context, marshaler runtime.Marshaler, server SlashingServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListAvsOperatorSetSlashingHistoryRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListAvsOperatorSetSlashingHistoryRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["avsAddress"]
+
+	val, ok = pathParams["avsAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "avsAddress")
 	}
+
 	protoReq.AvsAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "avsAddress", err)
 	}
+
 	val, ok = pathParams["operatorSetId"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operatorSetId")
 	}
+
 	protoReq.OperatorSetId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operatorSetId", err)
 	}
+
 	msg, err := server.ListAvsOperatorSetSlashingHistory(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 // RegisterSlashingHandlerServer registers the http handlers for service Slashing to "mux".
@@ -205,13 +265,16 @@ func local_request_Slashing_ListAvsOperatorSetSlashingHistory_0(ctx context.Cont
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterSlashingHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterSlashingHandlerServer(ctx context.Context, mux *runtime.ServeMux, server SlashingServer) error {
-	mux.Handle(http.MethodGet, pattern_Slashing_ListStakerSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListStakerSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListStakerSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/stakers/{stakerAddress}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListStakerSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/stakers/{stakerAddress}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -223,15 +286,20 @@ func RegisterSlashingHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListStakerSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Slashing_ListOperatorSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListOperatorSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListOperatorSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/operators/{operatorAddress}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListOperatorSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/operators/{operatorAddress}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -243,15 +311,20 @@ func RegisterSlashingHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListOperatorSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Slashing_ListAvsSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListAvsSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -263,15 +336,20 @@ func RegisterSlashingHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListAvsSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Slashing_ListAvsOperatorSetSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListAvsOperatorSetSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsOperatorSetSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsOperatorSetSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -283,7 +361,9 @@ func RegisterSlashingHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListAvsOperatorSetSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
@@ -310,6 +390,7 @@ func RegisterSlashingHandlerFromEndpoint(ctx context.Context, mux *runtime.Serve
 			}
 		}()
 	}()
+
 	return RegisterSlashingHandler(ctx, mux, conn)
 }
 
@@ -325,11 +406,14 @@ func RegisterSlashingHandler(ctx context.Context, mux *runtime.ServeMux, conn *g
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "SlashingClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterSlashingHandlerClient(ctx context.Context, mux *runtime.ServeMux, client SlashingClient) error {
-	mux.Handle(http.MethodGet, pattern_Slashing_ListStakerSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListStakerSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListStakerSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/stakers/{stakerAddress}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListStakerSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/stakers/{stakerAddress}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -340,13 +424,18 @@ func RegisterSlashingHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListStakerSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Slashing_ListOperatorSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListOperatorSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListOperatorSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/operators/{operatorAddress}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListOperatorSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/operators/{operatorAddress}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -357,13 +446,18 @@ func RegisterSlashingHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListOperatorSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Slashing_ListAvsSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListAvsSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -374,13 +468,18 @@ func RegisterSlashingHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListAvsSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Slashing_ListAvsOperatorSetSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Slashing_ListAvsOperatorSetSlashingHistory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsOperatorSetSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.slashing.Slashing/ListAvsOperatorSetSlashingHistory", runtime.WithHTTPPathPattern("/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -391,21 +490,30 @@ func RegisterSlashingHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Slashing_ListAvsOperatorSetSlashingHistory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
+
 	return nil
 }
 
 var (
-	pattern_Slashing_ListStakerSlashingHistory_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "slashing", "stakers", "stakerAddress", "slashing-history"}, ""))
-	pattern_Slashing_ListOperatorSlashingHistory_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "slashing", "operators", "operatorAddress", "slashing-history"}, ""))
-	pattern_Slashing_ListAvsSlashingHistory_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "slashing", "avss", "avsAddress", "slashing-history"}, ""))
+	pattern_Slashing_ListStakerSlashingHistory_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "slashing", "stakers", "stakerAddress", "slashing-history"}, ""))
+
+	pattern_Slashing_ListOperatorSlashingHistory_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "slashing", "operators", "operatorAddress", "slashing-history"}, ""))
+
+	pattern_Slashing_ListAvsSlashingHistory_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "slashing", "avss", "avsAddress", "slashing-history"}, ""))
+
 	pattern_Slashing_ListAvsOperatorSetSlashingHistory_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"v1", "slashing", "avss", "avsAddress", "operator-sets", "operatorSetId", "slashing-history"}, ""))
 )
 
 var (
-	forward_Slashing_ListStakerSlashingHistory_0         = runtime.ForwardResponseMessage
-	forward_Slashing_ListOperatorSlashingHistory_0       = runtime.ForwardResponseMessage
-	forward_Slashing_ListAvsSlashingHistory_0            = runtime.ForwardResponseMessage
+	forward_Slashing_ListStakerSlashingHistory_0 = runtime.ForwardResponseMessage
+
+	forward_Slashing_ListOperatorSlashingHistory_0 = runtime.ForwardResponseMessage
+
+	forward_Slashing_ListAvsSlashingHistory_0 = runtime.ForwardResponseMessage
+
 	forward_Slashing_ListAvsOperatorSetSlashingHistory_0 = runtime.ForwardResponseMessage
 )
