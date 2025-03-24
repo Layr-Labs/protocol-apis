@@ -210,6 +210,9 @@ func (c *rewardsGatewayClient) ListDistributionRoots(ctx context.Context, req *L
 	if req.BlockHeight != nil {
 		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
 	}
+	if req.ActiveOnly != nil {
+		q.Add("activeOnly", fmt.Sprintf("%v", *req.ActiveOnly))
+	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListDistributionRootsResponse](ctx, gwReq)
 }

@@ -1900,13 +1900,17 @@
       "ListDistributionRootsRequest": {
         "type": "object",
         "properties": {
+          "activeOnly": {
+            "type": "boolean"
+          },
           "blockHeight": {
             "type": "integer",
             "format": "uint64"
           }
         },
         "required": [
-          "block_height"
+          "block_height",
+          "active_only"
         ]
       },
       "ListDistributionRootsResponse": {

@@ -158,6 +158,7 @@ message GetClaimedRewardsByBlockResponse {
 
 message ListDistributionRootsRequest {
   optional uint64 block_height = 1;
+  optional bool active_only = 2;
 }
 message ListDistributionRootsResponse {
   repeated DistributionRoot distribution_roots = 1;
