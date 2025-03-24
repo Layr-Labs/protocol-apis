@@ -181,6 +181,7 @@ type BaseListDistributionRootsRequest = {
 
 export type ListDistributionRootsRequest = BaseListDistributionRootsRequest
   & OneOf<{ blockHeight: string }>
+  & OneOf<{ activeOnly: boolean }>
 
 export type ListDistributionRootsResponse = {
   distributionRoots?: EigenlayerSidecarV1RewardsCommon.DistributionRoot[]
