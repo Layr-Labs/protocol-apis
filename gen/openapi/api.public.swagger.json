@@ -5,9 +5,8 @@
     "version": "1.0.0",
     "description": "Public API specification for the EigenLayer protocol, containing only publicly accessible endpoints.",
     "contact": {
-      "name": "EigenLayer Team",
-      "url": "https://www.eigenlayer.xyz",
-      "email": "info@eigenlayer.xyz"
+      "name": "EigenLabs",
+      "url": "https://sidecar-rpc.eigenlayer.xyz"
     },
     "license": {
       "name": "MIT",
@@ -2975,6 +2974,20 @@
     {
       "name": "slashing",
       "description": "Operations from package slashing"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://sidecar-rpc.eigenlayer.xyz/mainnet",
+      "description": "Mainnet RPC server for the EigenLayer Sidecar"
+    },
+    {
+      "url": "https://sidecar-rpc.eigenlayer.xyz/holesky",
+      "description": "Holesky RPC server for the EigenLayer Sidecar"
+    },
+    {
+      "url": "https://sidecar-rpc.eigenlayer.xyz/sepolia",
+      "description": "Sepolia RPC server for the EigenLayer Sidecar"
     }
   ]
 }

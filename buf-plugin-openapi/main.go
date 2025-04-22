@@ -22,6 +22,12 @@ type OpenAPISpec struct {
 	Paths      map[string]PathItem `json:"paths"`
 	Components *Components         `json:"components,omitempty"`
 	Tags       []Tag               `json:"tags,omitempty"`
+	Servers    []ServerInfo        `json:"servers,omitempty"`
+}
+
+type ServerInfo struct {
+	URL         string `json:"url"`
+	Description string `json:"description,omitempty"`
 }
 
 type OpenAPIInfo struct {
@@ -197,7 +203,7 @@ func main() {
 
 		// Initialize two OpenAPI specs - one for all paths and one for public paths
 		allPathsSpec := createInitialSpec("EigenLayer API Specification", "Complete API specification for the EigenLayer protocol, including all services and types.")
-		publicPathsSpec := createInitialSpec("EigenLayer Public API Specification", "Public API specification for the EigenLayer protocol, containing only publicly accessible endpoints.")
+		publicPathsSpec := createInitialPublicSpec("EigenLayer Public API Specification", "Public API specification for the EigenLayer protocol, containing only publicly accessible endpoints.")
 
 		// Track unique tags for both specs
 		seenTags := make(map[string]bool)
@@ -423,9 +429,9 @@ func createInitialSpec(title string, description string) OpenAPISpec {
 			Version:     "1.0.0",
 			Description: description,
 			Contact: &ContactInfo{
-				Name:  "EigenLayer Team",
-				URL:   "https://www.eigenlayer.xyz",
-				Email: "info@eigenlayer.xyz",
+				Name:  "EigenLabs",
+				URL:   "https://sidecar-docs.eigenlayer.xyz",
+				Email: "",
 			},
 			License: &LicenseInfo{
 				Name: "MIT",
@@ -437,6 +443,46 @@ func createInitialSpec(title string, description string) OpenAPISpec {
 			Schemas: make(map[string]Schema),
 		},
 		Tags: []Tag{},
+	}
+}
+
+// Helper function to create an initial OpenAPI spec
+func createInitialPublicSpec(title string, description string) OpenAPISpec {
+	return OpenAPISpec{
+		OpenAPI: "3.0.0",
+		Info: OpenAPIInfo{
+			Title:       title,
+			Version:     "1.0.0",
+			Description: description,
+			Contact: &ContactInfo{
+				Name:  "EigenLabs",
+				URL:   "https://sidecar-rpc.eigenlayer.xyz",
+				Email: "",
+			},
+			License: &LicenseInfo{
+				Name: "MIT",
+				URL:  "https://opensource.org/licenses/MIT",
+			},
+		},
+		Paths: make(map[string]PathItem),
+		Components: &Components{
+			Schemas: make(map[string]Schema),
+		},
+		Tags: []Tag{},
+		Servers: []ServerInfo{
+			{
+				URL:         "https://sidecar-rpc.eigenlayer.xyz/mainnet",
+				Description: "Mainnet RPC server for the EigenLayer Sidecar",
+			},
+			{
+				URL:         "https://sidecar-rpc.eigenlayer.xyz/holesky",
+				Description: "Holesky RPC server for the EigenLayer Sidecar",
+			},
+			{
+				URL:         "https://sidecar-rpc.eigenlayer.xyz/sepolia",
+				Description: "Sepolia RPC server for the EigenLayer Sidecar",
+			},
+		},
 	}
 }
 

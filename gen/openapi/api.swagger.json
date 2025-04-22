@@ -5,9 +5,8 @@
     "version": "1.0.0",
     "description": "Complete API specification for the EigenLayer protocol, including all services and types.",
     "contact": {
-      "name": "EigenLayer Team",
-      "url": "https://www.eigenlayer.xyz",
-      "email": "info@eigenlayer.xyz"
+      "name": "EigenLabs",
+      "url": "https://sidecar-docs.eigenlayer.xyz"
     },
     "license": {
       "name": "MIT",
