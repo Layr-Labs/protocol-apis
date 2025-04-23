@@ -751,6 +751,20 @@
             "required": true,
             "type": "string",
             "format": "uint64"
+          },
+          {
+            "name": "pagination.pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pagination.pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -2901,6 +2915,9 @@
             "type": "object",
             "$ref": "#/definitions/rewardsAvsReward"
           }
+        },
+        "nextPage": {
+          "$ref": "#/definitions/commonPagination"
         }
       }
     },

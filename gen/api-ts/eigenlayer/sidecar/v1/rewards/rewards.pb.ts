@@ -103,10 +103,12 @@ export type GetAttributableRewardsForDistributionRootResponse = {
 
 export type GetRewardsByAvsForDistributionRootRequest = {
   rootIndex?: string
+  pagination?: EigenlayerSidecarV1CommonTypes.Pagination
 }
 
 export type GetRewardsByAvsForDistributionRootResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.AvsReward[]
+  nextPage?: EigenlayerSidecarV1CommonTypes.Pagination
 }
 
 

@@ -137,6 +137,10 @@ func (c *rewardsGatewayClient) GetAttributableRewardsForDistributionRoot(ctx con
 func (c *rewardsGatewayClient) GetRewardsByAvsForDistributionRoot(ctx context.Context, req *GetRewardsByAvsForDistributionRootRequest) (*GetRewardsByAvsForDistributionRootResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/avs-rewards-by-root/{root_index}")
 	gwReq.SetPathParam("root_index", fmt.Sprintf("%v", req.RootIndex))
+	q := url.Values{}
+	q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+	q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetRewardsByAvsForDistributionRootResponse](ctx, gwReq)
 }
 
