@@ -1594,19 +1594,31 @@
       "GetRewardsByAvsForDistributionRootRequest": {
         "type": "object",
         "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
           "rootIndex": {
             "type": "integer",
             "format": "uint64"
           }
-        }
+        },
+        "required": [
+          "pagination"
+        ]
       },
       "GetRewardsByAvsForDistributionRootResponse": {
         "type": "object",
         "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
           "rewards": {
             "$ref": "#/components/schemas/AvsReward"
           }
-        }
+        },
+        "required": [
+          "next_page"
+        ]
       },
       "GetRewardsForDistributionRootRequest": {
         "type": "object",
