@@ -2693,6 +2693,13 @@
         },
         "recipient": {
           "type": "string"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

@@ -142,6 +142,7 @@ service Rewards {
   // ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,
   // inclusive of the start and end block heights
   rpc ListClaimedRewardsByBlockRange(ListClaimedRewardsByBlockRangeRequest) returns (ListClaimedRewardsByBlockRangeResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/earners/{earner_address}/claimed-rewards"
     };

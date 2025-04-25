@@ -705,6 +705,43 @@
         ]
       }
     },
+    "/rewards/v1/earners/{earner_address}/claimed-rewards": {
+      "get": {
+        "summary": "ListClaimedRewardsByBlockRange",
+        "description": "ListClaimedRewardsByBlockRange returns the claimed rewards for the given earner address and block range,\ninclusive of the start and end block heights",
+        "operationId": "Rewards_ListClaimedRewardsByBlockRange",
+        "parameters": [
+          {
+            "name": "earner_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rewards": {
+                      "$ref": "#/components/schemas/ClaimedReward"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
     "/rewards/v1/earners/{earner_address}/summarized-rewards": {
       "get": {
         "summary": "GetSummarizedRewardsForEarner",
@@ -1084,10 +1121,17 @@
           "earner": {
             "type": "string"
           },
+          "logIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "recipient": {
             "type": "string"
           },
           "token": {
+            "type": "string"
+          },
+          "transactionHash": {
             "type": "string"
           }
         }
