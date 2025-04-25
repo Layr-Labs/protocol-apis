@@ -100,6 +100,8 @@ export type ClaimedReward = {
   distributionRoot?: string
   blockNumber?: string
   recipient?: string
+  transactionHash?: string
+  logIndex?: string
 }
 
 export type RewardAmount = {

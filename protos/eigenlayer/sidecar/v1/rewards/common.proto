@@ -113,6 +113,8 @@ message ClaimedReward {
   string distribution_root = 5;
   uint64 block_number = 6;
   string recipient = 7;
+  string transaction_hash = 8;
+  uint64 log_index = 9;
 }
 
 message RewardAmount {
