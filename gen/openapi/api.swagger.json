@@ -3527,7 +3527,14 @@
             "type": "integer",
             "format": "uint64"
           },
+          "logIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "strategy": {
+            "type": "string"
+          },
+          "transactionHash": {
             "type": "string"
           }
         }

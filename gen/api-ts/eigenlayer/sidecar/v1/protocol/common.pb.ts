@@ -37,6 +37,8 @@ export type QueuedStrategyWithdrawal = {
   strategy?: string
   amount?: string
   blockNumber?: string
+  transactionHash?: string
+  logIndex?: string
 }
 
 export type StakerWithdrawal = {

@@ -3,6 +3,7 @@ module github.com/Layr-Labs/protocol-apis
 go 1.23.6
 
 require (
+	github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab
 	github.com/akuity/grpc-gateway-client v0.0.0-20240912082144-55a48e8b4b89
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	google.golang.org/genproto/googleapis/api v0.0.0-20230525234035-dd9d682886f9
@@ -11,7 +12,6 @@ require (
 )
 
 require (
-	github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab // indirect
 	github.com/alevinval/sse v1.0.1 // indirect
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect

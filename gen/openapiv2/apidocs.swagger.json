@@ -2538,6 +2538,13 @@
         "blockNumber": {
           "type": "string",
           "format": "uint64"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
