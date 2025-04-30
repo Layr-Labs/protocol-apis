@@ -779,6 +779,36 @@
         ]
       }
     },
+    "/rpc/v1/latest-block": {
+      "get": {
+        "summary": "GetBlockHeight",
+        "operationId": "Rpc_GetBlockHeight",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blockHash": {
+                      "type": "string"
+                    },
+                    "blockNumber": {
+                      "type": "integer",
+                      "format": "uint64"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "sidecar"
+        ]
+      }
+    },
     "/v1/health": {
       "get": {
         "summary": "HealthCheck",
@@ -3033,6 +3063,10 @@
     {
       "name": "rewards",
       "description": "Operations from package rewards"
+    },
+    {
+      "name": "sidecar",
+      "description": "Operations from package sidecar"
     },
     {
       "name": "slashing",
