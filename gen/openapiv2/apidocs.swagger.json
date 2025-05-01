@@ -1,10 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "eigenlayer/pds/v1/aprs.proto",
+    "title": "eigenlayer/hourglass/v1/performer/performer.proto",
     "version": "version not set"
   },
   "tags": [
+    {
+      "name": "PerformerService"
+    },
     {
       "name": "Aprs"
     },
@@ -2345,6 +2348,26 @@
             "type": "object",
             "$ref": "#/definitions/v1operatorSetsOperatorSet"
           }
+        }
+      }
+    },
+    "performerHealthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "performerTaskResult": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },

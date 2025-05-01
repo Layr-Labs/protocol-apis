@@ -7,15 +7,16 @@ PROTO_OPTS=--proto_path=protos --go_out=paths=source_relative:protos
 
 all: build
 
-deps: deps/go
+.PHONY: deps
+deps: deps/dev deps/go
 	./scripts/installDeps.sh
-
-.PHONY: deps/dev
-deps/dev:
-	${GO} get github.com/grpc-ecosystem/protoc-gen-grpc-gateway-ts
+	${GO} install github.com/grpc-ecosystem/protoc-gen-grpc-gateway-ts@latest
 	cd protos && buf dep update
 
-.PHONY: deps
+.PHONY: deps/dev
+deps/dev: pre-build
+
+.PHONY: deps/go
 deps/go:
 	${GO} mod tidy
 	npm install

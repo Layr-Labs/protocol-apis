@@ -2944,6 +2944,17 @@
           }
         }
       },
+      "HealthRequest": {
+        "type": "object"
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      },
       "HistoricalReward": {
         "type": "object",
         "properties": {
@@ -3995,6 +4006,34 @@
             "type": "string"
           },
           "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "metadata": {
+            "type": "string",
+            "format": "byte"
+          },
+          "payload": {
+            "type": "string",
+            "format": "byte"
+          },
+          "taskId": {
+            "type": "string"
+          }
+        }
+      },
+      "TaskResult": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "format": "byte"
+          },
+          "taskId": {
             "type": "string"
           }
         }
