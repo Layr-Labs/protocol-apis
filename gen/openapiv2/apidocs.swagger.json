@@ -1576,7 +1576,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/healthHealthCheckResponse"
+              "$ref": "#/definitions/v1healthHealthCheckResponse"
             }
           },
           "default": {
@@ -2284,14 +2284,6 @@
         }
       }
     },
-    "healthHealthCheckResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/HealthCheckResponseServingStatus"
-        }
-      }
-    },
     "healthReadyResponse": {
       "type": "object",
       "properties": {
@@ -2351,19 +2343,23 @@
         }
       }
     },
-    "performerHealthResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string"
-        }
-      }
+    "performerPerformerStatus": {
+      "type": "string",
+      "enum": [
+        "READY_FOR_SYNC",
+        "READY_FOR_TASK"
+      ],
+      "default": "READY_FOR_SYNC"
     },
-    "performerTaskResult": {
+    "performerStartSyncResponse": {
+      "type": "object"
+    },
+    "performerTaskResponse": {
       "type": "object",
       "properties": {
         "taskId": {
-          "type": "string"
+          "type": "string",
+          "format": "byte"
         },
         "result": {
           "type": "string",
@@ -3510,6 +3506,14 @@
         }
       }
     },
+    "v1healthHealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/HealthCheckResponseServingStatus"
+        }
+      }
+    },
     "v1operatorSetsOperatorSet": {
       "type": "object",
       "properties": {
@@ -3528,6 +3532,14 @@
         },
         "totalStaked": {
           "type": "string"
+        }
+      }
+    },
+    "v1performerHealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/performerPerformerStatus"
         }
       }
     },

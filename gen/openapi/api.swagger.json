@@ -2929,25 +2929,9 @@
         }
       },
       "HealthCheckRequest": {
-        "type": "object",
-        "properties": {
-          "service": {
-            "type": "string"
-          }
-        }
-      },
-      "HealthCheckResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          }
-        }
-      },
-      "HealthRequest": {
         "type": "object"
       },
-      "HealthResponse": {
+      "HealthCheckResponse": {
         "type": "object",
         "properties": {
           "status": {
@@ -3464,6 +3448,13 @@
           }
         }
       },
+      "PerformerStatus": {
+        "type": "string",
+        "enum": [
+          "READY_FOR_SYNC",
+          "READY_FOR_TASK"
+        ]
+      },
       "Proof": {
         "type": "object",
         "properties": {
@@ -3844,6 +3835,18 @@
           }
         }
       },
+      "StartSyncRequest": {
+        "type": "object",
+        "properties": {
+          "payload": {
+            "type": "string",
+            "format": "byte"
+          }
+        }
+      },
+      "StartSyncResponse": {
+        "type": "object"
+      },
       "StateRoot": {
         "type": "object",
         "properties": {
@@ -4010,23 +4013,20 @@
           }
         }
       },
-      "Task": {
+      "TaskRequest": {
         "type": "object",
         "properties": {
-          "metadata": {
-            "type": "string",
-            "format": "byte"
-          },
           "payload": {
             "type": "string",
             "format": "byte"
           },
           "taskId": {
-            "type": "string"
+            "type": "string",
+            "format": "byte"
           }
         }
       },
-      "TaskResult": {
+      "TaskResponse": {
         "type": "object",
         "properties": {
           "result": {
@@ -4034,7 +4034,8 @@
             "format": "byte"
           },
           "taskId": {
-            "type": "string"
+            "type": "string",
+            "format": "byte"
           }
         }
       },

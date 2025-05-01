@@ -19,16 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	PerformerService_HealthCheck_FullMethodName = "/eigenlayer.hourglass.v1.performer.PerformerService/HealthCheck"
+	PerformerService_StartSync_FullMethodName   = "/eigenlayer.hourglass.v1.performer.PerformerService/StartSync"
 	PerformerService_ExecuteTask_FullMethodName = "/eigenlayer.hourglass.v1.performer.PerformerService/ExecuteTask"
-	PerformerService_Health_FullMethodName      = "/eigenlayer.hourglass.v1.performer.PerformerService/Health"
 )
 
 // PerformerServiceClient is the client API for PerformerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PerformerServiceClient interface {
-	ExecuteTask(ctx context.Context, in *Task, opts ...grpc.CallOption) (*TaskResult, error)
-	Health(ctx context.Context, in *HealthRequest, opts ...grpc.CallOption) (*HealthResponse, error)
+	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	StartSync(ctx context.Context, in *StartSyncRequest, opts ...grpc.CallOption) (*StartSyncResponse, error)
+	ExecuteTask(ctx context.Context, in *TaskRequest, opts ...grpc.CallOption) (*TaskResponse, error)
 }
 
 type performerServiceClient struct {
@@ -39,20 +41,30 @@ func NewPerformerServiceClient(cc grpc.ClientConnInterface) PerformerServiceClie
 	return &performerServiceClient{cc}
 }
 
-func (c *performerServiceClient) ExecuteTask(ctx context.Context, in *Task, opts ...grpc.CallOption) (*TaskResult, error) {
+func (c *performerServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TaskResult)
-	err := c.cc.Invoke(ctx, PerformerService_ExecuteTask_FullMethodName, in, out, cOpts...)
+	out := new(HealthCheckResponse)
+	err := c.cc.Invoke(ctx, PerformerService_HealthCheck_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *performerServiceClient) Health(ctx context.Context, in *HealthRequest, opts ...grpc.CallOption) (*HealthResponse, error) {
+func (c *performerServiceClient) StartSync(ctx context.Context, in *StartSyncRequest, opts ...grpc.CallOption) (*StartSyncResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HealthResponse)
-	err := c.cc.Invoke(ctx, PerformerService_Health_FullMethodName, in, out, cOpts...)
+	out := new(StartSyncResponse)
+	err := c.cc.Invoke(ctx, PerformerService_StartSync_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *performerServiceClient) ExecuteTask(ctx context.Context, in *TaskRequest, opts ...grpc.CallOption) (*TaskResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TaskResponse)
+	err := c.cc.Invoke(ctx, PerformerService_ExecuteTask_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -63,8 +75,9 @@ func (c *performerServiceClient) Health(ctx context.Context, in *HealthRequest, 
 // All implementations should embed UnimplementedPerformerServiceServer
 // for forward compatibility.
 type PerformerServiceServer interface {
-	ExecuteTask(context.Context, *Task) (*TaskResult, error)
-	Health(context.Context, *HealthRequest) (*HealthResponse, error)
+	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	StartSync(context.Context, *StartSyncRequest) (*StartSyncResponse, error)
+	ExecuteTask(context.Context, *TaskRequest) (*TaskResponse, error)
 }
 
 // UnimplementedPerformerServiceServer should be embedded to have
@@ -74,11 +87,14 @@ type PerformerServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPerformerServiceServer struct{}
 
-func (UnimplementedPerformerServiceServer) ExecuteTask(context.Context, *Task) (*TaskResult, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ExecuteTask not implemented")
+func (UnimplementedPerformerServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
-func (UnimplementedPerformerServiceServer) Health(context.Context, *HealthRequest) (*HealthResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Health not implemented")
+func (UnimplementedPerformerServiceServer) StartSync(context.Context, *StartSyncRequest) (*StartSyncResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StartSync not implemented")
+}
+func (UnimplementedPerformerServiceServer) ExecuteTask(context.Context, *TaskRequest) (*TaskResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExecuteTask not implemented")
 }
 func (UnimplementedPerformerServiceServer) testEmbeddedByValue() {}
 
@@ -100,8 +116,44 @@ func RegisterPerformerServiceServer(s grpc.ServiceRegistrar, srv PerformerServic
 	s.RegisterService(&PerformerService_ServiceDesc, srv)
 }
 
+func _PerformerService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthCheckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PerformerServiceServer).HealthCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PerformerService_HealthCheck_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PerformerServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PerformerService_StartSync_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartSyncRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PerformerServiceServer).StartSync(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PerformerService_StartSync_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PerformerServiceServer).StartSync(ctx, req.(*StartSyncRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PerformerService_ExecuteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Task)
+	in := new(TaskRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -113,25 +165,7 @@ func _PerformerService_ExecuteTask_Handler(srv interface{}, ctx context.Context,
 		FullMethod: PerformerService_ExecuteTask_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformerServiceServer).ExecuteTask(ctx, req.(*Task))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformerService_Health_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HealthRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformerServiceServer).Health(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformerService_Health_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformerServiceServer).Health(ctx, req.(*HealthRequest))
+		return srv.(PerformerServiceServer).ExecuteTask(ctx, req.(*TaskRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -144,12 +178,16 @@ var PerformerService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PerformerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ExecuteTask",
-			Handler:    _PerformerService_ExecuteTask_Handler,
+			MethodName: "HealthCheck",
+			Handler:    _PerformerService_HealthCheck_Handler,
 		},
 		{
-			MethodName: "Health",
-			Handler:    _PerformerService_Health_Handler,
+			MethodName: "StartSync",
+			Handler:    _PerformerService_StartSync_Handler,
+		},
+		{
+			MethodName: "ExecuteTask",
+			Handler:    _PerformerService_ExecuteTask_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

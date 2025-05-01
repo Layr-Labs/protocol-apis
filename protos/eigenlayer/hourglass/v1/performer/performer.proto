@@ -4,24 +4,35 @@ package eigenlayer.hourglass.v1.performer;
 
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/hourglass/v1/performer";
 
-message Task {
-  string task_id = 1;
-  bytes metadata = 2;
+enum PerformerStatus {
+    READY_FOR_SYNC = 0;
+    READY_FOR_TASK = 1;
+}  
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  PerformerStatus status = 1;
+}
+
+message StartSyncRequest {
+  bytes payload = 1;
+}
+
+message StartSyncResponse {}
+
+message TaskRequest {
+  bytes task_id = 1;
   bytes payload = 3;
 }
 
-message TaskResult {
-  string task_id = 1;
+message TaskResponse {
+  bytes task_id = 1;
   bytes result = 2;
 }
 
-message HealthRequest {}
-
-message HealthResponse {
-  string status = 1;
-}
-
 service PerformerService {
-  rpc ExecuteTask(Task) returns (TaskResult) {}
-  rpc Health(HealthRequest) returns (HealthResponse) {}
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
+  rpc StartSync(StartSyncRequest) returns (StartSyncResponse) {}
+  rpc ExecuteTask(TaskRequest) returns (TaskResponse) {}
 }
