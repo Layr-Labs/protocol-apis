@@ -19,7 +19,7 @@ plugins:
     out: gen/protos
     opt:
       - paths=source_relative
-  - local: buf-plugin-openapi
+  - local: protoc-gen-buf-plugin-openapi
     out: gen/openapi
     strategy: all
     opt:

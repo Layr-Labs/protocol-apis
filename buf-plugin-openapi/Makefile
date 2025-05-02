@@ -10,7 +10,7 @@ BUILD_DIR=./bin
 GO_BUILD_FLAGS=-v
 
 # Installation directory (this should be in your PATH)
-INSTALL_DIR=$(HOME)/.gvm/pkgsets/go1.23.6/global/bin
+INSTALL_DIR=$(GOPATH)/bin
 
 # Ensure build directory exists
 $(BUILD_DIR):

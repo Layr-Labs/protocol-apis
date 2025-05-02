@@ -5,7 +5,7 @@
 
 ```bash
 # Install the dependencies
-make deps
+make deps/dev
 
 # Compile the proto files
 make proto
