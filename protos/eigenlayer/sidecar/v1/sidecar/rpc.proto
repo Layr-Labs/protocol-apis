@@ -6,9 +6,11 @@ option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/si
 
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/sidecar/sidecar.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 service Rpc {
   rpc GetBlockHeight(GetBlockHeightRequest) returns (GetBlockHeightResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rpc/v1/latest-block"
     };
