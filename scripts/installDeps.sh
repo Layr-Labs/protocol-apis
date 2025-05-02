@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export BIN="/usr/local/bin/"
-export VERSION="1.42.0"
+export VERSION="1.53.0"
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 BINARY_NAME="buf-$(uname -s)-$(uname -m)"

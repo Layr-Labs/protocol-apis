@@ -1,41 +1,27 @@
-version: v1
+version: v2
+clean: true
 managed:
   enabled: true
 plugins:
   # Generate Go code for annotations in OpenAPI plugin
-  - plugin: go
+  - local: protoc-gen-go
     out: gen/protos
     opt: paths=source_relative
-  - plugin: go-grpc
+  - local: protoc-gen-go-grpc
     out: gen/protos
     opt: paths=source_relative,require_unimplemented_servers=false
-  - plugin: grpc-gateway
+  - local: protoc-gen-grpc-gateway
     out: gen/protos
     opt: paths=source_relative
-  - plugin: openapiv2
-    out: gen/openapiv2
-    opt: allow_merge=true,merge_file_name=apidocs
-    strategy: all
-    # https://grpc-ecosystem.github.io/grpc-gateway/docs/mapping/customizing_openapi_output/#merging-output
-  - plugin: grpc-gateway-ts
+  - local: protoc-gen-grpc-gateway-ts
     out: gen/api-ts
-  - name: gateway-client
-    path: protoc-gen-grpc-gateway-client
+  - local: protoc-gen-grpc-gateway-client
     out: gen/protos
     opt:
       - paths=source_relative
-  - plugin: buf-plugin-openapi
+  - local: buf-plugin-openapi
     out: gen/openapi
     strategy: all
     opt:
       - emit_defaults=true
       - json_names_for_fields=true
-###############################################################################
-# Unused
-###############################################################################
-  # - plugin: buf.build/protocolbuffers/python
-  #   out: gen/pre-python
-  # - plugin: buf.build/grpc/python
-  #   out: gen/pre-python
-  # - plugin: buf.build/community/google-gnostic-openapi
-  #   out: gen/openapi

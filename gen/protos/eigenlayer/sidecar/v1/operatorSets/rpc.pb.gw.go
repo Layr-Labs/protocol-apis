@@ -10,7 +10,6 @@ package operatorSets
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net/http"
 
@@ -25,125 +24,167 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var (
-	_ codes.Code
-	_ io.Reader
-	_ status.Status
-	_ = errors.New
-	_ = runtime.String
-	_ = utilities.NewDoubleArray
-	_ = metadata.Join
-)
+var _ codes.Code
+var _ io.Reader
+var _ status.Status
+var _ = runtime.String
+var _ = utilities.NewDoubleArray
+var _ = metadata.Join
 
 func request_OperatorSets_ListOperatorsForStaker_0(ctx context.Context, marshaler runtime.Marshaler, client OperatorSetsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorsForStakerRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorsForStakerRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["stakerAddress"]
+
+	val, ok = pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
+
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
+
 	msg, err := client.ListOperatorsForStaker(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_OperatorSets_ListOperatorsForStaker_0(ctx context.Context, marshaler runtime.Marshaler, server OperatorSetsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorsForStakerRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorsForStakerRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["stakerAddress"]
+
+	val, ok = pathParams["stakerAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "stakerAddress")
 	}
+
 	protoReq.StakerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "stakerAddress", err)
 	}
+
 	msg, err := server.ListOperatorsForStaker(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_OperatorSets_ListOperatorsForStrategy_0(ctx context.Context, marshaler runtime.Marshaler, client OperatorSetsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorsForStrategyRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorsForStrategyRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["strategyAddress"]
+
+	val, ok = pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
+
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
+
 	msg, err := client.ListOperatorsForStrategy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_OperatorSets_ListOperatorsForStrategy_0(ctx context.Context, marshaler runtime.Marshaler, server OperatorSetsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorsForStrategyRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorsForStrategyRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["strategyAddress"]
+
+	val, ok = pathParams["strategyAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddress")
 	}
+
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
 	}
+
 	msg, err := server.ListOperatorsForStrategy(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_OperatorSets_ListOperatorsForAvs_0(ctx context.Context, marshaler runtime.Marshaler, client OperatorSetsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorsForAvsRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorsForAvsRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["avsAddress"]
+
+	val, ok = pathParams["avsAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "avsAddress")
 	}
+
 	protoReq.AvsAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "avsAddress", err)
 	}
+
 	msg, err := client.ListOperatorsForAvs(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_OperatorSets_ListOperatorsForAvs_0(ctx context.Context, marshaler runtime.Marshaler, server OperatorSetsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ListOperatorsForAvsRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq ListOperatorsForAvsRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["avsAddress"]
+
+	val, ok = pathParams["avsAddress"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "avsAddress")
 	}
+
 	protoReq.AvsAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "avsAddress", err)
 	}
+
 	msg, err := server.ListOperatorsForAvs(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 // RegisterOperatorSetsHandlerServer registers the http handlers for service OperatorSets to "mux".
@@ -152,13 +193,16 @@ func local_request_OperatorSets_ListOperatorsForAvs_0(ctx context.Context, marsh
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterOperatorSetsHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterOperatorSetsHandlerServer(ctx context.Context, mux *runtime.ServeMux, server OperatorSetsServer) error {
-	mux.Handle(http.MethodGet, pattern_OperatorSets_ListOperatorsForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_OperatorSets_ListOperatorsForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStaker", runtime.WithHTTPPathPattern("/v1/operatorSets/stakers/{stakerAddress}/operators"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStaker", runtime.WithHTTPPathPattern("/v1/operatorSets/stakers/{stakerAddress}/operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -170,15 +214,20 @@ func RegisterOperatorSetsHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_OperatorSets_ListOperatorsForStaker_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_OperatorSets_ListOperatorsForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_OperatorSets_ListOperatorsForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStrategy", runtime.WithHTTPPathPattern("/v1/operatorSets/strategies/{strategyAddress}/operators"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStrategy", runtime.WithHTTPPathPattern("/v1/operatorSets/strategies/{strategyAddress}/operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -190,15 +239,20 @@ func RegisterOperatorSetsHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_OperatorSets_ListOperatorsForStrategy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_OperatorSets_ListOperatorsForAvs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_OperatorSets_ListOperatorsForAvs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForAvs", runtime.WithHTTPPathPattern("/v1/operatorSets/avss/{avsAddress}/operators"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForAvs", runtime.WithHTTPPathPattern("/v1/operatorSets/avss/{avsAddress}/operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -210,7 +264,9 @@ func RegisterOperatorSetsHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_OperatorSets_ListOperatorsForAvs_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
@@ -237,6 +293,7 @@ func RegisterOperatorSetsHandlerFromEndpoint(ctx context.Context, mux *runtime.S
 			}
 		}()
 	}()
+
 	return RegisterOperatorSetsHandler(ctx, mux, conn)
 }
 
@@ -252,11 +309,14 @@ func RegisterOperatorSetsHandler(ctx context.Context, mux *runtime.ServeMux, con
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "OperatorSetsClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterOperatorSetsHandlerClient(ctx context.Context, mux *runtime.ServeMux, client OperatorSetsClient) error {
-	mux.Handle(http.MethodGet, pattern_OperatorSets_ListOperatorsForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_OperatorSets_ListOperatorsForStaker_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStaker", runtime.WithHTTPPathPattern("/v1/operatorSets/stakers/{stakerAddress}/operators"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStaker", runtime.WithHTTPPathPattern("/v1/operatorSets/stakers/{stakerAddress}/operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -267,13 +327,18 @@ func RegisterOperatorSetsHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_OperatorSets_ListOperatorsForStaker_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_OperatorSets_ListOperatorsForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_OperatorSets_ListOperatorsForStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStrategy", runtime.WithHTTPPathPattern("/v1/operatorSets/strategies/{strategyAddress}/operators"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStrategy", runtime.WithHTTPPathPattern("/v1/operatorSets/strategies/{strategyAddress}/operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -284,13 +349,18 @@ func RegisterOperatorSetsHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_OperatorSets_ListOperatorsForStrategy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_OperatorSets_ListOperatorsForAvs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_OperatorSets_ListOperatorsForAvs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForAvs", runtime.WithHTTPPathPattern("/v1/operatorSets/avss/{avsAddress}/operators"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForAvs", runtime.WithHTTPPathPattern("/v1/operatorSets/avss/{avsAddress}/operators"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -301,19 +371,26 @@ func RegisterOperatorSetsHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_OperatorSets_ListOperatorsForAvs_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
+
 	return nil
 }
 
 var (
-	pattern_OperatorSets_ListOperatorsForStaker_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "operatorSets", "stakers", "stakerAddress", "operators"}, ""))
+	pattern_OperatorSets_ListOperatorsForStaker_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "operatorSets", "stakers", "stakerAddress", "operators"}, ""))
+
 	pattern_OperatorSets_ListOperatorsForStrategy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "operatorSets", "strategies", "strategyAddress", "operators"}, ""))
-	pattern_OperatorSets_ListOperatorsForAvs_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "operatorSets", "avss", "avsAddress", "operators"}, ""))
+
+	pattern_OperatorSets_ListOperatorsForAvs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"v1", "operatorSets", "avss", "avsAddress", "operators"}, ""))
 )
 
 var (
-	forward_OperatorSets_ListOperatorsForStaker_0   = runtime.ForwardResponseMessage
+	forward_OperatorSets_ListOperatorsForStaker_0 = runtime.ForwardResponseMessage
+
 	forward_OperatorSets_ListOperatorsForStrategy_0 = runtime.ForwardResponseMessage
-	forward_OperatorSets_ListOperatorsForAvs_0      = runtime.ForwardResponseMessage
+
+	forward_OperatorSets_ListOperatorsForAvs_0 = runtime.ForwardResponseMessage
 )

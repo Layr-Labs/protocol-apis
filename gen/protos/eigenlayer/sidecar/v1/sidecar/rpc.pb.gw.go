@@ -10,7 +10,6 @@ package sidecar
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net/http"
 
@@ -25,151 +24,169 @@ import (
 )
 
 // Suppress "imported and not used" errors
+var _ codes.Code
+var _ io.Reader
+var _ status.Status
+var _ = runtime.String
+var _ = utilities.NewDoubleArray
+var _ = metadata.Join
+
 var (
-	_ codes.Code
-	_ io.Reader
-	_ status.Status
-	_ = errors.New
-	_ = runtime.String
-	_ = utilities.NewDoubleArray
-	_ = metadata.Join
+	filter_Rpc_GetBlockHeight_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-var filter_Rpc_GetBlockHeight_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-
 func request_Rpc_GetBlockHeight_0(ctx context.Context, marshaler runtime.Marshaler, client RpcClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq GetBlockHeightRequest
-		metadata runtime.ServerMetadata
-	)
-	io.Copy(io.Discard, req.Body)
+	var protoReq GetBlockHeightRequest
+	var metadata runtime.ServerMetadata
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rpc_GetBlockHeight_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
 	msg, err := client.GetBlockHeight(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Rpc_GetBlockHeight_0(ctx context.Context, marshaler runtime.Marshaler, server RpcServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq GetBlockHeightRequest
-		metadata runtime.ServerMetadata
-	)
+	var protoReq GetBlockHeightRequest
+	var metadata runtime.ServerMetadata
+
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Rpc_GetBlockHeight_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
 	msg, err := server.GetBlockHeight(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Rpc_GetStateRoot_0(ctx context.Context, marshaler runtime.Marshaler, client RpcClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetStateRootRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq GetStateRootRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	io.Copy(io.Discard, req.Body)
-	val, ok := pathParams["blockNumber"]
+
+	val, ok = pathParams["blockNumber"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "blockNumber")
 	}
+
 	protoReq.BlockNumber, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "blockNumber", err)
 	}
+
 	msg, err := client.GetStateRoot(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Rpc_GetStateRoot_0(ctx context.Context, marshaler runtime.Marshaler, server RpcServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetStateRootRequest
+	var metadata runtime.ServerMetadata
+
 	var (
-		protoReq GetStateRootRequest
-		metadata runtime.ServerMetadata
-		err      error
+		val string
+		ok  bool
+		err error
+		_   = err
 	)
-	val, ok := pathParams["blockNumber"]
+
+	val, ok = pathParams["blockNumber"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "blockNumber")
 	}
+
 	protoReq.BlockNumber, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "blockNumber", err)
 	}
+
 	msg, err := server.GetStateRoot(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Rpc_About_0(ctx context.Context, marshaler runtime.Marshaler, client RpcClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq AboutRequest
-		metadata runtime.ServerMetadata
-	)
-	io.Copy(io.Discard, req.Body)
+	var protoReq AboutRequest
+	var metadata runtime.ServerMetadata
+
 	msg, err := client.About(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Rpc_About_0(ctx context.Context, marshaler runtime.Marshaler, server RpcServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq AboutRequest
-		metadata runtime.ServerMetadata
-	)
+	var protoReq AboutRequest
+	var metadata runtime.ServerMetadata
+
 	msg, err := server.About(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Rpc_LoadContract_0(ctx context.Context, marshaler runtime.Marshaler, client RpcClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq LoadContractRequest
-		metadata runtime.ServerMetadata
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+	var protoReq LoadContractRequest
+	var metadata runtime.ServerMetadata
+
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
 	msg, err := client.LoadContract(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Rpc_LoadContract_0(ctx context.Context, marshaler runtime.Marshaler, server RpcServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq LoadContractRequest
-		metadata runtime.ServerMetadata
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+	var protoReq LoadContractRequest
+	var metadata runtime.ServerMetadata
+
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
 	msg, err := server.LoadContract(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_Rpc_LoadContracts_0(ctx context.Context, marshaler runtime.Marshaler, client RpcClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq LoadContractsRequest
-		metadata runtime.ServerMetadata
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+	var protoReq LoadContractsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
 	msg, err := client.LoadContracts(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_Rpc_LoadContracts_0(ctx context.Context, marshaler runtime.Marshaler, server RpcServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq LoadContractsRequest
-		metadata runtime.ServerMetadata
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+	var protoReq LoadContractsRequest
+	var metadata runtime.ServerMetadata
+
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
+
 	msg, err := server.LoadContracts(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 // RegisterRpcHandlerServer registers the http handlers for service Rpc to "mux".
@@ -178,13 +195,16 @@ func local_request_Rpc_LoadContracts_0(ctx context.Context, marshaler runtime.Ma
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterRpcHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server RpcServer) error {
-	mux.Handle(http.MethodGet, pattern_Rpc_GetBlockHeight_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Rpc_GetBlockHeight_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/rpc/v1/latest-block"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/rpc/v1/latest-block"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -196,15 +216,20 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_GetBlockHeight_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Rpc_GetStateRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Rpc_GetStateRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/rpc/v1/state-roots/{blockNumber}"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/rpc/v1/state-roots/{blockNumber}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -216,15 +241,20 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_GetStateRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Rpc_About_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Rpc_About_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/About", runtime.WithHTTPPathPattern("/rpc/v1/about"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/About", runtime.WithHTTPPathPattern("/rpc/v1/about"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -236,15 +266,20 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_About_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodPost, pattern_Rpc_LoadContract_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("POST", pattern_Rpc_LoadContract_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContract", runtime.WithHTTPPathPattern("/rpc/v1/load-contract"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContract", runtime.WithHTTPPathPattern("/rpc/v1/load-contract"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -256,15 +291,20 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_LoadContract_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodPost, pattern_Rpc_LoadContracts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("POST", pattern_Rpc_LoadContracts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContracts", runtime.WithHTTPPathPattern("/rpc/v1/load-contracts"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContracts", runtime.WithHTTPPathPattern("/rpc/v1/load-contracts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -276,7 +316,9 @@ func RegisterRpcHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_LoadContracts_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
@@ -303,6 +345,7 @@ func RegisterRpcHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, 
 			}
 		}()
 	}()
+
 	return RegisterRpcHandler(ctx, mux, conn)
 }
 
@@ -318,11 +361,14 @@ func RegisterRpcHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.C
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "RpcClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client RpcClient) error {
-	mux.Handle(http.MethodGet, pattern_Rpc_GetBlockHeight_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Rpc_GetBlockHeight_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/rpc/v1/latest-block"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetBlockHeight", runtime.WithHTTPPathPattern("/rpc/v1/latest-block"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -333,13 +379,18 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_GetBlockHeight_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Rpc_GetStateRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Rpc_GetStateRoot_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/rpc/v1/state-roots/{blockNumber}"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/GetStateRoot", runtime.WithHTTPPathPattern("/rpc/v1/state-roots/{blockNumber}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -350,13 +401,18 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_GetStateRoot_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodGet, pattern_Rpc_About_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("GET", pattern_Rpc_About_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/About", runtime.WithHTTPPathPattern("/rpc/v1/about"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/About", runtime.WithHTTPPathPattern("/rpc/v1/about"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -367,13 +423,18 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_About_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodPost, pattern_Rpc_LoadContract_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("POST", pattern_Rpc_LoadContract_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContract", runtime.WithHTTPPathPattern("/rpc/v1/load-contract"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContract", runtime.WithHTTPPathPattern("/rpc/v1/load-contract"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -384,13 +445,18 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_LoadContract_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
-	mux.Handle(http.MethodPost, pattern_Rpc_LoadContracts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+
+	mux.Handle("POST", pattern_Rpc_LoadContracts_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContracts", runtime.WithHTTPPathPattern("/rpc/v1/load-contracts"))
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.sidecar.Rpc/LoadContracts", runtime.WithHTTPPathPattern("/rpc/v1/load-contracts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -401,23 +467,34 @@ func RegisterRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
+
 		forward_Rpc_LoadContracts_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
+
 	return nil
 }
 
 var (
 	pattern_Rpc_GetBlockHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "latest-block"}, ""))
-	pattern_Rpc_GetStateRoot_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rpc", "v1", "state-roots", "blockNumber"}, ""))
-	pattern_Rpc_About_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "about"}, ""))
-	pattern_Rpc_LoadContract_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "load-contract"}, ""))
-	pattern_Rpc_LoadContracts_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "load-contracts"}, ""))
+
+	pattern_Rpc_GetStateRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"rpc", "v1", "state-roots", "blockNumber"}, ""))
+
+	pattern_Rpc_About_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "about"}, ""))
+
+	pattern_Rpc_LoadContract_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "load-contract"}, ""))
+
+	pattern_Rpc_LoadContracts_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"rpc", "v1", "load-contracts"}, ""))
 )
 
 var (
 	forward_Rpc_GetBlockHeight_0 = runtime.ForwardResponseMessage
-	forward_Rpc_GetStateRoot_0   = runtime.ForwardResponseMessage
-	forward_Rpc_About_0          = runtime.ForwardResponseMessage
-	forward_Rpc_LoadContract_0   = runtime.ForwardResponseMessage
-	forward_Rpc_LoadContracts_0  = runtime.ForwardResponseMessage
+
+	forward_Rpc_GetStateRoot_0 = runtime.ForwardResponseMessage
+
+	forward_Rpc_About_0 = runtime.ForwardResponseMessage
+
+	forward_Rpc_LoadContract_0 = runtime.ForwardResponseMessage
+
+	forward_Rpc_LoadContracts_0 = runtime.ForwardResponseMessage
 )
