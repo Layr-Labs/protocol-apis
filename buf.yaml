@@ -1,0 +1,10 @@
+version: v2
+
+modules:
+  - path: protos
+  - path: submodules/protobuf-libs/protos
+
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+#  - buf.build/layr-labs/protobuf-libs

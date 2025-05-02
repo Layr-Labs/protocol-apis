@@ -7,28 +7,35 @@ PROTO_OPTS=--proto_path=protos --go_out=paths=source_relative:protos
 
 all: build
 
-deps: deps/go
+.PHONY: deps/system
+deps/system:
 	./scripts/installDeps.sh
 
-.PHONY: deps/dev
-deps/dev:
-	${GO} get github.com/grpc-ecosystem/protoc-gen-grpc-gateway-ts
-	cd protos && buf dep update
+.PHONY: deps/local-plugin
+deps/local-plugin:
+	git submodule update --init --recursive
+	cd buf-plugin-openapi && make clean install
 
-.PHONY: deps
+
+.PHONY: deps/dev
+deps/dev: deps/system deps/local-plugin
+	${GO} get google.golang.org/protobuf/cmd/protoc-gen-go
+	${GO} get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+	${GO} get github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
+	${GO} get github.com/grpc-ecosystem/protoc-gen-grpc-gateway-ts
+	${GO} get github.com/akuity/grpc-gateway-client/protoc-gen-grpc-gateway-client@latest
+	buf dep update
+
+.PHONY: deps/go
 deps/go:
 	${GO} mod tidy
 	npm install
 
-pre-build:
-	git submodule update --init --recursive
-	cd buf-plugin-openapi && make clean install
-
 .PHONY: proto
-proto: pre-build
+proto:
 	rm -rf gen/python || true
 	rm -rf gen/pre-python || true
-	buf generate protos
+	buf generate
 	# ./scripts/generatePipModule.sh
 	# mkdir gen/openapiv3 || true
 	# ./node_modules/.bin/swagger2openapi --outfile gen/openapiv3/openapi.yaml gen/openapiv2/apidocs.swagger.json
