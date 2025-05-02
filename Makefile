@@ -19,8 +19,8 @@ deps/local-plugin:
 
 .PHONY: deps/dev
 deps/dev: deps/system deps/local-plugin
-	${GO} get google.golang.org/protobuf/cmd/protoc-gen-go
-	${GO} get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+	${GO} get google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.2
+	${GO} get google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
 	${GO} get github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
 	${GO} get github.com/grpc-ecosystem/protoc-gen-grpc-gateway-ts
 	${GO} get github.com/akuity/grpc-gateway-client/protoc-gen-grpc-gateway-client@latest

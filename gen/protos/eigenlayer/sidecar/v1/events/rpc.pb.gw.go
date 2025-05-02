@@ -10,6 +10,7 @@ package events
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,21 +25,24 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Events_StreamEigenStateChanges_0(ctx context.Context, marshaler runtime.Marshaler, client EventsClient, req *http.Request, pathParams map[string]string) (Events_StreamEigenStateChangesClient, runtime.ServerMetadata, error) {
-	var protoReq StreamEigenStateChangesRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq StreamEigenStateChangesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	stream, err := client.StreamEigenStateChanges(ctx, &protoReq)
 	if err != nil {
 		return nil, metadata, err
@@ -49,17 +53,16 @@ func request_Events_StreamEigenStateChanges_0(ctx context.Context, marshaler run
 	}
 	metadata.HeaderMD = header
 	return stream, metadata, nil
-
 }
 
 func request_Events_StreamIndexedBlocks_0(ctx context.Context, marshaler runtime.Marshaler, client EventsClient, req *http.Request, pathParams map[string]string) (Events_StreamIndexedBlocksClient, runtime.ServerMetadata, error) {
-	var protoReq StreamIndexedBlocksRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq StreamIndexedBlocksRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	stream, err := client.StreamIndexedBlocks(ctx, &protoReq)
 	if err != nil {
 		return nil, metadata, err
@@ -70,7 +73,6 @@ func request_Events_StreamIndexedBlocks_0(ctx context.Context, marshaler runtime
 	}
 	metadata.HeaderMD = header
 	return stream, metadata, nil
-
 }
 
 // RegisterEventsHandlerServer registers the http handlers for service Events to "mux".
@@ -79,15 +81,14 @@ func request_Events_StreamIndexedBlocks_0(ctx context.Context, marshaler runtime
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterEventsHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterEventsHandlerServer(ctx context.Context, mux *runtime.ServeMux, server EventsServer) error {
-
-	mux.Handle("POST", pattern_Events_StreamEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Events_StreamEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
 		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 		return
 	})
 
-	mux.Handle("POST", pattern_Events_StreamIndexedBlocks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Events_StreamIndexedBlocks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
 		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -118,7 +119,6 @@ func RegisterEventsHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMu
 			}
 		}()
 	}()
-
 	return RegisterEventsHandler(ctx, mux, conn)
 }
 
@@ -134,14 +134,11 @@ func RegisterEventsHandler(ctx context.Context, mux *runtime.ServeMux, conn *grp
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "EventsClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterEventsHandlerClient(ctx context.Context, mux *runtime.ServeMux, client EventsClient) error {
-
-	mux.Handle("POST", pattern_Events_StreamEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Events_StreamEigenStateChanges_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.events.Events/StreamEigenStateChanges", runtime.WithHTTPPathPattern("/events/v1/stream-eigen-state-changes"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.events.Events/StreamEigenStateChanges", runtime.WithHTTPPathPattern("/events/v1/stream-eigen-state-changes"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -152,18 +149,13 @@ func RegisterEventsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Events_StreamEigenStateChanges_0(annotatedContext, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_Events_StreamIndexedBlocks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_Events_StreamIndexedBlocks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.events.Events/StreamIndexedBlocks", runtime.WithHTTPPathPattern("/events/v1/stream-indexed-blocks"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.events.Events/StreamIndexedBlocks", runtime.WithHTTPPathPattern("/events/v1/stream-indexed-blocks"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -174,22 +166,17 @@ func RegisterEventsHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Events_StreamIndexedBlocks_0(annotatedContext, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
 	pattern_Events_StreamEigenStateChanges_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"events", "v1", "stream-eigen-state-changes"}, ""))
-
-	pattern_Events_StreamIndexedBlocks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"events", "v1", "stream-indexed-blocks"}, ""))
+	pattern_Events_StreamIndexedBlocks_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"events", "v1", "stream-indexed-blocks"}, ""))
 )
 
 var (
 	forward_Events_StreamEigenStateChanges_0 = runtime.ForwardResponseStream
-
-	forward_Events_StreamIndexedBlocks_0 = runtime.ForwardResponseStream
+	forward_Events_StreamIndexedBlocks_0     = runtime.ForwardResponseStream
 )

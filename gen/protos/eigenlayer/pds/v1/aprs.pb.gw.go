@@ -10,6 +10,7 @@ package v1
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,175 +25,136 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Aprs_GetDailyOperatorStrategyAprs_0(ctx context.Context, marshaler runtime.Marshaler, client AprsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDailyOperatorStrategyAprsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDailyOperatorStrategyAprsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	val, ok = pathParams["date"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "date")
 	}
-
 	protoReq.Date, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "date", err)
 	}
-
 	msg, err := client.GetDailyOperatorStrategyAprs(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Aprs_GetDailyOperatorStrategyAprs_0(ctx context.Context, marshaler runtime.Marshaler, server AprsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDailyOperatorStrategyAprsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDailyOperatorStrategyAprsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["operator_address"]
+	val, ok := pathParams["operator_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "operator_address")
 	}
-
 	protoReq.OperatorAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "operator_address", err)
 	}
-
 	val, ok = pathParams["date"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "date")
 	}
-
 	protoReq.Date, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "date", err)
 	}
-
 	msg, err := server.GetDailyOperatorStrategyAprs(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Aprs_GetDailyAprForEarnerStrategy_0(ctx context.Context, marshaler runtime.Marshaler, client AprsClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDailyAprForEarnerStrategyRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDailyAprForEarnerStrategyRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	val, ok = pathParams["strategy"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategy")
 	}
-
 	protoReq.Strategy, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategy", err)
 	}
-
 	val, ok = pathParams["date"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "date")
 	}
-
 	protoReq.Date, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "date", err)
 	}
-
 	msg, err := client.GetDailyAprForEarnerStrategy(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Aprs_GetDailyAprForEarnerStrategy_0(ctx context.Context, marshaler runtime.Marshaler, server AprsServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetDailyAprForEarnerStrategyRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetDailyAprForEarnerStrategyRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["earner_address"]
+	val, ok := pathParams["earner_address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "earner_address")
 	}
-
 	protoReq.EarnerAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "earner_address", err)
 	}
-
 	val, ok = pathParams["strategy"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategy")
 	}
-
 	protoReq.Strategy, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategy", err)
 	}
-
 	val, ok = pathParams["date"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "date")
 	}
-
 	protoReq.Date, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "date", err)
 	}
-
 	msg, err := server.GetDailyAprForEarnerStrategy(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterAprsHandlerServer registers the http handlers for service Aprs to "mux".
@@ -201,16 +163,13 @@ func local_request_Aprs_GetDailyAprForEarnerStrategy_0(ctx context.Context, mars
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterAprsHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterAprsHandlerServer(ctx context.Context, mux *runtime.ServeMux, server AprsServer) error {
-
-	mux.Handle("GET", pattern_Aprs_GetDailyOperatorStrategyAprs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Aprs_GetDailyOperatorStrategyAprs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyOperatorStrategyAprs", runtime.WithHTTPPathPattern("/aprs/v1/operators/{operator_address}/daily-aprs/{date}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyOperatorStrategyAprs", runtime.WithHTTPPathPattern("/aprs/v1/operators/{operator_address}/daily-aprs/{date}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -222,20 +181,15 @@ func RegisterAprsHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Aprs_GetDailyOperatorStrategyAprs_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Aprs_GetDailyAprForEarnerStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Aprs_GetDailyAprForEarnerStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyAprForEarnerStrategy", runtime.WithHTTPPathPattern("/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyAprForEarnerStrategy", runtime.WithHTTPPathPattern("/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -247,9 +201,7 @@ func RegisterAprsHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Aprs_GetDailyAprForEarnerStrategy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -276,7 +228,6 @@ func RegisterAprsHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux,
 			}
 		}()
 	}()
-
 	return RegisterAprsHandler(ctx, mux, conn)
 }
 
@@ -292,14 +243,11 @@ func RegisterAprsHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "AprsClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterAprsHandlerClient(ctx context.Context, mux *runtime.ServeMux, client AprsClient) error {
-
-	mux.Handle("GET", pattern_Aprs_GetDailyOperatorStrategyAprs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Aprs_GetDailyOperatorStrategyAprs_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyOperatorStrategyAprs", runtime.WithHTTPPathPattern("/aprs/v1/operators/{operator_address}/daily-aprs/{date}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyOperatorStrategyAprs", runtime.WithHTTPPathPattern("/aprs/v1/operators/{operator_address}/daily-aprs/{date}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -310,18 +258,13 @@ func RegisterAprsHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Aprs_GetDailyOperatorStrategyAprs_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_Aprs_GetDailyAprForEarnerStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_Aprs_GetDailyAprForEarnerStrategy_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyAprForEarnerStrategy", runtime.WithHTTPPathPattern("/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.pds.aprs.v1.Aprs/GetDailyAprForEarnerStrategy", runtime.WithHTTPPathPattern("/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -332,22 +275,17 @@ func RegisterAprsHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_Aprs_GetDailyAprForEarnerStrategy_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
 	pattern_Aprs_GetDailyOperatorStrategyAprs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"aprs", "v1", "operators", "operator_address", "daily-aprs", "date"}, ""))
-
 	pattern_Aprs_GetDailyAprForEarnerStrategy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6, 1, 0, 4, 1, 5, 7}, []string{"aprs", "v1", "earners", "earner_address", "strategies", "strategy", "daily-apr", "date"}, ""))
 )
 
 var (
 	forward_Aprs_GetDailyOperatorStrategyAprs_0 = runtime.ForwardResponseMessage
-
 	forward_Aprs_GetDailyAprForEarnerStrategy_0 = runtime.ForwardResponseMessage
 )
