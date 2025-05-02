@@ -23,7 +23,7 @@ message StartSyncResponse {}
 
 message TaskRequest {
   bytes task_id = 1;
-  bytes payload = 3;
+  bytes payload = 2;
 }
 
 message TaskResponse {
