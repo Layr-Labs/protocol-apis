@@ -28,6 +28,7 @@ export type StartSyncResponse = {
 export type TaskRequest = {
   taskId?: Uint8Array
   payload?: Uint8Array
+  metadata?: Uint8Array
 }
 
 export type TaskResponse = {

@@ -24,6 +24,7 @@ message StartSyncResponse {}
 message TaskRequest {
   bytes task_id = 1;
   bytes payload = 2;
+  bytes metadata = 3;
 }
 
 message TaskResponse {

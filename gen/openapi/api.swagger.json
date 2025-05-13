@@ -4016,6 +4016,10 @@
       "TaskRequest": {
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "string",
+            "format": "byte"
+          },
           "payload": {
             "type": "string",
             "format": "byte"
