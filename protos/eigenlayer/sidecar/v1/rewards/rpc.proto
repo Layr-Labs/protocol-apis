@@ -82,6 +82,7 @@ service Rewards {
   }
 
   rpc GetRewardsByAvsForDistributionRoot(GetRewardsByAvsForDistributionRootRequest) returns (GetRewardsByAvsForDistributionRootResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/rewards/v1/avs-rewards-by-root/{root_index}"
     };

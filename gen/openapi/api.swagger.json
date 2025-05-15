@@ -2721,6 +2721,9 @@
       "GetRewardsByAvsForDistributionRootRequest": {
         "type": "object",
         "properties": {
+          "earnerAddress": {
+            "type": "string"
+          },
           "pagination": {
             "$ref": "#/components/schemas/Pagination"
           },
@@ -2730,7 +2733,8 @@
           }
         },
         "required": [
-          "pagination"
+          "pagination",
+          "earner_address"
         ]
       },
       "GetRewardsByAvsForDistributionRootResponse": {

@@ -101,10 +101,14 @@ export type GetAttributableRewardsForDistributionRootResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.AttributableReward[]
 }
 
-export type GetRewardsByAvsForDistributionRootRequest = {
+
+type BaseGetRewardsByAvsForDistributionRootRequest = {
   rootIndex?: string
   pagination?: EigenlayerSidecarV1CommonTypes.Pagination
 }
+
+export type GetRewardsByAvsForDistributionRootRequest = BaseGetRewardsByAvsForDistributionRootRequest
+  & OneOf<{ earnerAddress: string }>
 
 export type GetRewardsByAvsForDistributionRootResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.AvsReward[]
