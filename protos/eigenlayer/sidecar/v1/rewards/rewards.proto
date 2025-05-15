@@ -96,6 +96,7 @@ message GetAttributableRewardsForDistributionRootResponse {
 message GetRewardsByAvsForDistributionRootRequest {
   uint64 root_index = 1;
   common.Pagination pagination = 2;
+  optional string earner_address = 3;
 }
 message GetRewardsByAvsForDistributionRootResponse {
   repeated AvsReward rewards = 1;
