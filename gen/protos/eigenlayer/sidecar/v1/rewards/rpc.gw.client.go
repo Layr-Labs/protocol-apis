@@ -140,6 +140,9 @@ func (c *rewardsGatewayClient) GetRewardsByAvsForDistributionRoot(ctx context.Co
 	q := url.Values{}
 	q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
 	q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	for _, v := range req.EarnerAddresses {
+		q.Add("earnerAddresses", fmt.Sprintf("%v", v))
+	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetRewardsByAvsForDistributionRootResponse](ctx, gwReq)
 }

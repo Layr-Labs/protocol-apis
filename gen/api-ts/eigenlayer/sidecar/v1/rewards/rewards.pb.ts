@@ -104,6 +104,7 @@ export type GetAttributableRewardsForDistributionRootResponse = {
 export type GetRewardsByAvsForDistributionRootRequest = {
   rootIndex?: string
   pagination?: EigenlayerSidecarV1CommonTypes.Pagination
+  earnerAddresses?: string[]
 }
 
 export type GetRewardsByAvsForDistributionRootResponse = {

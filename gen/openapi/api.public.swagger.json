@@ -503,6 +503,48 @@
         ]
       }
     },
+    "/rewards/v1/avs-rewards-by-root/{root_index}": {
+      "get": {
+        "summary": "GetRewardsByAvsForDistributionRoot",
+        "operationId": "Rewards_GetRewardsByAvsForDistributionRoot",
+        "parameters": [
+          {
+            "name": "root_index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "rewards": {
+                      "$ref": "#/components/schemas/AvsReward"
+                    }
+                  },
+                  "required": [
+                    "next_page"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
     "/rewards/v1/claim-proof": {
       "post": {
         "summary": "GenerateClaimProof",
@@ -1668,6 +1710,9 @@
       "GetRewardsByAvsForDistributionRootRequest": {
         "type": "object",
         "properties": {
+          "earnerAddresses": {
+            "type": "string"
+          },
           "pagination": {
             "$ref": "#/components/schemas/Pagination"
           },
