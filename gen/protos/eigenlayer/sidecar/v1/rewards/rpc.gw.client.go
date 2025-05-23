@@ -191,6 +191,9 @@ func (c *rewardsGatewayClient) GetSummarizedRewardsForEarner(ctx context.Context
 	if req.BlockHeight != nil {
 		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
 	}
+	if req.SnapshotDate != nil {
+		q.Add("snapshotDate", fmt.Sprintf("%v", *req.SnapshotDate))
+	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetSummarizedRewardsForEarnerResponse](ctx, gwReq)
 }

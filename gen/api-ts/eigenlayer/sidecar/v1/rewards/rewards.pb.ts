@@ -165,6 +165,7 @@ type BaseGetSummarizedRewardsForEarnerRequest = {
 
 export type GetSummarizedRewardsForEarnerRequest = BaseGetSummarizedRewardsForEarnerRequest
   & OneOf<{ blockHeight: string }>
+  & OneOf<{ snapshotDate: string }>
 
 export type GetSummarizedRewardsForEarnerResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.SummarizedEarnerReward[]
