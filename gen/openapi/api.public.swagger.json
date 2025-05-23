@@ -1883,10 +1883,14 @@
           },
           "earnerAddress": {
             "type": "string"
+          },
+          "snapshotDate": {
+            "type": "string"
           }
         },
         "required": [
-          "block_height"
+          "block_height",
+          "snapshot_date"
         ]
       },
       "GetSummarizedRewardsForEarnerResponse": {
