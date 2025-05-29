@@ -145,6 +145,7 @@ message GetAvailableRewardsTokensResponse {
 message GetSummarizedRewardsForEarnerRequest {
   string earner_address = 1;
   optional uint64 block_height = 2;
+  optional string snapshot_date = 3;
 }
 message GetSummarizedRewardsForEarnerResponse {
   repeated SummarizedEarnerReward rewards = 1;
