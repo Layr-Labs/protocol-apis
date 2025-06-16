@@ -1,7 +1,9 @@
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20231106192134-1baebb0a1518.2 h1:iRWpWLm1nrsCHBVhibqPJQB3iIf3FRsAXioJVU8m6w0=
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20231106192134-1baebb0a1518.2/go.mod h1:xafc+XIsTxTy76GJQ1TKgvJWsSugFBqMaN27WhUblew=
 github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab h1:O3mHv0TxACM+575aVjPRwPOd7Ygf4CAmZmNWs/2zjaA=
-github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab/go.mod h1:xc4NKuzjHpf6Xr9EnI7r6Uc99B1it1bkzQH6kJvhtW4=
+github.com/Layr-Labs/protobuf-libs v0.0.0-20250305032038-8d1047b56aab/go.mod h1:VsLmbezVqR4wNwC3cJrbKUazzLK2i2fL+YtQfSWfbSs=
+github.com/Layr-Labs/protobuf-libs v0.1.0 h1:hfawlutriLq1i7cI2kXH8o2N+mx02cJTVlKrwAMazBY=
+github.com/Layr-Labs/protobuf-libs v0.1.0/go.mod h1:Om3Qb39NrWwald+08yTIj/VexKmocIMsMXXIM/iRcW8=
 github.com/akuity/grpc-gateway-client v0.0.0-20240912082144-55a48e8b4b89 h1:TNZN2oYHs6ymIMyDeVu6RnwNowChc/q4U/p7ruHA/GM=
 github.com/akuity/grpc-gateway-client v0.0.0-20240912082144-55a48e8b4b89/go.mod h1:0MZqOxL+zq+hGedAjYhkm1tOKuZyjUmE/xA8nqXa9q0=
 github.com/alevinval/sse v1.0.1 h1:cFubh2lMNdHT6niFLCsyTuhAgljaAWbdmceAe6qPIfo=
