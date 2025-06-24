@@ -91,6 +91,159 @@ message DisabledDistributionRoot {
   TransactionMetadata transaction_metadata = 2;
 }
 
+// Slashing-related messages
+message CompletedSlashingWithdrawal {
+  string withdrawal_root = 1;
+  TransactionMetadata transaction_metadata = 2;
+}
+
+message QueuedSlashingWithdrawal {
+  string operator = 1;
+  string withdrawal_root = 2;
+  uint64 target_block = 3;
+  uint64 staker_opt_out_window_blocks = 4;
+  uint64 operator_set_id = 5;
+  string avs = 6;
+  TransactionMetadata transaction_metadata = 7;
+}
+
+message SlashedOperator {
+  string operator = 1;
+  uint64 operator_set_id = 2;
+  string avs = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+message SlashedOperatorShares {
+  string operator = 1;
+  string strategy = 2;
+  string shares = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+// Operator allocation & split messages
+message DefaultOperatorSplit {
+  string operator = 1;
+  uint64 old_operator_basis_points = 2;
+  uint64 new_operator_basis_points = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+message OperatorAllocation {
+  string operator = 1;
+  uint64 operator_set_id = 2;
+  string avs = 3;
+  string strategy = 4;
+  string shares = 5;
+  TransactionMetadata transaction_metadata = 6;
+}
+
+message OperatorAllocationDelay {
+  string operator = 1;
+  uint64 delay = 2;
+  uint64 effective_block = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+message OperatorAVSSplit {
+  string operator = 1;
+  string avs = 2;
+  uint64 operator_basis_points = 3;
+  uint64 avs_basis_points = 4;
+  google.protobuf.Timestamp start_timestamp = 5;
+  google.protobuf.Timestamp end_timestamp = 6;
+  TransactionMetadata transaction_metadata = 7;
+}
+
+message OperatorPISplit {
+  string operator = 1;
+  uint64 operator_basis_points = 2;
+  uint64 pi_basis_points = 3;
+  google.protobuf.Timestamp start_timestamp = 4;
+  google.protobuf.Timestamp end_timestamp = 5;
+  TransactionMetadata transaction_metadata = 6;
+}
+
+// Operator set messages
+message OperatorSet {
+  uint64 operator_set_id = 1;
+  string avs = 2;
+  TransactionMetadata transaction_metadata = 3;
+}
+
+message OperatorSetOperatorRegistration {
+  string operator = 1;
+  uint64 operator_set_id = 2;
+  string avs = 3;
+  bool registered = 4;
+  TransactionMetadata transaction_metadata = 5;
+}
+
+message OperatorSetSplit {
+  uint64 operator_set_id = 1;
+  string avs = 2;
+  uint64 operator_set_basis_points = 3;
+  uint64 avs_basis_points = 4;
+  google.protobuf.Timestamp start_timestamp = 5;
+  google.protobuf.Timestamp end_timestamp = 6;
+  TransactionMetadata transaction_metadata = 7;
+}
+
+message OperatorSetStrategyRegistration {
+  uint64 operator_set_id = 1;
+  string avs = 2;
+  string strategy = 3;
+  bool registered = 4;
+  TransactionMetadata transaction_metadata = 5;
+}
+
+// Operator-directed reward messages
+message OperatorDirectedRewardSubmission {
+  string avs = 1;
+  string reward_hash = 2;
+  string token = 3;
+  string amount = 4;
+  string strategy = 5;
+  uint64 strategy_index = 6;
+  string multiplier = 7;
+  google.protobuf.Timestamp start_timestamp = 8;
+  google.protobuf.Timestamp end_timestamp = 9;
+  uint64 duration = 10;
+  string recipient = 11;
+  TransactionMetadata transaction_metadata = 12;
+}
+
+message OperatorDirectedOperatorSetRewardSubmission {
+  string avs = 1;
+  string reward_hash = 2;
+  string token = 3;
+  string amount = 4;
+  string strategy = 5;
+  uint64 strategy_index = 6;
+  string multiplier = 7;
+  google.protobuf.Timestamp start_timestamp = 8;
+  google.protobuf.Timestamp end_timestamp = 9;
+  uint64 duration = 10;
+  uint64 operator_set_id = 11;
+  TransactionMetadata transaction_metadata = 12;
+}
+
+// Magnitude tracking messages
+message EncumberedMagnitude {
+  string operator = 1;
+  string strategy = 2;
+  string encumbered_magnitude = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+message OperatorMaxMagnitude {
+  string operator = 1;
+  string strategy = 2;
+  string max_magnitude = 3;
+  TransactionMetadata transaction_metadata = 4;
+}
+
+
 message EigenStateChange {
   oneof change {
     AvsOperatorStateChange avs_operator_state_change = 1;
@@ -100,6 +253,34 @@ message EigenStateChange {
     StakerShareDelta staker_share_delta = 5;
     SubmittedDistributionRoot submitted_distribution_root = 6;
     DisabledDistributionRoot disabled_distribution_root = 7;
+
+    // slashing models
+    CompletedSlashingWithdrawal completed_slashing_withdrawal = 8;
+    QueuedSlashingWithdrawal queued_slashing_withdrawal = 9;
+    SlashedOperator slashed_operator = 10;
+    SlashedOperatorShares slashed_operator_shares = 11;
+
+    // operator allocations
+    DefaultOperatorSplit default_operator_split = 12;
+    OperatorAllocation operator_allocation = 13;
+    OperatorAllocationDelay operator_allocation_delay = 14;
+    OperatorAVSSplit operator_avs_split = 15;
+    OperatorPISplit operator_pi_split = 16;
+
+    // operator sets
+    OperatorSet operator_set = 17;
+    OperatorSetOperatorRegistration operator_set_operator_registration = 18;
+    OperatorSetSplit operator_set_split = 19;
+    OperatorSetStrategyRegistration operator_set_strategy_registration = 20;
+
+    // operator-directed rewards
+    OperatorDirectedRewardSubmission operator_directed_reward_submission = 21;
+    OperatorDirectedOperatorSetRewardSubmission operator_directed_operator_set_reward_submission = 22;
+
+    // operator magnitudes
+    EncumberedMagnitude encumbered_magnitude = 23;
+    OperatorMaxMagnitude operator_max_magnitude = 24;
+
   }
 }
 
