@@ -1208,6 +1208,20 @@
           }
         }
       },
+      "CompletedSlashingWithdrawal": {
+        "type": "object",
+        "properties": {
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          },
+          "withdrawalRoot": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
       "CoreContract": {
         "type": "object",
         "properties": {
@@ -1221,6 +1235,28 @@
             "type": "string"
           }
         }
+      },
+      "DefaultOperatorSplit": {
+        "type": "object",
+        "properties": {
+          "newOperatorBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "oldOperatorBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
       },
       "DisabledDistributionRoot": {
         "type": "object",
@@ -1303,14 +1339,65 @@
           "avsOperatorStateChange": {
             "$ref": "#/components/schemas/AvsOperatorStateChange"
           },
+          "completedSlashingWithdrawal": {
+            "$ref": "#/components/schemas/CompletedSlashingWithdrawal"
+          },
+          "defaultOperatorSplit": {
+            "$ref": "#/components/schemas/DefaultOperatorSplit"
+          },
           "disabledDistributionRoot": {
             "$ref": "#/components/schemas/DisabledDistributionRoot"
+          },
+          "encumberedMagnitude": {
+            "$ref": "#/components/schemas/EncumberedMagnitude"
+          },
+          "operatorAllocation": {
+            "$ref": "#/components/schemas/OperatorAllocation"
+          },
+          "operatorAllocationDelay": {
+            "$ref": "#/components/schemas/OperatorAllocationDelay"
+          },
+          "operatorAvsSplit": {
+            "$ref": "#/components/schemas/OperatorAVSSplit"
+          },
+          "operatorDirectedOperatorSetRewardSubmission": {
+            "$ref": "#/components/schemas/OperatorDirectedOperatorSetRewardSubmission"
+          },
+          "operatorDirectedRewardSubmission": {
+            "$ref": "#/components/schemas/OperatorDirectedRewardSubmission"
+          },
+          "operatorMaxMagnitude": {
+            "$ref": "#/components/schemas/OperatorMaxMagnitude"
+          },
+          "operatorPiSplit": {
+            "$ref": "#/components/schemas/OperatorPISplit"
+          },
+          "operatorSet": {
+            "$ref": "#/components/schemas/OperatorSet"
+          },
+          "operatorSetOperatorRegistration": {
+            "$ref": "#/components/schemas/OperatorSetOperatorRegistration"
+          },
+          "operatorSetSplit": {
+            "$ref": "#/components/schemas/OperatorSetSplit"
+          },
+          "operatorSetStrategyRegistration": {
+            "$ref": "#/components/schemas/OperatorSetStrategyRegistration"
           },
           "operatorShareDelta": {
             "$ref": "#/components/schemas/OperatorShareDelta"
           },
+          "queuedSlashingWithdrawal": {
+            "$ref": "#/components/schemas/QueuedSlashingWithdrawal"
+          },
           "rewardSubmission": {
             "$ref": "#/components/schemas/RewardSubmission"
+          },
+          "slashedOperator": {
+            "$ref": "#/components/schemas/SlashedOperator"
+          },
+          "slashedOperatorShares": {
+            "$ref": "#/components/schemas/SlashedOperatorShares"
           },
           "stakerDelegationChange": {
             "$ref": "#/components/schemas/StakerDelegationChange"
@@ -1329,7 +1416,44 @@
           "staker_delegation_change",
           "staker_share_delta",
           "submitted_distribution_root",
-          "disabled_distribution_root"
+          "disabled_distribution_root",
+          "completed_slashing_withdrawal",
+          "queued_slashing_withdrawal",
+          "slashed_operator",
+          "slashed_operator_shares",
+          "default_operator_split",
+          "operator_allocation",
+          "operator_allocation_delay",
+          "operator_avs_split",
+          "operator_pi_split",
+          "operator_set",
+          "operator_set_operator_registration",
+          "operator_set_split",
+          "operator_set_strategy_registration",
+          "operator_directed_reward_submission",
+          "operator_directed_operator_set_reward_submission",
+          "encumbered_magnitude",
+          "operator_max_magnitude"
+        ]
+      },
+      "EncumberedMagnitude": {
+        "type": "object",
+        "properties": {
+          "encumberedMagnitude": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
         ]
       },
       "GenerateClaimProofRequest": {
@@ -2368,26 +2492,344 @@
           }
         }
       },
+      "OperatorAVSSplit": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "avsBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "endTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "startTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "start_timestamp",
+          "end_timestamp",
+          "transaction_metadata"
+        ]
+      },
+      "OperatorAllocation": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "shares": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
+      "OperatorAllocationDelay": {
+        "type": "object",
+        "properties": {
+          "delay": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "effectiveBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
+      "OperatorDirectedOperatorSetRewardSubmission": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "avs": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "endTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "multiplier": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "rewardHash": {
+            "type": "string"
+          },
+          "startTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "strategyIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "token": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "start_timestamp",
+          "end_timestamp",
+          "transaction_metadata"
+        ]
+      },
+      "OperatorDirectedRewardSubmission": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "avs": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "endTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "multiplier": {
+            "type": "string"
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "rewardHash": {
+            "type": "string"
+          },
+          "startTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "strategyIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "token": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "start_timestamp",
+          "end_timestamp",
+          "transaction_metadata"
+        ]
+      },
+      "OperatorMaxMagnitude": {
+        "type": "object",
+        "properties": {
+          "maxMagnitude": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
+      "OperatorPISplit": {
+        "type": "object",
+        "properties": {
+          "endTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "piBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "startTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "start_timestamp",
+          "end_timestamp",
+          "transaction_metadata"
+        ]
+      },
       "OperatorSet": {
         "type": "object",
         "properties": {
           "avs": {
             "type": "string"
           },
-          "id": {
+          "operatorSetId": {
             "type": "integer",
             "format": "uint64"
           },
-          "magnitude": {
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
+      "OperatorSetOperatorRegistration": {
+        "type": "object",
+        "properties": {
+          "avs": {
             "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "registered": {
+            "type": "boolean"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
+      "OperatorSetSplit": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "avsBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "endTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "operatorSetBasisPoints": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "startTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "start_timestamp",
+          "end_timestamp",
+          "transaction_metadata"
+        ]
+      },
+      "OperatorSetStrategyRegistration": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "registered": {
+            "type": "boolean"
           },
           "strategy": {
             "type": "string"
           },
-          "totalStaked": {
-            "type": "string"
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
           }
-        }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
       },
       "OperatorShareDelta": {
         "type": "object",
@@ -2515,6 +2957,38 @@
           }
         }
       },
+      "QueuedSlashingWithdrawal": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "stakerOptOutWindowBlocks": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "targetBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          },
+          "withdrawalRoot": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
       "QueuedStrategyWithdrawal": {
         "type": "object",
         "properties": {
@@ -2632,6 +3106,47 @@
           "REWARD_TYPE_AVS",
           "REWARD_TYPE_FOR_ALL",
           "REWARD_TYPE_FOR_ALL_EARNERS"
+        ]
+      },
+      "SlashedOperator": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
+      "SlashedOperatorShares": {
+        "type": "object",
+        "properties": {
+          "operator": {
+            "type": "string"
+          },
+          "shares": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
         ]
       },
       "SlashedStaker": {
