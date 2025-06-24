@@ -98,9 +98,156 @@ export type DisabledDistributionRoot = {
   transactionMetadata?: TransactionMetadata
 }
 
+export type CompletedSlashingWithdrawal = {
+  withdrawalRoot?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type QueuedSlashingWithdrawal = {
+  operator?: string
+  withdrawalRoot?: string
+  targetBlock?: string
+  stakerOptOutWindowBlocks?: string
+  operatorSetId?: string
+  avs?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type SlashedOperator = {
+  operator?: string
+  operatorSetId?: string
+  avs?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type SlashedOperatorShares = {
+  operator?: string
+  strategy?: string
+  shares?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type DefaultOperatorSplit = {
+  operator?: string
+  oldOperatorBasisPoints?: string
+  newOperatorBasisPoints?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorAllocation = {
+  operator?: string
+  operatorSetId?: string
+  avs?: string
+  strategy?: string
+  shares?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorAllocationDelay = {
+  operator?: string
+  delay?: string
+  effectiveBlock?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorAVSSplit = {
+  operator?: string
+  avs?: string
+  operatorBasisPoints?: string
+  avsBasisPoints?: string
+  startTimestamp?: GoogleProtobufTimestamp.Timestamp
+  endTimestamp?: GoogleProtobufTimestamp.Timestamp
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorPISplit = {
+  operator?: string
+  operatorBasisPoints?: string
+  piBasisPoints?: string
+  startTimestamp?: GoogleProtobufTimestamp.Timestamp
+  endTimestamp?: GoogleProtobufTimestamp.Timestamp
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorSet = {
+  operatorSetId?: string
+  avs?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorSetOperatorRegistration = {
+  operator?: string
+  operatorSetId?: string
+  avs?: string
+  registered?: boolean
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorSetSplit = {
+  operatorSetId?: string
+  avs?: string
+  operatorSetBasisPoints?: string
+  avsBasisPoints?: string
+  startTimestamp?: GoogleProtobufTimestamp.Timestamp
+  endTimestamp?: GoogleProtobufTimestamp.Timestamp
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorSetStrategyRegistration = {
+  operatorSetId?: string
+  avs?: string
+  strategy?: string
+  registered?: boolean
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorDirectedRewardSubmission = {
+  avs?: string
+  rewardHash?: string
+  token?: string
+  amount?: string
+  strategy?: string
+  strategyIndex?: string
+  multiplier?: string
+  startTimestamp?: GoogleProtobufTimestamp.Timestamp
+  endTimestamp?: GoogleProtobufTimestamp.Timestamp
+  duration?: string
+  recipient?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorDirectedOperatorSetRewardSubmission = {
+  avs?: string
+  rewardHash?: string
+  token?: string
+  amount?: string
+  strategy?: string
+  strategyIndex?: string
+  multiplier?: string
+  startTimestamp?: GoogleProtobufTimestamp.Timestamp
+  endTimestamp?: GoogleProtobufTimestamp.Timestamp
+  duration?: string
+  operatorSetId?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type EncumberedMagnitude = {
+  operator?: string
+  strategy?: string
+  encumberedMagnitude?: string
+  transactionMetadata?: TransactionMetadata
+}
+
+export type OperatorMaxMagnitude = {
+  operator?: string
+  strategy?: string
+  maxMagnitude?: string
+  transactionMetadata?: TransactionMetadata
+}
+
 
 type BaseEigenStateChange = {
 }
 
 export type EigenStateChange = BaseEigenStateChange
-  & OneOf<{ avsOperatorStateChange: AvsOperatorStateChange; operatorShareDelta: OperatorShareDelta; rewardSubmission: RewardSubmission; stakerDelegationChange: StakerDelegationChange; stakerShareDelta: StakerShareDelta; submittedDistributionRoot: SubmittedDistributionRoot; disabledDistributionRoot: DisabledDistributionRoot }>
+  & OneOf<{ avsOperatorStateChange: AvsOperatorStateChange; operatorShareDelta: OperatorShareDelta; rewardSubmission: RewardSubmission; stakerDelegationChange: StakerDelegationChange; stakerShareDelta: StakerShareDelta; submittedDistributionRoot: SubmittedDistributionRoot; disabledDistributionRoot: DisabledDistributionRoot; completedSlashingWithdrawal: CompletedSlashingWithdrawal; queuedSlashingWithdrawal: QueuedSlashingWithdrawal; slashedOperator: SlashedOperator; slashedOperatorShares: SlashedOperatorShares; defaultOperatorSplit: DefaultOperatorSplit; operatorAllocation: OperatorAllocation; operatorAllocationDelay: OperatorAllocationDelay; operatorAvsSplit: OperatorAVSSplit; operatorPiSplit: OperatorPISplit; operatorSet: OperatorSet; operatorSetOperatorRegistration: OperatorSetOperatorRegistration; operatorSetSplit: OperatorSetSplit; operatorSetStrategyRegistration: OperatorSetStrategyRegistration; operatorDirectedRewardSubmission: OperatorDirectedRewardSubmission; operatorDirectedOperatorSetRewardSubmission: OperatorDirectedOperatorSetRewardSubmission; encumberedMagnitude: EncumberedMagnitude; operatorMaxMagnitude: OperatorMaxMagnitude }>
