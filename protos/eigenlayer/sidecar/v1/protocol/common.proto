@@ -7,6 +7,7 @@ option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/si
 import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/common/types.proto";
+import "google/protobuf/timestamp.proto";
 
 
 message StakerShare {
@@ -17,6 +18,12 @@ message StakerShare {
   optional string operator_address = 3;
   // The operator could be regietered with 0 or many AVSs
   repeated string avs_addresses = 4;
+  
+  // Historical data fields (only populated when show_historical=true)
+  optional uint64 block_height = 5;
+  optional google.protobuf.Timestamp block_time = 6;
+  optional string transaction_hash = 7;
+  optional uint64 log_index = 8;
 }
 
 message Strategy {

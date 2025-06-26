@@ -78,6 +78,10 @@ type BaseGetStakerSharesRequest = {
 
 export type GetStakerSharesRequest = BaseGetStakerSharesRequest
   & OneOf<{ blockHeight: string }>
+  & OneOf<{ strategy: string }>
+  & OneOf<{ showHistorical: boolean }>
+  & OneOf<{ startBlock: string }>
+  & OneOf<{ endBlock: string }>
 
 export type GetStakerSharesResponse = {
   shares?: EigenlayerSidecarV1ProtocolCommon.StakerShare[]

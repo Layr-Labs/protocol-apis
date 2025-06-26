@@ -4,6 +4,8 @@
 * This file is a generated Typescript file for GRPC Gateway, DO NOT MODIFY
 */
 
+import * as GoogleProtobufTimestamp from "../../../../google/protobuf/timestamp.pb"
+
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
   | { [k in keyof T]?: undefined }
@@ -21,6 +23,10 @@ type BaseStakerShare = {
 
 export type StakerShare = BaseStakerShare
   & OneOf<{ operatorAddress: string }>
+  & OneOf<{ blockHeight: string }>
+  & OneOf<{ blockTime: GoogleProtobufTimestamp.Timestamp }>
+  & OneOf<{ transactionHash: string }>
+  & OneOf<{ logIndex: string }>
 
 export type Strategy = {
   strategy?: string
