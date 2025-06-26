@@ -53,6 +53,8 @@ message GetDelegatedStakersForOperatorResponse {
 message GetStakerSharesRequest {
   string staker_address = 1;
   optional uint64 block_height = 2;
+  optional string strategy = 3;
+  optional bool show_historical = 4;
 }
 message GetStakerSharesResponse {
   repeated StakerShare shares = 1;

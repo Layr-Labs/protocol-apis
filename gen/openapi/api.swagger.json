@@ -2940,12 +2940,20 @@
             "type": "integer",
             "format": "uint64"
           },
+          "showHistorical": {
+            "type": "boolean"
+          },
           "stakerAddress": {
+            "type": "string"
+          },
+          "strategy": {
             "type": "string"
           }
         },
         "required": [
-          "block_height"
+          "block_height",
+          "strategy",
+          "show_historical"
         ]
       },
       "GetStakerSharesResponse": {
@@ -4268,6 +4276,18 @@
           "avsAddresses": {
             "type": "string"
           },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "blockTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "logIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "operatorAddress": {
             "type": "string"
           },
@@ -4276,10 +4296,17 @@
           },
           "strategy": {
             "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
           }
         },
         "required": [
-          "operator_address"
+          "operator_address",
+          "block_height",
+          "block_time",
+          "transaction_hash",
+          "log_index"
         ]
       },
       "StakerShareDelta": {

@@ -101,6 +101,12 @@ func (c *protocolGatewayClient) GetStakerShares(ctx context.Context, req *GetSta
 	if req.BlockHeight != nil {
 		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
 	}
+	if req.Strategy != nil {
+		q.Add("strategy", fmt.Sprintf("%v", *req.Strategy))
+	}
+	if req.ShowHistorical != nil {
+		q.Add("showHistorical", fmt.Sprintf("%v", *req.ShowHistorical))
+	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetStakerSharesResponse](ctx, gwReq)
 }
