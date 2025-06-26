@@ -1929,11 +1929,19 @@
             "type": "integer",
             "format": "uint64"
           },
+          "endBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "showHistorical": {
             "type": "boolean"
           },
           "stakerAddress": {
             "type": "string"
+          },
+          "startBlock": {
+            "type": "integer",
+            "format": "uint64"
           },
           "strategy": {
             "type": "string"
@@ -1942,7 +1950,9 @@
         "required": [
           "block_height",
           "strategy",
-          "show_historical"
+          "show_historical",
+          "start_block",
+          "end_block"
         ]
       },
       "GetStakerSharesResponse": {

@@ -55,6 +55,8 @@ message GetStakerSharesRequest {
   optional uint64 block_height = 2;
   optional string strategy = 3;
   optional bool show_historical = 4;
+  optional uint64 start_block = 5;
+  optional uint64 end_block = 6;
 }
 message GetStakerSharesResponse {
   repeated StakerShare shares = 1;
