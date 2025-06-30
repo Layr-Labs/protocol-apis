@@ -22,8 +22,17 @@ type ProtocolGatewayClient interface {
 	// GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
 	// BlockHeight is optional, otherwise latest is used.
 	GetDelegatedStakersForOperator(context.Context, *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error)
-	// GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and
-	// the AVS the operator has registered with.
+	// GetStakerShares returns the shares of a staker, including the operator they've delegated to and
+	// the AVS addresses the operator has registered with.
+	//
+	// Returns aggregated current state by default. For historical data, use start_block and end_block parameters.
+	// The deprecated block_height parameter is no longer supported - use start_block and end_block instead.
+	//
+	// Query Parameters:
+	// - strategy: (optional) Filter results by strategy address
+	// - start_block: (optional) Start block for historical range query - must be used with end_block
+	// - end_block: (optional) End block for historical range query - must be used with start_block
+	// - block_height: (deprecated) Use start_block and end_block instead
 	GetStakerShares(context.Context, *GetStakerSharesRequest) (*GetStakerSharesResponse, error)
 	GetEigenStateChanges(context.Context, *GetEigenStateChangesRequest) (*GetEigenStateChangesResponse, error)
 	ListStrategies(context.Context, *ListStrategiesRequest) (*ListStrategiesResponse, error)
@@ -100,6 +109,15 @@ func (c *protocolGatewayClient) GetStakerShares(ctx context.Context, req *GetSta
 	q := url.Values{}
 	if req.BlockHeight != nil {
 		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	if req.Strategy != nil {
+		q.Add("strategy", fmt.Sprintf("%v", *req.Strategy))
+	}
+	if req.StartBlock != nil {
+		q.Add("startBlock", fmt.Sprintf("%v", *req.StartBlock))
+	}
+	if req.EndBlock != nil {
+		q.Add("endBlock", fmt.Sprintf("%v", *req.EndBlock))
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetStakerSharesResponse](ctx, gwReq)

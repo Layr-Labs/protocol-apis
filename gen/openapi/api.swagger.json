@@ -617,7 +617,7 @@
     "/protocol/v1/stakers/{staker_address}/shares": {
       "get": {
         "summary": "GetStakerShares",
-        "description": "GetStakerShares returns the shares of a staker, and optionally, the operator operator they've delegated to and\nthe AVS the operator has registered with.",
+        "description": "GetStakerShares returns the shares of a staker, including the operator they've delegated to and\nthe AVS addresses the operator has registered with.\n\nReturns aggregated current state by default. For historical data, use start_block and end_block parameters.\nThe deprecated block_height parameter is no longer supported - use start_block and end_block instead.\n\nQuery Parameters:\n- strategy: (optional) Filter results by strategy address\n- start_block: (optional) Start block for historical range query - must be used with end_block\n- end_block: (optional) End block for historical range query - must be used with start_block\n- block_height: (deprecated) Use start_block and end_block instead",
         "operationId": "Protocol_GetStakerShares",
         "parameters": [
           {
@@ -2940,12 +2940,26 @@
             "type": "integer",
             "format": "uint64"
           },
+          "endBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "stakerAddress": {
+            "type": "string"
+          },
+          "startBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "strategy": {
             "type": "string"
           }
         },
         "required": [
-          "block_height"
+          "block_height",
+          "strategy",
+          "start_block",
+          "end_block"
         ]
       },
       "GetStakerSharesResponse": {
@@ -4268,6 +4282,18 @@
           "avsAddresses": {
             "type": "string"
           },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "blockTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "logIndex": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "operatorAddress": {
             "type": "string"
           },
@@ -4276,10 +4302,17 @@
           },
           "strategy": {
             "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
           }
         },
         "required": [
-          "operator_address"
+          "operator_address",
+          "block_height",
+          "block_time",
+          "transaction_hash",
+          "log_index"
         ]
       },
       "StakerShareDelta": {
