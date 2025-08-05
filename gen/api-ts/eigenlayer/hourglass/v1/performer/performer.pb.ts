@@ -11,13 +11,6 @@ export enum PerformerStatus {
   READY_FOR_TASK = "READY_FOR_TASK",
 }
 
-export type HealthCheckRequest = {
-}
-
-export type HealthCheckResponse = {
-  status?: PerformerStatus
-}
-
 export type StartSyncRequest = {
   payload?: Uint8Array
 }
@@ -36,9 +29,6 @@ export type TaskResponse = {
 }
 
 export class PerformerService {
-  static HealthCheck(req: HealthCheckRequest, initReq?: fm.InitReq): Promise<HealthCheckResponse> {
-    return fm.fetchReq<HealthCheckRequest, HealthCheckResponse>(`/eigenlayer.hourglass.v1.performer.PerformerService/HealthCheck`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
-  }
   static StartSync(req: StartSyncRequest, initReq?: fm.InitReq): Promise<StartSyncResponse> {
     return fm.fetchReq<StartSyncRequest, StartSyncResponse>(`/eigenlayer.hourglass.v1.performer.PerformerService/StartSync`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
