@@ -9,12 +9,6 @@ enum PerformerStatus {
     READY_FOR_TASK = 1;
 }  
 
-message HealthCheckRequest {}
-
-message HealthCheckResponse {
-  PerformerStatus status = 1;
-}
-
 message StartSyncRequest {
   bytes payload = 1;
 }
@@ -32,7 +26,6 @@ message TaskResponse {
 }
 
 service PerformerService {
-  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
   rpc StartSync(StartSyncRequest) returns (StartSyncResponse) {}
   rpc ExecuteTask(TaskRequest) returns (TaskResponse) {}
 }

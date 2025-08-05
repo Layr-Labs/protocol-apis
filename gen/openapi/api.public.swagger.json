@@ -2049,7 +2049,12 @@
         }
       },
       "HealthCheckRequest": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string"
+          }
+        }
       },
       "HealthCheckResponse": {
         "type": "object",
