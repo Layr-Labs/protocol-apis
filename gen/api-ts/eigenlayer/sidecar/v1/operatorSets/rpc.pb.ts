@@ -16,4 +16,7 @@ export class OperatorSets {
   static ListOperatorsForAvs(req: EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForAvsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForAvsResponse> {
     return fm.fetchReq<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForAvsRequest, EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForAvsResponse>(`/v1/operatorSets/avss/${req["avsAddress"]}/operators?${fm.renderURLSearchParams(req, ["avsAddress"])}`, {...initReq, method: "GET"})
   }
+  static ListOperatorsForBlockRange(req: EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeRequest, EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeResponse>(`/v1/operatorSets/blockRange/${req["startBlock"]}/${req["endBlock"]}/operators?${fm.renderURLSearchParams(req, ["startBlock", "endBlock"])}`, {...initReq, method: "GET"})
+  }
 }

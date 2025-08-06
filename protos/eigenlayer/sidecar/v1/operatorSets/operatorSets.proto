@@ -12,6 +12,7 @@ import "eigenlayer/sidecar/v1/operatorSets/common.proto";
 
 message ListOperatorsForStakerRequest {
   string stakerAddress = 1;
+  optional uint64 blockHeight = 2;
 }
 message ListOperatorsForStakerResponse {
   repeated Operator operators = 1;
@@ -20,6 +21,7 @@ message ListOperatorsForStakerResponse {
 
 message ListOperatorsForStrategyRequest {
   string strategyAddress = 1;
+  optional uint64 blockHeight = 2;
 }
 message ListOperatorsForStrategyResponse {
   repeated Operator operators = 1;
@@ -28,8 +30,19 @@ message ListOperatorsForStrategyResponse {
 
 message ListOperatorsForAvsRequest {
   string avsAddress = 1;
+  optional uint64 blockHeight = 2;
 }
 message ListOperatorsForAvsResponse {
   repeated Operator operators = 1;
 }
 
+message ListOperatorsForBlockRangeRequest {
+  uint64 startBlock = 1;
+  uint64 endBlock = 2;
+  optional string avsAddress = 3;
+  optional string strategyAddress = 4;
+  optional string stakerAddress = 5;
+}
+message ListOperatorsForBlockRangeResponse {
+  repeated Operator operators = 1;
+}
