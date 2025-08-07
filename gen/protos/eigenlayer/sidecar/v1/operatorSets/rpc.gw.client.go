@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	gateway "github.com/akuity/grpc-gateway-client/pkg/grpc/gateway"
+	url "net/url"
 )
 
 // OperatorSetsGatewayClient is the interface for OperatorSets service client.
@@ -14,6 +15,7 @@ type OperatorSetsGatewayClient interface {
 	ListOperatorsForStaker(context.Context, *ListOperatorsForStakerRequest) (*ListOperatorsForStakerResponse, error)
 	ListOperatorsForStrategy(context.Context, *ListOperatorsForStrategyRequest) (*ListOperatorsForStrategyResponse, error)
 	ListOperatorsForAvs(context.Context, *ListOperatorsForAvsRequest) (*ListOperatorsForAvsResponse, error)
+	ListOperatorsForBlockRange(context.Context, *ListOperatorsForBlockRangeRequest) (*ListOperatorsForBlockRangeResponse, error)
 }
 
 func NewOperatorSetsGatewayClient(c gateway.Client) OperatorSetsGatewayClient {
@@ -29,17 +31,50 @@ type operatorSetsGatewayClient struct {
 func (c *operatorSetsGatewayClient) ListOperatorsForStaker(ctx context.Context, req *ListOperatorsForStakerRequest) (*ListOperatorsForStakerResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets/stakers/{stakerAddress}/operators")
 	gwReq.SetPathParam("stakerAddress", fmt.Sprintf("%v", req.StakerAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListOperatorsForStakerResponse](ctx, gwReq)
 }
 
 func (c *operatorSetsGatewayClient) ListOperatorsForStrategy(ctx context.Context, req *ListOperatorsForStrategyRequest) (*ListOperatorsForStrategyResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets/strategies/{strategyAddress}/operators")
 	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListOperatorsForStrategyResponse](ctx, gwReq)
 }
 
 func (c *operatorSetsGatewayClient) ListOperatorsForAvs(ctx context.Context, req *ListOperatorsForAvsRequest) (*ListOperatorsForAvsResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets/avss/{avsAddress}/operators")
 	gwReq.SetPathParam("avsAddress", fmt.Sprintf("%v", req.AvsAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListOperatorsForAvsResponse](ctx, gwReq)
+}
+
+func (c *operatorSetsGatewayClient) ListOperatorsForBlockRange(ctx context.Context, req *ListOperatorsForBlockRangeRequest) (*ListOperatorsForBlockRangeResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets/blockRange/{startBlock}/{endBlock}/operators")
+	gwReq.SetPathParam("startBlock", fmt.Sprintf("%v", req.StartBlock))
+	gwReq.SetPathParam("endBlock", fmt.Sprintf("%v", req.EndBlock))
+	q := url.Values{}
+	if req.AvsAddress != nil {
+		q.Add("avsAddress", fmt.Sprintf("%v", *req.AvsAddress))
+	}
+	if req.StrategyAddress != nil {
+		q.Add("strategyAddress", fmt.Sprintf("%v", *req.StrategyAddress))
+	}
+	if req.StakerAddress != nil {
+		q.Add("stakerAddress", fmt.Sprintf("%v", *req.StakerAddress))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListOperatorsForBlockRangeResponse](ctx, gwReq)
 }

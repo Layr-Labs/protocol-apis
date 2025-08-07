@@ -28,4 +28,10 @@ service OperatorSets {
       get: "/v1/operatorSets/avss/{avsAddress}/operators"
     };
   }
+
+  rpc ListOperatorsForBlockRange(ListOperatorsForBlockRangeRequest) returns (ListOperatorsForBlockRangeResponse) {
+    option (google.api.http) = {
+      get: "/v1/operatorSets/blockRange/{startBlock}/{endBlock}/operators"
+    };
+  }
 }

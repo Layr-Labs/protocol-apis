@@ -2305,10 +2305,52 @@
         "properties": {
           "avsAddress": {
             "type": "string"
+          },
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        },
+        "required": [
+          "blockHeight"
+        ]
+      },
+      "ListOperatorsForAvsResponse": {
+        "type": "object",
+        "properties": {
+          "operators": {
+            "$ref": "#/components/schemas/Operator"
           }
         }
       },
-      "ListOperatorsForAvsResponse": {
+      "ListOperatorsForBlockRangeRequest": {
+        "type": "object",
+        "properties": {
+          "avsAddress": {
+            "type": "string"
+          },
+          "endBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "stakerAddress": {
+            "type": "string"
+          },
+          "startBlock": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "strategyAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "avsAddress",
+          "strategyAddress",
+          "stakerAddress"
+        ]
+      },
+      "ListOperatorsForBlockRangeResponse": {
         "type": "object",
         "properties": {
           "operators": {
@@ -2319,10 +2361,17 @@
       "ListOperatorsForStakerRequest": {
         "type": "object",
         "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "stakerAddress": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "blockHeight"
+        ]
       },
       "ListOperatorsForStakerResponse": {
         "type": "object",
@@ -2335,10 +2384,17 @@
       "ListOperatorsForStrategyRequest": {
         "type": "object",
         "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "strategyAddress": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "blockHeight"
+        ]
       },
       "ListOperatorsForStrategyResponse": {
         "type": "object",
