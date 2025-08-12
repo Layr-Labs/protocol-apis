@@ -115,6 +115,21 @@ message GenerateClaimProofResponse {
 }
 
 
+message EarnerToTokens {
+  string earner_address = 1;
+  repeated string tokens = 2;
+}
+
+message GenerateClaimProofBulkRequest {
+  repeated EarnerToTokens earner_to_tokens = 1;
+  // if root_index is omitted, the current active root will be used
+  optional google.protobuf.Int64Value root_index = 2;
+}
+message GenerateClaimProofBulkResponse {
+  repeated Proof proofs = 1;
+}
+
+
 message GetClaimableRewardsRequest {
   string earner_address = 1;
   uint64 block_height = 2;

@@ -40,6 +40,9 @@ export class Rewards {
   static GenerateClaimProof(req: EigenlayerSidecarV1RewardsRewards.GenerateClaimProofRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GenerateClaimProofResponse> {
     return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GenerateClaimProofRequest, EigenlayerSidecarV1RewardsRewards.GenerateClaimProofResponse>(`/rewards/v1/claim-proof`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
   }
+  static GenerateClaimProofBulk(req: EigenlayerSidecarV1RewardsRewards.GenerateClaimProofBulkRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GenerateClaimProofBulkResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GenerateClaimProofBulkRequest, EigenlayerSidecarV1RewardsRewards.GenerateClaimProofBulkResponse>(`/rewards/v1/claim-proof-bulk`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  }
   static GetClaimableRewards(req: EigenlayerSidecarV1RewardsRewards.GetClaimableRewardsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GetClaimableRewardsResponse> {
     return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GetClaimableRewardsRequest, EigenlayerSidecarV1RewardsRewards.GetClaimableRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/claimable-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
   }

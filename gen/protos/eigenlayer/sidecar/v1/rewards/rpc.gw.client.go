@@ -35,6 +35,9 @@ type RewardsGatewayClient interface {
 	// GenerateClaimProof generates a proof for the given earner address and tokens for claiming
 	// tokens against the RewardsCoordinator
 	GenerateClaimProof(context.Context, *GenerateClaimProofRequest) (*GenerateClaimProofResponse, error)
+	// GenerateClaimProofBulk generates proofs for multiple earner addresses and their tokens for claiming
+	// tokens against the RewardsCoordinator
+	GenerateClaimProofBulk(context.Context, *GenerateClaimProofBulkRequest) (*GenerateClaimProofBulkResponse, error)
 	// GetClaimableRewards returns the claimable rewards for the given earner address.
 	// This takes the current active tokens earned and subtracts total claimed.
 	GetClaimableRewards(context.Context, *GetClaimableRewardsRequest) (*GetClaimableRewardsResponse, error)
@@ -151,6 +154,12 @@ func (c *rewardsGatewayClient) GenerateClaimProof(ctx context.Context, req *Gene
 	gwReq := c.gwc.NewRequest("POST", "/rewards/v1/claim-proof")
 	gwReq.SetBody(req)
 	return gateway.DoRequest[GenerateClaimProofResponse](ctx, gwReq)
+}
+
+func (c *rewardsGatewayClient) GenerateClaimProofBulk(ctx context.Context, req *GenerateClaimProofBulkRequest) (*GenerateClaimProofBulkResponse, error) {
+	gwReq := c.gwc.NewRequest("POST", "/rewards/v1/claim-proof-bulk")
+	gwReq.SetBody(req)
+	return gateway.DoRequest[GenerateClaimProofBulkResponse](ctx, gwReq)
 }
 
 func (c *rewardsGatewayClient) GetClaimableRewards(ctx context.Context, req *GetClaimableRewardsRequest) (*GetClaimableRewardsResponse, error) {

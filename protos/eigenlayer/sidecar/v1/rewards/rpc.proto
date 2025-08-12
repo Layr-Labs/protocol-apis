@@ -98,6 +98,16 @@ service Rewards {
     };
   }
 
+  // GenerateClaimProofBulk generates proofs for multiple earner addresses and their tokens for claiming
+  // tokens against the RewardsCoordinator
+  rpc GenerateClaimProofBulk(GenerateClaimProofBulkRequest) returns (GenerateClaimProofBulkResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      post: "/rewards/v1/claim-proof-bulk"
+      body: "*"
+    };
+  }
+
   // GetClaimableRewards returns the claimable rewards for the given earner address.
   // This takes the current active tokens earned and subtracts total claimed.
   rpc GetClaimableRewards(GetClaimableRewardsRequest) returns (GetClaimableRewardsResponse) {
