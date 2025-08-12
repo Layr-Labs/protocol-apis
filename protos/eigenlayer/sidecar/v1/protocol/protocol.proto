@@ -102,6 +102,7 @@ message ListStakerQueuedWithdrawalsResponse {
 
 message ListStrategyQueuedWithdrawalsRequest {
   string strategyAddress = 1;
+  optional uint64 block_height = 2;
 }
 message ListStrategyQueuedWithdrawalsResponse {
   repeated StakerWithdrawal withdrawals = 1;

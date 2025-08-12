@@ -150,6 +150,11 @@ func (c *protocolGatewayClient) ListStakerQueuedWithdrawals(ctx context.Context,
 func (c *protocolGatewayClient) ListStrategyQueuedWithdrawals(ctx context.Context, req *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals")
 	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListStrategyQueuedWithdrawalsResponse](ctx, gwReq)
 }
 

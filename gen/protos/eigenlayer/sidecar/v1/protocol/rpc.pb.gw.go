@@ -513,6 +513,8 @@ func local_request_Protocol_ListStakerQueuedWithdrawals_0(ctx context.Context, m
 	return msg, metadata, err
 }
 
+var filter_Protocol_ListStrategyQueuedWithdrawals_0 = &utilities.DoubleArray{Encoding: map[string]int{"strategyAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
 func request_Protocol_ListStrategyQueuedWithdrawals_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq ListStrategyQueuedWithdrawalsRequest
@@ -527,6 +529,12 @@ func request_Protocol_ListStrategyQueuedWithdrawals_0(ctx context.Context, marsh
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_ListStrategyQueuedWithdrawals_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := client.ListStrategyQueuedWithdrawals(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -545,6 +553,12 @@ func local_request_Protocol_ListStrategyQueuedWithdrawals_0(ctx context.Context,
 	protoReq.StrategyAddress, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddress", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_ListStrategyQueuedWithdrawals_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := server.ListStrategyQueuedWithdrawals(ctx, &protoReq)
 	return msg, metadata, err

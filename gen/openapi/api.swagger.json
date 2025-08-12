@@ -3528,10 +3528,17 @@
       "ListStrategyQueuedWithdrawalsRequest": {
         "type": "object",
         "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
           "strategyAddress": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "block_height"
+        ]
       },
       "ListStrategyQueuedWithdrawalsResponse": {
         "type": "object",
