@@ -489,10 +489,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
                     "withdrawals": {
                       "$ref": "#/components/schemas/Withdrawal"
                     }
-                  }
+                  },
+                  "required": [
+                    "next_page"
+                  ]
                 }
               }
             }
@@ -2617,21 +2623,31 @@
             "type": "integer",
             "format": "uint64"
           },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
           "strategyAddresses": {
             "type": "string"
           }
         },
         "required": [
-          "block_height"
+          "block_height",
+          "pagination"
         ]
       },
       "ListWithdrawalsForStrategiesResponse": {
         "type": "object",
         "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
           "withdrawals": {
             "$ref": "#/components/schemas/Withdrawal"
           }
-        }
+        },
+        "required": [
+          "next_page"
+        ]
       },
       "LoadContractRequest": {
         "type": "object",

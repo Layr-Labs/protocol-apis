@@ -179,6 +179,10 @@ func (c *protocolGatewayClient) ListWithdrawalsForStrategies(ctx context.Context
 	if req.BlockHeight != nil {
 		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
 	}
+	if req.Pagination != nil {
+		q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+		q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListWithdrawalsForStrategiesResponse](ctx, gwReq)
 }
