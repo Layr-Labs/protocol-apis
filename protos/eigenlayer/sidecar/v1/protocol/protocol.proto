@@ -125,10 +125,10 @@ message ListOperatorStrategyQueuedWithdrawalsResponse {
   repeated StakerWithdrawal withdrawals = 1;
 }
 
-message ListWithdrawalsForStrategyRequest {
-  string strategyAddress = 1;
+message ListWithdrawalsForStrategiesRequest {
+  repeated string strategyAddresses = 1;
   optional uint64 block_height = 2;
 }
-message ListWithdrawalsForStrategyResponse {
+message ListWithdrawalsForStrategiesResponse {
   repeated Withdrawal withdrawals = 1;
 }

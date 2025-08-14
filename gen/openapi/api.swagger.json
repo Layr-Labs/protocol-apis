@@ -677,6 +677,42 @@
         ]
       }
     },
+    "/protocol/v1/strategies/{strategyAddresses}/withdrawals": {
+      "get": {
+        "summary": "ListWithdrawalsForStrategies",
+        "operationId": "Protocol_ListWithdrawalsForStrategies",
+        "parameters": [
+          {
+            "name": "strategyAddresses",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "withdrawals": {
+                      "$ref": "#/components/schemas/Withdrawal"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
     "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals": {
       "get": {
         "summary": "ListStrategyQueuedWithdrawals",
@@ -701,42 +737,6 @@
                   "properties": {
                     "withdrawals": {
                       "$ref": "#/components/schemas/StakerWithdrawal"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "protocol"
-        ]
-      }
-    },
-    "/protocol/v1/strategies/{strategyAddress}/withdrawals": {
-      "get": {
-        "summary": "ListWithdrawalsForStrategy",
-        "operationId": "Protocol_ListWithdrawalsForStrategy",
-        "parameters": [
-          {
-            "name": "strategyAddress",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "withdrawals": {
-                      "$ref": "#/components/schemas/Withdrawal"
                     }
                   }
                 }
@@ -3665,14 +3665,14 @@
           }
         }
       },
-      "ListWithdrawalsForStrategyRequest": {
+      "ListWithdrawalsForStrategiesRequest": {
         "type": "object",
         "properties": {
           "blockHeight": {
             "type": "integer",
             "format": "uint64"
           },
-          "strategyAddress": {
+          "strategyAddresses": {
             "type": "string"
           }
         },
@@ -3680,7 +3680,7 @@
           "block_height"
         ]
       },
-      "ListWithdrawalsForStrategyResponse": {
+      "ListWithdrawalsForStrategiesResponse": {
         "type": "object",
         "properties": {
           "withdrawals": {

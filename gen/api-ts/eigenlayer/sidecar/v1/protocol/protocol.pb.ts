@@ -161,13 +161,13 @@ export type ListOperatorStrategyQueuedWithdrawalsResponse = {
 }
 
 
-type BaseListWithdrawalsForStrategyRequest = {
-  strategyAddress?: string
+type BaseListWithdrawalsForStrategiesRequest = {
+  strategyAddresses?: string[]
 }
 
-export type ListWithdrawalsForStrategyRequest = BaseListWithdrawalsForStrategyRequest
+export type ListWithdrawalsForStrategiesRequest = BaseListWithdrawalsForStrategiesRequest
   & OneOf<{ blockHeight: string }>
 
-export type ListWithdrawalsForStrategyResponse = {
+export type ListWithdrawalsForStrategiesResponse = {
   withdrawals?: EigenlayerSidecarV1ProtocolCommon.Withdrawal[]
 }
