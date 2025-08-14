@@ -125,6 +125,23 @@ export type GenerateClaimProofResponse = {
   proof?: EigenlayerSidecarV1RewardsCommon.Proof
 }
 
+export type EarnerToTokens = {
+  earnerAddress?: string
+  tokens?: string[]
+}
+
+
+type BaseGenerateClaimProofBulkRequest = {
+  earnerToTokens?: EarnerToTokens[]
+}
+
+export type GenerateClaimProofBulkRequest = BaseGenerateClaimProofBulkRequest
+  & OneOf<{ rootIndex: GoogleProtobufWrappers.Int64Value }>
+
+export type GenerateClaimProofBulkResponse = {
+  proofs?: EigenlayerSidecarV1RewardsCommon.Proof[]
+}
+
 export type GetClaimableRewardsRequest = {
   earnerAddress?: string
   blockHeight?: string

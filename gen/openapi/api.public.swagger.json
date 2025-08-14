@@ -599,6 +599,54 @@
         ]
       }
     },
+    "/rewards/v1/claim-proof-bulk": {
+      "post": {
+        "summary": "GenerateClaimProofBulk",
+        "description": "GenerateClaimProofBulk generates proofs for multiple earner addresses and their tokens for claiming\ntokens against the RewardsCoordinator",
+        "operationId": "Rewards_GenerateClaimProofBulk",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "earnerToTokens": {
+                    "$ref": "#/components/schemas/EarnerToTokens"
+                  },
+                  "rootIndex": {
+                    "$ref": "#/components/schemas/Int64Value"
+                  }
+                },
+                "required": [
+                  "root_index"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "proofs": {
+                      "$ref": "#/components/schemas/Proof"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
     "/rewards/v1/distribution-roots": {
       "get": {
         "summary": "ListDistributionRoots",
@@ -1333,6 +1381,17 @@
           }
         }
       },
+      "EarnerToTokens": {
+        "type": "object",
+        "properties": {
+          "earnerAddress": {
+            "type": "string"
+          },
+          "tokens": {
+            "type": "string"
+          }
+        }
+      },
       "EigenStateChange": {
         "type": "object",
         "properties": {
@@ -1455,6 +1514,28 @@
         "required": [
           "transaction_metadata"
         ]
+      },
+      "GenerateClaimProofBulkRequest": {
+        "type": "object",
+        "properties": {
+          "earnerToTokens": {
+            "$ref": "#/components/schemas/EarnerToTokens"
+          },
+          "rootIndex": {
+            "$ref": "#/components/schemas/Int64Value"
+          }
+        },
+        "required": [
+          "root_index"
+        ]
+      },
+      "GenerateClaimProofBulkResponse": {
+        "type": "object",
+        "properties": {
+          "proofs": {
+            "$ref": "#/components/schemas/Proof"
+          }
+        }
       },
       "GenerateClaimProofRequest": {
         "type": "object",
