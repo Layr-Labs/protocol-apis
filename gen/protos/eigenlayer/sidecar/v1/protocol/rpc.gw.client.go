@@ -33,6 +33,7 @@ type ProtocolGatewayClient interface {
 	ListStrategyQueuedWithdrawals(context.Context, *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error)
 	ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error)
 	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
+	ListWithdrawalsForStrategy(context.Context, *ListWithdrawalsForStrategyRequest) (*ListWithdrawalsForStrategyResponse, error)
 }
 
 func NewProtocolGatewayClient(c gateway.Client) ProtocolGatewayClient {
@@ -169,4 +170,15 @@ func (c *protocolGatewayClient) ListOperatorStrategyQueuedWithdrawals(ctx contex
 	gwReq.SetPathParam("operatorAddress", fmt.Sprintf("%v", req.OperatorAddress))
 	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
 	return gateway.DoRequest[ListOperatorStrategyQueuedWithdrawalsResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListWithdrawalsForStrategy(ctx context.Context, req *ListWithdrawalsForStrategyRequest) (*ListWithdrawalsForStrategyResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/strategies/{strategyAddress}/withdrawals")
+	gwReq.SetPathParam("strategyAddress", fmt.Sprintf("%v", req.StrategyAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListWithdrawalsForStrategyResponse](ctx, gwReq)
 }

@@ -48,3 +48,11 @@ message QueueStakerStrategyWithdrawal {
   string strategy = 1;
   repeated StakerWithdrawal withdrawals = 2;
 }
+
+message Withdrawal {
+  string staker = 1;
+  string strategy = 2;
+  string shares = 3;
+  string operator_address = 4;
+  uint64 blockNumber = 5;
+}

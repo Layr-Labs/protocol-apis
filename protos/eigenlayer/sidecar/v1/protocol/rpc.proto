@@ -111,4 +111,11 @@ service Protocol {
       get: "/protocol/v1/operators/{operatorAddress}/strategies/{strategyAddress}/queued-withdrawals"
     };
   }
+
+  rpc ListWithdrawalsForStrategy(ListWithdrawalsForStrategyRequest) returns (ListWithdrawalsForStrategyResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/protocol/v1/strategies/{strategyAddress}/withdrawals"
+    };
+  }
 }
