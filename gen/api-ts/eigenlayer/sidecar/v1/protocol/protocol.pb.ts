@@ -131,9 +131,13 @@ export type ListStakerQueuedWithdrawalsResponse = {
   queuedWithdrawals?: EigenlayerSidecarV1ProtocolCommon.QueuedStrategyWithdrawal[]
 }
 
-export type ListStrategyQueuedWithdrawalsRequest = {
+
+type BaseListStrategyQueuedWithdrawalsRequest = {
   strategyAddress?: string
 }
+
+export type ListStrategyQueuedWithdrawalsRequest = BaseListStrategyQueuedWithdrawalsRequest
+  & OneOf<{ blockHeight: string }>
 
 export type ListStrategyQueuedWithdrawalsResponse = {
   withdrawals?: EigenlayerSidecarV1ProtocolCommon.StakerWithdrawal[]
