@@ -124,3 +124,13 @@ message ListOperatorStrategyQueuedWithdrawalsRequest {
 message ListOperatorStrategyQueuedWithdrawalsResponse {
   repeated StakerWithdrawal withdrawals = 1;
 }
+
+message ListWithdrawalsForStrategiesRequest {
+  repeated string strategyAddresses = 1;
+  optional uint64 block_height = 2;
+  optional eigenlayer.sidecar.v1.common.Pagination pagination = 3;
+}
+message ListWithdrawalsForStrategiesResponse {
+  repeated Withdrawal withdrawals = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination next_page = 2;
+}

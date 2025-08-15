@@ -677,6 +677,48 @@
         ]
       }
     },
+    "/protocol/v1/strategies/{strategyAddresses}/withdrawals": {
+      "get": {
+        "summary": "ListWithdrawalsForStrategies",
+        "operationId": "Protocol_ListWithdrawalsForStrategies",
+        "parameters": [
+          {
+            "name": "strategyAddresses",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "withdrawals": {
+                      "$ref": "#/components/schemas/Withdrawal"
+                    }
+                  },
+                  "required": [
+                    "next_page"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
     "/protocol/v1/strategies/{strategyAddress}/queued-withdrawals": {
       "get": {
         "summary": "ListStrategyQueuedWithdrawals",
@@ -3629,6 +3671,39 @@
           }
         }
       },
+      "ListWithdrawalsForStrategiesRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "strategyAddresses": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "block_height",
+          "pagination"
+        ]
+      },
+      "ListWithdrawalsForStrategiesResponse": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "withdrawals": {
+            "$ref": "#/components/schemas/Withdrawal"
+          }
+        },
+        "required": [
+          "next_page"
+        ]
+      },
       "LoadContractRequest": {
         "type": "object",
         "properties": {
@@ -4853,6 +4928,27 @@
             "format": "uint64"
           },
           "transactionHash": {
+            "type": "string"
+          }
+        }
+      },
+      "Withdrawal": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "operatorAddress": {
+            "type": "string"
+          },
+          "shares": {
+            "type": "string"
+          },
+          "staker": {
+            "type": "string"
+          },
+          "strategy": {
             "type": "string"
           }
         }

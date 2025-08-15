@@ -46,4 +46,7 @@ export class Protocol {
   static ListOperatorStrategyQueuedWithdrawals(req: EigenlayerSidecarV1ProtocolProtocol.ListOperatorStrategyQueuedWithdrawalsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.ListOperatorStrategyQueuedWithdrawalsResponse> {
     return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.ListOperatorStrategyQueuedWithdrawalsRequest, EigenlayerSidecarV1ProtocolProtocol.ListOperatorStrategyQueuedWithdrawalsResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/strategies/${req["strategyAddress"]}/queued-withdrawals?${fm.renderURLSearchParams(req, ["operatorAddress", "strategyAddress"])}`, {...initReq, method: "GET"})
   }
+  static ListWithdrawalsForStrategies(req: EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesRequest, EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesResponse>(`/protocol/v1/strategies/${req["strategyAddresses"]}/withdrawals?${fm.renderURLSearchParams(req, ["strategyAddresses"])}`, {...initReq, method: "GET"})
+  }
 }

@@ -654,6 +654,57 @@ func local_request_Protocol_ListOperatorStrategyQueuedWithdrawals_0(ctx context.
 	return msg, metadata, err
 }
 
+var filter_Protocol_ListWithdrawalsForStrategies_0 = &utilities.DoubleArray{Encoding: map[string]int{"strategyAddresses": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
+func request_Protocol_ListWithdrawalsForStrategies_0(ctx context.Context, marshaler runtime.Marshaler, client ProtocolClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq ListWithdrawalsForStrategiesRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	io.Copy(io.Discard, req.Body)
+	val, ok := pathParams["strategyAddresses"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddresses")
+	}
+	protoReq.StrategyAddresses, err = runtime.StringSlice(val, ",")
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddresses", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_ListWithdrawalsForStrategies_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.ListWithdrawalsForStrategies(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_Protocol_ListWithdrawalsForStrategies_0(ctx context.Context, marshaler runtime.Marshaler, server ProtocolServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq ListWithdrawalsForStrategiesRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["strategyAddresses"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "strategyAddresses")
+	}
+	protoReq.StrategyAddresses, err = runtime.StringSlice(val, ",")
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "strategyAddresses", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Protocol_ListWithdrawalsForStrategies_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.ListWithdrawalsForStrategies(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 // RegisterProtocolHandlerServer registers the http handlers for service Protocol to "mux".
 // UnaryRPC     :call ProtocolServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -920,6 +971,26 @@ func RegisterProtocolHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		}
 		forward_Protocol_ListOperatorStrategyQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodGet, pattern_Protocol_ListWithdrawalsForStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListWithdrawalsForStrategies", runtime.WithHTTPPathPattern("/protocol/v1/strategies/{strategyAddresses}/withdrawals"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Protocol_ListWithdrawalsForStrategies_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Protocol_ListWithdrawalsForStrategies_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 
 	return nil
 }
@@ -1181,6 +1252,23 @@ func RegisterProtocolHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		}
 		forward_Protocol_ListOperatorStrategyQueuedWithdrawals_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodGet, pattern_Protocol_ListWithdrawalsForStrategies_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/eigenlayer.sidecar.v1.protocol.Protocol/ListWithdrawalsForStrategies", runtime.WithHTTPPathPattern("/protocol/v1/strategies/{strategyAddresses}/withdrawals"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Protocol_ListWithdrawalsForStrategies_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_Protocol_ListWithdrawalsForStrategies_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	return nil
 }
 
@@ -1198,6 +1286,7 @@ var (
 	pattern_Protocol_ListStrategyQueuedWithdrawals_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "strategies", "strategyAddress", "queued-withdrawals"}, ""))
 	pattern_Protocol_ListOperatorQueuedWithdrawals_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "operators", "operatorAddress", "queued-withdrawals"}, ""))
 	pattern_Protocol_ListOperatorStrategyQueuedWithdrawals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 1, 0, 4, 1, 5, 5, 2, 6}, []string{"protocol", "v1", "operators", "operatorAddress", "strategies", "strategyAddress", "queued-withdrawals"}, ""))
+	pattern_Protocol_ListWithdrawalsForStrategies_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"protocol", "v1", "strategies", "strategyAddresses", "withdrawals"}, ""))
 )
 
 var (
@@ -1214,4 +1303,5 @@ var (
 	forward_Protocol_ListStrategyQueuedWithdrawals_0         = runtime.ForwardResponseMessage
 	forward_Protocol_ListOperatorQueuedWithdrawals_0         = runtime.ForwardResponseMessage
 	forward_Protocol_ListOperatorStrategyQueuedWithdrawals_0 = runtime.ForwardResponseMessage
+	forward_Protocol_ListWithdrawalsForStrategies_0          = runtime.ForwardResponseMessage
 )

@@ -51,3 +51,11 @@ export type QueueStakerStrategyWithdrawal = {
   strategy?: string
   withdrawals?: StakerWithdrawal[]
 }
+
+export type Withdrawal = {
+  staker?: string
+  strategy?: string
+  shares?: string
+  operatorAddress?: string
+  blockNumber?: string
+}

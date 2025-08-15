@@ -32,6 +32,7 @@ const (
 	Protocol_ListStrategyQueuedWithdrawals_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals"
 	Protocol_ListOperatorQueuedWithdrawals_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals"
 	Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals"
+	Protocol_ListWithdrawalsForStrategies_FullMethodName          = "/eigenlayer.sidecar.v1.protocol.Protocol/ListWithdrawalsForStrategies"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -59,6 +60,7 @@ type ProtocolClient interface {
 	ListStrategyQueuedWithdrawals(ctx context.Context, in *ListStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListStrategyQueuedWithdrawalsResponse, error)
 	ListOperatorQueuedWithdrawals(ctx context.Context, in *ListOperatorQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorQueuedWithdrawalsResponse, error)
 	ListOperatorStrategyQueuedWithdrawals(ctx context.Context, in *ListOperatorStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
+	ListWithdrawalsForStrategies(ctx context.Context, in *ListWithdrawalsForStrategiesRequest, opts ...grpc.CallOption) (*ListWithdrawalsForStrategiesResponse, error)
 }
 
 type protocolClient struct {
@@ -199,6 +201,16 @@ func (c *protocolClient) ListOperatorStrategyQueuedWithdrawals(ctx context.Conte
 	return out, nil
 }
 
+func (c *protocolClient) ListWithdrawalsForStrategies(ctx context.Context, in *ListWithdrawalsForStrategiesRequest, opts ...grpc.CallOption) (*ListWithdrawalsForStrategiesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListWithdrawalsForStrategiesResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListWithdrawalsForStrategies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProtocolServer is the server API for Protocol service.
 // All implementations should embed UnimplementedProtocolServer
 // for forward compatibility.
@@ -224,6 +236,7 @@ type ProtocolServer interface {
 	ListStrategyQueuedWithdrawals(context.Context, *ListStrategyQueuedWithdrawalsRequest) (*ListStrategyQueuedWithdrawalsResponse, error)
 	ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error)
 	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
+	ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error)
 }
 
 // UnimplementedProtocolServer should be embedded to have
@@ -271,6 +284,9 @@ func (UnimplementedProtocolServer) ListOperatorQueuedWithdrawals(context.Context
 }
 func (UnimplementedProtocolServer) ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOperatorStrategyQueuedWithdrawals not implemented")
+}
+func (UnimplementedProtocolServer) ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListWithdrawalsForStrategies not implemented")
 }
 func (UnimplementedProtocolServer) testEmbeddedByValue() {}
 
@@ -526,6 +542,24 @@ func _Protocol_ListOperatorStrategyQueuedWithdrawals_Handler(srv interface{}, ct
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Protocol_ListWithdrawalsForStrategies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListWithdrawalsForStrategiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListWithdrawalsForStrategies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListWithdrawalsForStrategies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListWithdrawalsForStrategies(ctx, req.(*ListWithdrawalsForStrategiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Protocol_ServiceDesc is the grpc.ServiceDesc for Protocol service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -584,6 +618,10 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListOperatorStrategyQueuedWithdrawals",
 			Handler:    _Protocol_ListOperatorStrategyQueuedWithdrawals_Handler,
+		},
+		{
+			MethodName: "ListWithdrawalsForStrategies",
+			Handler:    _Protocol_ListWithdrawalsForStrategies_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
