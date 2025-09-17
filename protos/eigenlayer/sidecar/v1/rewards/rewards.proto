@@ -71,9 +71,11 @@ message GetRewardsForSnapshotResponse {
 
 message GetRewardsForDistributionRootRequest {
   uint64 root_index = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination pagination = 2;
 }
 message GetRewardsForDistributionRootResponse {
   repeated Reward rewards = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination nextPage = 2;
 }
 
 

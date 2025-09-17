@@ -77,13 +77,21 @@ export type GetRewardsForSnapshotResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
 }
 
-export type GetRewardsForDistributionRootRequest = {
+
+type BaseGetRewardsForDistributionRootRequest = {
   rootIndex?: string
 }
 
-export type GetRewardsForDistributionRootResponse = {
+export type GetRewardsForDistributionRootRequest = BaseGetRewardsForDistributionRootRequest
+  & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseGetRewardsForDistributionRootResponse = {
   rewards?: EigenlayerSidecarV1RewardsCommon.Reward[]
 }
+
+export type GetRewardsForDistributionRootResponse = BaseGetRewardsForDistributionRootResponse
+  & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>
 
 export type GetAttributableRewardsForSnapshotRequest = {
   snapshot?: string

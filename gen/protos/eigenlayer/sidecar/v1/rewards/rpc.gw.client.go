@@ -122,6 +122,12 @@ func (c *rewardsGatewayClient) GetRewardsForSnapshot(ctx context.Context, req *G
 func (c *rewardsGatewayClient) GetRewardsForDistributionRoot(ctx context.Context, req *GetRewardsForDistributionRootRequest) (*GetRewardsForDistributionRootResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/rewards/v1/distribution-roots/{root_index}/rewards")
 	gwReq.SetPathParam("root_index", fmt.Sprintf("%v", req.RootIndex))
+	q := url.Values{}
+	if req.Pagination != nil {
+		q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+		q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	}
+	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetRewardsForDistributionRootResponse](ctx, gwReq)
 }
 

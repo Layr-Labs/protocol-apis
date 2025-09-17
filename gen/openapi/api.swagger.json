@@ -1138,10 +1138,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
                     "rewards": {
                       "$ref": "#/components/schemas/Reward"
                     }
-                  }
+                  },
+                  "required": [
+                    "nextPage"
+                  ]
                 }
               }
             }
@@ -3044,19 +3050,31 @@
       "GetRewardsForDistributionRootRequest": {
         "type": "object",
         "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
           "rootIndex": {
             "type": "integer",
             "format": "uint64"
           }
-        }
+        },
+        "required": [
+          "pagination"
+        ]
       },
       "GetRewardsForDistributionRootResponse": {
         "type": "object",
         "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
           "rewards": {
             "$ref": "#/components/schemas/Reward"
           }
-        }
+        },
+        "required": [
+          "nextPage"
+        ]
       },
       "GetRewardsForSnapshotRequest": {
         "type": "object",
