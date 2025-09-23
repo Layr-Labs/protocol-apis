@@ -33,6 +33,7 @@ message GetDailyAprForEarnerStrategyResponse {
 
 service Aprs {
   rpc GetDailyOperatorStrategyAprs(GetDailyOperatorStrategyAprsRequest) returns (GetDailyOperatorStrategyAprsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/aprs/v1/operators/{operator_address}/daily-aprs/{date}"
     };
