@@ -7,6 +7,7 @@ option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/si
 import "google/api/annotations.proto";
 import "eigenlayer/sidecar/v1/eigenState/eigenState.proto";
 import "eigenlayer/sidecar/v1/ethereumTypes/ethereumTypes.proto";
+import "eigenlayer/sidecar/v1/metaState/metaState.proto";
 
 message StreamEigenStateChangesRequest {
   optional string state_change_filter = 1;
@@ -37,4 +38,5 @@ message StreamIndexedBlocksResponse {
   eigenlayer.sidecar.v1.ethereumTypes.Block block = 1;
   eigenlayer.sidecar.v1.eigenState.StateRoot state_root = 2;
   repeated eigenlayer.sidecar.v1.eigenState.EigenStateChange changes = 3;
+  repeated eigenlayer.sidecar.v1.metaState.MetaStateChange meta_changes = 4;
 }

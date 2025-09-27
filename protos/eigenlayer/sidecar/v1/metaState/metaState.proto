@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package eigenlayer.sidecar.v1.metaState;
+
+option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/metaState";
+
+
+message TransactionMetadata {
+  string transaction_hash = 1;
+  uint64 log_index = 2;
+  uint64 block_height = 3;
+}
+
+message GenerationReservationCreated {
+  string avs = 1;
+  uint64 operator_set_id = 2;
+  TransactionMetadata transaction_metadata = 3;
+}
+
+message MetaStateChange {
+  oneof change {
+    GenerationReservationCreated generation_reservation_created = 1;
+  }
+}
