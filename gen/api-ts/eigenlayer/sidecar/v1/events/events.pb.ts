@@ -6,6 +6,7 @@
 
 import * as EigenlayerSidecarV1EigenStateEigenState from "../eigenState/eigenState.pb"
 import * as EigenlayerSidecarV1EthereumTypesEthereumTypes from "../ethereumTypes/ethereumTypes.pb"
+import * as EigenlayerSidecarV1MetaStateMetaState from "../metaState/metaState.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
@@ -49,4 +50,5 @@ export type StreamIndexedBlocksResponse = {
   block?: EigenlayerSidecarV1EthereumTypesEthereumTypes.Block
   stateRoot?: EigenlayerSidecarV1EigenStateEigenState.StateRoot
   changes?: EigenlayerSidecarV1EigenStateEigenState.EigenStateChange[]
+  metaChanges?: EigenlayerSidecarV1MetaStateMetaState.MetaStateChange[]
 }

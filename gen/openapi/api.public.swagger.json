@@ -14,6 +14,50 @@
     }
   },
   "paths": {
+    "/aprs/v1/operators/{operator_address}/daily-aprs/{date}": {
+      "get": {
+        "summary": "GetDailyOperatorStrategyAprs",
+        "operationId": "Aprs_GetDailyOperatorStrategyAprs",
+        "parameters": [
+          {
+            "name": "operator_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "aprs": {
+                      "$ref": "#/components/schemas/OperatorStrategyApr"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "eigenlayer/pds/aprs/v1"
+        ]
+      }
+    },
     "/protocol/v1/eigen-state-changes": {
       "get": {
         "summary": "GetEigenStateChanges",
@@ -1682,6 +1726,24 @@
           }
         }
       },
+      "GenerationReservationCreated": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
       "GetAttributableRewardsForDistributionRootRequest": {
         "type": "object",
         "properties": {
@@ -2723,6 +2785,17 @@
           }
         }
       },
+      "MetaStateChange": {
+        "type": "object",
+        "properties": {
+          "generationReservationCreated": {
+            "$ref": "#/components/schemas/GenerationReservationCreated"
+          }
+        },
+        "required": [
+          "generation_reservation_created"
+        ]
+      },
       "Operator": {
         "type": "object",
         "properties": {
@@ -3699,6 +3772,9 @@
           "changes": {
             "$ref": "#/components/schemas/EigenStateChange"
           },
+          "metaChanges": {
+            "$ref": "#/components/schemas/MetaStateChange"
+          },
           "stateRoot": {
             "$ref": "#/components/schemas/StateRoot"
           }
@@ -3919,6 +3995,10 @@
     }
   },
   "tags": [
+    {
+      "name": "eigenlayer/pds/aprs/v1",
+      "description": "Operations from package eigenlayer/pds/aprs/v1"
+    },
     {
       "name": "health",
       "description": "Operations from package health"

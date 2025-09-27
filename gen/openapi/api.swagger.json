@@ -206,6 +206,9 @@
                     "changes": {
                       "$ref": "#/components/schemas/EigenStateChange"
                     },
+                    "metaChanges": {
+                      "$ref": "#/components/schemas/MetaStateChange"
+                    },
                     "stateRoot": {
                       "$ref": "#/components/schemas/StateRoot"
                     }
@@ -2737,6 +2740,24 @@
           }
         }
       },
+      "GenerationReservationCreated": {
+        "type": "object",
+        "properties": {
+          "avs": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
       "GetAttributableRewardsForDistributionRootRequest": {
         "type": "object",
         "properties": {
@@ -3778,6 +3799,17 @@
           }
         }
       },
+      "MetaStateChange": {
+        "type": "object",
+        "properties": {
+          "generationReservationCreated": {
+            "$ref": "#/components/schemas/GenerationReservationCreated"
+          }
+        },
+        "required": [
+          "generation_reservation_created"
+        ]
+      },
       "Operator": {
         "type": "object",
         "properties": {
@@ -4753,6 +4785,9 @@
           },
           "changes": {
             "$ref": "#/components/schemas/EigenStateChange"
+          },
+          "metaChanges": {
+            "$ref": "#/components/schemas/MetaStateChange"
           },
           "stateRoot": {
             "$ref": "#/components/schemas/StateRoot"
