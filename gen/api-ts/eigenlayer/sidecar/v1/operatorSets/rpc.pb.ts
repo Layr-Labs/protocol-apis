@@ -19,4 +19,7 @@ export class OperatorSets {
   static ListOperatorsForBlockRange(req: EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeResponse> {
     return fm.fetchReq<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeRequest, EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorsForBlockRangeResponse>(`/v1/operatorSets/blockRange/${req["startBlock"]}/${req["endBlock"]}/operators?${fm.renderURLSearchParams(req, ["startBlock", "endBlock"])}`, {...initReq, method: "GET"})
   }
+  static ListOperatorSets(req: EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsRequest, EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsResponse>(`/v1/operatorSets?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
+  }
 }

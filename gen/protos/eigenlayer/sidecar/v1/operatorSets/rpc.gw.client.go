@@ -16,6 +16,7 @@ type OperatorSetsGatewayClient interface {
 	ListOperatorsForStrategy(context.Context, *ListOperatorsForStrategyRequest) (*ListOperatorsForStrategyResponse, error)
 	ListOperatorsForAvs(context.Context, *ListOperatorsForAvsRequest) (*ListOperatorsForAvsResponse, error)
 	ListOperatorsForBlockRange(context.Context, *ListOperatorsForBlockRangeRequest) (*ListOperatorsForBlockRangeResponse, error)
+	ListOperatorSets(context.Context, *ListOperatorSetsRequest) (*ListOperatorSetsResponse, error)
 }
 
 func NewOperatorSetsGatewayClient(c gateway.Client) OperatorSetsGatewayClient {
@@ -77,4 +78,9 @@ func (c *operatorSetsGatewayClient) ListOperatorsForBlockRange(ctx context.Conte
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListOperatorsForBlockRangeResponse](ctx, gwReq)
+}
+
+func (c *operatorSetsGatewayClient) ListOperatorSets(ctx context.Context, req *ListOperatorSetsRequest) (*ListOperatorSetsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets")
+	return gateway.DoRequest[ListOperatorSetsResponse](ctx, gwReq)
 }

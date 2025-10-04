@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "eigenlayer/sidecar/v1/operatorSets/operatorSets.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 
 service OperatorSets {
@@ -32,6 +33,13 @@ service OperatorSets {
   rpc ListOperatorsForBlockRange(ListOperatorsForBlockRangeRequest) returns (ListOperatorsForBlockRangeResponse) {
     option (google.api.http) = {
       get: "/v1/operatorSets/blockRange/{startBlock}/{endBlock}/operators"
+    };
+  }
+
+  rpc ListOperatorSets(ListOperatorSetsRequest) returns (ListOperatorSetsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/v1/operatorSets"
     };
   }
 }
