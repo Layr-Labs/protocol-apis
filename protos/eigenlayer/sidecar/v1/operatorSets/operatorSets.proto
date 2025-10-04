@@ -46,3 +46,8 @@ message ListOperatorsForBlockRangeRequest {
 message ListOperatorsForBlockRangeResponse {
   repeated Operator operators = 1;
 }
+
+message ListOperatorSetsRequest {}
+message ListOperatorSetsResponse {
+  repeated OperatorSet operatorSets = 1;
+}

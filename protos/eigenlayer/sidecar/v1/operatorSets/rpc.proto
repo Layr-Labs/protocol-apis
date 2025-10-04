@@ -34,4 +34,11 @@ service OperatorSets {
       get: "/v1/operatorSets/blockRange/{startBlock}/{endBlock}/operators"
     };
   }
+
+  rpc ListOperatorSets(ListOperatorSetsRequest) returns (ListOperatorSetsResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/v1/operatorSets"
+    };
+  }
 }
