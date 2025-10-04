@@ -1853,6 +1853,32 @@
         ]
       }
     },
+    "/v1/operatorSets": {
+      "get": {
+        "summary": "ListOperatorSets",
+        "operationId": "OperatorSets_ListOperatorSets",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "operatorSets": {
+                      "$ref": "#/components/schemas/OperatorSet"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "operatorSets"
+        ]
+      }
+    },
     "/v1/operatorSets/avss/{avsAddress}/operators": {
       "get": {
         "summary": "ListOperatorsForAvs",
@@ -3479,6 +3505,17 @@
         "properties": {
           "strategies": {
             "$ref": "#/components/schemas/QueueStakerStrategyWithdrawal"
+          }
+        }
+      },
+      "ListOperatorSetsRequest": {
+        "type": "object"
+      },
+      "ListOperatorSetsResponse": {
+        "type": "object",
+        "properties": {
+          "operatorSets": {
+            "$ref": "#/components/schemas/OperatorSet"
           }
         }
       },

@@ -1017,6 +1017,32 @@
         ]
       }
     },
+    "/v1/operatorSets": {
+      "get": {
+        "summary": "ListOperatorSets",
+        "operationId": "OperatorSets_ListOperatorSets",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "operatorSets": {
+                      "$ref": "#/components/schemas/OperatorSet"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "operatorSets"
+        ]
+      }
+    },
     "/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history": {
       "get": {
         "summary": "ListAvsOperatorSetSlashingHistory",
@@ -2465,6 +2491,17 @@
         "properties": {
           "strategies": {
             "$ref": "#/components/schemas/QueueStakerStrategyWithdrawal"
+          }
+        }
+      },
+      "ListOperatorSetsRequest": {
+        "type": "object"
+      },
+      "ListOperatorSetsResponse": {
+        "type": "object",
+        "properties": {
+          "operatorSets": {
+            "$ref": "#/components/schemas/OperatorSet"
           }
         }
       },
@@ -4002,6 +4039,10 @@
     {
       "name": "health",
       "description": "Operations from package health"
+    },
+    {
+      "name": "operatorSets",
+      "description": "Operations from package operatorSets"
     },
     {
       "name": "protocol",

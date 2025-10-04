@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "eigenlayer/sidecar/v1/operatorSets/operatorSets.proto";
+import "eigenlayer/lib/annotations/annotations.proto";
 
 
 service OperatorSets {

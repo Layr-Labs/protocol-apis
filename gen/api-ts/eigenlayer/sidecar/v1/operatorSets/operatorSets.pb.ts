@@ -64,3 +64,10 @@ export type ListOperatorsForBlockRangeRequest = BaseListOperatorsForBlockRangeRe
 export type ListOperatorsForBlockRangeResponse = {
   operators?: EigenlayerSidecarV1OperatorSetsCommon.Operator[]
 }
+
+export type ListOperatorSetsRequest = {
+}
+
+export type ListOperatorSetsResponse = {
+  operatorSets?: EigenlayerSidecarV1OperatorSetsCommon.OperatorSet[]
+}
