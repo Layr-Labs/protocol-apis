@@ -9,11 +9,8 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 
 message OperatorSet {
-  uint64 id = 1;
+  uint32 id = 1;
   string avs = 2;
-  string strategy = 3;
-  string magnitude = 4;
-  string totalStaked = 5;
 }
 
 message Operator {
