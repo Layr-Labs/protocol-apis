@@ -41,6 +41,7 @@ service Aprs {
   }
 
   rpc GetDailyAprForEarnerStrategy(GetDailyAprForEarnerStrategyRequest) returns (GetDailyAprForEarnerStrategyResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       get: "/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}"
     };

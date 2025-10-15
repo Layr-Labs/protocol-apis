@@ -14,6 +14,58 @@
     }
   },
   "paths": {
+    "/aprs/v1/earners/{earner_address}/strategies/{strategy}/daily-apr/{date}": {
+      "get": {
+        "summary": "GetDailyAprForEarnerStrategy",
+        "operationId": "Aprs_GetDailyAprForEarnerStrategy",
+        "parameters": [
+          {
+            "name": "earner_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "strategy",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apr": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "eigenlayer/pds/aprs/v1"
+        ]
+      }
+    },
     "/aprs/v1/operators/{operator_address}/daily-aprs/{date}": {
       "get": {
         "summary": "GetDailyOperatorStrategyAprs",
