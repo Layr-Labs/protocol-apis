@@ -4,6 +4,8 @@
 * This file is a generated Typescript file for GRPC Gateway, DO NOT MODIFY
 */
 
+import * as GoogleProtobufTimestamp from "../../../../google/protobuf/timestamp.pb"
+
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
 type OneOf<T> =
   | { [k in keyof T]?: undefined }
@@ -24,9 +26,13 @@ export type GenerationReservationCreated = {
   transactionMetadata?: TransactionMetadata
 }
 
+export type KeyRotationScheduledTrigger = {
+  activateAt?: GoogleProtobufTimestamp.Timestamp
+}
+
 
 type BaseMetaStateChange = {
 }
 
 export type MetaStateChange = BaseMetaStateChange
-  & OneOf<{ generationReservationCreated: GenerationReservationCreated }>
+  & OneOf<{ generationReservationCreated: GenerationReservationCreated; keyRotationScheduledTrigger: KeyRotationScheduledTrigger }>

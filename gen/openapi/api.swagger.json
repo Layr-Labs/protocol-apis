@@ -3338,6 +3338,18 @@
           }
         }
       },
+      "KeyRotationScheduledTrigger": {
+        "type": "object",
+        "properties": {
+          "activateAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "activate_at"
+        ]
+      },
       "ListAvsOperatorSetSlashingHistoryRequest": {
         "type": "object",
         "properties": {
@@ -3841,10 +3853,14 @@
         "properties": {
           "generationReservationCreated": {
             "$ref": "#/components/schemas/GenerationReservationCreated"
+          },
+          "keyRotationScheduledTrigger": {
+            "$ref": "#/components/schemas/KeyRotationScheduledTrigger"
           }
         },
         "required": [
-          "generation_reservation_created"
+          "generation_reservation_created",
+          "key_rotation_scheduled_trigger"
         ]
       },
       "Operator": {
