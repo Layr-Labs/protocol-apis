@@ -3338,16 +3338,38 @@
           }
         }
       },
-      "KeyRotationScheduledTrigger": {
+      "KeyRotationScheduled": {
         "type": "object",
         "properties": {
           "activateAt": {
-            "type": "string",
-            "format": "date-time"
+            "type": "integer",
+            "format": "uint64"
+          },
+          "avs": {
+            "type": "string"
+          },
+          "curveType": {
+            "type": "string"
+          },
+          "newPubkey": {
+            "type": "string"
+          },
+          "oldPubkey": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
           }
         },
         "required": [
-          "activate_at"
+          "transaction_metadata"
         ]
       },
       "ListAvsOperatorSetSlashingHistoryRequest": {
@@ -3854,13 +3876,13 @@
           "generationReservationCreated": {
             "$ref": "#/components/schemas/GenerationReservationCreated"
           },
-          "keyRotationScheduledTrigger": {
-            "$ref": "#/components/schemas/KeyRotationScheduledTrigger"
+          "keyRotationScheduled": {
+            "$ref": "#/components/schemas/KeyRotationScheduled"
           }
         },
         "required": [
           "generation_reservation_created",
-          "key_rotation_scheduled_trigger"
+          "key_rotation_scheduled"
         ]
       },
       "Operator": {

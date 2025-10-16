@@ -19,14 +19,20 @@ message GenerationReservationCreated {
   TransactionMetadata transaction_metadata = 3;
 }
 
-message KeyRotationScheduledTrigger {
-  google.protobuf.Timestamp activate_at = 1;
+message KeyRotationScheduled {
+  string avs = 1;
+  uint32 operator_set_id = 2;
+  string operator = 3;
+  string curve_type = 4;
+  string old_pubkey = 5;
+  string new_pubkey = 6;
+  uint64 activate_at = 7;
+  TransactionMetadata transaction_metadata = 8;
 }
 
 message MetaStateChange {
   oneof change {
     GenerationReservationCreated generation_reservation_created = 1;
-    
-    KeyRotationScheduledTrigger key_rotation_scheduled_trigger = 2;
+    KeyRotationScheduled key_rotation_scheduled = 2;
   }
 }
