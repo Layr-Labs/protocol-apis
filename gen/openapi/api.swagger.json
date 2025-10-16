@@ -3338,6 +3338,40 @@
           }
         }
       },
+      "KeyRotationScheduled": {
+        "type": "object",
+        "properties": {
+          "activateAt": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "avs": {
+            "type": "string"
+          },
+          "curveType": {
+            "type": "string"
+          },
+          "newPubkey": {
+            "type": "string"
+          },
+          "oldPubkey": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "operatorSetId": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "transactionMetadata": {
+            "$ref": "#/components/schemas/TransactionMetadata"
+          }
+        },
+        "required": [
+          "transaction_metadata"
+        ]
+      },
       "ListAvsOperatorSetSlashingHistoryRequest": {
         "type": "object",
         "properties": {
@@ -3841,10 +3875,14 @@
         "properties": {
           "generationReservationCreated": {
             "$ref": "#/components/schemas/GenerationReservationCreated"
+          },
+          "keyRotationScheduled": {
+            "$ref": "#/components/schemas/KeyRotationScheduled"
           }
         },
         "required": [
-          "generation_reservation_created"
+          "generation_reservation_created",
+          "key_rotation_scheduled"
         ]
       },
       "Operator": {

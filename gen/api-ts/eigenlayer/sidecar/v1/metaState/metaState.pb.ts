@@ -24,9 +24,20 @@ export type GenerationReservationCreated = {
   transactionMetadata?: TransactionMetadata
 }
 
+export type KeyRotationScheduled = {
+  avs?: string
+  operatorSetId?: number
+  operator?: string
+  curveType?: string
+  oldPubkey?: string
+  newPubkey?: string
+  activateAt?: string
+  transactionMetadata?: TransactionMetadata
+}
+
 
 type BaseMetaStateChange = {
 }
 
 export type MetaStateChange = BaseMetaStateChange
-  & OneOf<{ generationReservationCreated: GenerationReservationCreated }>
+  & OneOf<{ generationReservationCreated: GenerationReservationCreated; keyRotationScheduled: KeyRotationScheduled }>

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package eigenlayer.sidecar.v1.metaState;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/Layr-Labs/protocol-apis/gen/protos/eigenlayer/sidecar/v1/metaState";
 
 
@@ -17,8 +19,20 @@ message GenerationReservationCreated {
   TransactionMetadata transaction_metadata = 3;
 }
 
+message KeyRotationScheduled {
+  string avs = 1;
+  uint32 operator_set_id = 2;
+  string operator = 3;
+  string curve_type = 4;
+  string old_pubkey = 5;
+  string new_pubkey = 6;
+  uint64 activate_at = 7;
+  TransactionMetadata transaction_metadata = 8;
+}
+
 message MetaStateChange {
   oneof change {
     GenerationReservationCreated generation_reservation_created = 1;
+    KeyRotationScheduled key_rotation_scheduled = 2;
   }
 }
