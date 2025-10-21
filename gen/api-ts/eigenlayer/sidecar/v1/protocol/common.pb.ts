@@ -59,3 +59,8 @@ export type Withdrawal = {
   operatorAddress?: string
   blockNumber?: string
 }
+
+export type OperatorDelegatedStake = {
+  operatorAddress?: string
+  shares?: string
+}

@@ -19,6 +19,8 @@ type ProtocolGatewayClient interface {
 	GetDelegatedStrategiesForOperator(context.Context, *GetDelegatedStrategiesForOperatorRequest) (*GetDelegatedStrategiesForOperatorResponse, error)
 	// GetOperatorDelegatedStakeForStrategy returns the amount of delegated stake for a given strategy for an operator
 	GetOperatorDelegatedStakeForStrategy(context.Context, *GetOperatorDelegatedStakeForStrategyRequest) (*GetOperatorDelegatedStakeForStrategyResponse, error)
+	// ListOperatorsDelegatedStakesForStrategy returns delegated stakes for ALL operators in a strategy
+	ListOperatorsDelegatedStakesForStrategy(context.Context, *ListOperatorsDelegatedStakesForStrategyRequest) (*ListOperatorsDelegatedStakesForStrategyResponse, error)
 	// GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
 	// BlockHeight is optional, otherwise latest is used.
 	GetDelegatedStakersForOperator(context.Context, *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error)
@@ -78,6 +80,21 @@ func (c *protocolGatewayClient) GetOperatorDelegatedStakeForStrategy(ctx context
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetOperatorDelegatedStakeForStrategyResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListOperatorsDelegatedStakesForStrategy(ctx context.Context, req *ListOperatorsDelegatedStakesForStrategyRequest) (*ListOperatorsDelegatedStakesForStrategyResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/strategies/{strategy_address}/delegated-stakes")
+	gwReq.SetPathParam("strategy_address", fmt.Sprintf("%v", req.StrategyAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	if req.Pagination != nil {
+		q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+		q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListOperatorsDelegatedStakesForStrategyResponse](ctx, gwReq)
 }
 
 func (c *protocolGatewayClient) GetDelegatedStakersForOperator(ctx context.Context, req *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error) {

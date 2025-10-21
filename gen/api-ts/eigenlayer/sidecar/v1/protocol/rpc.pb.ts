@@ -16,6 +16,9 @@ export class Protocol {
   static GetOperatorDelegatedStakeForStrategy(req: EigenlayerSidecarV1ProtocolProtocol.GetOperatorDelegatedStakeForStrategyRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.GetOperatorDelegatedStakeForStrategyResponse> {
     return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.GetOperatorDelegatedStakeForStrategyRequest, EigenlayerSidecarV1ProtocolProtocol.GetOperatorDelegatedStakeForStrategyResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/strategies/${req["strategyAddress"]}/delegated-stake?${fm.renderURLSearchParams(req, ["operatorAddress", "strategyAddress"])}`, {...initReq, method: "GET"})
   }
+  static ListOperatorsDelegatedStakesForStrategy(req: EigenlayerSidecarV1ProtocolProtocol.ListOperatorsDelegatedStakesForStrategyRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.ListOperatorsDelegatedStakesForStrategyResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.ListOperatorsDelegatedStakesForStrategyRequest, EigenlayerSidecarV1ProtocolProtocol.ListOperatorsDelegatedStakesForStrategyResponse>(`/protocol/v1/strategies/${req["strategyAddress"]}/delegated-stakes?${fm.renderURLSearchParams(req, ["strategyAddress"])}`, {...initReq, method: "GET"})
+  }
   static GetDelegatedStakersForOperator(req: EigenlayerSidecarV1ProtocolProtocol.GetDelegatedStakersForOperatorRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.GetDelegatedStakersForOperatorResponse> {
     return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.GetDelegatedStakersForOperatorRequest, EigenlayerSidecarV1ProtocolProtocol.GetDelegatedStakersForOperatorResponse>(`/protocol/v1/operators/${req["operatorAddress"]}/delegated-stakers?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
   }

@@ -19,20 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Protocol_GetRegisteredAvsForOperator_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator"
-	Protocol_GetDelegatedStrategiesForOperator_FullMethodName     = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator"
-	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName  = "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy"
-	Protocol_GetDelegatedStakersForOperator_FullMethodName        = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator"
-	Protocol_GetStakerShares_FullMethodName                       = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares"
-	Protocol_GetEigenStateChanges_FullMethodName                  = "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges"
-	Protocol_ListStrategies_FullMethodName                        = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies"
-	Protocol_ListStakerStrategies_FullMethodName                  = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies"
-	Protocol_GetStrategyForStaker_FullMethodName                  = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker"
-	Protocol_ListStakerQueuedWithdrawals_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals"
-	Protocol_ListStrategyQueuedWithdrawals_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals"
-	Protocol_ListOperatorQueuedWithdrawals_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals"
-	Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals"
-	Protocol_ListWithdrawalsForStrategies_FullMethodName          = "/eigenlayer.sidecar.v1.protocol.Protocol/ListWithdrawalsForStrategies"
+	Protocol_GetRegisteredAvsForOperator_FullMethodName             = "/eigenlayer.sidecar.v1.protocol.Protocol/GetRegisteredAvsForOperator"
+	Protocol_GetDelegatedStrategiesForOperator_FullMethodName       = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStrategiesForOperator"
+	Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName    = "/eigenlayer.sidecar.v1.protocol.Protocol/GetOperatorDelegatedStakeForStrategy"
+	Protocol_ListOperatorsDelegatedStakesForStrategy_FullMethodName = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorsDelegatedStakesForStrategy"
+	Protocol_GetDelegatedStakersForOperator_FullMethodName          = "/eigenlayer.sidecar.v1.protocol.Protocol/GetDelegatedStakersForOperator"
+	Protocol_GetStakerShares_FullMethodName                         = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStakerShares"
+	Protocol_GetEigenStateChanges_FullMethodName                    = "/eigenlayer.sidecar.v1.protocol.Protocol/GetEigenStateChanges"
+	Protocol_ListStrategies_FullMethodName                          = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategies"
+	Protocol_ListStakerStrategies_FullMethodName                    = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerStrategies"
+	Protocol_GetStrategyForStaker_FullMethodName                    = "/eigenlayer.sidecar.v1.protocol.Protocol/GetStrategyForStaker"
+	Protocol_ListStakerQueuedWithdrawals_FullMethodName             = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStakerQueuedWithdrawals"
+	Protocol_ListStrategyQueuedWithdrawals_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/ListStrategyQueuedWithdrawals"
+	Protocol_ListOperatorQueuedWithdrawals_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals"
+	Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName   = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals"
+	Protocol_ListWithdrawalsForStrategies_FullMethodName            = "/eigenlayer.sidecar.v1.protocol.Protocol/ListWithdrawalsForStrategies"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -46,6 +47,8 @@ type ProtocolClient interface {
 	GetDelegatedStrategiesForOperator(ctx context.Context, in *GetDelegatedStrategiesForOperatorRequest, opts ...grpc.CallOption) (*GetDelegatedStrategiesForOperatorResponse, error)
 	// GetOperatorDelegatedStakeForStrategy returns the amount of delegated stake for a given strategy for an operator
 	GetOperatorDelegatedStakeForStrategy(ctx context.Context, in *GetOperatorDelegatedStakeForStrategyRequest, opts ...grpc.CallOption) (*GetOperatorDelegatedStakeForStrategyResponse, error)
+	// ListOperatorsDelegatedStakesForStrategy returns delegated stakes for ALL operators in a strategy
+	ListOperatorsDelegatedStakesForStrategy(ctx context.Context, in *ListOperatorsDelegatedStakesForStrategyRequest, opts ...grpc.CallOption) (*ListOperatorsDelegatedStakesForStrategyResponse, error)
 	// GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
 	// BlockHeight is optional, otherwise latest is used.
 	GetDelegatedStakersForOperator(ctx context.Context, in *GetDelegatedStakersForOperatorRequest, opts ...grpc.CallOption) (*GetDelegatedStakersForOperatorResponse, error)
@@ -95,6 +98,16 @@ func (c *protocolClient) GetOperatorDelegatedStakeForStrategy(ctx context.Contex
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetOperatorDelegatedStakeForStrategyResponse)
 	err := c.cc.Invoke(ctx, Protocol_GetOperatorDelegatedStakeForStrategy_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *protocolClient) ListOperatorsDelegatedStakesForStrategy(ctx context.Context, in *ListOperatorsDelegatedStakesForStrategyRequest, opts ...grpc.CallOption) (*ListOperatorsDelegatedStakesForStrategyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListOperatorsDelegatedStakesForStrategyResponse)
+	err := c.cc.Invoke(ctx, Protocol_ListOperatorsDelegatedStakesForStrategy_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -222,6 +235,8 @@ type ProtocolServer interface {
 	GetDelegatedStrategiesForOperator(context.Context, *GetDelegatedStrategiesForOperatorRequest) (*GetDelegatedStrategiesForOperatorResponse, error)
 	// GetOperatorDelegatedStakeForStrategy returns the amount of delegated stake for a given strategy for an operator
 	GetOperatorDelegatedStakeForStrategy(context.Context, *GetOperatorDelegatedStakeForStrategyRequest) (*GetOperatorDelegatedStakeForStrategyResponse, error)
+	// ListOperatorsDelegatedStakesForStrategy returns delegated stakes for ALL operators in a strategy
+	ListOperatorsDelegatedStakesForStrategy(context.Context, *ListOperatorsDelegatedStakesForStrategyRequest) (*ListOperatorsDelegatedStakesForStrategyResponse, error)
 	// GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
 	// BlockHeight is optional, otherwise latest is used.
 	GetDelegatedStakersForOperator(context.Context, *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error)
@@ -254,6 +269,9 @@ func (UnimplementedProtocolServer) GetDelegatedStrategiesForOperator(context.Con
 }
 func (UnimplementedProtocolServer) GetOperatorDelegatedStakeForStrategy(context.Context, *GetOperatorDelegatedStakeForStrategyRequest) (*GetOperatorDelegatedStakeForStrategyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOperatorDelegatedStakeForStrategy not implemented")
+}
+func (UnimplementedProtocolServer) ListOperatorsDelegatedStakesForStrategy(context.Context, *ListOperatorsDelegatedStakesForStrategyRequest) (*ListOperatorsDelegatedStakesForStrategyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOperatorsDelegatedStakesForStrategy not implemented")
 }
 func (UnimplementedProtocolServer) GetDelegatedStakersForOperator(context.Context, *GetDelegatedStakersForOperatorRequest) (*GetDelegatedStakersForOperatorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDelegatedStakersForOperator not implemented")
@@ -358,6 +376,24 @@ func _Protocol_GetOperatorDelegatedStakeForStrategy_Handler(srv interface{}, ctx
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProtocolServer).GetOperatorDelegatedStakeForStrategy(ctx, req.(*GetOperatorDelegatedStakeForStrategyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Protocol_ListOperatorsDelegatedStakesForStrategy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOperatorsDelegatedStakesForStrategyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).ListOperatorsDelegatedStakesForStrategy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_ListOperatorsDelegatedStakesForStrategy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).ListOperatorsDelegatedStakesForStrategy(ctx, req.(*ListOperatorsDelegatedStakesForStrategyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -578,6 +614,10 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOperatorDelegatedStakeForStrategy",
 			Handler:    _Protocol_GetOperatorDelegatedStakeForStrategy_Handler,
+		},
+		{
+			MethodName: "ListOperatorsDelegatedStakesForStrategy",
+			Handler:    _Protocol_ListOperatorsDelegatedStakesForStrategy_Handler,
 		},
 		{
 			MethodName: "GetDelegatedStakersForOperator",

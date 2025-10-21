@@ -641,6 +641,49 @@
         ]
       }
     },
+    "/protocol/v1/strategies/{strategy_address}/delegated-stakes": {
+      "get": {
+        "summary": "ListOperatorsDelegatedStakesForStrategy",
+        "description": "ListOperatorsDelegatedStakesForStrategy returns delegated stakes for ALL operators in a strategy",
+        "operationId": "Protocol_ListOperatorsDelegatedStakesForStrategy",
+        "parameters": [
+          {
+            "name": "strategy_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "operators": {
+                      "$ref": "#/components/schemas/OperatorDelegatedStake"
+                    }
+                  },
+                  "required": [
+                    "next_page"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
     "/rewards/v1/avs-rewards-by-root/{root_index}": {
       "get": {
         "summary": "GetRewardsByAvsForDistributionRoot",
@@ -2626,6 +2669,39 @@
           }
         }
       },
+      "ListOperatorsDelegatedStakesForStrategyRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "strategyAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "block_height",
+          "pagination"
+        ]
+      },
+      "ListOperatorsDelegatedStakesForStrategyResponse": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "operators": {
+            "$ref": "#/components/schemas/OperatorDelegatedStake"
+          }
+        },
+        "required": [
+          "next_page"
+        ]
+      },
       "ListOperatorsForAvsRequest": {
         "type": "object",
         "properties": {
@@ -3017,6 +3093,17 @@
         "required": [
           "transaction_metadata"
         ]
+      },
+      "OperatorDelegatedStake": {
+        "type": "object",
+        "properties": {
+          "operatorAddress": {
+            "type": "string"
+          },
+          "shares": {
+            "type": "string"
+          }
+        }
       },
       "OperatorDirectedOperatorSetRewardSubmission": {
         "type": "object",

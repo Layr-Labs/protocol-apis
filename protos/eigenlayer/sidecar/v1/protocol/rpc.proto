@@ -37,6 +37,14 @@ service Protocol {
     };
   }
 
+  // ListOperatorsDelegatedStakesForStrategy returns delegated stakes for ALL operators in a strategy
+  rpc ListOperatorsDelegatedStakesForStrategy(ListOperatorsDelegatedStakesForStrategyRequest) returns (ListOperatorsDelegatedStakesForStrategyResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/protocol/v1/strategies/{strategy_address}/delegated-stakes"
+    };
+  }
+
   // GetDelegatedStakersForOperator returns the list of stakers that have delegated to an operator.
   // BlockHeight is optional, otherwise latest is used.
   rpc GetDelegatedStakersForOperator(GetDelegatedStakersForOperatorRequest) returns (GetDelegatedStakersForOperatorResponse) {
@@ -118,4 +126,5 @@ service Protocol {
       get: "/protocol/v1/strategies/{strategyAddresses}/withdrawals"
     };
   }
+
 }
