@@ -55,6 +55,23 @@ export type GetOperatorDelegatedStakeForStrategyResponse = {
 }
 
 
+type BaseListOperatorsDelegatedStakesForStrategyRequest = {
+  strategyAddress?: string
+}
+
+export type ListOperatorsDelegatedStakesForStrategyRequest = BaseListOperatorsDelegatedStakesForStrategyRequest
+  & OneOf<{ blockHeight: string }>
+  & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseListOperatorsDelegatedStakesForStrategyResponse = {
+  operators?: EigenlayerSidecarV1ProtocolCommon.OperatorDelegatedStake[]
+}
+
+export type ListOperatorsDelegatedStakesForStrategyResponse = BaseListOperatorsDelegatedStakesForStrategyResponse
+  & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
 type BaseGetDelegatedStakersForOperatorRequest = {
   operatorAddress?: string
 }

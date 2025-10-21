@@ -56,3 +56,8 @@ message Withdrawal {
   string operator_address = 4;
   uint64 blockNumber = 5;
 }
+
+message OperatorDelegatedStake {
+  string operator_address = 1;
+  string shares = 2;
+}

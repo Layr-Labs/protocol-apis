@@ -39,6 +39,17 @@ message GetOperatorDelegatedStakeForStrategyResponse {
 }
 
 
+message ListOperatorsDelegatedStakesForStrategyRequest {
+  string strategy_address = 1;
+  optional uint64 block_height = 2;
+  optional eigenlayer.sidecar.v1.common.Pagination pagination = 3;
+}
+message ListOperatorsDelegatedStakesForStrategyResponse {
+  repeated OperatorDelegatedStake operators = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination next_page = 2;
+}
+
+
 message GetDelegatedStakersForOperatorRequest {
   string operator_address = 1;
   optional uint64 block_height = 2;
