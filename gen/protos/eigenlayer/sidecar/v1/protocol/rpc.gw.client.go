@@ -36,6 +36,7 @@ type ProtocolGatewayClient interface {
 	ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error)
 	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 	ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error)
+	GetPendingKeyRotationTimestamps(context.Context, *GetPendingKeyRotationTimestampsRequest) (*GetPendingKeyRotationTimestampsResponse, error)
 }
 
 func NewProtocolGatewayClient(c gateway.Client) ProtocolGatewayClient {
@@ -202,4 +203,17 @@ func (c *protocolGatewayClient) ListWithdrawalsForStrategies(ctx context.Context
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListWithdrawalsForStrategiesResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) GetPendingKeyRotationTimestamps(ctx context.Context, req *GetPendingKeyRotationTimestampsRequest) (*GetPendingKeyRotationTimestampsResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/pending-key-rotations")
+	q := url.Values{}
+	if req.MinActivateAt != nil {
+		q.Add("minActivateAt", fmt.Sprintf("%v", *req.MinActivateAt))
+	}
+	if req.MaxActivateAt != nil {
+		q.Add("maxActivateAt", fmt.Sprintf("%v", *req.MaxActivateAt))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[GetPendingKeyRotationTimestampsResponse](ctx, gwReq)
 }

@@ -127,4 +127,10 @@ service Protocol {
     };
   }
 
+  rpc GetPendingKeyRotationTimestamps(GetPendingKeyRotationTimestampsRequest) returns (GetPendingKeyRotationTimestampsResponse) {
+    option (google.api.http) = {
+      get: "/protocol/v1/pending-key-rotations"
+    };
+  }
+
 }

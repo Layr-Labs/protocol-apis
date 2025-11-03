@@ -498,6 +498,32 @@
         ]
       }
     },
+    "/protocol/v1/pending-key-rotations": {
+      "get": {
+        "summary": "GetPendingKeyRotationTimestamps",
+        "operationId": "Protocol_GetPendingKeyRotationTimestamps",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rotations": {
+                      "$ref": "#/components/schemas/KeyRotationScheduled"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
     "/protocol/v1/stakers/{stakerAddress}/queued-withdrawals": {
       "get": {
         "summary": "ListStakerQueuedWithdrawals",
@@ -3079,6 +3105,31 @@
           },
           "shares": {
             "type": "string"
+          }
+        }
+      },
+      "GetPendingKeyRotationTimestampsRequest": {
+        "type": "object",
+        "properties": {
+          "maxActivateAt": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "minActivateAt": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        },
+        "required": [
+          "min_activate_at",
+          "max_activate_at"
+        ]
+      },
+      "GetPendingKeyRotationTimestampsResponse": {
+        "type": "object",
+        "properties": {
+          "rotations": {
+            "$ref": "#/components/schemas/KeyRotationScheduled"
           }
         }
       },

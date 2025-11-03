@@ -34,6 +34,7 @@ const (
 	Protocol_ListOperatorQueuedWithdrawals_FullMethodName           = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorQueuedWithdrawals"
 	Protocol_ListOperatorStrategyQueuedWithdrawals_FullMethodName   = "/eigenlayer.sidecar.v1.protocol.Protocol/ListOperatorStrategyQueuedWithdrawals"
 	Protocol_ListWithdrawalsForStrategies_FullMethodName            = "/eigenlayer.sidecar.v1.protocol.Protocol/ListWithdrawalsForStrategies"
+	Protocol_GetPendingKeyRotationTimestamps_FullMethodName         = "/eigenlayer.sidecar.v1.protocol.Protocol/GetPendingKeyRotationTimestamps"
 )
 
 // ProtocolClient is the client API for Protocol service.
@@ -64,6 +65,7 @@ type ProtocolClient interface {
 	ListOperatorQueuedWithdrawals(ctx context.Context, in *ListOperatorQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorQueuedWithdrawalsResponse, error)
 	ListOperatorStrategyQueuedWithdrawals(ctx context.Context, in *ListOperatorStrategyQueuedWithdrawalsRequest, opts ...grpc.CallOption) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 	ListWithdrawalsForStrategies(ctx context.Context, in *ListWithdrawalsForStrategiesRequest, opts ...grpc.CallOption) (*ListWithdrawalsForStrategiesResponse, error)
+	GetPendingKeyRotationTimestamps(ctx context.Context, in *GetPendingKeyRotationTimestampsRequest, opts ...grpc.CallOption) (*GetPendingKeyRotationTimestampsResponse, error)
 }
 
 type protocolClient struct {
@@ -224,6 +226,16 @@ func (c *protocolClient) ListWithdrawalsForStrategies(ctx context.Context, in *L
 	return out, nil
 }
 
+func (c *protocolClient) GetPendingKeyRotationTimestamps(ctx context.Context, in *GetPendingKeyRotationTimestampsRequest, opts ...grpc.CallOption) (*GetPendingKeyRotationTimestampsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetPendingKeyRotationTimestampsResponse)
+	err := c.cc.Invoke(ctx, Protocol_GetPendingKeyRotationTimestamps_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProtocolServer is the server API for Protocol service.
 // All implementations should embed UnimplementedProtocolServer
 // for forward compatibility.
@@ -252,6 +264,7 @@ type ProtocolServer interface {
 	ListOperatorQueuedWithdrawals(context.Context, *ListOperatorQueuedWithdrawalsRequest) (*ListOperatorQueuedWithdrawalsResponse, error)
 	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 	ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error)
+	GetPendingKeyRotationTimestamps(context.Context, *GetPendingKeyRotationTimestampsRequest) (*GetPendingKeyRotationTimestampsResponse, error)
 }
 
 // UnimplementedProtocolServer should be embedded to have
@@ -305,6 +318,9 @@ func (UnimplementedProtocolServer) ListOperatorStrategyQueuedWithdrawals(context
 }
 func (UnimplementedProtocolServer) ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListWithdrawalsForStrategies not implemented")
+}
+func (UnimplementedProtocolServer) GetPendingKeyRotationTimestamps(context.Context, *GetPendingKeyRotationTimestampsRequest) (*GetPendingKeyRotationTimestampsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPendingKeyRotationTimestamps not implemented")
 }
 func (UnimplementedProtocolServer) testEmbeddedByValue() {}
 
@@ -596,6 +612,24 @@ func _Protocol_ListWithdrawalsForStrategies_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Protocol_GetPendingKeyRotationTimestamps_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPendingKeyRotationTimestampsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProtocolServer).GetPendingKeyRotationTimestamps(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Protocol_GetPendingKeyRotationTimestamps_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProtocolServer).GetPendingKeyRotationTimestamps(ctx, req.(*GetPendingKeyRotationTimestampsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Protocol_ServiceDesc is the grpc.ServiceDesc for Protocol service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -662,6 +696,10 @@ var Protocol_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListWithdrawalsForStrategies",
 			Handler:    _Protocol_ListWithdrawalsForStrategies_Handler,
+		},
+		{
+			MethodName: "GetPendingKeyRotationTimestamps",
+			Handler:    _Protocol_GetPendingKeyRotationTimestamps_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

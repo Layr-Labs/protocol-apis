@@ -52,4 +52,7 @@ export class Protocol {
   static ListWithdrawalsForStrategies(req: EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesResponse> {
     return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesRequest, EigenlayerSidecarV1ProtocolProtocol.ListWithdrawalsForStrategiesResponse>(`/protocol/v1/strategies/${req["strategyAddresses"]}/withdrawals?${fm.renderURLSearchParams(req, ["strategyAddresses"])}`, {...initReq, method: "GET"})
   }
+  static GetPendingKeyRotationTimestamps(req: EigenlayerSidecarV1ProtocolProtocol.GetPendingKeyRotationTimestampsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1ProtocolProtocol.GetPendingKeyRotationTimestampsResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1ProtocolProtocol.GetPendingKeyRotationTimestampsRequest, EigenlayerSidecarV1ProtocolProtocol.GetPendingKeyRotationTimestampsResponse>(`/protocol/v1/pending-key-rotations?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
+  }
 }
