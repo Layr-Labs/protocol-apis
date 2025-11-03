@@ -6,6 +6,7 @@
 
 import * as EigenlayerSidecarV1CommonTypes from "../common/types.pb"
 import * as EigenlayerSidecarV1EigenStateEigenState from "../eigenState/eigenState.pb"
+import * as EigenlayerSidecarV1MetaStateMetaState from "../metaState/metaState.pb"
 import * as EigenlayerSidecarV1ProtocolCommon from "./common.pb"
 
 type Absent<T, K extends keyof T> = { [k in Exclude<keyof T, K>]?: undefined };
@@ -193,3 +194,15 @@ type BaseListWithdrawalsForStrategiesResponse = {
 
 export type ListWithdrawalsForStrategiesResponse = BaseListWithdrawalsForStrategiesResponse
   & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseGetPendingKeyRotationTimestampsRequest = {
+}
+
+export type GetPendingKeyRotationTimestampsRequest = BaseGetPendingKeyRotationTimestampsRequest
+  & OneOf<{ minActivateAt: string }>
+  & OneOf<{ maxActivateAt: string }>
+
+export type GetPendingKeyRotationTimestampsResponse = {
+  rotations?: EigenlayerSidecarV1MetaStateMetaState.KeyRotationScheduled[]
+}

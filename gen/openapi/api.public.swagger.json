@@ -2120,6 +2120,31 @@
           }
         }
       },
+      "GetPendingKeyRotationTimestampsRequest": {
+        "type": "object",
+        "properties": {
+          "maxActivateAt": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "minActivateAt": {
+            "type": "integer",
+            "format": "uint64"
+          }
+        },
+        "required": [
+          "min_activate_at",
+          "max_activate_at"
+        ]
+      },
+      "GetPendingKeyRotationTimestampsResponse": {
+        "type": "object",
+        "properties": {
+          "rotations": {
+            "$ref": "#/components/schemas/KeyRotationScheduled"
+          }
+        }
+      },
       "GetRegisteredAvsForOperatorRequest": {
         "type": "object",
         "properties": {
