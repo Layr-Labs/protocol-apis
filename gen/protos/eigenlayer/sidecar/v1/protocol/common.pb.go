@@ -24,7 +24,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// DelegationFilter specifies which stakers to include based on delegation status
 type DelegationFilter int32
 
 const (
@@ -575,17 +574,14 @@ func (x *OperatorDelegatedStake) GetShares() string {
 	return ""
 }
 
-// StakerForStrategy represents a staker's shares in a specific strategy along with their delegation status
 type StakerForStrategy struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	StakerAddress string                 `protobuf:"bytes,1,opt,name=staker_address,json=stakerAddress,proto3" json:"staker_address,omitempty"`
-	Shares        string                 `protobuf:"bytes,2,opt,name=shares,proto3" json:"shares,omitempty"`
-	// The operator the staker is delegated to, if any
-	OperatorAddress string `protobuf:"bytes,3,opt,name=operator_address,json=operatorAddress,proto3" json:"operator_address,omitempty"`
-	// Whether the staker is currently delegated
-	Delegated     bool `protobuf:"varint,4,opt,name=delegated,proto3" json:"delegated,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	StakerAddress   string                 `protobuf:"bytes,1,opt,name=staker_address,json=stakerAddress,proto3" json:"staker_address,omitempty"`
+	Shares          string                 `protobuf:"bytes,2,opt,name=shares,proto3" json:"shares,omitempty"`
+	OperatorAddress string                 `protobuf:"bytes,3,opt,name=operator_address,json=operatorAddress,proto3" json:"operator_address,omitempty"`
+	Delegated       bool                   `protobuf:"varint,4,opt,name=delegated,proto3" json:"delegated,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *StakerForStrategy) Reset() {

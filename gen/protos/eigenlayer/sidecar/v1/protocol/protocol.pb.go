@@ -1593,8 +1593,6 @@ func (x *GetPendingKeyRotationTimestampsResponse) GetRotations() []*metaState.Ke
 	return nil
 }
 
-// ListStakersForStrategy returns all stakers who have deposited in a specific strategy,
-// along with their current delegation status.
 type ListStakersForStrategyRequest struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	StrategyAddress  string                 `protobuf:"bytes,1,opt,name=strategy_address,json=strategyAddress,proto3" json:"strategy_address,omitempty"`

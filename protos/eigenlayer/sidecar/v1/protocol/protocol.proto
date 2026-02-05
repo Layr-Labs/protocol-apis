@@ -157,8 +157,6 @@ message GetPendingKeyRotationTimestampsResponse {
 }
 
 
-// ListStakersForStrategy returns all stakers who have deposited in a specific strategy,
-// along with their current delegation status.
 message ListStakersForStrategyRequest {
   string strategy_address = 1;
   optional uint64 block_height = 2;

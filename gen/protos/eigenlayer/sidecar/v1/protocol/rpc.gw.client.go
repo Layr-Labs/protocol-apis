@@ -37,9 +37,6 @@ type ProtocolGatewayClient interface {
 	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 	ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error)
 	GetPendingKeyRotationTimestamps(context.Context, *GetPendingKeyRotationTimestampsRequest) (*GetPendingKeyRotationTimestampsResponse, error)
-	// ListStakersForStrategy returns all stakers who have deposited in a specific strategy,
-	// along with their current delegation status. This enables finding stakers who are NOT
-	// delegated to any operator (either never delegated or have undelegated).
 	ListStakersForStrategy(context.Context, *ListStakersForStrategyRequest) (*ListStakersForStrategyResponse, error)
 }
 

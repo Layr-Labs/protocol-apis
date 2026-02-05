@@ -687,7 +687,6 @@
     "/protocol/v1/strategies/{strategy_address}/stakers": {
       "get": {
         "summary": "ListStakersForStrategy",
-        "description": "ListStakersForStrategy returns all stakers who have deposited in a specific strategy,\nalong with their current delegation status. This enables finding stakers who are NOT\ndelegated to any operator (either never delegated or have undelegated).",
         "operationId": "Protocol_ListStakersForStrategy",
         "parameters": [
           {
