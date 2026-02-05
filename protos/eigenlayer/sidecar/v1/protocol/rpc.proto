@@ -133,4 +133,14 @@ service Protocol {
     };
   }
 
+  // ListStakersForStrategy returns all stakers who have deposited in a specific strategy,
+  // along with their current delegation status. This enables finding stakers who are NOT
+  // delegated to any operator (either never delegated or have undelegated).
+  rpc ListStakersForStrategy(ListStakersForStrategyRequest) returns (ListStakersForStrategyResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/protocol/v1/strategies/{strategy_address}/stakers"
+    };
+  }
+
 }

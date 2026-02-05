@@ -206,3 +206,21 @@ export type GetPendingKeyRotationTimestampsRequest = BaseGetPendingKeyRotationTi
 export type GetPendingKeyRotationTimestampsResponse = {
   rotations?: EigenlayerSidecarV1MetaStateMetaState.KeyRotationScheduled[]
 }
+
+
+type BaseListStakersForStrategyRequest = {
+  strategyAddress?: string
+}
+
+export type ListStakersForStrategyRequest = BaseListStakersForStrategyRequest
+  & OneOf<{ blockHeight: string }>
+  & OneOf<{ delegationFilter: EigenlayerSidecarV1ProtocolCommon.DelegationFilter }>
+  & OneOf<{ pagination: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+
+type BaseListStakersForStrategyResponse = {
+  stakers?: EigenlayerSidecarV1ProtocolCommon.StakerForStrategy[]
+}
+
+export type ListStakersForStrategyResponse = BaseListStakersForStrategyResponse
+  & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>

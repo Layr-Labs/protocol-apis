@@ -37,6 +37,10 @@ type ProtocolGatewayClient interface {
 	ListOperatorStrategyQueuedWithdrawals(context.Context, *ListOperatorStrategyQueuedWithdrawalsRequest) (*ListOperatorStrategyQueuedWithdrawalsResponse, error)
 	ListWithdrawalsForStrategies(context.Context, *ListWithdrawalsForStrategiesRequest) (*ListWithdrawalsForStrategiesResponse, error)
 	GetPendingKeyRotationTimestamps(context.Context, *GetPendingKeyRotationTimestampsRequest) (*GetPendingKeyRotationTimestampsResponse, error)
+	// ListStakersForStrategy returns all stakers who have deposited in a specific strategy,
+	// along with their current delegation status. This enables finding stakers who are NOT
+	// delegated to any operator (either never delegated or have undelegated).
+	ListStakersForStrategy(context.Context, *ListStakersForStrategyRequest) (*ListStakersForStrategyResponse, error)
 }
 
 func NewProtocolGatewayClient(c gateway.Client) ProtocolGatewayClient {
@@ -216,4 +220,22 @@ func (c *protocolGatewayClient) GetPendingKeyRotationTimestamps(ctx context.Cont
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[GetPendingKeyRotationTimestampsResponse](ctx, gwReq)
+}
+
+func (c *protocolGatewayClient) ListStakersForStrategy(ctx context.Context, req *ListStakersForStrategyRequest) (*ListStakersForStrategyResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/protocol/v1/strategies/{strategy_address}/stakers")
+	gwReq.SetPathParam("strategy_address", fmt.Sprintf("%v", req.StrategyAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	if req.DelegationFilter != nil {
+		q.Add("delegationFilter", req.DelegationFilter.String())
+	}
+	if req.Pagination != nil {
+		q.Add("pagination.pageNumber", fmt.Sprintf("%v", req.Pagination.PageNumber))
+		q.Add("pagination.pageSize", fmt.Sprintf("%v", req.Pagination.PageSize))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[ListStakersForStrategyResponse](ctx, gwReq)
 }

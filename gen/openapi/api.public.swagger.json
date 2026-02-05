@@ -684,6 +684,49 @@
         ]
       }
     },
+    "/protocol/v1/strategies/{strategy_address}/stakers": {
+      "get": {
+        "summary": "ListStakersForStrategy",
+        "description": "ListStakersForStrategy returns all stakers who have deposited in a specific strategy,\nalong with their current delegation status. This enables finding stakers who are NOT\ndelegated to any operator (either never delegated or have undelegated).",
+        "operationId": "Protocol_ListStakersForStrategy",
+        "parameters": [
+          {
+            "name": "strategy_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nextPage": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "stakers": {
+                      "$ref": "#/components/schemas/StakerForStrategy"
+                    }
+                  },
+                  "required": [
+                    "next_page"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "protocol"
+        ]
+      }
+    },
     "/rewards/v1/avs-rewards-by-root/{root_index}": {
       "get": {
         "summary": "GetRewardsByAvsForDistributionRoot",
@@ -1517,6 +1560,14 @@
         },
         "required": [
           "transaction_metadata"
+        ]
+      },
+      "DelegationFilter": {
+        "type": "string",
+        "enum": [
+          "DELEGATION_FILTER_ALL",
+          "DELEGATION_FILTER_DELEGATED",
+          "DELEGATION_FILTER_UNDELEGATED"
         ]
       },
       "DisabledDistributionRoot": {
@@ -2886,6 +2937,43 @@
           }
         }
       },
+      "ListStakersForStrategyRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "delegationFilter": {
+            "type": "string"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "strategyAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "block_height",
+          "delegation_filter",
+          "pagination"
+        ]
+      },
+      "ListStakersForStrategyResponse": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "stakers": {
+            "$ref": "#/components/schemas/StakerForStrategy"
+          }
+        },
+        "required": [
+          "next_page"
+        ]
+      },
       "ListStrategiesRequest": {
         "type": "object"
       },
@@ -3804,6 +3892,23 @@
         "required": [
           "transaction_metadata"
         ]
+      },
+      "StakerForStrategy": {
+        "type": "object",
+        "properties": {
+          "delegated": {
+            "type": "boolean"
+          },
+          "operatorAddress": {
+            "type": "string"
+          },
+          "shares": {
+            "type": "string"
+          },
+          "stakerAddress": {
+            "type": "string"
+          }
+        }
       },
       "StakerShare": {
         "type": "object",

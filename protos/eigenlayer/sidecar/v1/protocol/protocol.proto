@@ -155,3 +155,17 @@ message GetPendingKeyRotationTimestampsRequest {
 message GetPendingKeyRotationTimestampsResponse {
   repeated eigenlayer.sidecar.v1.metaState.KeyRotationScheduled rotations = 1;
 }
+
+
+// ListStakersForStrategy returns all stakers who have deposited in a specific strategy,
+// along with their current delegation status.
+message ListStakersForStrategyRequest {
+  string strategy_address = 1;
+  optional uint64 block_height = 2;
+  optional DelegationFilter delegation_filter = 3;
+  optional eigenlayer.sidecar.v1.common.Pagination pagination = 4;
+}
+message ListStakersForStrategyResponse {
+  repeated StakerForStrategy stakers = 1;
+  optional eigenlayer.sidecar.v1.common.Pagination next_page = 2;
+}
