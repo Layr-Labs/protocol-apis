@@ -133,4 +133,11 @@ service Protocol {
     };
   }
 
+  rpc ListStakersForStrategy(ListStakersForStrategyRequest) returns (ListStakersForStrategyResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/protocol/v1/strategies/{strategy_address}/stakers"
+    };
+  }
+
 }

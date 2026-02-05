@@ -13,6 +13,13 @@ type OneOf<T> =
         : never)
     : never);
 
+export enum DelegationFilter {
+  DELEGATION_FILTER_ALL = "DELEGATION_FILTER_ALL",
+  DELEGATION_FILTER_DELEGATED = "DELEGATION_FILTER_DELEGATED",
+  DELEGATION_FILTER_UNDELEGATED = "DELEGATION_FILTER_UNDELEGATED",
+}
+
+
 type BaseStakerShare = {
   strategy?: string
   shares?: string
@@ -63,4 +70,11 @@ export type Withdrawal = {
 export type OperatorDelegatedStake = {
   operatorAddress?: string
   shares?: string
+}
+
+export type StakerForStrategy = {
+  stakerAddress?: string
+  shares?: string
+  operatorAddress?: string
+  delegated?: boolean
 }

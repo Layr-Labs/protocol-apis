@@ -61,3 +61,19 @@ message OperatorDelegatedStake {
   string operator_address = 1;
   string shares = 2;
 }
+
+enum DelegationFilter {
+  // Return all stakers regardless of delegation status
+  DELEGATION_FILTER_ALL = 0;
+  // Return only stakers who are delegated to an operator
+  DELEGATION_FILTER_DELEGATED = 1;
+  // Return only stakers who are NOT delegated to any operator
+  DELEGATION_FILTER_UNDELEGATED = 2;
+}
+
+message StakerForStrategy {
+  string staker_address = 1;
+  string shares = 2;
+  string operator_address = 3;
+  bool delegated = 4;
+}
