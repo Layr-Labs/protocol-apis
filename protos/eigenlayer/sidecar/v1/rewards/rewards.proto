@@ -217,3 +217,27 @@ message ListEarnerHistoricalRewardsResponse {
   repeated HistoricalReward rewards = 1;
   optional eigenlayer.sidecar.v1.common.Pagination nextPage = 2;
 }
+
+
+message StrategyAndMultiplier {
+  string strategy = 1;
+  string multiplier = 2;
+}
+
+message GetRewardDistributionByStakeRequest {
+  string avs = 1;
+  string token = 2;
+  string amount = 3;
+  uint64 start_timestamp = 4;
+  uint64 duration = 5;
+  repeated StrategyAndMultiplier strategies_and_multipliers = 6;
+}
+
+message OperatorReward {
+  string operator = 1;
+  string amount = 2;
+}
+
+message GetRewardDistributionByStakeResponse {
+  repeated OperatorReward operator_rewards = 1;
+}

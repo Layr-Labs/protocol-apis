@@ -70,4 +70,7 @@ export class Rewards {
   static ListEarnerHistoricalRewards(req: EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsResponse> {
     return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsRequest, EigenlayerSidecarV1RewardsRewards.ListEarnerHistoricalRewardsResponse>(`/rewards/v1/earners/${req["earnerAddress"]}/historical-rewards?${fm.renderURLSearchParams(req, ["earnerAddress"])}`, {...initReq, method: "GET"})
   }
+  static GetRewardDistributionByStake(req: EigenlayerSidecarV1RewardsRewards.GetRewardDistributionByStakeRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1RewardsRewards.GetRewardDistributionByStakeResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1RewardsRewards.GetRewardDistributionByStakeRequest, EigenlayerSidecarV1RewardsRewards.GetRewardDistributionByStakeResponse>(`/rewards/v1/reward-distribution-by-stake`, {...initReq, method: "POST", body: JSON.stringify(req, fm.replacer)})
+  }
 }

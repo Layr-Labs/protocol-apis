@@ -43,7 +43,7 @@ var file_eigenlayer_sidecar_v1_rewards_rpc_proto_rawDesc = string([]byte{
 	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x2c, 0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72,
 	0x2f, 0x6c, 0x69, 0x62, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
 	0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x32, 0xc2, 0x23, 0x0a, 0x07, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0xb5,
+	0x74, 0x6f, 0x32, 0xa5, 0x25, 0x0a, 0x07, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0xb5,
 	0x01, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x52, 0x6f, 0x6f,
 	0x74, 0x12, 0x34, 0x2e, 0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73,
 	0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64,
@@ -327,25 +327,39 @@ var file_eigenlayer_sidecar_v1_rewards_rpc_proto_rawDesc = string([]byte{
 	0x36, 0x2f, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x65, 0x61, 0x72,
 	0x6e, 0x65, 0x72, 0x73, 0x2f, 0x7b, 0x65, 0x61, 0x72, 0x6e, 0x65, 0x72, 0x41, 0x64, 0x64, 0x72,
 	0x65, 0x73, 0x73, 0x7d, 0x2f, 0x68, 0x69, 0x73, 0x74, 0x6f, 0x72, 0x69, 0x63, 0x61, 0x6c, 0x2d,
-	0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x42, 0x92, 0x02, 0x0a, 0x21, 0x63, 0x6f, 0x6d, 0x2e,
-	0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63,
-	0x61, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x42, 0x08, 0x52,
-	0x70, 0x63, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x4b, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4c, 0x61, 0x79, 0x72, 0x2d, 0x4c, 0x61, 0x62, 0x73, 0x2f,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x73, 0x2f, 0x67, 0x65,
-	0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61,
-	0x79, 0x65, 0x72, 0x2f, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2f, 0x76, 0x31, 0x2f, 0x72,
-	0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0xa2, 0x02, 0x04, 0x45, 0x53, 0x56, 0x52, 0xaa, 0x02, 0x1d,
-	0x45, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x53, 0x69, 0x64, 0x65, 0x63,
-	0x61, 0x72, 0x2e, 0x56, 0x31, 0x2e, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0xca, 0x02, 0x1d,
-	0x45, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c, 0x53, 0x69, 0x64, 0x65, 0x63,
-	0x61, 0x72, 0x5c, 0x56, 0x31, 0x5c, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0xe2, 0x02, 0x29,
-	0x45, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c, 0x53, 0x69, 0x64, 0x65, 0x63,
-	0x61, 0x72, 0x5c, 0x56, 0x31, 0x5c, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x5c, 0x47, 0x50,
-	0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x20, 0x45, 0x69, 0x67, 0x65,
-	0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x3a, 0x3a, 0x53, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x3a,
-	0x3a, 0x56, 0x31, 0x3a, 0x3a, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x12, 0xe0, 0x01, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x52,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x44, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x74, 0x69, 0x6f,
+	0x6e, 0x42, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x12, 0x42, 0x2e, 0x65, 0x69, 0x67, 0x65, 0x6e,
+	0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2e, 0x76, 0x31,
+	0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x77, 0x61,
+	0x72, 0x64, 0x44, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x79,
+	0x53, 0x74, 0x61, 0x6b, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x43, 0x2e, 0x65,
+	0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61,
+	0x72, 0x2e, 0x76, 0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2e, 0x47, 0x65, 0x74,
+	0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x44, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x74, 0x69,
+	0x6f, 0x6e, 0x42, 0x79, 0x53, 0x74, 0x61, 0x6b, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x37, 0x80, 0xb5, 0x18, 0x01, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2d, 0x3a, 0x01, 0x2a,
+	0x22, 0x28, 0x2f, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x72, 0x65,
+	0x77, 0x61, 0x72, 0x64, 0x2d, 0x64, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x74, 0x69, 0x6f,
+	0x6e, 0x2d, 0x62, 0x79, 0x2d, 0x73, 0x74, 0x61, 0x6b, 0x65, 0x42, 0x92, 0x02, 0x0a, 0x21, 0x63,
+	0x6f, 0x6d, 0x2e, 0x65, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x73, 0x69,
+	0x64, 0x65, 0x63, 0x61, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0x42, 0x08, 0x52, 0x70, 0x63, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x4b, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4c, 0x61, 0x79, 0x72, 0x2d, 0x4c, 0x61,
+	0x62, 0x73, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x2d, 0x61, 0x70, 0x69, 0x73,
+	0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x65, 0x69, 0x67, 0x65,
+	0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2f, 0x73, 0x69, 0x64, 0x65, 0x63, 0x61, 0x72, 0x2f, 0x76,
+	0x31, 0x2f, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0xa2, 0x02, 0x04, 0x45, 0x53, 0x56, 0x52,
+	0xaa, 0x02, 0x1d, 0x45, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x2e, 0x53, 0x69,
+	0x64, 0x65, 0x63, 0x61, 0x72, 0x2e, 0x56, 0x31, 0x2e, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0xca, 0x02, 0x1d, 0x45, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c, 0x53, 0x69,
+	0x64, 0x65, 0x63, 0x61, 0x72, 0x5c, 0x56, 0x31, 0x5c, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0xe2, 0x02, 0x29, 0x45, 0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x5c, 0x53, 0x69,
+	0x64, 0x65, 0x63, 0x61, 0x72, 0x5c, 0x56, 0x31, 0x5c, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73,
+	0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x20, 0x45,
+	0x69, 0x67, 0x65, 0x6e, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x3a, 0x3a, 0x53, 0x69, 0x64, 0x65, 0x63,
+	0x61, 0x72, 0x3a, 0x3a, 0x56, 0x31, 0x3a, 0x3a, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 })
 
 var file_eigenlayer_sidecar_v1_rewards_rpc_proto_goTypes = []any{
@@ -370,27 +384,29 @@ var file_eigenlayer_sidecar_v1_rewards_rpc_proto_goTypes = []any{
 	(*ListDistributionRootsRequest)(nil),                      // 18: eigenlayer.sidecar.v1.rewards.ListDistributionRootsRequest
 	(*ListEarnerLifetimeRewardsRequest)(nil),                  // 19: eigenlayer.sidecar.v1.rewards.ListEarnerLifetimeRewardsRequest
 	(*ListEarnerHistoricalRewardsRequest)(nil),                // 20: eigenlayer.sidecar.v1.rewards.ListEarnerHistoricalRewardsRequest
-	(*GetRewardsRootResponse)(nil),                            // 21: eigenlayer.sidecar.v1.rewards.GetRewardsRootResponse
-	(*GenerateRewardsResponse)(nil),                           // 22: eigenlayer.sidecar.v1.rewards.GenerateRewardsResponse
-	(*GenerateStakerOperatorsResponse)(nil),                   // 23: eigenlayer.sidecar.v1.rewards.GenerateStakerOperatorsResponse
-	(*BackfillStakerOperatorsResponse)(nil),                   // 24: eigenlayer.sidecar.v1.rewards.BackfillStakerOperatorsResponse
-	(*GenerateRewardsRootResponse)(nil),                       // 25: eigenlayer.sidecar.v1.rewards.GenerateRewardsRootResponse
-	(*GetRewardsForSnapshotResponse)(nil),                     // 26: eigenlayer.sidecar.v1.rewards.GetRewardsForSnapshotResponse
-	(*GetRewardsForDistributionRootResponse)(nil),             // 27: eigenlayer.sidecar.v1.rewards.GetRewardsForDistributionRootResponse
-	(*GetAttributableRewardsForSnapshotResponse)(nil),         // 28: eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForSnapshotResponse
-	(*GetAttributableRewardsForDistributionRootResponse)(nil), // 29: eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse
-	(*GetRewardsByAvsForDistributionRootResponse)(nil),        // 30: eigenlayer.sidecar.v1.rewards.GetRewardsByAvsForDistributionRootResponse
-	(*GenerateClaimProofResponse)(nil),                        // 31: eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse
-	(*GenerateClaimProofBulkResponse)(nil),                    // 32: eigenlayer.sidecar.v1.rewards.GenerateClaimProofBulkResponse
-	(*GetClaimableRewardsResponse)(nil),                       // 33: eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse
-	(*GetTotalClaimedRewardsResponse)(nil),                    // 34: eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse
-	(*GetAvailableRewardsTokensResponse)(nil),                 // 35: eigenlayer.sidecar.v1.rewards.GetAvailableRewardsTokensResponse
-	(*GetSummarizedRewardsForEarnerResponse)(nil),             // 36: eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerResponse
-	(*GetClaimedRewardsByBlockResponse)(nil),                  // 37: eigenlayer.sidecar.v1.rewards.GetClaimedRewardsByBlockResponse
-	(*ListClaimedRewardsByBlockRangeResponse)(nil),            // 38: eigenlayer.sidecar.v1.rewards.ListClaimedRewardsByBlockRangeResponse
-	(*ListDistributionRootsResponse)(nil),                     // 39: eigenlayer.sidecar.v1.rewards.ListDistributionRootsResponse
-	(*ListEarnerLifetimeRewardsResponse)(nil),                 // 40: eigenlayer.sidecar.v1.rewards.ListEarnerLifetimeRewardsResponse
-	(*ListEarnerHistoricalRewardsResponse)(nil),               // 41: eigenlayer.sidecar.v1.rewards.ListEarnerHistoricalRewardsResponse
+	(*GetRewardDistributionByStakeRequest)(nil),               // 21: eigenlayer.sidecar.v1.rewards.GetRewardDistributionByStakeRequest
+	(*GetRewardsRootResponse)(nil),                            // 22: eigenlayer.sidecar.v1.rewards.GetRewardsRootResponse
+	(*GenerateRewardsResponse)(nil),                           // 23: eigenlayer.sidecar.v1.rewards.GenerateRewardsResponse
+	(*GenerateStakerOperatorsResponse)(nil),                   // 24: eigenlayer.sidecar.v1.rewards.GenerateStakerOperatorsResponse
+	(*BackfillStakerOperatorsResponse)(nil),                   // 25: eigenlayer.sidecar.v1.rewards.BackfillStakerOperatorsResponse
+	(*GenerateRewardsRootResponse)(nil),                       // 26: eigenlayer.sidecar.v1.rewards.GenerateRewardsRootResponse
+	(*GetRewardsForSnapshotResponse)(nil),                     // 27: eigenlayer.sidecar.v1.rewards.GetRewardsForSnapshotResponse
+	(*GetRewardsForDistributionRootResponse)(nil),             // 28: eigenlayer.sidecar.v1.rewards.GetRewardsForDistributionRootResponse
+	(*GetAttributableRewardsForSnapshotResponse)(nil),         // 29: eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForSnapshotResponse
+	(*GetAttributableRewardsForDistributionRootResponse)(nil), // 30: eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse
+	(*GetRewardsByAvsForDistributionRootResponse)(nil),        // 31: eigenlayer.sidecar.v1.rewards.GetRewardsByAvsForDistributionRootResponse
+	(*GenerateClaimProofResponse)(nil),                        // 32: eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse
+	(*GenerateClaimProofBulkResponse)(nil),                    // 33: eigenlayer.sidecar.v1.rewards.GenerateClaimProofBulkResponse
+	(*GetClaimableRewardsResponse)(nil),                       // 34: eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse
+	(*GetTotalClaimedRewardsResponse)(nil),                    // 35: eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse
+	(*GetAvailableRewardsTokensResponse)(nil),                 // 36: eigenlayer.sidecar.v1.rewards.GetAvailableRewardsTokensResponse
+	(*GetSummarizedRewardsForEarnerResponse)(nil),             // 37: eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerResponse
+	(*GetClaimedRewardsByBlockResponse)(nil),                  // 38: eigenlayer.sidecar.v1.rewards.GetClaimedRewardsByBlockResponse
+	(*ListClaimedRewardsByBlockRangeResponse)(nil),            // 39: eigenlayer.sidecar.v1.rewards.ListClaimedRewardsByBlockRangeResponse
+	(*ListDistributionRootsResponse)(nil),                     // 40: eigenlayer.sidecar.v1.rewards.ListDistributionRootsResponse
+	(*ListEarnerLifetimeRewardsResponse)(nil),                 // 41: eigenlayer.sidecar.v1.rewards.ListEarnerLifetimeRewardsResponse
+	(*ListEarnerHistoricalRewardsResponse)(nil),               // 42: eigenlayer.sidecar.v1.rewards.ListEarnerHistoricalRewardsResponse
+	(*GetRewardDistributionByStakeResponse)(nil),              // 43: eigenlayer.sidecar.v1.rewards.GetRewardDistributionByStakeResponse
 }
 var file_eigenlayer_sidecar_v1_rewards_rpc_proto_depIdxs = []int32{
 	0,  // 0: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsRoot:input_type -> eigenlayer.sidecar.v1.rewards.GetRewardsRootRequest
@@ -414,29 +430,31 @@ var file_eigenlayer_sidecar_v1_rewards_rpc_proto_depIdxs = []int32{
 	18, // 18: eigenlayer.sidecar.v1.rewards.Rewards.ListDistributionRoots:input_type -> eigenlayer.sidecar.v1.rewards.ListDistributionRootsRequest
 	19, // 19: eigenlayer.sidecar.v1.rewards.Rewards.ListEarnerLifetimeRewards:input_type -> eigenlayer.sidecar.v1.rewards.ListEarnerLifetimeRewardsRequest
 	20, // 20: eigenlayer.sidecar.v1.rewards.Rewards.ListEarnerHistoricalRewards:input_type -> eigenlayer.sidecar.v1.rewards.ListEarnerHistoricalRewardsRequest
-	21, // 21: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsRootResponse
-	22, // 22: eigenlayer.sidecar.v1.rewards.Rewards.GenerateRewards:output_type -> eigenlayer.sidecar.v1.rewards.GenerateRewardsResponse
-	23, // 23: eigenlayer.sidecar.v1.rewards.Rewards.GenerateStakerOperators:output_type -> eigenlayer.sidecar.v1.rewards.GenerateStakerOperatorsResponse
-	24, // 24: eigenlayer.sidecar.v1.rewards.Rewards.BackfillStakerOperators:output_type -> eigenlayer.sidecar.v1.rewards.BackfillStakerOperatorsResponse
-	25, // 25: eigenlayer.sidecar.v1.rewards.Rewards.GenerateRewardsRoot:output_type -> eigenlayer.sidecar.v1.rewards.GenerateRewardsRootResponse
-	26, // 26: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsForSnapshot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsForSnapshotResponse
-	27, // 27: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsForDistributionRootResponse
-	28, // 28: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForSnapshot:output_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForSnapshotResponse
-	29, // 29: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse
-	30, // 30: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsByAvsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsByAvsForDistributionRootResponse
-	31, // 31: eigenlayer.sidecar.v1.rewards.Rewards.GenerateClaimProof:output_type -> eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse
-	32, // 32: eigenlayer.sidecar.v1.rewards.Rewards.GenerateClaimProofBulk:output_type -> eigenlayer.sidecar.v1.rewards.GenerateClaimProofBulkResponse
-	33, // 33: eigenlayer.sidecar.v1.rewards.Rewards.GetClaimableRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse
-	34, // 34: eigenlayer.sidecar.v1.rewards.Rewards.GetTotalClaimedRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse
-	35, // 35: eigenlayer.sidecar.v1.rewards.Rewards.GetAvailableRewardsTokens:output_type -> eigenlayer.sidecar.v1.rewards.GetAvailableRewardsTokensResponse
-	36, // 36: eigenlayer.sidecar.v1.rewards.Rewards.GetSummarizedRewardsForEarner:output_type -> eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerResponse
-	37, // 37: eigenlayer.sidecar.v1.rewards.Rewards.GetClaimedRewardsByBlock:output_type -> eigenlayer.sidecar.v1.rewards.GetClaimedRewardsByBlockResponse
-	38, // 38: eigenlayer.sidecar.v1.rewards.Rewards.ListClaimedRewardsByBlockRange:output_type -> eigenlayer.sidecar.v1.rewards.ListClaimedRewardsByBlockRangeResponse
-	39, // 39: eigenlayer.sidecar.v1.rewards.Rewards.ListDistributionRoots:output_type -> eigenlayer.sidecar.v1.rewards.ListDistributionRootsResponse
-	40, // 40: eigenlayer.sidecar.v1.rewards.Rewards.ListEarnerLifetimeRewards:output_type -> eigenlayer.sidecar.v1.rewards.ListEarnerLifetimeRewardsResponse
-	41, // 41: eigenlayer.sidecar.v1.rewards.Rewards.ListEarnerHistoricalRewards:output_type -> eigenlayer.sidecar.v1.rewards.ListEarnerHistoricalRewardsResponse
-	21, // [21:42] is the sub-list for method output_type
-	0,  // [0:21] is the sub-list for method input_type
+	21, // 21: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardDistributionByStake:input_type -> eigenlayer.sidecar.v1.rewards.GetRewardDistributionByStakeRequest
+	22, // 22: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsRootResponse
+	23, // 23: eigenlayer.sidecar.v1.rewards.Rewards.GenerateRewards:output_type -> eigenlayer.sidecar.v1.rewards.GenerateRewardsResponse
+	24, // 24: eigenlayer.sidecar.v1.rewards.Rewards.GenerateStakerOperators:output_type -> eigenlayer.sidecar.v1.rewards.GenerateStakerOperatorsResponse
+	25, // 25: eigenlayer.sidecar.v1.rewards.Rewards.BackfillStakerOperators:output_type -> eigenlayer.sidecar.v1.rewards.BackfillStakerOperatorsResponse
+	26, // 26: eigenlayer.sidecar.v1.rewards.Rewards.GenerateRewardsRoot:output_type -> eigenlayer.sidecar.v1.rewards.GenerateRewardsRootResponse
+	27, // 27: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsForSnapshot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsForSnapshotResponse
+	28, // 28: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsForDistributionRootResponse
+	29, // 29: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForSnapshot:output_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForSnapshotResponse
+	30, // 30: eigenlayer.sidecar.v1.rewards.Rewards.GetAttributableRewardsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetAttributableRewardsForDistributionRootResponse
+	31, // 31: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardsByAvsForDistributionRoot:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardsByAvsForDistributionRootResponse
+	32, // 32: eigenlayer.sidecar.v1.rewards.Rewards.GenerateClaimProof:output_type -> eigenlayer.sidecar.v1.rewards.GenerateClaimProofResponse
+	33, // 33: eigenlayer.sidecar.v1.rewards.Rewards.GenerateClaimProofBulk:output_type -> eigenlayer.sidecar.v1.rewards.GenerateClaimProofBulkResponse
+	34, // 34: eigenlayer.sidecar.v1.rewards.Rewards.GetClaimableRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetClaimableRewardsResponse
+	35, // 35: eigenlayer.sidecar.v1.rewards.Rewards.GetTotalClaimedRewards:output_type -> eigenlayer.sidecar.v1.rewards.GetTotalClaimedRewardsResponse
+	36, // 36: eigenlayer.sidecar.v1.rewards.Rewards.GetAvailableRewardsTokens:output_type -> eigenlayer.sidecar.v1.rewards.GetAvailableRewardsTokensResponse
+	37, // 37: eigenlayer.sidecar.v1.rewards.Rewards.GetSummarizedRewardsForEarner:output_type -> eigenlayer.sidecar.v1.rewards.GetSummarizedRewardsForEarnerResponse
+	38, // 38: eigenlayer.sidecar.v1.rewards.Rewards.GetClaimedRewardsByBlock:output_type -> eigenlayer.sidecar.v1.rewards.GetClaimedRewardsByBlockResponse
+	39, // 39: eigenlayer.sidecar.v1.rewards.Rewards.ListClaimedRewardsByBlockRange:output_type -> eigenlayer.sidecar.v1.rewards.ListClaimedRewardsByBlockRangeResponse
+	40, // 40: eigenlayer.sidecar.v1.rewards.Rewards.ListDistributionRoots:output_type -> eigenlayer.sidecar.v1.rewards.ListDistributionRootsResponse
+	41, // 41: eigenlayer.sidecar.v1.rewards.Rewards.ListEarnerLifetimeRewards:output_type -> eigenlayer.sidecar.v1.rewards.ListEarnerLifetimeRewardsResponse
+	42, // 42: eigenlayer.sidecar.v1.rewards.Rewards.ListEarnerHistoricalRewards:output_type -> eigenlayer.sidecar.v1.rewards.ListEarnerHistoricalRewardsResponse
+	43, // 43: eigenlayer.sidecar.v1.rewards.Rewards.GetRewardDistributionByStake:output_type -> eigenlayer.sidecar.v1.rewards.GetRewardDistributionByStakeResponse
+	22, // [22:44] is the sub-list for method output_type
+	0,  // [0:22] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

@@ -66,6 +66,10 @@ type RewardsGatewayClient interface {
 	//
 	// Returns a list of tokens containing a list of delta rewards for each snapshot date
 	ListEarnerHistoricalRewards(context.Context, *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error)
+	// GetRewardDistributionByStake computes a reward distribution based on stake weight,
+	// as if submitting a v1 reward. Returns a mapping of each operator to their reward amount,
+	// proportional to their stake weight over the specified time range.
+	GetRewardDistributionByStake(context.Context, *GetRewardDistributionByStakeRequest) (*GetRewardDistributionByStakeResponse, error)
 }
 
 func NewRewardsGatewayClient(c gateway.Client) RewardsGatewayClient {
@@ -273,4 +277,10 @@ func (c *rewardsGatewayClient) ListEarnerHistoricalRewards(ctx context.Context, 
 	}
 	gwReq.SetQueryParamsFromValues(q)
 	return gateway.DoRequest[ListEarnerHistoricalRewardsResponse](ctx, gwReq)
+}
+
+func (c *rewardsGatewayClient) GetRewardDistributionByStake(ctx context.Context, req *GetRewardDistributionByStakeRequest) (*GetRewardDistributionByStakeResponse, error) {
+	gwReq := c.gwc.NewRequest("POST", "/rewards/v1/reward-distribution-by-stake")
+	gwReq.SetBody(req)
+	return gateway.DoRequest[GetRewardDistributionByStakeResponse](ctx, gwReq)
 }

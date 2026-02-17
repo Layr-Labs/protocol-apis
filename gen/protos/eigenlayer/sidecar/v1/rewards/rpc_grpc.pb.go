@@ -40,6 +40,7 @@ const (
 	Rewards_ListDistributionRoots_FullMethodName                     = "/eigenlayer.sidecar.v1.rewards.Rewards/ListDistributionRoots"
 	Rewards_ListEarnerLifetimeRewards_FullMethodName                 = "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerLifetimeRewards"
 	Rewards_ListEarnerHistoricalRewards_FullMethodName               = "/eigenlayer.sidecar.v1.rewards.Rewards/ListEarnerHistoricalRewards"
+	Rewards_GetRewardDistributionByStake_FullMethodName              = "/eigenlayer.sidecar.v1.rewards.Rewards/GetRewardDistributionByStake"
 )
 
 // RewardsClient is the client API for Rewards service.
@@ -100,6 +101,10 @@ type RewardsClient interface {
 	//
 	// Returns a list of tokens containing a list of delta rewards for each snapshot date
 	ListEarnerHistoricalRewards(ctx context.Context, in *ListEarnerHistoricalRewardsRequest, opts ...grpc.CallOption) (*ListEarnerHistoricalRewardsResponse, error)
+	// GetRewardDistributionByStake computes a reward distribution based on stake weight,
+	// as if submitting a v1 reward. Returns a mapping of each operator to their reward amount,
+	// proportional to their stake weight over the specified time range.
+	GetRewardDistributionByStake(ctx context.Context, in *GetRewardDistributionByStakeRequest, opts ...grpc.CallOption) (*GetRewardDistributionByStakeResponse, error)
 }
 
 type rewardsClient struct {
@@ -320,6 +325,16 @@ func (c *rewardsClient) ListEarnerHistoricalRewards(ctx context.Context, in *Lis
 	return out, nil
 }
 
+func (c *rewardsClient) GetRewardDistributionByStake(ctx context.Context, in *GetRewardDistributionByStakeRequest, opts ...grpc.CallOption) (*GetRewardDistributionByStakeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRewardDistributionByStakeResponse)
+	err := c.cc.Invoke(ctx, Rewards_GetRewardDistributionByStake_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RewardsServer is the server API for Rewards service.
 // All implementations should embed UnimplementedRewardsServer
 // for forward compatibility.
@@ -378,6 +393,10 @@ type RewardsServer interface {
 	//
 	// Returns a list of tokens containing a list of delta rewards for each snapshot date
 	ListEarnerHistoricalRewards(context.Context, *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error)
+	// GetRewardDistributionByStake computes a reward distribution based on stake weight,
+	// as if submitting a v1 reward. Returns a mapping of each operator to their reward amount,
+	// proportional to their stake weight over the specified time range.
+	GetRewardDistributionByStake(context.Context, *GetRewardDistributionByStakeRequest) (*GetRewardDistributionByStakeResponse, error)
 }
 
 // UnimplementedRewardsServer should be embedded to have
@@ -449,6 +468,9 @@ func (UnimplementedRewardsServer) ListEarnerLifetimeRewards(context.Context, *Li
 }
 func (UnimplementedRewardsServer) ListEarnerHistoricalRewards(context.Context, *ListEarnerHistoricalRewardsRequest) (*ListEarnerHistoricalRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListEarnerHistoricalRewards not implemented")
+}
+func (UnimplementedRewardsServer) GetRewardDistributionByStake(context.Context, *GetRewardDistributionByStakeRequest) (*GetRewardDistributionByStakeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRewardDistributionByStake not implemented")
 }
 func (UnimplementedRewardsServer) testEmbeddedByValue() {}
 
@@ -848,6 +870,24 @@ func _Rewards_ListEarnerHistoricalRewards_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Rewards_GetRewardDistributionByStake_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRewardDistributionByStakeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RewardsServer).GetRewardDistributionByStake(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Rewards_GetRewardDistributionByStake_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RewardsServer).GetRewardDistributionByStake(ctx, req.(*GetRewardDistributionByStakeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Rewards_ServiceDesc is the grpc.ServiceDesc for Rewards service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -938,6 +978,10 @@ var Rewards_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListEarnerHistoricalRewards",
 			Handler:    _Rewards_ListEarnerHistoricalRewards_Handler,
+		},
+		{
+			MethodName: "GetRewardDistributionByStake",
+			Handler:    _Rewards_GetRewardDistributionByStake_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
