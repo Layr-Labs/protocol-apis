@@ -2218,6 +2218,39 @@
           }
         }
       },
+      "GetRewardDistributionByStakeRequest": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "avs": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "startTimestamp": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "strategiesAndMultipliers": {
+            "$ref": "#/components/schemas/StrategyAndMultiplier"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "GetRewardDistributionByStakeResponse": {
+        "type": "object",
+        "properties": {
+          "operatorRewards": {
+            "$ref": "#/components/schemas/OperatorReward"
+          }
+        }
+      },
       "GetRewardsByAvsForDistributionRootRequest": {
         "type": "object",
         "properties": {
@@ -3370,6 +3403,17 @@
           "transaction_metadata"
         ]
       },
+      "OperatorReward": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          }
+        }
+      },
       "OperatorSet": {
         "type": "object",
         "properties": {
@@ -4041,6 +4085,17 @@
             "type": "string"
           },
           "totalStake": {
+            "type": "string"
+          }
+        }
+      },
+      "StrategyAndMultiplier": {
+        "type": "object",
+        "properties": {
+          "multiplier": {
+            "type": "string"
+          },
+          "strategy": {
             "type": "string"
           }
         }

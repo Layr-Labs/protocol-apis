@@ -1689,6 +1689,65 @@
         ]
       }
     },
+    "/rewards/v1/reward-distribution-by-stake": {
+      "post": {
+        "summary": "GetRewardDistributionByStake",
+        "description": "GetRewardDistributionByStake computes a reward distribution based on stake weight,\nas if submitting a v1 reward. Returns a mapping of each operator to their reward amount,\nproportional to their stake weight over the specified time range.",
+        "operationId": "Rewards_GetRewardDistributionByStake",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "string"
+                  },
+                  "avs": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "format": "uint64"
+                  },
+                  "startTimestamp": {
+                    "type": "integer",
+                    "format": "uint64"
+                  },
+                  "strategiesAndMultipliers": {
+                    "$ref": "#/components/schemas/StrategyAndMultiplier"
+                  },
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "operatorRewards": {
+                      "$ref": "#/components/schemas/OperatorReward"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "rewards"
+        ]
+      }
+    },
     "/rewards/v1/rewards/{snapshot}": {
       "get": {
         "summary": "GetRewardsForSnapshot",
@@ -3206,6 +3265,39 @@
           }
         }
       },
+      "GetRewardDistributionByStakeRequest": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "avs": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "startTimestamp": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "strategiesAndMultipliers": {
+            "$ref": "#/components/schemas/StrategyAndMultiplier"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "GetRewardDistributionByStakeResponse": {
+        "type": "object",
+        "properties": {
+          "operatorRewards": {
+            "$ref": "#/components/schemas/OperatorReward"
+          }
+        }
+      },
       "GetRewardsByAvsForDistributionRootRequest": {
         "type": "object",
         "properties": {
@@ -4358,6 +4450,17 @@
           "transaction_metadata"
         ]
       },
+      "OperatorReward": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          }
+        }
+      },
       "OperatorSet": {
         "type": "object",
         "properties": {
@@ -5029,6 +5132,17 @@
             "type": "string"
           },
           "totalStake": {
+            "type": "string"
+          }
+        }
+      },
+      "StrategyAndMultiplier": {
+        "type": "object",
+        "properties": {
+          "multiplier": {
+            "type": "string"
+          },
+          "strategy": {
             "type": "string"
           }
         }

@@ -260,3 +260,26 @@ type BaseListEarnerHistoricalRewardsResponse = {
 
 export type ListEarnerHistoricalRewardsResponse = BaseListEarnerHistoricalRewardsResponse
   & OneOf<{ nextPage: EigenlayerSidecarV1CommonTypes.Pagination }>
+
+export type StrategyAndMultiplier = {
+  strategy?: string
+  multiplier?: string
+}
+
+export type GetRewardDistributionByStakeRequest = {
+  avs?: string
+  token?: string
+  amount?: string
+  startTimestamp?: string
+  duration?: string
+  strategiesAndMultipliers?: StrategyAndMultiplier[]
+}
+
+export type OperatorReward = {
+  operator?: string
+  amount?: string
+}
+
+export type GetRewardDistributionByStakeResponse = {
+  operatorRewards?: OperatorReward[]
+}
