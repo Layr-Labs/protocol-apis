@@ -190,6 +190,7 @@ service Rewards {
   // as if submitting a v1 reward. Returns a mapping of each operator to their reward amount,
   // proportional to their stake weight over the specified time range.
   rpc GetRewardDistributionByStake(GetRewardDistributionByStakeRequest) returns (GetRewardDistributionByStakeResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
     option (google.api.http) = {
       post: "/rewards/v1/reward-distribution-by-stake"
       body: "*"
