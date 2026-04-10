@@ -22,4 +22,7 @@ export class OperatorSets {
   static ListOperatorSets(req: EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsResponse> {
     return fm.fetchReq<EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsRequest, EigenlayerSidecarV1OperatorSetsOperatorSets.ListOperatorSetsResponse>(`/v1/operatorSets?${fm.renderURLSearchParams(req, [])}`, {...initReq, method: "GET"})
   }
+  static GetRegisteredOperatorSetsForOperator(req: EigenlayerSidecarV1OperatorSetsOperatorSets.GetRegisteredOperatorSetsForOperatorRequest, initReq?: fm.InitReq): Promise<EigenlayerSidecarV1OperatorSetsOperatorSets.GetRegisteredOperatorSetsForOperatorResponse> {
+    return fm.fetchReq<EigenlayerSidecarV1OperatorSetsOperatorSets.GetRegisteredOperatorSetsForOperatorRequest, EigenlayerSidecarV1OperatorSetsOperatorSets.GetRegisteredOperatorSetsForOperatorResponse>(`/v1/operatorSets/operators/${req["operatorAddress"]}/registered-operator-sets?${fm.renderURLSearchParams(req, ["operatorAddress"])}`, {...initReq, method: "GET"})
+  }
 }

@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OperatorSets_ListOperatorsForStaker_FullMethodName     = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStaker"
-	OperatorSets_ListOperatorsForStrategy_FullMethodName   = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStrategy"
-	OperatorSets_ListOperatorsForAvs_FullMethodName        = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForAvs"
-	OperatorSets_ListOperatorsForBlockRange_FullMethodName = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForBlockRange"
-	OperatorSets_ListOperatorSets_FullMethodName           = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorSets"
+	OperatorSets_ListOperatorsForStaker_FullMethodName               = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStaker"
+	OperatorSets_ListOperatorsForStrategy_FullMethodName             = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForStrategy"
+	OperatorSets_ListOperatorsForAvs_FullMethodName                  = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForAvs"
+	OperatorSets_ListOperatorsForBlockRange_FullMethodName           = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorsForBlockRange"
+	OperatorSets_ListOperatorSets_FullMethodName                     = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/ListOperatorSets"
+	OperatorSets_GetRegisteredOperatorSetsForOperator_FullMethodName = "/eigenlayer.sidecar.v1.operatorSets.OperatorSets/GetRegisteredOperatorSetsForOperator"
 )
 
 // OperatorSetsClient is the client API for OperatorSets service.
@@ -35,6 +36,7 @@ type OperatorSetsClient interface {
 	ListOperatorsForAvs(ctx context.Context, in *ListOperatorsForAvsRequest, opts ...grpc.CallOption) (*ListOperatorsForAvsResponse, error)
 	ListOperatorsForBlockRange(ctx context.Context, in *ListOperatorsForBlockRangeRequest, opts ...grpc.CallOption) (*ListOperatorsForBlockRangeResponse, error)
 	ListOperatorSets(ctx context.Context, in *ListOperatorSetsRequest, opts ...grpc.CallOption) (*ListOperatorSetsResponse, error)
+	GetRegisteredOperatorSetsForOperator(ctx context.Context, in *GetRegisteredOperatorSetsForOperatorRequest, opts ...grpc.CallOption) (*GetRegisteredOperatorSetsForOperatorResponse, error)
 }
 
 type operatorSetsClient struct {
@@ -95,6 +97,16 @@ func (c *operatorSetsClient) ListOperatorSets(ctx context.Context, in *ListOpera
 	return out, nil
 }
 
+func (c *operatorSetsClient) GetRegisteredOperatorSetsForOperator(ctx context.Context, in *GetRegisteredOperatorSetsForOperatorRequest, opts ...grpc.CallOption) (*GetRegisteredOperatorSetsForOperatorResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRegisteredOperatorSetsForOperatorResponse)
+	err := c.cc.Invoke(ctx, OperatorSets_GetRegisteredOperatorSetsForOperator_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OperatorSetsServer is the server API for OperatorSets service.
 // All implementations should embed UnimplementedOperatorSetsServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type OperatorSetsServer interface {
 	ListOperatorsForAvs(context.Context, *ListOperatorsForAvsRequest) (*ListOperatorsForAvsResponse, error)
 	ListOperatorsForBlockRange(context.Context, *ListOperatorsForBlockRangeRequest) (*ListOperatorsForBlockRangeResponse, error)
 	ListOperatorSets(context.Context, *ListOperatorSetsRequest) (*ListOperatorSetsResponse, error)
+	GetRegisteredOperatorSetsForOperator(context.Context, *GetRegisteredOperatorSetsForOperatorRequest) (*GetRegisteredOperatorSetsForOperatorResponse, error)
 }
 
 // UnimplementedOperatorSetsServer should be embedded to have
@@ -127,6 +140,9 @@ func (UnimplementedOperatorSetsServer) ListOperatorsForBlockRange(context.Contex
 }
 func (UnimplementedOperatorSetsServer) ListOperatorSets(context.Context, *ListOperatorSetsRequest) (*ListOperatorSetsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOperatorSets not implemented")
+}
+func (UnimplementedOperatorSetsServer) GetRegisteredOperatorSetsForOperator(context.Context, *GetRegisteredOperatorSetsForOperatorRequest) (*GetRegisteredOperatorSetsForOperatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRegisteredOperatorSetsForOperator not implemented")
 }
 func (UnimplementedOperatorSetsServer) testEmbeddedByValue() {}
 
@@ -238,6 +254,24 @@ func _OperatorSets_ListOperatorSets_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OperatorSets_GetRegisteredOperatorSetsForOperator_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRegisteredOperatorSetsForOperatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperatorSetsServer).GetRegisteredOperatorSetsForOperator(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OperatorSets_GetRegisteredOperatorSetsForOperator_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperatorSetsServer).GetRegisteredOperatorSetsForOperator(ctx, req.(*GetRegisteredOperatorSetsForOperatorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OperatorSets_ServiceDesc is the grpc.ServiceDesc for OperatorSets service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -264,6 +298,10 @@ var OperatorSets_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListOperatorSets",
 			Handler:    _OperatorSets_ListOperatorSets_Handler,
+		},
+		{
+			MethodName: "GetRegisteredOperatorSetsForOperator",
+			Handler:    _OperatorSets_GetRegisteredOperatorSetsForOperator_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

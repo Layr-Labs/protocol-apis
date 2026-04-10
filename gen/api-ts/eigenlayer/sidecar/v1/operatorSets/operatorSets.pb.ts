@@ -71,3 +71,15 @@ export type ListOperatorSetsRequest = {
 export type ListOperatorSetsResponse = {
   operatorSets?: EigenlayerSidecarV1OperatorSetsCommon.OperatorSet[]
 }
+
+
+type BaseGetRegisteredOperatorSetsForOperatorRequest = {
+  operatorAddress?: string
+}
+
+export type GetRegisteredOperatorSetsForOperatorRequest = BaseGetRegisteredOperatorSetsForOperatorRequest
+  & OneOf<{ blockHeight: string }>
+
+export type GetRegisteredOperatorSetsForOperatorResponse = {
+  operatorSets?: EigenlayerSidecarV1OperatorSetsCommon.OperatorSet[]
+}

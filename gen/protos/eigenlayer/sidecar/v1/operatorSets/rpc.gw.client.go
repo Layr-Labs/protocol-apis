@@ -17,6 +17,7 @@ type OperatorSetsGatewayClient interface {
 	ListOperatorsForAvs(context.Context, *ListOperatorsForAvsRequest) (*ListOperatorsForAvsResponse, error)
 	ListOperatorsForBlockRange(context.Context, *ListOperatorsForBlockRangeRequest) (*ListOperatorsForBlockRangeResponse, error)
 	ListOperatorSets(context.Context, *ListOperatorSetsRequest) (*ListOperatorSetsResponse, error)
+	GetRegisteredOperatorSetsForOperator(context.Context, *GetRegisteredOperatorSetsForOperatorRequest) (*GetRegisteredOperatorSetsForOperatorResponse, error)
 }
 
 func NewOperatorSetsGatewayClient(c gateway.Client) OperatorSetsGatewayClient {
@@ -83,4 +84,15 @@ func (c *operatorSetsGatewayClient) ListOperatorsForBlockRange(ctx context.Conte
 func (c *operatorSetsGatewayClient) ListOperatorSets(ctx context.Context, req *ListOperatorSetsRequest) (*ListOperatorSetsResponse, error) {
 	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets")
 	return gateway.DoRequest[ListOperatorSetsResponse](ctx, gwReq)
+}
+
+func (c *operatorSetsGatewayClient) GetRegisteredOperatorSetsForOperator(ctx context.Context, req *GetRegisteredOperatorSetsForOperatorRequest) (*GetRegisteredOperatorSetsForOperatorResponse, error) {
+	gwReq := c.gwc.NewRequest("GET", "/v1/operatorSets/operators/{operatorAddress}/registered-operator-sets")
+	gwReq.SetPathParam("operatorAddress", fmt.Sprintf("%v", req.OperatorAddress))
+	q := url.Values{}
+	if req.BlockHeight != nil {
+		q.Add("blockHeight", fmt.Sprintf("%v", *req.BlockHeight))
+	}
+	gwReq.SetQueryParamsFromValues(q)
+	return gateway.DoRequest[GetRegisteredOperatorSetsForOperatorResponse](ctx, gwReq)
 }

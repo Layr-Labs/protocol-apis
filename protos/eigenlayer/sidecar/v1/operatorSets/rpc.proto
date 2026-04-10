@@ -42,4 +42,11 @@ service OperatorSets {
       get: "/v1/operatorSets"
     };
   }
+
+  rpc GetRegisteredOperatorSetsForOperator(GetRegisteredOperatorSetsForOperatorRequest) returns (GetRegisteredOperatorSetsForOperatorResponse) {
+    option (eigenlayer.lib.annotations.isPublic) = true;
+    option (google.api.http) = {
+      get: "/v1/operatorSets/operators/{operatorAddress}/registered-operator-sets"
+    };
+  }
 }
