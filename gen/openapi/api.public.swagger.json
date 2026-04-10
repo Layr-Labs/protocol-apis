@@ -1239,6 +1239,42 @@
         ]
       }
     },
+    "/v1/operatorSets/operators/{operatorAddress}/registered-operator-sets": {
+      "get": {
+        "summary": "GetRegisteredOperatorSetsForOperator",
+        "operationId": "OperatorSets_GetRegisteredOperatorSetsForOperator",
+        "parameters": [
+          {
+            "name": "operatorAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "operatorSets": {
+                      "$ref": "#/components/schemas/OperatorSet"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "operatorSets"
+        ]
+      }
+    },
     "/v1/slashing/avss/{avsAddress}/operator-sets/{operatorSetId}/slashing-history": {
       "get": {
         "summary": "ListAvsOperatorSetSlashingHistory",
@@ -2274,6 +2310,29 @@
         "properties": {
           "avsAddresses": {
             "type": "string"
+          }
+        }
+      },
+      "GetRegisteredOperatorSetsForOperatorRequest": {
+        "type": "object",
+        "properties": {
+          "blockHeight": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "operatorAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockHeight"
+        ]
+      },
+      "GetRegisteredOperatorSetsForOperatorResponse": {
+        "type": "object",
+        "properties": {
+          "operatorSets": {
+            "$ref": "#/components/schemas/OperatorSet"
           }
         }
       },
